@@ -94,12 +94,6 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
-# UV
-#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-#uv.lock
-
 # poetry
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
@@ -166,6 +160,21 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
-
-# PyPI configuration file
-.pypirc
+gpt_pipe/
+humaneval/
+posttraining/
+out_data/
+temp/
+# folder start with unit_test
+unit_test*/
+functions/Python/
+data/*
+data_final/*
+data_archive/*
+data_reasoning_sft/*
+data_public/*
+Kodcode_SFT-R1/*
+Kodcode_V1/*
+data_step1/*
+data_step2/*
+data_step3/*

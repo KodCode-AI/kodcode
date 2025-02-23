@@ -1,0 +1,49 @@
+# LLM
+# flash-attn[--no-build-isolation]
+torch
+vllm==0.7.1
+transformers
+sentence-transformers
+sentencepiece
+trl
+peft
+datasets
+accelerate
+bitsandbytes
+ray
+
+# Widgets & Visualization
+matplotlib
+wandb
+ipywidgets
+ipykernel
+
+# Utils
+lingua-language-detector
+faiss-gpu
+ml_collections
+
+# Unit Test
+pytest
+pytest-cov
+beautifulsoup4
+fake-useragent
+imageio
+keras
+lxml
+matplotlib
+numpy
+opencv-python
+pandas
+pillow
+requests
+rich
+scikit-learn
+sphinx-pyproject
+statsmodels
+sympy
+tweepy
+typing_extensions
+xgboost
+flask
+seaborn
