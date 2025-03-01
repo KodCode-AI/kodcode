@@ -160,6 +160,7 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
 gpt_pipe/
 humaneval/
 posttraining/
@@ -167,14 +168,33 @@ out_data/
 temp/
 # folder start with unit_test
 unit_test*/
-functions/Python/
-data/*
-data_final/*
-data_archive/*
-data_reasoning_sft/*
-data_public/*
-Kodcode_SFT-R1/*
-Kodcode_V1/*
-data_step1/*
-data_step2/*
-data_step3/*
+KodCode-SFT-R1/
+KodCode-SFT-R1-Backup/
+KodCode-V1/
+data_step1/
+data_step2/
+data_step3/
+analysis/
+
+seeds/algorithms/Python/*
+seeds/algorithms/algorithm_process.ipynb
+seeds/algorithms/CodeGen_snippets_5590_instructions.json
+seeds/algorithms/CodeGen_snippets_qonly_5590_instructions.json
+seeds/codeforces/codeforces.csv
+seeds/codeforces/covert_csv_to_json.ipynb
+seeds/data_structure/source/*
+seeds/docs/flask_docs/* 
+seeds/docs/pandas_docs/*
+seeds/docs/python310_docs/* 
+seeds/docs/pytorch_docs/*
+seeds/docs/scikit_docs/*
+seeds/docs/seaborn_docs/*
+seeds/docs/docs_process.ipynb 
+seeds/docs/flask-docs.json 
+seeds/docs/pandas-docs.json 
+seeds/docs/python-docs.json 
+seeds/docs/pytorch-docs.json 
+seeds/docs/scikit-docs.json 
+seeds/docs/seaborn-docs.json
+seeds/leetcode/leetcode-view.ipynb
+seeds/leetcode/leetcode-solutions.jsonl
