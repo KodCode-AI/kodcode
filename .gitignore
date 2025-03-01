@@ -169,7 +169,7 @@ temp/
 # folder start with unit_test
 unit_test*/
 KodCode-SFT-R1/
-KodCode-SFT-R1-Backup/
+KodCode-SFT-R1_Backup/
 KodCode-V1/
 data_step1/
 data_step2/
@@ -198,3 +198,13 @@ seeds/docs/scikit-docs.json
 seeds/docs/seaborn-docs.json
 seeds/leetcode/leetcode-view.ipynb
 seeds/leetcode/leetcode-solutions.jsonl
+seeds/evol/sample.ipynb
+seeds/evol/evol_instruct_train.json
+seeds/package/sample.ipynb
+seeds/package/package_instruct_train.json
+seeds/data_structure/data_structure_process.ipynb
+seeds/apps/sample.ipynb
+seeds/apps/apps_train.json
+
+check.ipynb
+data_combine.ipynb
