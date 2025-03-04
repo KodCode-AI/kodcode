@@ -22,6 +22,7 @@ ipykernel
 lingua-language-detector
 faiss-gpu
 ml_collections
+openai
 
 # Unit Test
 pytest

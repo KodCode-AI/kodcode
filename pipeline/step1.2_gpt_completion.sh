@@ -1,7 +1,5 @@
 #!/bin/bash
 
-data_name=${1:-"CodeGen_seed_leetcode_1000_1731398064"}
-version=${2:-"1"}
-n=${3:-1}
+input_file=${1:-"../data_step1/CodeGen_leetcode_10_1741075944/CodeGen_seed_leetcode_10_1741075944.jsonl"}
 
-# TODO: add openai api call here
+python gpt_api_call.py --input_file ${input_file}
