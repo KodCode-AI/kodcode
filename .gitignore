@@ -213,3 +213,4 @@ data_combine.ipynb
 pipeline/step1.2_gpt_completion_genai.sh
 pipeline/step3.2_gpt_i2c_genai.sh
 pipeline/step2.1_gpt_completion_genai.sh
+pipeline/magpie_prefill/

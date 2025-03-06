@@ -55,8 +55,13 @@ Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/p
 
 If you find the model, data, or code useful, please cite:
 ```
-@article{xu2024kodcode,
-        title={KodCode: A Diverse, Challenging, and Verifiable Synthetic Dataset for Coding},
-        author={Zhangchen Xu and Yang Liu and Yueqin Yin and Mingyuan Zhou and Radha Poovendran},
-      }
+@article{xu2025kodcode,
+      title={KodCode: A Diverse, Challenging, and Verifiable Synthetic Dataset for Coding}, 
+      author={Zhangchen Xu and Yang Liu and Yueqin Yin and Mingyuan Zhou and Radha Poovendran},
+      year={2025},
+      eprint={2503.02951},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2503.02951}, 
+}
 ```
