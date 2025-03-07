@@ -40,16 +40,20 @@ Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/p
 
 ##  TODO
 
+### Repo Update
 - [ ] One-line command to generate KodCode
 - [ ] Integrate the test pipeline (i.e., `pytest`) into [verl](https://github.com/volcengine/verl)
 - [ ] Implement sandbox execution for unit tests
-- [ ] Filter `KodCode-Small` with 50K samples
+
+### Data Update
+- [ ] `KodCode-Small` with 50K samples
+- [ ] `KodCode-V1.1`: Support `stdin` format with ~150K additional samples
 
 ## 🧐 Other Information
 
 **License**: Please follow [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.en).
 
-**Contact**: Please contact [Zhangchen](mailto:zxu9@uw.edu) by email.
+**Contact**: For questions, suggestions, or feedback, please reach out to [Zhangchen Xu](mailto:zxu9@uw.edu), or [raise an issue](https://github.com/KodCode-AI/kodcode/issues/new). We welcome your input and are committed to continuously improving KodCode to better serve the community.
 
 ## 📚 Citation
 
