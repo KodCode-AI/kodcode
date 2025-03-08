@@ -85,3 +85,39 @@ Then, you need to output a rating from very poor to excellent by filling in the 
 ```
 '''
     return user_message
+
+
+def input_type(input):
+    user_message = f'''
+# Instruction
+
+Please determine if the user query can be represented as an Online Judge (OJ) problem.
+
+## User Query
+```
+{input}
+```
+
+## Classification Criteria
+Analyze the query and determine if it can be represented as an Online Judge (OJ) problem, typically solved with stdin/stdout processing.
+
+A query is NOT an OJ problem if any of the following conditions are met:
+1. It explicitly defines a function signature (e.g., `def sort_array(array):`)
+2. It specifies a required function name to implement
+3. It asks for a self-contained implementation
+4. It requests a specific class or object-oriented implementation
+5. It asks for code that integrates with existing systems/frameworks
+6. It directly asks for explaining, debugging, or reviewing existing code
+
+If the query is not an OJ problem, please output `false`. **In any other case, please output `true`.**
+
+## Output Format
+Please output your determination in JSON format:
+```
+{{
+    "is_oj": "<true/false>",
+    "explanation": "<explanation>"
+}}
+```
+'''
+    return user_message

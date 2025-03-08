@@ -11,8 +11,7 @@ from transformers import AutoTokenizer, pipeline
 sys.path.append('../')
 from utils import load_jsonl_to_list, load_dataset_from_file, save_dataset
 from utils import make_api_request_with_retry
-from str_utils import input_classification, input_quality_rating
-from lingua import Language, LanguageDetectorBuilder
+from str_utils import input_classification, input_quality_rating, input_type
 
 ################
 # Configurations
@@ -20,7 +19,7 @@ from lingua import Language, LanguageDetectorBuilder
 def get_args():
     # Experiment Settings
     parser = argparse.ArgumentParser(description="Unified Tagging Manager.")
-    parser.add_argument("--tag_mission", type=str, default="quality", help="The tagging mission.", choices=["quality", "classification"])
+    parser.add_argument("--tag_mission", type=str, default="quality", help="The tagging mission.", choices=["quality", "classification", "type"])
     parser.add_argument("--model_path", type=str, default="meta-llama/Meta-Llama-3.1-8B-Instruct", help="Tag Model.")
     parser.add_argument("--guard_model_path", type=str, default="meta-llama/Meta-Llama-Guard-2-8B", help="Guard Model.")
     parser.add_argument("--reward_model_path", type=str, default="sfairXC/FsfairX-LLaMA3-RM-v0.1", help="Reward Model.")
@@ -65,7 +64,7 @@ API_HEADERS = {
     "Authorization": args.api_key,
 }
 API_PARAMS = {
-    "model": api_model_name,
+    "model": args.model_path,
     "max_tokens": args.max_tokens,
     "temperature": args.temperature,
     "repetition_penalty": args.repetition_penalty,
@@ -77,8 +76,10 @@ def template_generator(input, mission):
         return input_quality_rating(input)
     elif mission == "classification":
         return input_classification(input)
+    elif mission == "type":
+        return input_type(input)
     else:
-        raise ValueError("Invalid mission. Available missions: quality, classification")
+        raise ValueError("Invalid mission. Available missions: quality, classification, type")
 
 # Process item
 def process_engine_responses(response, item, mission):
@@ -92,6 +93,10 @@ def process_engine_responses(response, item, mission):
             item['task_category'] = tags_json['primary_tag']
             item['other_task_category'] = tags_json['other_tags']
             item['task_category_generator'] = MODEL_NAME
+        elif mission == "type":
+            item['is_oj'] = tags_json['is_oj']
+            item['type_explanation'] = tags_json['explanation']
+            item['type_generator'] = MODEL_NAME
     except Exception as e:
         print(f"[unitag.py] Failed to process item with error: {str(e)}")
         print(f"[unitag.py] Raw response from LLM tagger: {response}")
@@ -103,6 +108,10 @@ def process_engine_responses(response, item, mission):
             item['task_category'] = None
             item['other_task_category'] = None
             item['task_category_generator'] = None
+        elif mission == "type":
+            item['is_oj'] = None
+            item['type_explanation'] = None
+            item['type_generator'] = None
 
     return item
 
@@ -114,7 +123,7 @@ def process_batch_with_api(batch, mission):
             executor.submit(
                 make_api_request_with_retry,
                 [
-                    {'role': 'user', 'content': template_generator(item['instruction'], mission)},
+                    {'role': 'user', 'content': template_generator(item['question'], mission)},
                     {'role': 'assistant', 'content': "{"}
                 ],
                 API_PARAMS,
@@ -137,10 +146,8 @@ def process_batch_with_api(batch, mission):
 def process_batch(batch, llm, params, mission, tokenizer=None):
     prompts = []
     for i, item in enumerate(batch):
-        conv = get_conversation_template(MODEL_NAME)
-        conv.append_message(conv.roles[0], template_generator(item['instruction'], mission))
-        conv.append_message(conv.roles[1], None)
-        template = conv.get_prompt()
+        chat = [{"role": "user", "content": template_generator(item['question'], mission)}]
+        template = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
         template += "{"  # Prefilling for better generation
         prompts.append(template)
 
@@ -155,34 +162,8 @@ def process_batch(batch, llm, params, mission, tokenizer=None):
     
     return batch
 
-def process_batch_with_reward_model(batch, rm_pipe, rm_pipe_kwargs):
-    prompts = []
-    for i, item in enumerate(batch):
-        input = item['instruction']
-        output = item['response']
-        chat = [
-            {"role": "user", "content": f"{input}"},
-            {"role": "assistant", "content": f"{output}"},
-        ]
-        template = rm_tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=False).replace(rm_tokenizer.bos_token, "")
-        prompts.append(template)
-    
-    outputs = rm_pipe(prompts, **rm_pipe_kwargs)
-    scores = [output[0]["score"] for output in outputs]
-
-    for i, item in enumerate(batch):
-        try:
-            item['instruct_reward'] = scores[i]
-            item['reward_model'] = args.reward_model_path
-        except Exception as e:
-            print(f"Failed to process item: {item} with error: {str(e)}")
-
-            item['instruct_reward'] = None
-            item['reward_model'] = args.reward_model_path
-    return batch
-
 # Generate outputs, update dataset in batches, and overwrite checkpoint
-def generate_and_update(dataset, mission, llm, params, api, rm_pipe, rm_pipe_kwargs, batch_size, checkpoint_file, checkpoint_every = 20):
+def generate_and_update(dataset, mission, llm, params, api, batch_size, tokenizer, checkpoint_file, checkpoint_every = 20):
     if os.path.exists(checkpoint_file):
         last_checkpoint_idx = len(load_dataset_from_file(checkpoint_file))
         print(f"[unitag.py] Checkpoint file found. Resuming from last checkpoint with index {last_checkpoint_idx}.")
@@ -201,13 +182,8 @@ def generate_and_update(dataset, mission, llm, params, api, rm_pipe, rm_pipe_kwa
 
         if api:
             batch = process_batch_with_api(batch, mission)
-        elif mission == "reward":
-            batch = process_batch_with_reward_model(batch, rm_pipe, rm_pipe_kwargs)
-        elif mission == "safety":
-            tokenizer = AutoTokenizer.from_pretrained(args.guard_model_path)
-            batch = process_batch(batch, llm, params, mission, tokenizer)
         else:
-            batch = process_batch(batch, llm, params, mission)
+            batch = process_batch(batch, llm, params, mission, tokenizer)
 
         dataset[start_idx:end_idx] = batch
         # Overwrite the same checkpoint file every checkpoint_every batches
@@ -227,15 +203,11 @@ if __name__ == "__main__":
     elif mission == "classification":
         output_file = f"{input_file[:input_file.rfind('.')]}_category.jsonl"
         checkpoint_file = f"{input_file[:input_file.rfind('.')]}_category_checkpoint.json"
-    elif mission == "reward":
-        rm_tokenizer = AutoTokenizer.from_pretrained(args.reward_model_path)
-        output_file = f"{input_file[:input_file.rfind('.')]}_reward.jsonl"
-        checkpoint_file = f"{input_file[:input_file.rfind('.')]}_reward_checkpoint.json"
-    elif mission == "language":
-        output_file = f"{input_file[:input_file.rfind('.')]}_language.jsonl"
-        checkpoint_file = f"{input_file[:input_file.rfind('.')]}_language_checkpoint.json"
+    elif mission == "type":
+        output_file = f"{input_file[:input_file.rfind('.')]}_type.jsonl"
+        checkpoint_file = f"{input_file[:input_file.rfind('.')]}_type_checkpoint.json"
     else:
-        raise ValueError("Invalid mission. Available missions: quality, classification, reward, language")
+        raise ValueError("Invalid mission. Available missions: quality, classification, type")
     # Change jsonl to json if args.save_as is json
     if args.save_as == "json":
         output_file = f"{output_file[:output_file.rfind('.')]}.json"
@@ -247,73 +219,37 @@ if __name__ == "__main__":
         warnings.warn("Debug mode enabled. Only processing the first 100 samples.")
         dataset = load_dataset_from_file(input_file)[:100]
 
-    if mission != "language":
-        if args.api:
-            if args.tag_mission not in ["quality", "classification"]:
-                raise ValueError("Reward mission is not supported by API.")
+    if args.api:
+        if args.tag_mission not in ["quality", "classification"]:
+            raise ValueError("Reward mission is not supported by API.")
 
-            print("[unitag.py] Start together API engine...")
-            llm = None
-            params = None
-            rm_pipe = None
-            rm_pipe_kwargs = None
-        else:
-            if args.tag_mission == "reward":
-                # Currently vllm do not support reward model inference, use transformer pipeline instead
-                rm_pipe = pipeline(
-                    "sentiment-analysis",
-                    model=args.reward_model_path,
-                    device=int(args.device),
-                    tokenizer=rm_tokenizer,
-                    model_kwargs={"torch_dtype": torch.float16}
-                )
-                rm_pipe_kwargs = {
-                    "return_all_scores": True,
-                    "function_to_apply": "none",
-                    "batch_size": batch_size,
-                }
-                llm = None
-                params = None
-            else:
-                print("[unitag.py] Start Local vllm engine...")
-                os.environ["CUDA_VISIBLE_DEVICES"] = args.device
-
-                llm = LLM(model=MODEL_NAME if not args.tag_mission == "safety" else args.guard_model_path,
-                            dtype=args.dtype,
-                            quantization=args.quantization,
-                            kv_cache_dtype=args.kv_cache_dtype,
-                            max_model_len=args.max_model_len,
-                            tensor_parallel_size=args.tensor_parallel_size,
-                            gpu_memory_utilization=args.gpu_memory_utilization,
-                            trust_remote_code=True,
-                            enable_prefix_caching=True,)
-                
-                params = SamplingParams(
-                            temperature=args.temperature,
-                            max_tokens=args.max_tokens,
-                            repetition_penalty=args.repetition_penalty,
-                            stop=["}"],
-                            include_stop_str_in_output=True,
-                            )
-                rm_pipe = None
-                rm_pipe_kwargs = None
-
-        updated_dataset = generate_and_update(dataset, mission, llm, params, args.api, rm_pipe, rm_pipe_kwargs, batch_size, checkpoint_file, checkpoint_every)
-    
+        print("[unitag.py] Start together API engine...")
+        llm = None
+        params = None
     else:
-        # Language Detection using lingua
-        print("[unitag.py] Start language detection engine...")
-        detector = LanguageDetectorBuilder.from_all_languages().build()
-        for item in tqdm(dataset):
-            if item['instruction'] != "":
-                try:
-                    item['language'] = detector.detect_language_of(item['instruction']).iso_code_639_1.name
-                except Exception as e:
-                    print(f"Failed to process item with error: {str(e)}")
-                    item['language'] = None
-            else:
-                item['language'] = None
-        updated_dataset = dataset
+        print("[unitag.py] Start Local vllm engine...")
+        os.environ["CUDA_VISIBLE_DEVICES"] = args.device
+
+        llm = LLM(model=MODEL_NAME,
+                    dtype=args.dtype,
+                    quantization=args.quantization,
+                    kv_cache_dtype=args.kv_cache_dtype,
+                    max_model_len=args.max_model_len,
+                    tensor_parallel_size=args.tensor_parallel_size,
+                    gpu_memory_utilization=args.gpu_memory_utilization,
+                    trust_remote_code=True,
+                    enable_prefix_caching=True,)
+        
+        params = SamplingParams(
+                    temperature=args.temperature,
+                    max_tokens=args.max_tokens,
+                    repetition_penalty=args.repetition_penalty,
+                    stop=["}"],
+                    include_stop_str_in_output=True,
+                    )
+
+    tokenizer = AutoTokenizer.from_pretrained(args.model_path)
+    updated_dataset = generate_and_update(dataset, mission, llm, params, args.api, batch_size, tokenizer, checkpoint_file, checkpoint_every)
 
     if args.save_as == "json":
         save_dataset(updated_dataset, output_file, convert_to_jsonl=False)
