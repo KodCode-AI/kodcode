@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000060",
+    "row_id": 60,
+    "seed_ids": [
+      "2335",
+      "805",
+      "558"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a list of `n` tasks, each with a unique identifier from `1` to `n`. The tasks are to be scheduled on a single machine that processes them sequentially. Each task takes a certain amount of time to complete, which is given by an array `times` of length `n` where `times[i]` is the time required to complete the `i+1`-th task. The machine can skip any task once, but only before it starts processing that task. Once a task is skipped, it cannot be processed. Given `times` and an integer `k` (where `0 <= k <= n`), find the minimum possible time required to complete all tasks if you can skip up to `k` tasks. Return the minimum time.",
+  "solution_code": "def min_time_to_complete_tasks(times, k):\n    \"\"\"\n    Returns the minimum time required to complete all tasks given that we can skip up to k tasks.\n    \"\"\"\n    if k == 0:\n        return sum(times)\n    \n    n = len(times)\n    dp = [0] * (n + 1)\n    for i in range(1, n + 1):\n        dp[i] = max(dp[i-1], dp[i-2] + times[i-1])\n        \n        if i - 1 - k >= 0:\n            dp[i] = max(dp[i], dp[i-1-k] + sum(times[i-k:i]))\n    \n    return dp[n]",
+  "test_code": "from solution import min_time_to_complete_tasks\n\ndef test_min_time_to_complete_tasks_1():\n    assert min_time_to_complete_tasks([1, 2, 3, 4, 5], 2) == 9\n    assert min_time_to_complete_tasks([4, 2, 3, 2], 1) == 7\n\ndef test_min_time_to_complete_tasks_2():\n    assert min_time_to_complete_tasks([1, 1, 1], 0) == 3\n    assert min_time_to_complete_tasks([1], 1) == 1\n\ndef test_min_time_to_complete_tasks_3():\n    assert min_time_to_complete_tasks([10, 10, 10, 10], 2) == 20\n    assert min_time_to_complete_tasks([5, 5, 5, 5], 1) == 13\n\ndef test_min_time_to_complete_tasks_4():\n    assert min_time_to_complete_tasks([1, 2, 3], 3) == 6\n    assert min_time_to_complete_tasks([1], 0) == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

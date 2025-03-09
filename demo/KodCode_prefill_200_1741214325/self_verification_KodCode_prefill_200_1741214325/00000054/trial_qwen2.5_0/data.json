@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000054",
+    "row_id": 54,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum product of a contiguous subarray within a one-dimensional array of numbers.",
+  "solution_code": "def max_product_subarray(nums):\n    \"\"\"\n    Finds the maximum product of a contiguous subarray within a one-dimensional array of numbers.\n    \"\"\"\n    if not nums:\n        return 0\n    \n    max_product = min_product = result = nums[0]\n    \n    for num in nums[1:]:\n        candidates = (num, max_product * num, min_product * num)\n        max_product = max(candidates)\n        min_product = min(candidates)\n        result = max(result, max_product)\n        \n    return result",
+  "test_code": "from solution import max_product_subarray\n\ndef test_max_product_subarray_positive():\n    assert max_product_subarray([2, 3, -2, 4]) == 6\n\ndef test_max_product_subarray_negative():\n    assert max_product_subarray([-2, 0, -1]) == 0\n\ndef test_max_product_subarray_large():\n    assert max_product_subarray([0, 2, -3, -1, 5]) == 15\n\ndef test_max_product_subarray_all_negative():\n    assert max_product_subarray([-1, -2, -3, -4]) == 24\n\ndef test_max_product_subarray_with_zero():\n    assert max_product_subarray([0, -1, 0, -2, 3, 0, -4]) == 12\n\ndef test_max_product_subarray_single_element():\n    assert max_product_subarray([-1]) == -1\n\ndef test_max_product_subarray_empty():\n    assert max_product_subarray([]) == 0",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

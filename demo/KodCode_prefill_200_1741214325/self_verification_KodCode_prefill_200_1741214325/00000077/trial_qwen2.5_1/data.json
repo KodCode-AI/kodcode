@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000077",
+    "row_id": 77,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort a 2D list by its sublists in increasing order based on the sum of the elements of each sublist.",
+  "solution_code": "def sort_2d_list(input_list):\n    \"\"\"\n    Sorts a 2D list based on the sum of elements in each sublist in increasing order.\n    \n    :param input_list: A 2D list where each sublist contains numeric elements.\n    :return: A 2D list sorted based on the sum of elements in each sublist.\n    \"\"\"\n    return sorted(input_list, key=sum)",
+  "test_code": "from solution import sort_2d_list\n\ndef test_sort_2d_list_empty():\n    assert sort_2d_list([]) == []\n\ndef test_sort_2d_list_single_element():\n    assert sort_2d_list([[1, 2, 3]]) == [[1, 2, 3]]\n\ndef test_sort_2d_list_positive_elements():\n    assert sort_2d_list([[1, 2, 3], [4, 5], [6]]) == [[6], [4, 5], [1, 2, 3]]\n\ndef test_sort_2d_list_negative_elements():\n    assert sort_2d_list([[-1, -2, -3], [-4, -5], [-6]]) == [[-6], [-4, -5], [-1, -2, -3]]\n\ndef test_sort_2d_list_mixed_elements():\n    assert sort_2d_list([[1, -1, 2], [-2, 2], [0]]) == [[0], [-2, 2], [1, -1, 2]]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

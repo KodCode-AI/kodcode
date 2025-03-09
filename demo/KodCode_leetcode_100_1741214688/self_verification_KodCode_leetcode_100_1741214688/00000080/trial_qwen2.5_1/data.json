@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000080",
+    "row_id": 80,
+    "seed_ids": [
+      "16",
+      "1443",
+      "211"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a data structure to find the `k` closest points to a given target point `(tx, ty)` on a 2D plane. The points are represented as an array of coordinates, where each coordinate is an array of two integers `[x, y]`. Implement the `KClosestPoints` class:\n\n*   `KClosestPoints(int k)` Initializes the object with `k`.\n*   `void addPoint(int x, int y)` Adds the point `(x, y)` to the data structure.\n*   `List<List<Integer>> getKClosestPoints()` Returns the `k` closest points to the target point `(tx, ty)` sorted by their Manhattan distance to the target. The Manhattan distance between two points `(x1, y1)` and `(x2, y2)` is given by `abs(x1 - x2) + abs(y1 - y2)`.",
+  "solution_code": "import heapq\nfrom typing import List\n\nclass KClosestPoints:\n    def __init__(self, k: int):\n        self.k = k\n        self.min_heap = []\n\n    def addPoint(self, x: int, y: int):\n        distance = abs(x - tx) + abs(y - ty)\n        heapq.heappush(self.min_heap, (distance, [x, y]))\n        \n        if len(self.min_heap) > self.k:\n            heapq.heappop(self.min_heap)\n\n    def getKClosestPoints(self) -> List[List[int]]:\n        return [point for _, point in self.min_heap]",
+  "test_code": "import pytest\nfrom solution import KClosestPoints\n\ndef test_k_closest_points():\n    k = 3\n    tx, ty = 0, 0\n    points = KClosestPoints(k)\n\n    points.addPoint(1, 1)\n    points.addPoint(2, 2)\n    points.addPoint(3, 3)\n    points.addPoint(-1, -1)\n\n    closest_points = points.getKClosestPoints()\n    assert len(closest_points) == k  # Ensure we get exactly k points\n\n    assert abs(closest_points[0][0] - tx) + abs(closest_points[0][1] - ty) == 2  # (1, 1) closest\n    assert abs(closest_points[1][0] - tx) + abs(closest_points[1][1] - ty) == 2  # (2, 2) second closest\n    assert abs(closest_points[2][0] - tx) + abs(closest_points[2][1] - ty) == 2  # (-1, -1) third closest\n\n    # Ensure the order is maintained based on distance\n    assert closest_points[0] < closest_points[1] < closest_points[2]\n\ndef test_adding_same_point():\n    k = 2\n    tx, ty = 0, 0\n    points = KClosestPoints(k)\n\n    points.addPoint(1, 1)\n    points.addPoint(1, 1)\n    \n    closest_points = points.getKClosestPoints()\n    assert len(closest_points) == k  # Ensure we get exactly k points\n\n    assert all(point == [1, 1] for point in closest_points)\n\ndef test_large_number_of_points():\n    k = 5\n    tx, ty = 0, 0\n    points = KClosestPoints(k)\n\n    for x in range(-10, 11):\n        for y in range(-10, 11):\n            points.addPoint(x, y)\n\n    closest_points = points.getKClosestPoints()\n    assert len(closest_points) == k  # Ensure we get exactly k points\n\n    # Verify closest points\n    actual_distances = sorted([abs(point[0] - tx) + abs(point[1] - ty) for point in closest_points])\n    expected_distance = sorted([abs(i - tx) + abs(j - ty) for i in range(-10, 11) for j in range(-10, 11) if abs((i, j)) < k + 0.5])\n    assert actual_distances == expected_distance",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

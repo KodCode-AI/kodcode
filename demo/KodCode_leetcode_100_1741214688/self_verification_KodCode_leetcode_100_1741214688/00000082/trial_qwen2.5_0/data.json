@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000082",
+    "row_id": 82,
+    "seed_ids": [
+      "1560",
+      "2196",
+      "1556"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters and an integer `k`, you can perform the following operation at most `k` times:\n\n- Choose any index `i` and swap `s[i]` with `s[i + 1]` (0-indexed).\n\nAfter performing the operations, the string `s` should be a palindrome. Return the lexicographically smallest palindrome that can be obtained under these constraints. If it's not possible to form a palindrome, return an empty string.",
+  "solution_code": "def make_smallest_palindrome(s: str, k: int) -> str:\n    \"\"\"\n    Generates the lexicographically smallest palindrome by swapping adjacent characters at most k times.\n    If impossible, returns an empty string.\n    \"\"\"\n    if k >= len(s) // 2:\n        return s\n    \n    s_list = list(s)\n    n = len(s)\n    cnt = 0\n    \n    for i in range(n // 2):\n        if s_list[i] != s_list[n - i - 1]:\n            for j in range(n - i - 1):\n                if s_list[i + j + 1] == s_list[n - i - 1]:\n                    s_list[i + j + 1], s_list[n - i - 1] = s_list[n - i - 1], s_list[i + j + 1]\n                    cnt += j + 1\n                    break\n            else:\n                for j in range(n - i - 1):\n                    if s_list[n - j - 1] == s_list[i]:\n                        s_list[i], s_list[n - j - 1] = s_list[n - j - 1], s_list[i]\n                        cnt += j + 1\n                        break\n            if cnt > k:\n                return \"\"\n            k -= cnt\n            cnt = 0\n    return ''.join(s_list)",
+  "test_code": "import pytest\n\ndef test_make_smallest_palindrome():\n    assert make_smallest_palindrome(\"egcfe\", 2) == \"efcfe\"\n    assert make_smallest_palindrome(\"abcd\", 1) == \"\"\n    assert make_smallest_palindrome(\"seven\", 2) == \"evens\"\n    assert make_smallest_palindrome(\"aabb\", 2) == \"abba\"\n    assert make_smallest_palindrome(\"abcde\", 1) == \"\"\n    assert make_smallest_palindrome(\"abcde\", 2) == \"abced\"\n    assert make_smallest_palindrome(\"abcde\", 4) == \"abcde\"\n    assert make_smallest_palindrome(\"abcdefg\", 5) == \"abcddfa\"\n\ndef test_make_smallest_palindrome_with_limit():\n    assert make_smallest_palindrome(\"abcd\", 3) == \"abdc\"  # only 3 swaps, not enough to make abcd\n\ndef test_make_smallest_palindrome_large_number_of_swaps():\n    assert make_smallest_palindrome(\"abbba\", 3) == \"abbbb\"  # swaps to make it a palindrome\n\ndef test_make_smallest_palindrome_return_empty_string_if_impossible():\n    assert make_smallest_palindrome(\"abcd\", 2) == \"\"  # only 2 swaps, not enough\n\npytest.main(['-v', 'tests.py'])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000032",
+    "row_id": 32,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if the binary representation of a number is a palindrome.",
+  "solution_code": "def is_binary_palindrome(number: int) -> bool:\n    \"\"\"\n    Checks if the binary representation of the given number is a palindrome.\n    \"\"\"\n    if number < 0:\n        raise ValueError(\"Number must be non-negative\")\n    \n    binary_str = bin(number)[2:]  # Convert to binary and remove the '0b' prefix\n    return binary_str == binary_str[::-1]",
+  "test_code": "def test_is_binary_palindrome():\n    assert is_binary_palindrome(1) == True  # Binary: 1\n    assert is_binary_palindrome(2) == False # Binary: 10\n    assert is_binary_palindrome(3) == False # Binary: 11\n    assert is_binary_palindrome(4) == True  # Binary: 100\n    assert is_binary_palindrome(5) == False # Binary: 101\n    assert is_binary_palindrome(6) == True  # Binary: 110\n    assert is_binary_palindrome(7) == True  # Binary: 111\n    assert is_binary_palindrome(13) == False # Binary: 1101\n    assert is_binary_palindrome(15) == False # Binary: 1111\n    assert is_binary_palindrome(19) == True  # Binary: 10011\n    assert is_binary_palindrome(23) == True  # Binary: 10111\n    assert is_binary_palindrome(29) == False # Binary: 11101\n    assert is_binary_palindrome(31) == True  # Binary: 11111",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

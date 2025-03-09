@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000016",
+    "row_id": 16,
+    "seed_ids": [
+      "1168",
+      "1462",
+      "1727"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a grid of size `m x n` where each cell can either be `0` (land) or `1` (water). You can change any number of `0`s to `1`s to form one or more islands. An island is a maximal 4-directionally connected group of `1`s. You want to maximize the number of islands in the grid. What is the maximum number of islands you can form?",
+  "solution_code": "def maxNumberOfIslands(grid):\n    \"\"\"\n    Returns the maximum number of islands that can be formed by changing the\n    0's to 1's in the grid.\n    \"\"\"\n    def fill(grid, i, j):\n        if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]) or grid[i][j] != 0:\n            return\n        grid[i][j] = 2  # Mark as visited\n        fill(grid, i + 1, j)\n        fill(grid, i - 1, j)\n        fill(grid, i, j + 1)\n        fill(grid, i, j - 1)\n\n    max_islands = 0\n    for i in range(len(grid)):\n        for j in range(len(grid[0])):\n            if grid[i][j] == 1:\n                fill(grid, i, j)\n                max_islands += 1\n\n    return max_islands",
+  "test_code": "import pytest\n\ndef test_maxNumberOfIslands():\n    grid = [[0,0],[1,1]]\n    assert maxNumberOfIslands(grid) == 1\n\ndef test_maxNumberOfIslands_with_islands():\n    grid = [[0,1],[1,0]]\n    assert maxNumberOfIslands(grid) == 2\n\ndef test_maxNumberOfIslands_single_island():\n    grid = [[1,1],[1,1]]\n    assert maxNumberOfIslands(grid) == 1\n\ndef test_maxNumberOfIslands_all_ones():\n    grid = [[1,1,1],[1,1,1],[1,1,1]]\n    assert maxNumberOfIslands(grid) == 1\n\ndef test_maxNumberOfIslands_no_islands():\n    grid = [[0,0,0],[0,0,0],[0,0,0]]\n    assert maxNumberOfIslands(grid) == 0\n\ndef test_maxNumberOfIslands_with_void():\n    grid = [[1,1,0],[0,0,0],[1,0,1]]\n    assert maxNumberOfIslands(grid) == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

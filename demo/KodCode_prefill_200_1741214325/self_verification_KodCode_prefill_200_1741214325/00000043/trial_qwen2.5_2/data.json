@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000043",
+    "row_id": 43,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the length of the longest increasing subsequence (LIS) in an array of integers. The function should take a list of integers as input and return the length of the LIS.",
+  "solution_code": "def length_of_lis(nums):\n    \"\"\"\n    Returns the length of the longest increasing subsequence in the given list of integers.\n    \"\"\"\n    if not nums:\n        return 0\n    \n    dp = [1] * len(nums)\n    for i in range(len(nums)):\n        for j in range(i):\n            if nums[i] > nums[j]:\n                dp[i] = max(dp[i], dp[j] + 1)\n    \n    return max(dp)",
+  "test_code": "from solution import length_of_lis\n\ndef test_length_of_lis_with_empty_list():\n    assert length_of_lis([]) == 0\n\ndef test_length_of_lis_with_single_element():\n    assert length_of_lis([1]) == 1\n\ndef test_length_of_lis_with_constant_values():\n    assert length_of_lis([1, 1, 1, 1]) == 1\n\ndef test_length_of_lis_with_multiple_elements():\n    assert length_of_lis([10, 9, 2, 5, 3, 7, 101, 18]) == 4\n\ndef test_length_of_lis_with_reversed_increasing_sequence():\n    assert length_of_lis([5, 4, 3, 2, 1]) == 1\n\ndef test_length_of_lis_with_random_sequence():\n    assert length_of_lis([4, 2, 4, 3, 3, 1, 2, 1]) == 4",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

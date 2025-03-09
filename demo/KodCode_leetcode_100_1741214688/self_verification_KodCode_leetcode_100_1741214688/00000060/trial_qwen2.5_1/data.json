@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000060",
+    "row_id": 60,
+    "seed_ids": [
+      "2335",
+      "805",
+      "558"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a list of `n` tasks, each with a unique identifier from `1` to `n`. The tasks are to be scheduled on a single machine that processes them sequentially. Each task takes a certain amount of time to complete, which is given by an array `times` of length `n` where `times[i]` is the time required to complete the `i+1`-th task. The machine can skip any task once, but only before it starts processing that task. Once a task is skipped, it cannot be processed. Given `times` and an integer `k` (where `0 <= k <= n`), find the minimum possible time required to complete all tasks if you can skip up to `k` tasks. Return the minimum time.",
+  "solution_code": "def min_task_time(times, k):\n    \"\"\"\n    Finds the minimum time required to complete all tasks given that up to k tasks can be skipped.\n    \"\"\"\n    # If k is large enough to skip all tasks or there are no tasks, return 0\n    if k >= len(times) or len(times) == 0:\n        return 0\n\n    # Sort times to prioritize longer tasks\n    times.sort()\n\n    # If k is 0, we cannot skip any tasks, so return the sum of all times\n    if k == 0:\n        return sum(times)\n\n    # Calculate the remaining time after skipping the k largest tasks\n    remaining_tasks = len(times) - k\n    total_time = sum(times[:remaining_tasks])\n    for i in range(k):\n        total_time += times[-(i + 1)]\n    return total_time",
+  "test_code": "def test_min_task_time():\n    assert min_task_time([2, 3, 5], 1) == 12\n    assert min_task_time([2, 3, 5], 2) == 10\n    assert min_task_time([1, 2, 3], 3) == 0\n    assert min_task_time([], 0) == 0\n    assert min_task_time([5], 0) == 5\n    assert min_task_time([1, 2, 3, 4, 5], 2) == 14",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

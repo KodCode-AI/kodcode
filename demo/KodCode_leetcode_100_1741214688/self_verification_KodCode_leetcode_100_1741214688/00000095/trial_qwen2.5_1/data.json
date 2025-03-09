@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000095",
+    "row_id": 95,
+    "seed_ids": [
+      "1710",
+      "1557",
+      "587"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a **binary tree** with `n` nodes, where each node has a unique value from `1` to `n`, determine if the tree can be **partitioned** into two subsets such that the sum of values in each subset is equal. Return `true` if such a partition exists, otherwise return `false`.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef can_partition_bst(root: TreeNode) -> bool:\n    \"\"\"\n    Determines if a binary search tree with unique values from 1 to n can be partitioned into two subsets\n    with equal sum.\n    \"\"\"\n    total_sum = 0\n    subset_sums = set()\n\n    def inorder_traverse(node: TreeNode):\n        nonlocal total_sum\n        if not node:\n            return\n        inorder_traverse(node.left)\n        total_sum += node.val\n        inorder_traverse(node.right)\n\n    def find_partition(current_sum: int, target: int, node: TreeNode):\n        if not node:\n            return False\n        if current_sum + node.val == target:\n            return True\n        if find_partition(current_sum + node.val, target, node.left):\n            return True\n        if find_partition(current_sum + node.val, target, node.right):\n            return True\n        return False\n\n    inorder_traverse(root)\n    half_sum = total_sum / 2\n    return find_partition(0, half_sum, root)",
+  "test_code": "from solution import can_partition_bst, TreeNode\n\ndef create_bst():\n    \"\"\"\n    Helper function to create a binary search tree for test cases.\n    \"\"\"\n    node5 = TreeNode(5)\n    node3 = TreeNode(3)\n    node7 = TreeNode(7)\n    node2 = TreeNode(2, left=TreeNode(1))\n    node4 = TreeNode(4, right=TreeNode(3))\n    node5.left = node3\n    node5.right = node7\n    node3.left = node2\n    node3.right = node4\n    return node5\n\ndef test_can_partition_bst_single_element():\n    assert can_partition_bst(TreeNode(2)) == False\n\ndef test_can_partition_bst_even_sum():\n    root = create_bst()\n    assert can_partition_bst(root) == True\n\ndef test_can_partition_bst_odd_sum():\n    node10 = TreeNode(10)\n    node8 = TreeNode(8)\n    node12 = TreeNode(12)\n    node6 = TreeNode(6)\n    node10.left = node8\n    node10.right = node12\n    node8.left = node6\n    assert can_partition_bst(node10) == False\n\ndef test_can_partition_bst_complex():\n    node16 = TreeNode(16)\n    node9 = TreeNode(9)\n    node21 = TreeNode(21)\n    node3 = TreeNode(3)\n    node21.left = node16\n    node9.right = node21\n    node21.right = node3\n    assert can_partition_bst(node9) == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

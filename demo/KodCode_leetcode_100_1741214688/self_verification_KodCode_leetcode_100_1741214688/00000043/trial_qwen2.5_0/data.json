@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000043",
+    "row_id": 43,
+    "seed_ids": [
+      "2389",
+      "2505",
+      "1383"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given two integer arrays `speed` and `efficiency` both of length `n`, and an integer `k`, you are to select a subset of engineers to form a team. Each engineer is represented by their `speed` and `efficiency`. Your goal is to maximize the **product** of the team's **average speed** and the minimum efficiency among the selected engineers. The team must consist of at least `2` engineers. Return the maximum possible product. Since the answer can be a large number, return it modulo `10^9 + 7`.",
+  "solution_code": "def max_team_product(speed, efficiency, k):\n    \"\"\"\n    Returns the maximum possible product of the team's average speed and the minimum efficiency.\n    \"\"\"\n    from heapq import nlargest\n    \n    # Create a list of tuples (efficiency, speed) and sort it by efficiency in descending order.\n    engineers = sorted(zip(efficiency, speed), reverse=True)\n    sum_speed = 0\n    max_heap = []\n    max_product = 0\n    \n    for eff, spd in engineers:\n        if len(max_heap) < k:\n            sum_speed += spd\n            nlargest(max_heap, eff)\n        else:\n            sum_speed += spd\n            sum_speed -= heappushpop(max_heap, eff)\n        \n        if len(max_heap) == k:\n            max_product = max(max_product, eff * (sum_speed // k))\n    \n    return max_product % (10**9 + 7)",
+  "test_code": "from solution import max_team_product\n\ndef test_max_team_product():\n    # Test case 1\n    assert max_team_product([10, 20, 30, 40], [10, 20, 30, 40], 3) == 600\n    # Test case 2\n    assert max_team_product([40, 20, 30], [20, 30, 10], 2) == 600\n    # Test case 3\n    assert max_team_product([10, 20, 50, 70], [5, 25, 40, 100], 1) == 1000\n    # Test case 4\n    assert max_team_product([10, 20, 5, 7], [5, 25, 40, 10], 2) == 250\n    # Test case 5\n    assert max_team_product([5,4,3,2,1], [1,2,3,4,5], 3) % (10**9 + 7) == 35",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

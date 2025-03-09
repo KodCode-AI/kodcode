@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000067",
+    "row_id": 67,
+    "seed_ids": [
+      "1814",
+      "2135",
+      "1330"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an integer array `nums` and an integer `k`. The _value_ of this array is defined as the sum of `|nums[i] - nums[i + 1]|` for all `0 <= i < nums.length - 1`. You are allowed to select any subarray of the given array and shift its elements cyclically (i.e., rotate the subarray elements to the left or right) any number of times. You can perform this operation **only once**. Find the maximum possible value of the final array after performing the operation.",
+  "solution_code": "def max_array_value(nums, k):\n    \"\"\"\n    Given an integer array nums and an integer k, this function finds the\n    maximum possible value of the array after rotating any subarray once.\n    The value of an array is defined as the sum of |nums[i] - nums[i + 1]|.\n    \"\"\"\n    n = len(nums)\n    if n == 1:\n        return 0\n\n    total_sum = sum(abs(nums[i] - nums[(i + 1) % n]) for i in range(n))\n    max_gain = 0\n\n    for i in range(n):\n        gain = -abs(nums[i] - nums[(i + 1) % n])  # Remove the initial pair\n        # Calculate the gain by not using nums[i:end] but instead using nums[(i-1+shift)%n:end]\n        gain += abs(nums[(i - 1 + k + 1) % n] - nums[(i + k) % n])\n        # Calculate the gain by not using nums[0:i] but instead using nums[0:(i+shift-1)%n]\n        gain += abs(nums[(i - 1 + k) % n] - nums[(i) % n])\n        max_gain = max(max_gain, gain)\n\n    return total_sum + max_gain",
+  "test_code": "import pytest\n\ndef test_max_array_value():\n    assert max_array_value([1, 2, 3, 4, 5], 4) == 18\n    assert max_array_value([4, 3, 2, 6], 2) == 20\n    assert max_array_value([1], 1) == 0\n    assert max_array_value([10, 10, 10], 2) == 0\n    assert max_array_value([1, 1, 1, 1], 2) == 2\n\ndef test_case1():\n    nums = [2, 3, 1, 5, 4]\n    k = 3\n    assert max_array_value(nums, k) == 12\n\ndef test_case2():\n    nums = [1, 2, 3, 4, 5]\n    k = 3\n    assert max_array_value(nums, k) == 22\n\ndef test_case3():\n    nums = [10, 5, 5, 10]\n    k = 1\n    assert max_array_value(nums, k) == 20",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

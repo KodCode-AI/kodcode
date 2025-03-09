@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000004",
+    "row_id": 4,
+    "seed_ids": [
+      691
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given a Python function `integer_square_root` that calculates the integer square root of a non-negative integer using a binary search approach. Your task is to implement a more efficient version of this function. Specifically, you need to optimize the current implementation to reduce the number of iterations in the binary search while handling edge cases properly.\n\n**Function Signature**:\n```python\ndef optimized_integer_square_root(num: int) -> int:\n    pass\n```\n\n**Requirements**:\n- The function must handle non-negative integers as input and raise a `ValueError` if the input is negative.\n- The function should return the integer square root of `num` rounded down to the nearest integer.\n- The optimized version should have a time complexity of \\(O(\\log(n))\\) and use \\(O(1)\\) space complexity.\n- Implement an early return for perfect squares and optimize the bounds checking in the binary search.\n\n**Test Cases**:\n```python\nassert optimized_integer_square_root(15) == 3\nassert optimized_integer_square_root(31) == 5\nassert optimized_integer_square_root(25) == 5\nassert optimized_integer_square_root(1) == 1\nassert optimized_integer_square_root(0) == 0\nassert optimized_integer_square_root(2_147_483_647) == 46340\nassert optimized_integer_square_root(-1) is None  # Should raise ValueError\n```\n\n**Note**:\nEnsure that the edge cases and performance are handled correctly. Optimize the bounds checking and early returns to improve the efficiency of the function.",
+  "solution_code": "def optimized_integer_square_root(num: int) -> int:\n    if num < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n    \n    if num == 0:\n        return 0\n    \n    if num == 1:\n        return 1\n    \n    if num == num ** 0.5:\n        return int(num ** 0.5)\n    \n    left, right = 1, num // 2\n    while left <= right:\n        mid = (left + right) // 2\n        mid_squared = mid * mid\n        \n        if mid_squared == num:\n            return mid\n        elif mid_squared < num:\n            left = mid + 1\n            result = mid\n        else:\n            right = mid - 1\n    \n    return result",
+  "test_code": "import pytest\n\ndef test_optimized_integer_square_root():\n    assert optimized_integer_square_root(15) == 3\n    assert optimized_integer_square_root(31) == 5\n    assert optimized_integer_square_root(25) == 5\n    assert optimized_integer_square_root(1) == 1\n    assert optimized_integer_square_root(0) == 0\n    assert optimized_integer_square_root(2_147_483_647) == 46340\n    with pytest.raises(ValueError):\n        optimized_integer_square_root(-1)",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results0.jsonl"
+}

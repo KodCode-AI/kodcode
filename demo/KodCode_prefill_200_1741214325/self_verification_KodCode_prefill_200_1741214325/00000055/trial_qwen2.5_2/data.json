@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000055",
+    "row_id": 55,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to identify if two string s1 and s2 are isomorphic. Two strings are isomorphic if the characters in s1 can be replaced to get s2. All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.",
+  "solution_code": "def is_isomorphic(s1: str, s2: str) -> bool:\n    \"\"\"\n    Checks if two strings are isomorphic.\n    \"\"\"\n    if len(s1) != len(s2):\n        return False\n    \n    s1_to_s2 = {}\n    s2_to_s1 = {}\n    \n    for char1, char2 in zip(s1, s2):\n        if (char1 in s1_to_s2 and s1_to_s2[char1] != char2) or \\\n           (char2 in s2_to_s1 and s2_to_s1[char2] != char1):\n            return False\n        s1_to_s2[char1] = char2\n        s2_to_s1[char2] = char1\n    \n    return True",
+  "test_code": "def test_is_isomorphic():\n    assert is_isomorphic(\"egg\", \"add\") == True\n    assert is_isomorphic(\"foo\", \"bar\") == False\n    assert is_isomorphic(\"paper\", \"title\") == True\n    assert is_isomorphic(\"badc\", \"baba\") == False\n    assert is_isomorphic(\"ab\", \"aa\") == False\n    assert is_isomorphic(\"\", \"\") == True\n    assert is_isomorphic(\"a\", \"a\") == True\n    assert is_isomorphic(\"aac\", \"yxy\") == True\n    assert is_isomorphic(\"aabb\", \"xyyx\") == True\n    assert is_isomorphic(\"aabb\", \"xyxy\") == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

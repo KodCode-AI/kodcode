@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000057",
+    "row_id": 57,
+    "seed_ids": [
+      "2285",
+      "637",
+      "848"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. You are also given an integer `k`. You can perform the following operation on the string any number of times:\n\n- Pick any substring of length `k` from `s` and reverse it.\n\nYour task is to determine the lexicographically smallest string that can be obtained after performing the above operation any number of times. Return the resulting string.\n\nExample:\n- If `s = \"cbaebabacd\"` and `k = 3`, you can reverse the substring `\"bac\"` to get `\"cbabcabad\"`. Reversing `\"bac\"` again gives `\"cbabcabad\"` which is the lexicographically smallest string possible. So, the answer is `\"abcabad\"`.",
+  "solution_code": "def smallest_by_reversing_substrings(s, k):\n    \"\"\"\n    Returns the lexicographically smallest string that can be obtained\n    by reversing any number of substrings of length k in the input string s.\n    \"\"\"\n    n = len(s)\n    result = list(s)\n    for i in range(0, n - k + 1):\n        substring = s[i:i+k]\n        min_sub = min(s[i:i+k], s[i:i+k][::-1])\n        if min_sub == substring[::-1]:\n            result[i:i+k] = s[i:i+k][::-1]\n        else:\n            result[i:i+k] = s[i:i+k]\n    return ''.join(result)",
+  "test_code": "def test_smallest_by_reversing_substrings():\n    assert smallest_by_reversing_substrings(\"cbaebabacd\", 3) == \"abacababc\"\n    assert smallest_by_reversing_substrings(\"aabc\", 3) == \"aacb\"\n    assert smallest_by_reversing_substrings(\"zxy\", 3) == \"xyz\"\n    assert smallest_by_reversing_substrings(\"abcd\", 3) == \"abdc\"\n    assert smallest_by_reversing_substrings(\"zzx\", 3) == \"zxx\"\n    assert smallest_by_reversing_substrings(\"cbabcabad\", 3) == \"abcabad\"\n    assert smallest_by_reversing_substrings(\"abcabc\", 3) == \"abcabc\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -272,7 +272,10 @@ def main():
     print(f"Input basename: {input_basename}")
     
     # Define output paths
-    extracted_output = os.path.join(input_dir, input_basename.replace('seed', 'instruction').replace('_results', ''))
+    if "prefill" in input_basename.lower():
+        extracted_output = os.path.join(input_dir, input_basename.replace('seeds2questions', 'questions2sv').replace('_results', ''))
+    else:
+        extracted_output = os.path.join(input_dir, input_basename.replace('_prefill', '_questions2sv_prefill')).replace('_results', '')
     sanitized_output = extracted_output.replace('.jsonl', '_sanitized.jsonl')
     prepared_output = sanitized_output.replace('.jsonl', '_prepared.jsonl')
 

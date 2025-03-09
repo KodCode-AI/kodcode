@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000002",
+    "row_id": 2,
+    "seed_ids": [
+      "2012",
+      "839",
+      "756"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. A **substring** of `s` is considered **beautiful** if it contains an even number of distinct letters and the sum of the ASCII values of all characters in the substring is divisible by 3. Return the number of **beautiful substrings** in `s`.\n\nFor example, in the string `\"abcabb\"`, `\"a\"`, `\"bb\"`, and `\"abb\"` are beautiful substrings.",
+  "solution_code": "def beautiful_substrings(s: str) -> int:\n    \"\"\"\n    Returns the number of beautiful substrings in the given string s.\n    A substring is considered beautiful if it has an even number of distinct characters\n    and the sum of ASCII values of all characters in the substring is divisible by 3.\n    \"\"\"\n    count = 0\n    n = len(s)\n    for i in range(n):\n        distinct_chars = set()\n        ascii_sum = 0\n        for j in range(i, n):\n            distinct_chars.add(s[j])\n            ascii_sum += ord(s[j])\n            if len(distinct_chars) % 2 == 0 and ascii_sum % 3 == 0:\n                count += 1\n    return count",
+  "test_code": "def test_beautiful_substrings():\n    assert beautiful_substrings(\"abcabb\") == 6\n    assert beautiful_substrings(\"zzz\") == 3\n    assert beautiful_substrings(\"aaab\") == 2\n    assert beautiful_substrings(\"pqrstuv\") == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000132",
+    "row_id": 132,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the diameter of a binary tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef diameter_of_binary_tree(root: TreeNode) -> int:\n    \"\"\"\n    Returns the diameter of a binary tree.\n    \"\"\"\n    def height(node):\n        if not node:\n            return 0\n        left_height = height(node.left)\n        right_height = height(node.right)\n        nonlocal diameter\n        # The diameter could be stored in the height of nodes.\n        diameter = max(diameter, left_height + right_height)\n        return 1 + max(left_height, right_height)\n\n    diameter = 0\n    height(root)\n    return diameter",
+  "test_code": "from solution import diameter_of_binary_tree, TreeNode\n\ndef create_tree(*values):\n    \"\"\"Helper function to create a binary tree from values.\"\"\"\n    if not values:\n        return None\n    nodes = [None if val is None else TreeNode(val) for val in values]\n    kids = nodes[::-1]\n    root = kids.pop()\n    for node in nodes:\n        if node:\n            if kids: node.left  = kids.pop()\n            if kids: node.right = kids.pop()\n    return root\n\ndef test_diameter_of_binary_tree():\n    # Construct a tree\n    tree = create_tree(1, 2, 3, 4, 5)\n    assert diameter_of_binary_tree(tree) == 3\n\n    # Construct another tree\n    tree = create_tree(1, 2, 3, None, 4, 5)\n    assert diameter_of_binary_tree(tree) == 4\n\n    # Perfect binary tree\n    tree = create_tree(1, 2, 3, 4, 5, 6)\n    assert diameter_of_binary_tree(tree) == 5\n\n    # A tree with a single node\n    assert diameter_of_binary_tree(TreeNode(1)) == 0\n\n    # A tree with no nodes\n    assert diameter_of_binary_tree(None) == 0",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

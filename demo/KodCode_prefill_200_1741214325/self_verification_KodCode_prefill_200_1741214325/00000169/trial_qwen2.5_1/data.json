@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000169",
+    "row_id": 169,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to evaluate a postfix expression (Reverse Polish Notation).",
+  "solution_code": "def evaluate_postfix(expression):\n    \"\"\"\n    Evaluates a postfix expression (also known as Reverse Polish Notation).\n    \n    Arguments:\n    expression -- A string containing the postfix expression to be evaluated.\n    \n    Returns:\n    The result of the postfix expression evaluation.\n    \"\"\"\n    stack = []\n    tokens = expression.split()\n    \n    for token in tokens:\n        if token.isdigit():  # Check if the token is a digit\n            stack.append(int(token))\n        else:\n            # Pop the last two elements from the stack\n            right_operand = stack.pop()\n            left_operand = stack.pop()\n            # Perform the operation\n            if token == '+':\n                stack.append(left_operand + right_operand)\n            elif token == '-':\n                stack.append(left_operand - right_operand)\n            elif token == '*':\n                stack.append(left_operand * right_operand)\n            elif token == '/':\n                stack.append(left_operand // right_operand)  # Integer division\n    \n    # The result will be the only element left in the stack\n    return stack.pop()",
+  "test_code": "from solution import evaluate_postfix\n\ndef test_simple_addition():\n    assert evaluate_postfix(\"3 4 +\") == 7\n\ndef test_simple_subtraction():\n    assert evaluate_postfix(\"10 5 -\") == 5\n\ndef test_simple_multiplication():\n    assert evaluate_postfix(\"3 5 *\") == 15\n\ndef test_simple_division():\n    assert evaluate_postfix(\"20 4 /\") == 5\n\ndef test_complex_expression():\n    assert evaluate_postfix(\"5 1 2 + 4 * + 3 -\") == 14\n\ndef test_invalid_expression():\n    try:\n        evaluate_postfix(\"5 1 2 + 4 * + 3 a\")\n    except ValueError:\n        # This is expected, indicating that the function correctly handles invalid inputs\n        pass\n    else:\n        assert False, \"Expected a ValueError for invalid input\"\n\ndef test_divide_by_zero():\n    try:\n        evaluate_postfix(\"20 0 /\")\n    except ValueError:\n        # This is expected\n        pass\n    else:\n        assert False, \"Expected a ValueError when dividing by zero\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000115",
+    "row_id": 115,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum number in a list of numbers.",
+  "solution_code": "def find_max(numbers):\n    \"\"\"\n    Returns the maximum number in a list of numbers.\n    \"\"\"\n    return max(numbers)",
+  "test_code": "from solution import find_max\n\ndef test_find_max_positive_numbers():\n    assert find_max([1, 2, 3, 4, 5]) == 5\n\ndef test_find_max_with_negative_numbers():\n    assert find_max([-5, -2, -3, -1]) == -1\n\ndef test_find_max_mixed_sign_numbers():\n    assert find_max([-1, 0, 1, 2, -2, 3]) == 3\n\ndef test_find_max_single_element():\n    assert find_max([42]) == 42\n\ndef test_find_max_empty_list():\n    assert find_max([]) == ValueError\n    # Importing the exception here for completeness, but it's more common to handle it separately\n    # from pytest import raises\n    # with raises(ValueError):\n    #     find_max([])",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000061",
+    "row_id": 61,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the first occurrence of an element in an array that is not repeated (i.e., appears exactly once). If there is no such element, return -1.",
+  "solution_code": "def find_first_unique(arr):\n    \"\"\"\n    Returns the first index of the element that is not repeated in the array.\n    If no such element exists, returns -1.\n    \"\"\"\n    element_count = {}\n    \n    # Count the occurrences of each element\n    for element in arr:\n        if element in element_count:\n            element_count[element] += 1\n        else:\n            element_count[element] = 1\n    \n    # Find the first element with a count of 1\n    for i, element in enumerate(arr):\n        if element_count[element] == 1:\n            return i\n    \n    return -1",
+  "test_code": "from solution import find_first_unique\n\ndef test_find_first_unique_with_repeated_elements():\n    assert find_first_unique([2, 3, 4, 3, 2]) == 2\n\ndef test_find_first_unique_with_unique_first_element():\n    assert find_first_unique([1, 2, 3, 4]) == 0\n\ndef test_find_first_unique_with_duplicates_only():\n    assert find_first_unique([1, 1, 2, 2]) == -1\n\ndef test_find_first_unique_with_empty_list():\n    assert find_first_unique([]) == -1\n\ndef test_find_first_unique_with_single_element():\n    assert find_first_unique([5]) == 0\n\ndef test_find_first_unique_with_mixed_occurrences():\n    assert find_first_unique([7, 8, 8, 9, 7]) == 3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

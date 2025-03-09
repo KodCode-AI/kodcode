@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000189",
+    "row_id": 189,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given number is a Fibonacci number or not.",
+  "solution_code": "def is_fibonacci(n):\n    \"\"\"\n    Returns True if n is a Fibonacci number, False otherwise.\n    \"\"\"\n    # A number is a Fibonacci only if one or both of (5*n^2 + 4) or (5*n^2 - 4) is a perfect square\n    import math\n    \n    def is_perfect_square(x):\n        s = int(math.sqrt(x))\n        return s * s == x\n    \n    return is_perfect_square(5 * n * n + 4) or is_perfect_square(5 * n * n - 4)",
+  "test_code": "from solution import is_fibonacci\n\ndef test_is_fibonacci_0():\n    assert is_fibonacci(0) == True\n\ndef test_is_fibonacci_1():\n    assert is_fibonacci(1) == True\n\ndef test_is_fibonacci_8():\n    assert is_fibonacci(8) == True\n\ndef test_is_fibonacci_13():\n    assert is_fibonacci(13) == True\n\ndef test_is_fibonacci_34():\n    assert is_fibonacci(34) == True\n\ndef test_is_fibonacci_9():\n    assert is_fibonacci(9) == False\n\ndef test_is_fibonacci_25():\n    assert is_fibonacci(25) == False\n\ndef test_is_fibonacci_55():\n    assert is_fibonacci(55) == True\n\ndef test_is_fibonacci_89():\n    assert is_fibonacci(89) == True\n\ndef test_is_fibonacci_144():\n    assert is_fibonacci(144) == True\n\ndef test_is_fibonacci_145():\n    assert is_fibonacci(145) == False\n\ndef test_is_fibonacci_negative():\n    assert is_fibonacci(-1) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

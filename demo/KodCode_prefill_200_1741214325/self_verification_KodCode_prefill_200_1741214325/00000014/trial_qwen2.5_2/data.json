@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000014",
+    "row_id": 14,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to take a list of integers as input and return a new list where each element is the product of preceding elements. For example, given a list [1, 2, 3, 4], the output should be [1, 1, 2, 6] where the second element (2) is the product of the first element (1), and the third element (3) is the product of the first two elements (1*2), and so on.",
+  "solution_code": "def product_of_list_elements(lst):\n    \"\"\"\n    Returns a new list where each element is the product of the preceding elements in the input list.\n    \"\"\"\n    if not lst:\n        return []\n\n    # Initialize the result list and a running product variable\n    result = [1] * len(lst)\n    running_product = 1\n\n    # Calculate the product of elements from the start\n    for i in range(1, len(lst)):\n        running_product *= lst[i - 1]\n        result[i] = running_product\n\n    # The result should not include the last element since there are no preceding elements for it\n    return result[:-1]",
+  "test_code": "import pytest\n\ndef test_product_of_list_elements():\n    assert product_of_list_elements([1, 2, 3, 4]) == [1, 1, 2, 6]\n    assert product_of_list_elements([4, 3, 2, 1]) == [1, 4, 12, 24]\n    assert product_of_list_elements([0, 2, 3]) == [1, 0, 0]\n    assert product_of_list_elements([]) == []\n    assert product_of_list_elements([5]) == []\n    assert product_of_list_elements([1, 0, 2, 3]) == [1, 0, 0, 0]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

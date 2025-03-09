@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000043",
+    "row_id": 43,
+    "seed_ids": [
+      "2389",
+      "2505",
+      "1383"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given two integer arrays `speed` and `efficiency` both of length `n`, and an integer `k`, you are to select a subset of engineers to form a team. Each engineer is represented by their `speed` and `efficiency`. Your goal is to maximize the **product** of the team's **average speed** and the minimum efficiency among the selected engineers. The team must consist of at least `2` engineers. Return the maximum possible product. Since the answer can be a large number, return it modulo `10^9 + 7`.",
+  "solution_code": "from typing import List\nfrom functools import lru_cache\nimport math\n\ndef max_product(speed: List[int], efficiency: List[int], k: int) -> int:\n    \"\"\"\n    Returns the maximum product of the team's average speed and the minimum efficiency.\n    \"\"\"\n    engineers = sorted(zip(efficiency, speed), reverse=True)\n    mod = 10**9 + 7\n    n = len(speed)\n    \n    def avg_speed(arr: List[int]) -> float:\n        return sum(arr) / len(arr)\n    \n    @lru_cache(None)\n    def dp(i: int, min_eff: int, k: int) -> int:\n        if k == 0 or i == n:\n            if k == 0:\n                return 0\n            else:\n                return min_eff * avg_speed(speed[:i])\n        take = 0 if min_eff > engineers[i][0] else dp(i + 1, min(min_eff, engineers[i][0]), k - 1) + engineers[i][1]\n        not_take = dp(i + 1, min_eff, k)\n        return max(take, not_take)\n    \n    return dp(0, math.inf, k) % mod",
+  "test_code": "from solution import max_product\n\ndef test_max_product():\n    assert max_product([10, 20, 30, 40], [5, 25, 30, 15], 2) == 266\n    assert max_product([7, 3, 1], [1, 2, 3], 2) == 12\n    assert max_product([4, 2, 4, 5, 6], [2, 1, 3, 3, 5], 3) == 18\n    assert max_product([1, 2, 3], [2, 1, 3], 3) == 3\n    assert max_product([10, 10], [5, 5], 2) == 0\n\ndef test_dp_cache():\n    assert max_product([5, 6, 2, 7], [2, 1, 6, 10], 3) == 48",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

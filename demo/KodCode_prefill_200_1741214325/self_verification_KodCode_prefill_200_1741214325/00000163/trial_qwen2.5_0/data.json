@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000163",
+    "row_id": 163,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to extract all the shortest words from a string of text.",
+  "solution_code": "def extract_shortest_words(text):\n    \"\"\"\n    Returns a list of the shortest words in the given text.\n    If there are multiple words of the same shortest length, all are included.\n    Words are considered as sequences of alphanumeric characters separated by non-alphanumeric characters.\n    \"\"\"\n    # Split the text into words based on non-alphanumeric characters\n    words = text.split()\n    # Find the minimum length of words to determine the shortest words\n    min_length = min(len(word) for word in words)\n    # Extract all words that are of the minimum length\n    shortest_words = [word for word in words if len(word) == min_length]\n    return shortest_words",
+  "test_code": "from solution import extract_shortest_words\n\ndef test_extract_shortest_words():\n    assert extract_shortest_words(\"The quick brown fox\") == ['The', 'fox']  # 'The' and 'fox' are both 3 characters long\n    assert extract_shortest_words(\"Jumped over the lazy dog\") == ['over', 'the']  # 'over' and 'the' are both 4 characters long\n    assert extract_shortest_words(\"aaaa bbb c\") == ['aaa', 'bbb']  # 'aaa' and 'bbb' are both 3 characters long\n    assert extract_shortest_words(\"\") == []  # Empty string should return an empty list\n    assert extract_shortest_words(\"a b c d e f g\") == ['a', 'b', 'c', 'd', 'e', 'f', 'g']  # All words are one character long\n    assert extract_shortest_words(\"primirro\") == ['primirro']  # Single word, longest one",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

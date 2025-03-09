@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000062",
+    "row_id": 62,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the second maximum number in a list of integers. If the list does not contain at least two different numbers, return None.",
+  "solution_code": "def find_second_maximum(nums):\n    \"\"\"\n    Returns the second maximum number in a list of integers. Returns None if there is no such number.\n    \"\"\"\n    if len(nums) < 2:\n        return None\n    max_num = second_max_num = float('-inf')\n    for num in nums:\n        if num > max_num:\n            second_max_num, max_num = max_num, num\n        elif max_num > num > second_max_num:\n            second_max_num = num\n    return second_max_num if second_max_num != max_num else None",
+  "test_code": "from solution import find_second_maximum\n\ndef test_find_second_maximum_with_long_list():\n    assert find_second_maximum([10, 5, 2, 8, 5, 11, 13]) == 11\n\ndef test_find_second_maximum_with_repeated_max():\n    assert find_second_maximum([10, 10, 10, 10]) == None\n\ndef test_find_second_maximum_single_element():\n    assert find_second_maximum([5]) == None\n\ndef test_find_second_maximum_empty_list():\n    assert find_second_maximum([]) == None\n\ndef test_find_second_maximum_with_negative_numbers():\n    assert find_second_maximum([-10, -5, -6, -1, -3]) == -5\n\ndef test_find_second_maximum_with_mixed_numbers():\n    assert find_second_maximum([1, 2, 3, 4, 5, -1, -2, -3, -4, -5]) == 2\n\ndef test_find_second_maximum_with_two_elements():\n    assert find_second_maximum([5, 5]) == None\n\ndef test_find_second_maximum_with_descending_order():\n    assert find_second_maximum([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]) == 9\n\ndef test_find_second_maximum_with_all_equal_elements():\n    assert find_second_maximum([2, 2, 2, 2, 2]) == None",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

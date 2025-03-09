@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000096",
+    "row_id": 96,
+    "seed_ids": [
+      "2485",
+      "2345",
+      "796"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of `n` unique integers, determine if there exists a pair of integers in the list whose sum is equal to a given target integer `k`. If such a pair exists, return the indices of the two integers (0-indexed) in any order. If no such pair exists, return an empty list. Note that the same integer cannot be used twice.",
+  "solution_code": "def find_pair_indices(nums, k):\n    \"\"\"\n    Given a list of n unique integers and a target integer k,\n    returns the indices of the two integers in any order\n    whose sum is equal to k. Returns an empty list if no such pair exists.\n    \n    :param nums: List[int] - A list of unique integers.\n    :param k: int - The target sum.\n    :return: List[int] - The indices of the pair if found, otherwise an empty list.\n    \"\"\"\n    num_to_index = {}\n    for i, num in enumerate(nums):\n        complement = k - num\n        if complement in num_to_index:\n            return [num_to_index[complement], i]\n        num_to_index[num] = i\n    return []",
+  "test_code": "from solution import find_pair_indices\n\ndef test_find_pair_indices():\n    assert find_pair_indices([2, 7, 11, 15], 9) == [0, 1]\n    assert find_pair_indices([3, 2, 4], 6) == [1, 2]\n    assert find_pair_indices([3, 3], 6) == [0, 1]\n    assert find_pair_indices([1, 2, 3], 7) == []\n    assert find_pair_indices([0, 2, -2, 5, 1], 3) == [1, 3]\n    assert find_pair_indices([1, 5, 9, 7], 10) == [0, 2]\n    assert find_pair_indices([1, 5, 9, 7], 16) == [2, 3]\n    assert find_pair_indices([], 5) == []\n    assert find_pair_indices([1], 2) == []",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000185",
+    "row_id": 185,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the smallest number that is a multiple of both given integers. To solve this, create a helper function to calculate the greatest common divisor (GCD) of two numbers and then use this helper function to find the least common multiple (LCM) of two numbers.",
+  "solution_code": "def gcd(a, b):\n    \"\"\"\n    Calculate the greatest common divisor (GCD) of two numbers using Euclid's algorithm.\n    \"\"\"\n    while b:\n        a, b = b, a % b\n    return a\n\ndef lcm(a, b):\n    \"\"\"\n    Returns the least common multiple (LCM) of two numbers.\n    \"\"\"\n    return abs(a * b) // gcd(a, b)",
+  "test_code": "from solution import gcd, lcm\n\ndef test_gcd():\n    assert gcd(12, 18) == 6\n    assert gcd(7, 13) == 1\n    assert gcd(98, 56) == 14\n\ndef test_lcm():\n    assert lcm(12, 18) == 36\n    assert lcm(7, 13) == 91\n    assert lcm(98, 56) == 392\n\ndef test_lcm_with_gcd():\n    # LCM * GCD = |a*b|\n    a, b = 30, 45\n    assert lcm(a, b) * gcd(a, b) == abs(a * b)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000161",
+    "row_id": 161,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to generate all possible combinations of a given list of numbers.",
+  "solution_code": "from itertools import combinations\n\ndef generate_combinations(numbers):\n    \"\"\"\n    Generates all possible combinations of a given list of numbers.\n    \n    :param numbers: List of integers\n    :return: A list of lists, where each sublist is a combination of the input numbers\n    \"\"\"\n    all_combinations = []\n    for r in range(len(numbers) + 1):\n        all_combinations.extend(combinations(numbers, r))\n    return all_combinations",
+  "test_code": "from solution import generate_combinations\n\ndef test_generate_combinations_with_empty_list():\n    assert generate_combinations([]) == [()],\n\ndef test_generate_combinations_with_single_element():\n    assert generate_combinations([1]) == [(), (1,)]\n\ndef test_generate_combinations_with_multiple_elements():\n    expected_output = [(), (1,), (2,), (3,), (1, 2), (1, 3), (2, 3), (1, 2, 3)]\n    assert generate_combinations([1, 2, 3]) == expected_output\n\ndef test_generate_combinations_with_repeated_elements():\n    expected_output = [\n        (), (1,), (2,), (3,), \n        (1, 1), (1, 2), (1, 3), \n        (2, 2), (2, 3), \n        (3, 3),\n        (1, 1, 1), (1, 1, 2), (1, 1, 3), \n        (1, 2, 2), (1, 2, 3), \n        (1, 3, 3), \n        (2, 2, 2), (2, 2, 3), \n        (2, 3, 3), \n        (3, 3, 3),\n        (1, 1, 1, 1), (1, 1, 1, 2), (1, 1, 1, 3), \n        (1, 1, 2, 2), (1, 1, 2, 3), \n        (1, 1, 3, 3), \n        (1, 2, 2, 2), (1, 2, 2, 3), \n        (1, 2, 3, 3), \n        (1, 3, 3, 3), \n        (2, 2, 2, 2), (2, 2, 2, 3), \n        (2, 2, 3, 3), \n        (2, 3, 3, 3), \n        (3, 3, 3, 3), \n        (1, 1, 1, 1, 1)\n    ]\n    assert generate_combinations([1, 1, 2, 2, 3]) == expected_output\n\ndef test_generate_combinations_with_negative_values():\n    expected_output = [(), (-1,), (-2,), (3,), (-1, -2), (-1, 3), (-2, 3), (-1, -2, 3)]\n    assert generate_combinations([-1, -2, 3]) == expected_output",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

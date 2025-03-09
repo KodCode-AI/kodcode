@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000091",
+    "row_id": 91,
+    "seed_ids": [
+      "1460",
+      "1379",
+      "32"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` (a string consisting only of `'0's` and `'1's`), you can perform the following operation any number of times: choose any **non-empty subsequence** of `s` and toggle all its characters (i.e., change all `'0's` to `'1's` and all `'1's` to `'0's`). Determine if it is possible to make the string `s` **palindromic** (the same string read from left to right and from right to left) using these operations. Return `true` if it is possible, otherwise return `false`.",
+  "solution_code": "def can_make_palindrome(s: str) -> bool:\n    \"\"\"\n    Determines if it is possible to make the binary string s palindromic\n    by toggling characters in any non-empty subsequence any number of times.\n    \"\"\"\n    left, right = 0, len(s) - 1\n    while left < right:\n        if s[left] != s[right]:\n            # Check if we can make the substring from left to right equal by toggling\n            if s[left + 1:right + 1] == s[left:right][::-1] or s[left:right + 1][::-1] == s[left + 1:right + 1]:\n                return True\n        left += 1\n        right -= 1\n    return True",
+  "test_code": "def test_can_make_palindrome():\n    assert can_make_palindrome(\"000110111\") == True  # Can make \"000000000\"\n    assert can_make_palindrome(\"010\") == False  # Fixed example\n    assert can_make_palindrome(\"1010\") == True  # Can make \"1010\" to \"1111\" or \"0000\"\n    assert can_make_palindrome(\"01101\") == True  # Can make \"01101\" to \"01010\"\n    assert can_make_palindrome(\"11001100\") == True  # Can make \"11001100\" to \"11111111\" or \"00000000\"\n    assert can_make_palindrome(\"00110011\") == False  # Cannot make palindromic\n    assert can_make_palindrome(\"1\") == True  # Single character is always palindromic\n    assert can_make_palindrome(\"01\") == True  # Two characters, can be toggled to \"10\"\n    assert can_make_palindrome(\"0011\") == True  # Can make \"0011\" to \"0000\" or \"1111\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

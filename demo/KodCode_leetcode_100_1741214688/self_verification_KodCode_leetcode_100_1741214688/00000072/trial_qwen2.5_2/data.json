@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000072",
+    "row_id": 72,
+    "seed_ids": [
+      "717",
+      "1546",
+      "243"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` without leading zeros, return the number of ways to split `s` into three non-empty substrings such that the bitwise XOR of the first two substrings is equal to the bitwise XOR of the last two substrings. The substrings are formed by consecutive binary digits in `s`.",
+  "solution_code": "def count_good_splits(binary_string: str) -> int:\n    \"\"\"\n    Counts the number of ways to split the binary string into three non-empty substrings\n    such that the bitwise XOR of the first two substrings is equal to the bitwise XOR of the last two substrings.\n    \"\"\"\n    prefix_xor = [0]\n    for char in binary_string:\n        prefix_xor.append(prefix_xor[-1] ^ int(char))\n    \n    count = 0\n    n = len(binary_string)\n    for i in range(1, n-1):\n        if prefix_xor[i] == prefix_xor[-1] - prefix_xor[i+1]:\n            count += 1\n    return count",
+  "test_code": "def test_count_good_splits():\n    assert count_good_splits(\"1010\") == 2\n    assert count_good_splits(\"001101\") == 1\n    assert count_good_splits(\"111\") == 0\n    assert count_good_splits(\"000\") == 0\n    assert count_good_splits(\"110101\") == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

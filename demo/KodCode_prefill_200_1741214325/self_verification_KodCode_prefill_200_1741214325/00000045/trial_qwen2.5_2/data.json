@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000045",
+    "row_id": 45,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to duplicate a linked list, including both the values of the nodes and the node's next pointers. Here, a duplicated linked list means creating a copy of the original linked list with new memory allocated for each node.",
+  "solution_code": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef duplicate_linked_list(node):\n    \"\"\"\n    Duplicates the given linked list.\n    :param node: ListNode\n    :return: ListNode\n    \"\"\"\n    if not node:\n        return None\n    \n    # Create a node with the same value\n    new_head = ListNode(node.val)\n    current_node = node\n    new_current_node = new_head\n\n    # Traverse the original linked list and create nodes for each value\n    while current_node.next:\n        new_next_node = ListNode(current_node.next.val)\n        new_current_node.next = new_next_node\n        current_node = current_node.next\n        new_current_node = new_current_node.next\n\n    return new_head",
+  "test_code": "def create_linked_list(values):\n    \"\"\"Helper function to create a linked list from a list of values.\"\"\"\n    if not values:\n        return None\n    head = ListNode(values[0])\n    current = head\n    for value in values[1:]:\n        current.next = ListNode(value)\n        current = current.next\n    return head\n\ndef linked_list_to_list(node):\n    \"\"\"Helper function to convert a linked list back to a list of values.\"\"\"\n    result = []\n    while node:\n        result.append(node.val)\n        node = node.next\n    return result\n\ndef test_duplicate_linked_list():\n    # Test with empty list\n    assert linked_list_to_list(duplicate_linked_list(None)) == []\n    \n    # Test with a simple linked list: 1 -> 2 -> 3\n    original_list = create_linked_list([1, 2, 3])\n    duplicated_list = duplicate_linked_list(original_list)\n    assert linked_list_to_list(duplicated_list) == [1, 2, 3]\n    \n    # Test with a more complex linked list\n    original_list = create_linked_list([1, 2, 3, 4, 5])\n    duplicated_list = duplicate_linked_list(original_list)\n    assert linked_list_to_list(duplicated_list) == [1, 2, 3, 4, 5]\n\n# Run the tests\ntest_duplicate_linked_list()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

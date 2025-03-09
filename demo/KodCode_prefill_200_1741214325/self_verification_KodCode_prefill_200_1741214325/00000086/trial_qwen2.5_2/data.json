@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000086",
+    "row_id": 86,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the minimum element in an array. You should also handle the case when the array is empty.",
+  "solution_code": "def find_minimum(arr):\n    \"\"\"\n    Returns the minimum element in the array arr.\n    If the array is empty, returns None.\n    \"\"\"\n    if not arr:\n        return None\n    return min(arr)",
+  "test_code": "from solution import find_minimum\n\ndef test_find_minimum_non_empty_array():\n    assert find_minimum([3, 1, 4, 1, 5, 9]) == 1\n\ndef test_find_minimum_single_element_array():\n    assert find_minimum([10]) == 10\n\ndef test_find_minimum_empty_array():\n    assert find_minimum([]) == None\n\ndef test_find_minimum_negative_numbers():\n    assert find_minimum([-5, -1, -6]) == -6\n\ndef test_find_minimum_with_duplicate_minimum():\n    assert find_minimum([2, 2, 3, 1, 2]) == 1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

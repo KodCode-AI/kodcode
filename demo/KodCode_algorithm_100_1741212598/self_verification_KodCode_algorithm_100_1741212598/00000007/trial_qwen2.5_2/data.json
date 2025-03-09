@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000007",
+    "row_id": 7,
+    "seed_ids": [
+      1095
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given a 2D matrix where each row is sorted in ascending order. Your task is to implement a function `search_value_in_matrix` that performs a 2D matrix binary search to find the given value. The function should return the coordinates `[row, col]` of the value if it exists, otherwise return `[-1, -1]`.\n\n**Input**:\n- `matrix`: A 2D list of integers where each row is sorted in ascending order.\n- `value`: An integer to search for in the matrix.\n\n**Output**:\n- A list containing the coordinates `[row, col]` of the value if found, otherwise `[-1, -1]`.\n\n**Constraints**:\n- The matrix can have up to \\(1000\\) rows and \\(1000\\) columns.\n- Each row can have up to \\(1000\\) elements.\n- The matrix is guaranteed to be non-empty.\n\n**Example**:\n```python\nmatrix = [\n    [1, 4, 7, 11, 15],\n    [2, 5, 8, 12, 19],\n    [3, 6, 9, 16, 22],\n    [10, 13, 14, 17, 24],\n    [18, 21, 23, 26, 30]\n]\ntarget = 1\nsearch_value_in_matrix(matrix, target) # Output: [0, 0]\n\ntarget = 20\nsearch_value_in_matrix(matrix, target) # Output: [-1, -1]\n```\n\n**Performance Requirement**:\n- The solution should be efficient and avoid deep recursion to prevent stack overflow.",
+  "solution_code": "def search_value_in_matrix(matrix, value):\n    \"\"\"\n    Perform a 2D matrix binary search to find the given value.\n    Returns the coordinates [row, col] of the value if found, otherwise [-1, -1].\n    \"\"\"\n    if not matrix or not matrix[0]:\n        return [-1, -1]\n    \n    rows, cols = len(matrix), len(matrix[0])\n    left, right = 0, rows * cols - 1\n    \n    while left <= right:\n        mid = left + (right - left) // 2\n        mid_val = matrix[mid // cols][mid % cols]\n        \n        if mid_val == value:\n            return [mid // cols, mid % cols]\n        elif mid_val < value:\n            left = mid + 1\n        else:\n            right = mid - 1\n    \n    return [-1, -1]",
+  "test_code": "def test_search_value_in_matrix():\n    matrix = [\n        [1, 4, 7, 11, 15],\n        [2, 5, 8, 12, 19],\n        [3, 6, 9, 16, 22],\n        [10, 13, 14, 17, 24],\n        [18, 21, 23, 26, 30]\n    ]\n    assert search_value_in_matrix(matrix, 1) == [0, 0]\n    assert search_value_in_matrix(matrix, 20) == [-1, -1]\n    assert search_value_in_matrix(matrix, 11) == [0, 3]\n    assert search_value_in_matrix(matrix, 23) == [4, 2]\n\ntest_search_value_in_matrix()",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

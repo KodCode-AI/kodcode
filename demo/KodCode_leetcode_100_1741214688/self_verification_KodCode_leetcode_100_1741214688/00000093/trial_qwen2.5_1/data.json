@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000093",
+    "row_id": 93,
+    "seed_ids": [
+      "1935",
+      "2053",
+      "376"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an array of integers `nums`, find the length of the longest **consecutive sequence** that can be formed by rearranging the elements of the array. A **consecutive sequence** is a sequence where each element is exactly one more than the previous element. If no such sequence exists, return 0.\n\nFor example, given `nums = [100, 4, 200, 1, 3, 2]`, the longest consecutive sequence that can be formed is `[1, 2, 3, 4]`, so the function should return 4.",
+  "solution_code": "def longest_consecutive(nums):\n    \"\"\"\n    Finds the length of the longest consecutive sequence that can be formed by rearranging\n    the elements of the array. If no such sequence exists, returns 0.\n    \"\"\"\n    num_set = set(nums)\n    longest_streak = 0\n    \n    for num in num_set:\n        # Check if it's the start of a sequence\n        if num - 1 not in num_set:\n            current_num = num\n            current_streak = 1\n            \n            while current_num + 1 in num_set:\n                current_num += 1\n                current_streak += 1\n            \n            longest_streak = max(longest_streak, current_streak)\n    \n    return longest_streak",
+  "test_code": "import pytest\n\ndef test_longest_consecutive_positive():\n    assert longest_consecutive([100, 4, 200, 1, 3, 2]) == 4\n    assert longest_consecutive([10, 20, 30, 40]) == 1\n    assert longest_consecutive([100, 90, 80, 70, 101, 102, 103]) == 3\n    assert longest_consecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]) == 9\n\ndef test_longest_consecutive_empty():\n    assert longest_consecutive([]) == 0\n\ndef test_longest_consecutive_one_element():\n    assert longest_consecutive([5]) == 1\n\ndef test_longest_consecutive_duplicate_elements():\n    assert longest_consecutive([1, 2, 2, 3, 3, 4, 4, 5]) == 5\n\ndef test_longest_consecutive_sequence_not_consecutive():\n    assert longest_consecutive([5, 6, 7, 2, 3, 4]) == 4\n    assert longest_consecutive([10, 12, 13, 11]) == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

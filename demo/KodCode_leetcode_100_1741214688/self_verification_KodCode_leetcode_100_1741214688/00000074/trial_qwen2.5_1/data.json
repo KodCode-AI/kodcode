@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000074",
+    "row_id": 74,
+    "seed_ids": [
+      "1721",
+      "2418",
+      "1704"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. You need to determine the lexicographically smallest palindrome by swapping any two adjacent characters in the string at most once. Return the resulting palindrome string. If it's not possible to form a palindrome by swapping at most one pair of adjacent characters, return the original string.",
+  "solution_code": "def form_smallest_palindrome(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest palindrome by swapping any two adjacent characters in the string at most once.\n    If it's not possible to form a palindrome by swapping at most one pair of adjacent characters, returns the original string.\n    \"\"\"\n    s_list = list(s)\n    n = len(s)\n\n    # Find the first mismatch from the start and end\n    for i in range(n // 2):\n        if s[i] != s[n - 1 - i]:\n            j = n - 1 - i\n            while i < j and s[i] != s[j]:\n                j -= 1\n\n            # If the mismatch is at the boundary, swap the mismatch with the character from the end\n            if i == j:\n                s_list[i], s_list[n - 1 - i] = s_list[n - 1 - i], s_list[i]\n\n            # Check if the found character can form a palindrome\n            while j + 1 < n - 1 - i and s[j + 1] == s[n - 2 - i]:\n                j += 1\n\n            if j + 1 < n - 1 - i:\n                s_list[j + 1], s_list[n - 1 - i] = s_list[n - 1 - i], s_list[j + 1]\n\n            break\n\n    return ''.join(s_list)",
+  "test_code": "def test_form_smallest_palindrome():\n    assert form_smallest_palindrome(\"aabb\") == \"abba\"\n    assert form_smallest_palindrome(\"abcd\") == \"abcd\"\n    assert form_smallest_palindrome(\"aabc\") == \"abac\"\n    assert form_smallest_palindrome(\"racecar\") == \"racecar\"  # Already a palindrome\n    assert form_smallest_palindrome(\"zidiveer\") == \"zidveeer\"\n\ndef test_other_cases():\n    assert form_smallest_palindrome(\"bbaa\") == \"abba\"\n    assert form_smallest_palindrome(\"edcba\") == \"abcde\"\n    assert form_smallest_palindrome(\"efgh\") == \"efgh\"\n    assert form_smallest_palindrome(\"zxcvbnm\") == \"zxcvbnm\"\n    assert form_smallest_palindrome(\"aaab\") == \"aabaa\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

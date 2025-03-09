@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000145",
+    "row_id": 145,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort a list of integers using the Bubble sort algorithm.",
+  "solution_code": "def bubble_sort(arr):\n    \"\"\"\n    Sorts a list of integers using the Bubble Sort algorithm.\n    \n    Parameters:\n    arr (list of int): The list of integers to be sorted.\n    \n    Returns:\n    list of int: The sorted list of integers.\n    \"\"\"\n    n = len(arr)\n    for i in range(n):\n        # Create a flag that will allow the function to terminate early if there's nothing left to sort\n        already_sorted = True\n        for j in range(n - i - 1):\n            if arr[j] > arr[j + 1]:\n                # Swap the elements\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n                # Since we had to swap two elements, we set the flag to True so the algorithm doesn't finish prematurely\n                already_sorted = False\n        # If there were no swaps during the last iteration, the array is already sorted, and we can terminate\n        if already_sorted:\n            break\n    return arr",
+  "test_code": "from solution import bubble_sort\n\ndef test_bubble_sort_empty_list():\n    assert bubble_sort([]) == []\n\ndef test_bubble_sort_single_element():\n    assert bubble_sort([5]) == [5]\n\ndef test_bubble_sort_positive_numbers():\n    assert bubble_sort([34, 12, 24, 9, 5]) == [5, 9, 12, 24, 34]\n\ndef test_bubble_sort_negative_numbers():\n    assert bubble_sort([34, -34, 12, -12, 24, -24, 9, -9, 5, -5]) == [-34, -24, -12, -9, -5, 5, 9, 12, 24, 34]\n\ndef test_bubble_sort_mixed_sign_numbers():\n    assert bubble_sort([34, -34, 0, -5, 9, 5, -9, 12, 24, -24, 17, -17]) == [-34, -24, -17, -9, -5, 0, 5, 9, 12, 17, 24, 34]\n\ndef test_bubble_sort already_sorted():\n    assert bubble_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

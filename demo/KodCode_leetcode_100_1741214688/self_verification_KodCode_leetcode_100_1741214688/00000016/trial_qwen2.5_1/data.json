@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000016",
+    "row_id": 16,
+    "seed_ids": [
+      "1168",
+      "1462",
+      "1727"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a grid of size `m x n` where each cell can either be `0` (land) or `1` (water). You can change any number of `0`s to `1`s to form one or more islands. An island is a maximal 4-directionally connected group of `1`s. You want to maximize the number of islands in the grid. What is the maximum number of islands you can form?",
+  "solution_code": "def max_islands(grid):\n    \"\"\"\n    Returns the maximum number of islands that can be formed in the grid.\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    visited = [[False] * n for _ in range(m)]\n    \n    def dfs(x, y):\n        if x < 0 or x >= m or y < 0 or y >= n or grid[x][y] == 0 or visited[x][y]:\n            return\n        visited[x][y] = True\n        dfs(x + 1, y)\n        dfs(x - 1, y)\n        dfs(x, y + 1)\n        dfs(x, y - 1)\n    \n    max_islands = 0\n    for i in range(m):\n        for j in range(n):\n            if grid[i][j] == 1 and not visited[i][j]:\n                dfs(i, j)\n                max_islands += 1\n    return max_islands",
+  "test_code": "def test_max_islands():\n    grid = [\n        [1, 0, 0, 0, 0],\n        [0, 0, 0, 0, 1],\n        [1, 0, 1, 0, 1],\n        [0, 0, 0, 0, 0],\n        [1, 0, 1, 0, 1]\n    ]\n    assert max_islands(grid) == 7\n\ndef test_max_islands_with_single_island():\n    grid = [\n        [1, 1, 1, 1, 1],\n        [1, 1, 1, 1, 1],\n        [1, 1, 1, 1, 1],\n        [1, 1, 1, 1, 1],\n        [1, 1, 1, 1, 1]\n    ]\n    assert max_islands(grid) == 1\n\ndef test_max_islands_with_no_islands():\n    grid = [\n        [0, 0, 0, 0, 0],\n        [0, 0, 0, 0, 0],\n        [0, 0, 0, 0, 0],\n        [0, 0, 0, 0, 0],\n        [0, 0, 0, 0, 0]\n    ]\n    assert max_islands(grid) == 0\n\ndef test_max_islands_with_separate_islands():\n    grid = [\n        [1, 0, 0, 0, 0],\n        [0, 0, 0, 0, 1],\n        [1, 1, 1, 0, 1],\n        [0, 0, 0, 0, 0],\n        [1, 0, 1, 0, 1]\n    ]\n    assert max_islands(grid) == 9",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

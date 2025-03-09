@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000056",
+    "row_id": 56,
+    "seed_ids": [
+      "230",
+      "1433",
+      "674"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an unsorted array of integers `nums`, return the maximum number of **distinct** elements in any **continuous subarray** of size `k`. A **continuous subarray** is defined as a subarray that contains `k` consecutive elements from the original array.",
+  "solution_code": "from collections import defaultdict\n\ndef max_distinct_elements(nums, k):\n    \"\"\"\n    Return the maximum number of distinct elements in any continuous subarray of size k.\n    \"\"\"\n    element_count = defaultdict(int)\n    max_distinct = 0\n    distinct_count = 0\n\n    start = 0\n    for end in range(len(nums)):\n        element_count[nums[end]] += 1\n        if element_count[nums[end]] == 1:\n            distinct_count += 1\n\n        if end >= k - 1:\n            max_distinct = max(max_distinct, distinct_count)\n            if element_count[nums[start]] == 1:\n                distinct_count -= 1\n            element_count[nums[start]] -= 1\n            start += 1\n\n    return max_distinct",
+  "test_code": "from solution import max_distinct_elements\n\ndef test_max_distinct_elements():\n    assert max_distinct_elements([1,2,3,2,2,1,3], 3) == 3\n    assert max_distinct_elements([1,2,1,2,1,3,3], 3) == 2\n    assert max_distinct_elements([1,2,1,3,4,3,1,2], 4) == 3\n    assert max_distinct_elements([1,1,2,2,3,3,4,4,5,5], 5) == 5\n    assert max_distinct_elements([1,2,1,2,1,2,1], 2) == 2\n    assert max_distinct_elements([1,1,1,1,1,1,1], 2) == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

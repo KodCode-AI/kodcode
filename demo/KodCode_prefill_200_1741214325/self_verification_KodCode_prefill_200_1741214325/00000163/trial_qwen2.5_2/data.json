@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000163",
+    "row_id": 163,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to extract all the shortest words from a string of text.",
+  "solution_code": "def shortest_words(text):\n    \"\"\"\n    Returns a list of the shortest words in a given text.\n    If there are multiple words of the same shortest length, all are included.\n    \"\"\"\n    words = text.split()\n    if not words:\n        return []\n    \n    min_length = min(len(word) for word in words)\n    shortest_words_list = [word for word in words if len(word) == min_length]\n    return shortest_words_list",
+  "test_code": "from solution import shortest_words\n\ndef test_shortest_words_empty_string():\n    assert shortest_words(\"\") == []\n\ndef test_shortest_words_single_word():\n    assert shortest_words(\"hello\") == [\"hello\"]\n\ndef test_shortest_words_with_multiple_words():\n    assert shortest_words(\"hello world a ab\") == [\"a\", \"ab\"]\n    assert shortest_words(\"one two three four seven\") == [\"one\", \"two\", \"three\", \"four\"]\n\ndef test_shortest_words_multiple_shortest_words_same_length():\n    assert shortest_words(\"aaa bb cc\") == [\"aaa\", \"bb\", \"cc\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

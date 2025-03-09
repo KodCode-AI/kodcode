@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000060",
+    "row_id": 60,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to filter out all the strings from a given list that contain a specific substring.",
+  "solution_code": "def filter_strings_by_substring(string_list, substring):\n    \"\"\"\n    Filters out strings from the given list that contain the specified substring.\n\n    :param string_list: List of strings to be filtered.\n    :param substring: Substring to search for within the strings.\n    :return: A list containing only strings that do not contain the specified substring.\n    \"\"\"\n    return [s for s in string_list if substring not in s]",
+  "test_code": "from solution import filter_strings_by_substring\n\ndef test_filter_strings_by_substring_empty_list():\n    assert filter_strings_by_substring([], \"test\") == []\n\ndef test_filter_strings_by_substring_no_match():\n    assert filter_strings_by_substring([\"hello\", \"world\"], \"test\") == [\"hello\", \"world\"]\n\ndef test_filter_strings_by_substring_with_match():\n    assert filter_strings_by_substring([\"hello\", \"test\", \"world\"], \"test\") == [\"hello\", \"world\"]\n\ndef test_filter_strings_by_substring_case_insensitive():\n    assert filter_strings_by_substring([\"HELLO\", \"test\", \"WORLD\"], \"Test\") == [\"HELLO\", \"WORLD\"]\n\ndef test_filter_strings_by_substring_with_multiple_occurrences():\n    assert filter_strings_by_substring([\"apple\", \"banana\", \"cherry\", \"cantaloupe\"], \"a\") == [\"cherry\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

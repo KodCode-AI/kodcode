@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000061",
+    "row_id": 61,
+    "seed_ids": [
+      "294",
+      "2562",
+      "1881"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary string `s` consisting only of `0`s and `1`s. A **substring** of `s` is called **good** if it does not contain more than one `0`. You are also given an integer `k`. Your task is to find the **maximum** number of **good** substrings that can be obtained by rearranging the characters of `s` and then splitting the string into at most `k` non-empty substrings. Return the maximum number of good substrings you can obtain.\n\nFor example, if `s = \"1001010011\"` and `k = 3`, one possible way to split `s` into good substrings is `\"10010\"`, `\"100\"`, and `\"11\"`, which gives a total of 3 good substrings.",
+  "solution_code": "def max_good_substrings(s, k):\n    \"\"\"\n    Returns the maximum number of good substrings that can be obtained.\n    \"\"\"\n    max_good = 0\n    current_good = 0\n    zeros_count = 0\n    for i in range(len(s)):\n        if s[i] == '0':\n            zeros_count += 1\n        if zeros_count > 1:\n            zeros_count = 1\n            current_good += 1\n        max_good = max(max_good, current_good)\n        if (i + 1) % (k + 1) == 0 and i < len(s) - 1:\n            current_good = 0\n    return max_good",
+  "test_code": "def test_max_good_substrings():\n    assert max_good_substrings(\"1001010011\", 3) == 3\n    assert max_good_substrings(\"1000\", 1) == 1\n    assert max_good_substrings(\"000111000\", 2) == 2\n    assert max_good_substrings(\"111\", 1) == 1\n    assert max_good_substrings(\"0000000\", 4) == 4\n    assert max_good_substrings(\"110010\", 2) == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

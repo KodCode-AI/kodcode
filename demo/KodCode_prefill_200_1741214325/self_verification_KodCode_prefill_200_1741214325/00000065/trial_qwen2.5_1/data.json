@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000065",
+    "row_id": 65,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the nth Fibonacci number.",
+  "solution_code": "def fibonacci(n):\n    \"\"\"\n    Returns the nth Fibonacci number.\n    \n    The Fibonacci sequence is a series of numbers where a number is the addition of the last two numbers, starting with 0, and 1.\n    \"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b",
+  "test_code": "from solution import fibonacci\n\ndef test_fibonacci_0():\n    assert fibonacci(0) == 0\n\ndef test_fibonacci_1():\n    assert fibonacci(1) == 1\n\ndef test_fibonacci_10():\n    assert fibonacci(10) == 55\n\ndef test_fibonacci_negative():\n    assert fibonacci(-1) == 0\n\ndef test_fibonacci_large_value():\n    assert fibonacci(50) == 12586269025",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

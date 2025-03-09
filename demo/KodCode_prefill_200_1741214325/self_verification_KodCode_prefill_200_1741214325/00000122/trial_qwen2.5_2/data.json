@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000122",
+    "row_id": 122,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum number in an array using recursion.",
+  "solution_code": "def find_max_recursive(arr, n):\n    \"\"\"\n    Returns the maximum number in an array using recursion.\n    \n    :param arr: List of integers\n    :param n: Number of elements in the array to consider\n    :return: Maximum integer in the array\n    \"\"\"\n    # Base case: if the array has only one element\n    if n == 1:\n        return arr[0]\n    \n    # Recursive case: find the maximum in the rest of the array\n    max_in_rest = find_max_recursive(arr, n-1)\n    \n    # Return the greater of the last element and the max of the rest\n    return max(arr[n-1], max_in_rest)",
+  "test_code": "def test_find_max_recursive():\n    assert find_max_recursive([1, 2, 3, 4, 5], 5) == 5\n    assert find_max_recursive([-10, -2, -3, -1], 4) == -1\n    assert find_max_recursive([100], 1) == 100\n    assert find_max_recursive([5, 3, 8, 20, -1, 0], 6) == 20\n\ndef test_single_element():\n    assert find_max_recursive([42], 1) == 42\n\ndef test_empty_array():\n    try:\n        find_max_recursive([], 0)\n    except ValueError as e:\n        assert str(e) == \"Array must contain at least one element.\"\n    else:\n        assert False, \"Expected ValueError for empty array\"\n\ndef test_all Negative():\n    assert find_max_recursive([-5, -10, -3, -4], 4) == -3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

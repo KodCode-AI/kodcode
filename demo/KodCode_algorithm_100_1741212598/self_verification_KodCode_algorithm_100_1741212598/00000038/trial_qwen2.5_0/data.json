@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000038",
+    "row_id": 38,
+    "seed_ids": [
+      167
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "**Problem Statement**:\nYou are given a sequence of integers. Your task is to implement a function to generate all possible subsequences of the given sequence using a backtracking algorithm. The function should print each subsequence in a separate line.\n\n**Input**:\n- A non-empty list of integers, `sequence`, where the length of the list is between 1 and 10 (inclusive).\n\n**Output**:\n- Print all possible subsequences of the given sequence, each on a new line. Ensure that the subsequences are printed in lexicographical order.\n\n**Example**:\n```python\nsequence = [1, 2, 3]\nOutput:\n[]\n[1]\n[1, 2]\n[1, 2, 3]\n[1, 3]\n[2]\n[2, 3]\n[3]\n```\n\n**Constraints**:\n- The length of `sequence` is between 1 and 10.\n- The elements in `sequence` are integers between 1 and 100.\n\n**Performance Requirement**:\n- Your solution should run efficiently for sequences of length up to 10.\n\n**Implementation**:\nImplement the function to generate and print all possible subsequences of the given sequence.\n\n```python\ndef generate_all_subsequences(sequence: List[int]) -> None:\n    \"\"\"\n    Generates and prints all possible subsequences of the given sequence using a backtracking algorithm.\n    \n    :param sequence: A list of integers.\n    \"\"\"\n    # Your implementation here\n```",
+  "solution_code": "from typing import List\n\ndef generate_all_subsequences(sequence: List[int]) -> None:\n    \"\"\"\n    Generates and prints all possible subsequences of the given sequence using a backtracking algorithm.\n    \n    :param sequence: A list of integers.\n    \"\"\"\n    def backtrack(start, path):\n        # Print the current path\n        print(path)\n        for i in range(start, len(sequence)):\n            # Include the current element in the path\n            backtrack(i + 1, path + [sequence[i]])\n    \n    backtrack(0, [])",
+  "test_code": "import pytest\nfrom typing import *\nfrom solution import generate_all_subsequences\n\ndef test_generate_all_subsequences():\n    sequence = [1, 2, 3]\n    expected_output = ['[]', '[1]', '[1, 2]', '[1, 2, 3]', '[1, 3]', '[2]', '[2, 3]', '[3]']\n    \n    # Capture the print output\n    from io import StringIO\n    import sys\n    captured_output = StringIO()\n    sys.stdout = captured_output\n    generate_all_subsequences(sequence)\n    sys.stdout = sys.__stdout__\n    \n    # Convert the captured output to a list of strings\n    output_lines = captured_output.getvalue().splitlines()\n    \n    # Assert that each line in the expected output is contained in the actual output\n    for line in expected_output:\n        assert line in output_lines",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results0.jsonl"
+}

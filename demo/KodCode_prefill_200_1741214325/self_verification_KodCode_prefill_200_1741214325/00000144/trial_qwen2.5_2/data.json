@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000144",
+    "row_id": 144,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum product of a triplet in an array. The array can contain both positive and negative numbers. The function should return the maximum product of any three numbers in the array.",
+  "solution_code": "def max_product_of_triplet(arr):\n    \"\"\"\n    Returns the maximum product of a triplet in the array.\n    \"\"\"\n    arr.sort()\n    n = len(arr)\n    # The maximum product can be either:\n    # 1. Product of the three largest numbers\n    # 2. Product of the two smallest (which could be negative) and the largest number\n    return max(arr[0] * arr[1] * arr[n-1], arr[n-3] * arr[n-2] * arr[n-1])",
+  "test_code": "def test_max_product_of_triplet():\n    assert max_product_of_triplet([1, 2, 3]) == 6\n    assert max_product_of_triplet([-1, -2, -3]) == -6\n    assert max_product_of_triplet([-100, -200, 5, 1, 2]) == 20000\n    assert max_product_of_triplet([-2, -3, 4, -5, -6, 1]) == 60\n    assert max_product_of_triplet([1, -4, 3, -6, 7, 0]) == 168\n    assert max_product_of_triplet([0, 2, 3, -5, 1, 4]) == 60\n    assert max_product_of_triplet([10, -20, 2, -3, 4, -5, 5]) == 1000",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

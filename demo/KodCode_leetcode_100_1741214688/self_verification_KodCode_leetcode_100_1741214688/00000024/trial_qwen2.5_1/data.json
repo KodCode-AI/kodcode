@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000024",
+    "row_id": 24,
+    "seed_ids": [
+      "1019",
+      "1177",
+      "203"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary search tree (BST) and an integer `k`. Your task is to find the `k`-th smallest element in the BST. The BST is not necessarily balanced. Return the value of the `k`-th smallest element.\n\nFor example, given the BST with the following structure:\n\n```\n    5\n   / \\\n  3   6\n / \\\n2   4\n```\n\nIf `k = 3`, the output should be `3` because the elements in ascending order are `[2, 3, 4, 5, 6]`, and the 3rd smallest element is `3`.\n\nReturn the value of the `k`-th smallest element in the BST.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef kthSmallest(root, k):\n    \"\"\"\n    Returns the k-th smallest element in a binary search tree.\n    \"\"\"\n    def inorder_traversal(node):\n        if node is None:\n            return []\n        return inorder_traversal(node.left) + [node.val] + inorder_traversal(node.right)\n    \n    elements = inorder_traversal(root)\n    return elements[k-1]",
+  "test_code": "from solution import kthSmallest, TreeNode\n\ndef create_bst_from_levels(elements):\n    if not elements:\n        return None\n    root = TreeNode(elements[0])\n    queue = [root]\n    i = 1\n    while i < len(elements):\n        current = queue.pop(0)\n        if elements[i] is not None:\n            current.left = TreeNode(elements[i])\n            queue.append(current.left)\n        i += 1\n        if i < len(elements) and elements[i] is not None:\n            current.right = TreeNode(elements[i])\n            queue.append(current.right)\n        i += 1\n    return root\n\n# Construct the example tree\nroot = create_bst_from_levels([5, 3, 6, 2, 4, None, None])\n\ndef test_kthSmallest():\n    assert kthSmallest(root, 3) == 3  # 3rd smallest element\n    assert kthSmallest(root, 1) == 2  # 1st smallest element\n    assert kthSmallest(root, 5) == 6  # 5th smallest element\n    assert kthSmallest(root, 6) == 5  # 6th smallest element, but 5 is the largest\n    assert kthSmallest(create_bst_from_levels([1, None, 2, None, None, None, 3]), 1) == 1  # Smallest element\n    assert kthSmallest(create_bst_from_levels([3, 1, 4, None, 2]), 1) == 1  # Smallest element in unbalanced tree\n    assert kthSmallest(create_bst_from_levels([3, 1, 4, None, 2]), 3) == 3  # 3rd smallest element in unbalanced tree\n    assert kthSmallest(create_bst_from_levels([3, 1, 4, None, 2]), 4) == 4  # 4th smallest element, root itself\n\ntest_kthSmallest()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

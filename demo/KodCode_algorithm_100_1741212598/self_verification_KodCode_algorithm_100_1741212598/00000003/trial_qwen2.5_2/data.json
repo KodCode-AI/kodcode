@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000003",
+    "row_id": 3,
+    "seed_ids": [
+      289
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "Design a function `interleave_strings` that takes two strings `first_str` and `second_str` and returns a new string where the characters from `first_str` and `second_str` are interleaved. If one string is longer, the extra characters should be appended to the end of the result string.\n\n**Function Signature**: `def interleave_strings(first_str: str, second_str: str) -> str:`\n\n**Input**:\n- `first_str` (1 <= len(first_str) <= 10^5): A string consisting of lowercase English letters.\n- `second_str` (1 <= len(second_str) <= 10^5): A string consisting of lowercase English letters.\n\n**Output**:\n- Return a single string that is the result of interleaving `first_str` and `second_str`.\n\n**Examples**:\n```python\n>>> interleave_strings(\"ABCD\", \"XY\")\n'AXBYCD'\n>>> interleave_strings(\"XY\", \"ABCD\")\n'XAYBCD'\n>>> interleave_strings(\"AB\", \"XYZ\")\n'AXBYZ'\n>>> interleave_strings(\"ABC\", \"\")\n'ABC'\n```\n\n**Constraints**:\n- The input strings contain only lowercase English letters.\n- The lengths of the input strings are between 1 and 10^5.\n\n**Performance Requirement**:\n- The function should handle the largest input size (10^5 characters) within 1 second.",
+  "solution_code": "def interleave_strings(first_str: str, second_str: str) -> str:\n    \"\"\"\n    Returns a new string by interleaving characters from first_str and second_str.\n    \"\"\"\n    result = []\n    min_len = min(len(first_str), len(second_str))\n    for i in range(min_len):\n        result.append(first_str[i])\n        result.append(second_str[i])\n    result.append(first_str[min_len:])\n    result.append(second_str[min_len:])\n    return ''.join(result)",
+  "test_code": "def test_interleave_strings():\n    assert interleave_strings(\"ABCD\", \"XY\") == 'AXBYCD'\n    assert interleave_strings(\"XY\", \"ABCD\") == 'XAYBCD'\n    assert interleave_strings(\"AB\", \"XYZ\") == 'AXBYZ'\n    assert interleave_strings(\"ABC\", \"\") == 'ABC'\n    assert interleave_strings(\"\", \"XYZ\") == 'XYZ'\n    assert interleave_strings(\"Hello\", \"World\") == 'HWeolrllod'\n    assert interleave_strings(\"short\", \"longerstring\") == 'slhoorlngerstringt'",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

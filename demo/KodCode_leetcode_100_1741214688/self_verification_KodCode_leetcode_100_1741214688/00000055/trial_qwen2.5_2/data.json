@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000055",
+    "row_id": 55,
+    "seed_ids": [
+      "96",
+      "427",
+      "2347"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times:\n\n- Pick any two adjacent characters in `s` and replace them with a single character that is the **lexicographically smallest** character among them. For example, `ab` can be replaced with `a`, and `bb` can be replaced with `b`.\n\nReturn _the lexicographically smallest string that can be obtained by applying the above operation any number of times._\n\nExample:\n```python\nInput: s = \"cbaaaabc\"\nOutput: \"aaaabca\"\nExplanation:\nFirst, replace \"cba\" to get \"aabaaabc\".\nThen, replace \"aabaaabc\" to get \"aaaabca\".\n```",
+  "solution_code": "def smallest_string(s):\n    \"\"\"\n    Returns the lexicographically smallest string that can be obtained by replacing\n    any two adjacent characters with their lexicographically smallest character.\n    \"\"\"\n    stack = []\n    for char in s:\n        # Keep popping the stack until it's empty or the top of the stack is smaller than the current character\n        while stack and stack[-1] > char:\n            stack.pop()\n        stack.append(char)\n    return ''.join(stack)",
+  "test_code": "def test_smallest_string():\n    assert smallest_string(\"cbaaaabc\") == \"aaaabca\"\n    assert smallest_string(\"bbb\") == \"b\"\n    assert smallest_string(\"abcde\") == \"abcde\"\n    assert smallest_string(\"zyxwvutsrq\") == \"q\"\n    assert smallest_string(\"a\") == \"a\"\n    assert smallest_string(\"aab\") == \"a\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000110",
+    "row_id": 110,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the median of a list of numbers.",
+  "solution_code": "def find_median(numbers):\n    \"\"\"\n    Returns the median of a list of numbers.\n    If the list has an odd number of elements, returns the middle element.\n    If the list has an even number of elements, returns the average of the two middle elements.\n    \"\"\"\n    n = len(numbers)\n    if n == 0:\n        raise ValueError(\"The list is empty.\")\n    sorted_numbers = sorted(numbers)\n    mid_index = n // 2\n    \n    if n % 2 == 1:\n        return sorted_numbers[mid_index]\n    else:\n        return (sorted_numbers[mid_index - 1] + sorted_numbers[mid_index]) / 2",
+  "test_code": "``\nimport pytest\nfrom solution import find_median\n\ndef test_find_median_odd():\n    assert find_median([7, 3, 5, 2, 9]) == 5\n\ndef test_find_median_even():\n    assert find_median([7, 3, 5, 2, 9, 8]) == 6.5\n\ndef test_find_median_single_element():\n    assert find_median([42]) == 42\n\ndef test_find_median_empty_list():\n    with pytest.raises(ValueError):\n        find_median([])\n\ndef test_find_median_duplicate_elements():\n    assert find_median([3, 5, 5, 7, 11]) == 5",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000036",
+    "row_id": 36,
+    "seed_ids": [
+      "994",
+      "746",
+      "1397"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` (a string consisting only of '0's and '1's), you need to perform a series of operations to make the string alternating. An alternating string is one where no two adjacent characters are the same. You can perform the following operation any number of times: choose any index `i` (1-indexed) and flip the character at `s[i]` (change '0' to '1' or '1' to '0'). \n\nReturn the minimum number of operations required to make the string alternating. If it is impossible to make the string alternating, return `-1`.",
+  "solution_code": "def min_operations_to_alternate(s: str) -> int:\n    \"\"\"\n    Returns the minimum number of operations required to make the binary string alternating.\n    If it's impossible, return -1.\n    \"\"\"\n    n = len(s)\n    # Count the number of mismatches if starting with '0' and '1'\n    count_0 = sum(s[i] != '0' for i in range(n))\n    count_1 = sum(s[i] != '1' for i in range(n))\n    \n    # The minimum operations is the minimum of the two counts, but not more than n//2\n    min_ops = min(count_0, count_1)\n    if min_ops > n // 2:\n        return -1\n    return min_ops",
+  "test_code": "def test_min_operations_to_alternate():\n    assert min_operations_to_alternate(\"001\") == 1\n    assert min_operations_to_alternate(\"10\") == 0\n    assert min_operations_to_alternate(\"1111\") == -1\n    assert min_operations_to_alternate(\"0101010\") == 0\n    assert min_operations_to_alternate(\"00010001\") == 2\n    assert min_operations_to_alternate(\"1110000\") == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

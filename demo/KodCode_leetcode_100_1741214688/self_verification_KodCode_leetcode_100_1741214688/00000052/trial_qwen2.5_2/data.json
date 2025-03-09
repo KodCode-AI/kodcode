@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000052",
+    "row_id": 52,
+    "seed_ids": [
+      "1252",
+      "828",
+      "2560"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` of length `n`, and a positive integer `k`, you are allowed to perform the following operation **any number of times**: choose any index `i` (0-indexed) and flip the value of `s[i]` (i.e., change `s[i]` from `0` to `1` or from `1` to `0`). A **substring** of `s` is said to be **balanced** if the number of `1`s in the substring is equal to the number of `0`s. \n\nAfter performing the above operations, return the **maximum** possible length of a **balanced** substring of `s`. A balanced substring must have an equal number of `0`s and `1`s. If no such balanced substring can be formed, return `0`.\n\nFor example, if `s = \"00110011\"` and `k = 1`, you can flip the second `0` to `1` to form the balanced substring `\"01110011\"`, which has a length of `6`.",
+  "solution_code": "def max_balanced_substring_length(s: str, k: int) -> int:\n    \"\"\"\n    Returns the maximum possible length of a balanced substring of s\n    after flipping at most k characters. A balanced substring has an\n    equal number of '0's and '1's.\n    \"\"\"\n    max_length = 0\n    # Convert the string into -1 for '0' and 1 for '1' to track balance.\n    s = [1 if char == '1' else -1 for char in s]\n    sum_prefix, len_prefix = 0, 0\n    # Record the first occurrence of each prefix sum.\n    seen = {0: -1}\n    for i, num in enumerate(s):\n        sum_prefix += num\n        # Record the first occurrence of this prefix sum.\n        if sum_prefix not in seen:\n            seen[sum_prefix] = i\n        # If the current length minus the length at the first occurrence\n        # of the current prefix sum is <= k, it means we can balance.\n        if sum_prefix in seen and (i - seen[sum_prefix] <= k + 1):\n            max_length = max(max_length, i - seen[sum_prefix])\n        # If the prefix sum + k can form a balanced substring, update max_length.\n        if sum_prefix + k in seen and (i - seen[sum_prefix + k] <= k + 1):\n            max_length = max(max_length, i - seen[sum_prefix + k])\n    return max_length",
+  "test_code": "import pytest\n\ndef test_max_balanced_substring_length():\n    assert max_balanced_substring_length(\"00110011\", 1) == 6\n    assert max_balanced_substring_length(\"00110011101111\", 4) == 12\n    assert max_balanced_substring_length(\"00000\", 3) == 2\n    assert max_balanced_substring_length(\"111111\", 2) == 4\n    assert max_balanced_substring_length(\"11000\", 0) == 0\n    assert max_balanced_substring_length(\"00110011\", 0) == 4\n    assert max_balanced_substring_length(\"11110000\", 1) == 6\n    assert max_balanced_substring_length(\"01010101\", 2) == 8\n\ndef test_single_character():\n    assert max_balanced_substring_length(\"1\", 1) == 2\n\ndef test_all_zeros_with_flips():\n    assert max_balanced_substring_length(\"0000\", 3) == 6",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

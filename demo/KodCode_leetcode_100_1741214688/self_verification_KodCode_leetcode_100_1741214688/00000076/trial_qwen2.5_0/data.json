@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000076",
+    "row_id": 76,
+    "seed_ids": [
+      "2180",
+      "1025",
+      "668"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a positive integer `n`, return the number of integers `x` in the range `[1, n]` (inclusive) such that the sum of the digits of `x` is a **prime number**. A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.",
+  "solution_code": "def is_prime(num):\n    \"\"\"Check if a number is prime.\"\"\"\n    if num <= 1:\n        return False\n    if num == 2:\n        return True\n    if num % 2 == 0:\n        return False\n    for i in range(3, int(num**0.5) + 1, 2):\n        if num % i == 0:\n            return False\n    return True\n\ndef digit_sum(num):\n    \"\"\"Calculate the sum of digits of a number.\"\"\"\n    return sum(int(digit) for digit in str(num))\n\ndef count_prime_digit_sum(n):\n    \"\"\"\n    Return the count of numbers in [1, n] whose digit sum is a prime number.\n    \"\"\"\n    count = 0\n    for x in range(1, n + 1):\n        if is_prime(digit_sum(x)):\n            count += 1\n    return count",
+  "test_code": "from solution import is_prime, digit_sum, count_prime_digit_sum\n\ndef test_is_prime():\n    assert is_prime(2) == True\n    assert is_prime(3) == True\n    assert is_prime(4) == False\n    assert is_prime(5) == True\n    assert is_prime(6) == False\n    assert is_prime(7) == True\n    assert is_prime(8) == False\n    assert is_prime(9) == False\n    assert is_prime(11) == True\n    assert is_prime(12) == False\n\ndef test_digit_sum():\n    assert digit_sum(123) == 6\n    assert digit_sum(4321) == 10\n    assert digit_sum(8) == 8\n\ndef test_count_prime_digit_sum():\n    assert count_prime_digit_sum(10) == 2  # 2 and 3\n    assert count_prime_digit_sum(5) == 2  # 2 and 3\n    assert count_prime_digit_sum(9) == 4  # 2, 3, 5, 7\n    assert count_prime_digit_sum(31) == 12  # All numbers with prime digit sums up to 31",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

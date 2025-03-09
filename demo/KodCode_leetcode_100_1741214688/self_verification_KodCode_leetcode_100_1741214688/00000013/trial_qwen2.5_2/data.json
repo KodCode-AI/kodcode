@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000013",
+    "row_id": 13,
+    "seed_ids": [
+      "82",
+      "2008",
+      "1690"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary tree, return the sum of all left leaves. A leaf is a node with no children, and a left leaf is a leaf that is the left child of its parent. If there are no left leaves, return 0.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef sum_left_leaves(root):\n    \"\"\"\n    Returns the sum of all left leaves in a binary tree.\n    \"\"\"\n    def dfs(node, is_left):\n        if not node:\n            return 0\n        if not node.left and not node.right and is_left:\n            return node.val\n        return dfs(node.left, True) + dfs(node.right, False)\n    \n    return dfs(root, False)",
+  "test_code": "import pytest\nfrom typing import List\n\ndef create_tree(nodes: List[TreeNode or None], i: int) -> TreeNode or None:\n    if i >= len(nodes) or not nodes[i]:\n        return None\n    result = TreeNode(nodes[i])\n    result.left = create_tree(nodes, 2 * i + 1)\n    result.right = create_tree(nodes, 2 * i + 2)\n    return result\n\ndef to_list(node: TreeNode) -> List[TreeNode or None]:\n    if not node:\n        return []\n    result = [node.val]\n    result += to_list(node.left) + to_list(node.right)\n    return result\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef test_sum_left_leaves():\n    assert sum_left_leaves(create_tree([3,9,20,None,None,15,7], 0)) == 24\n    assert sum_left_leaves(create_tree([1,2,3,4], 0)) == 6\n    assert sum_left_leaves(create_tree([1,2,3,None,5], 0)) == 5\n    assert sum_left_leaves(create_tree([], 0)) == 0\n\ndef test_sum_left_leaves_edge_cases():\n    assert sum_left_leaves(create_tree([1], 0)) == 0\n    assert sum_left_leaves(create_tree([1,2], 0)) == 2\n    assert sum_left_leaves(create_tree([1,None,2], 0)) == 0\n    assert sum_left_leaves(create_tree([1,None,3,4], 0)) == 4",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000047",
+    "row_id": 47,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string is palindrome or not.",
+  "solution_code": "def is_palindrome(s: str) -> bool:\n    \"\"\"\n    Returns True if the given string is a palindrome, False otherwise.\n    A palindrome is a word, phrase, or sequence that reads the same backward as forward.\n    \"\"\"\n    return s == s[::-1]",
+  "test_code": "\\nfrom solution import is_palindrome\n\ndef test_is_palindrome_empty_string():\n    assert is_palindrome(\"\") == True\n\ndef test_is_palindrome_single_character():\n    assert is_palindrome(\"a\") == True\n\ndef test_is_palindrome_palindrome_words():\n    assert is_palindrome(\"racecar\") == True\n    assert is_palindrome(\"madam\") == True\n\ndef test_is_palindrome_non_palindrome_words():\n    assert is_palindrome(\"hello\") == False\n    assert is_palindrome(\"world\") == False\n\ndef test_is_palindrome_palindrome phrases():\n    assert is_palindrome(\"A man a plan a canal Panama\") == True\n\ndef test_is_palindrome_case_sensitive():\n    assert is_palindrome(\"No lemon, no melon\") == True\n\ndef test_is_palindrome_non_palindrome_phrases():\n    assert is_palindrome(\"This is not a palindrome\") == False\n\\n",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

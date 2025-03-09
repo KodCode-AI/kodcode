@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000061",
+    "row_id": 61,
+    "seed_ids": [
+      465
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given a problem from Project Euler, where you need to find a special Pythagorean triplet. A Pythagorean triplet is a set of three natural numbers, \\(a < b < c\\), such that:\n\n- \\(a^2 + b^2 = c^2\\)\n- \\(a + b + c = N\\)\n\nYou need to write a Python function to find such a triplet and return the product \\(a \\times b \\times c\\).\n\n### Constraints\n\n- \\(3 \\leq N \\leq 1000\\)\n- \\(N\\) is a natural number.\n\n### Example\n\n- For \\(N = 1000\\), the function should return \\(31875000\\).\n\n### Task\n\nWrite a Python function `find_pythagorean_triplet_product(N: int) -> int` that returns the product of the Pythagorean triplet for a given \\(N\\).\n\n### Guidelines\n\n- You are not allowed to use the provided code snippet directly.\n- Ensure your solution is efficient and handles the constraints effectively.\n\n### Implementation\n\n```python\ndef find_pythagorean_triplet_product(N: int) -> int:\n    # Your implementation here\n    pass\n```\n\n### Example Usage\n\n```python\nassert find_pythagorean_triplet_product(12) == 60\nassert find_pythagorean_triplet_product(1000) == 31875000\n```\n\n### Explanation\n\nThis problem requires understanding the properties of Pythagorean triplets and implementing an efficient algorithm to find the triplet. The brute-force approach can be improved using mathematical properties or constraints.",
+  "solution_code": "def find_pythagorean_triplet_product(N: int) -> int:\n    \"\"\"\n    Finds the product of the Pythagorean triplet (a, b, c) for which a + b + c = N.\n    \"\"\"\n    for a in range(1, N // 3):\n        for b in range(a + 1, N // 2):\n            c = N - a - b\n            if a * a + b * b == c * c:\n                return a * b * c\n    return 0  # In case no triplet is found (though for 3 <= N <= 1000, this won't happen)",
+  "test_code": "``\nfrom solution import find_pythagorean_triplet_product\n\ndef test_find_pythagorean_triplet_product():\n    assert find_pythagorean_triplet_product(12) == 60\n    assert find_pythagorean_triplet_product(30) == 2700\n    assert find_pythagorean_triplet_product(1000) == 31875000\n    assert find_pythagorean_triplet_product(3) == 0  # No valid triplet for N < 12\n    assert find_pythagorean_triplet_product(20) == 1200\n\ntest_find_pythagorean_triplet_product()",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000181",
+    "row_id": 181,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find Fibonacci numbers up to a given limit 'n' and store the results in a list.",
+  "solution_code": "def fibonacci_up_to_n(n):\n    \"\"\"\n    Returns a list of Fibonacci numbers up to n.\n    \n    Parameters:\n    n (int): The upper limit for generating Fibonacci numbers.\n    \n    Returns:\n    list: A list of Fibonacci numbers.\n    \"\"\"\n    if n < 1:\n        return []\n    fibonacci_list = [0, 1]\n    while True:\n        next_fib = fibonacci_list[-1] + fibonacci_list[-2]\n        if next_fib > n:\n            break\n        fibonacci_list.append(next_fib)\n    return fibonacci_list",
+  "test_code": "def test_fibonacci_up_to_n():\n    assert fibonacci_up_to_n(10) == [0, 1, 1, 2, 3, 5, 8]\n    assert fibonacci_up_to_n(1) == [0, 1]\n    assert fibonacci_up_to_n(0) == []\n    assert fibonacci_up_to_n(20) == [0, 1, 1, 2, 3, 5, 8, 13, 21]\n    assert fibonacci_up_to_n(5) == [0, 1, 1, 2, 3, 5]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

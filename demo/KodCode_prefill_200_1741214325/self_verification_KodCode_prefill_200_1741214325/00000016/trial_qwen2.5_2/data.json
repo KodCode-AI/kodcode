@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000016",
+    "row_id": 16,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to count the number of unique characters, digits, and special characters in a given string. Count them separately and return as a tuple (unique_chars, digits, special_chars).",
+  "solution_code": "def count_chars(string):\n    \"\"\"\n    Counts the number of unique characters, digits, and special characters\n    in a given string and returns the counts as a tuple (unique_chars, digits, special_chars).\n    \"\"\"\n    unique_chars = set(string)\n    digits = sum(c.isdigit() for c in string)\n    special_chars = sum(not c.isalnum() for c in string)\n    return (len(unique_chars), digits, special_chars)",
+  "test_code": "`\ndef test_count_chars():\n    assert count_chars(\"HelloWorld123!\") == (10, 3, 2)\n    assert count_chars(\"\") == (0, 0, 0)\n    assert count_chars(\"1234567890\") == (0, 10, 0)\n    assert count_chars(\"!@#$%^&*()\") == (10, 0, 10)\n    assert count_chars(\"aAaA1234567890!@#$%^&*()\") == (7, 10, 10)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

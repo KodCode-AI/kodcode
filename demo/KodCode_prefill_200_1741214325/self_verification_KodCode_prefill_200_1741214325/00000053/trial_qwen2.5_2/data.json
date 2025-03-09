@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000053",
+    "row_id": 53,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string is a valid palindrome. A valid palindrome is a string that reads the same forward and backward, ignoring cases and non-alphanumeric characters.",
+  "solution_code": "def is_valid_palindrome(s: str) -> bool:\n    \"\"\"\n    Checks if the given string is a valid palindrome, ignoring cases and non-alphanumeric characters.\n    \"\"\"\n    # Normalize the string by removing non-alphanumeric characters and converting to lower case\n    normalized_str = ''.join(char.lower() for char in s if char.isalnum())\n    \n    # Check if the normalized string is equal to its reverse\n    return normalized_str == normalized_str[::-1]",
+  "test_code": "from solution import is_valid_palindrome\n\ndef test_is_valid_palindrome():\n    assert is_valid_palindrome(\"A man, a plan, a canal: Panama\") == True\n    assert is_valid_palindrome(\"race a car\") == False\n    assert is_valid_palindrome(\"No lemon, no melon\") == True\n    assert is_valid_palindrome(\"\") == True\n    assert is_valid_palindrome(\" \") == True\n    assert is_valid_palindrome(\"a.\") == True\n    assert is_valid_palindrome(\"0P\") == False\n    assert is_valid_palindrome(\"Was it a car or a cat I saw?\") == True",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

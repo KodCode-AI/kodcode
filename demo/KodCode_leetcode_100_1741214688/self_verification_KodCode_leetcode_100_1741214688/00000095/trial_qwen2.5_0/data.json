@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000095",
+    "row_id": 95,
+    "seed_ids": [
+      "1710",
+      "1557",
+      "587"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a **binary tree** with `n` nodes, where each node has a unique value from `1` to `n`, determine if the tree can be **partitioned** into two subsets such that the sum of values in each subset is equal. Return `true` if such a partition exists, otherwise return `false`.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef can_partition_bst(root: TreeNode) -> bool:\n    \"\"\"\n    Returns true if the tree can be partitioned into two subsets with equal sum.\n    \"\"\"\n    total_sum = sum_node_values(root)\n    if total_sum % 2 != 0:\n        return False\n    target = total_sum // 2\n    return can_partition_helper(root, target)\n\ndef sum_node_values(node: TreeNode) -> int:\n    if node is None:\n        return 0\n    return node.val + sum_node_values(node.left) + sum_node_values(node.right)\n\ndef can_partition_helper(node: TreeNode, target: int) -> bool:\n    if node is None:\n        return target == 0\n    return (can_partition_helper(node.left, target - node.val) or \n            can_partition_helper(node.right, target - node.val))",
+  "test_code": "from solution import TreeNode, can_partition_bst, sum_node_values\n\ndef test_can_partition_bst_true():\n    # Construct a BST with values 1 to 5\n    five = TreeNode(5)\n    four = TreeNode(4)\n    three = TreeNode(3)\n    two = TreeNode(2, left=four, right=five)\n    one = TreeNode(1, right=three)\n    assert can_partition_bst(one) == True\n\ndef test_can_partition_bst_false():\n    # Construct a BST with values 1, 2, 3\n    three = TreeNode(3)\n    two = TreeNode(2)\n    one = TreeNode(1, right=three, left=two)\n    assert can_partition_bst(one) == False\n\ndef test_sum_node_values():\n    root = TreeNode(5, left=TreeNode(3), right=TreeNode(1))\n    assert sum_node_values(root) == 9\n\ndef test_can_partition_helper():\n    root = TreeNode(5, left=TreeNode(3), right=TreeNode(1))\n    assert can_partition_helper(root, 8) == True\n    assert can_partition_helper(root, 9) == False",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

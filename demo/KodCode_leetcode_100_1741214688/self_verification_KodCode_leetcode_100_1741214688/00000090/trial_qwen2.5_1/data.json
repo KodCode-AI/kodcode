@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000090",
+    "row_id": 90,
+    "seed_ids": [
+      "2320",
+      "2021",
+      "647"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, a **substring** `t` of `s` is called **balanced** if the number of vowels (`a`, `e`, `i`, `o`, `u`) in `t` is equal to the number of consonants. Return the number of **balanced** substrings in `s`.",
+  "solution_code": "def count_balanced_substrings(s):\n    \"\"\"\n    Counts the number of balanced substrings in the given string `s`.\n    A balanced substring has an equal number of vowels and consonants.\n    \"\"\"\n    vowels = set('aeiou')\n    count, balanced_count = 0, 0\n    \n    for char in s:\n        if char in vowels:\n            count += 1\n        else:\n            count -= 1\n        \n        if count == 0:\n            balanced_count += 1\n    \n    return balanced_count",
+  "test_code": "def test_count_balanced_substrings():\n    assert count_balanced_substrings(\"aebbcedee\") == 3\n    assert count_balanced_substrings(\"aaabbb\") == 0\n    assert count_balanced_substrings(\"aeiou\") == 1\n    assert count_balanced_substrings(\"accdedcba\") == 3\n    assert count_balanced_substrings(\"zxyz\") == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

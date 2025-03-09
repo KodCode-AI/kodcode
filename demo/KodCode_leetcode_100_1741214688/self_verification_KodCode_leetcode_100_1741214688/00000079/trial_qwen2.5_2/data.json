@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000079",
+    "row_id": 79,
+    "seed_ids": [
+      "1157",
+      "751",
+      "2288"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a class `RangeFreqQuery` that supports efficient frequency queries on a given array `arr`. The goal is to implement a method that can quickly determine the frequency of any element within a specified range of the array. Specifically, implement the `RangeFreqQuery` class:\n\n- `RangeFreqQuery(int[] arr)`: Initializes the class with the given array `arr`.\n- `int query(int left, int right, int value)`: Returns the frequency of the value `value` in the subarray `arr[left...right]`.\n\nFor example, given the array `arr = [1, 2, 2, 3, 3, 3, 4]`, the query `query(0, 6, 3)` should return `3` since the value `3` appears three times in the subarray `arr[0...6]`.",
+  "solution_code": "from collections import defaultdict\n\nclass RangeFreqQuery:\n    def __init__(self, arr):\n        \"\"\"\n        Initializes the class with the given array `arr`.\n        \"\"\"\n        self.freq_map = defaultdict(list)\n        for index, value in enumerate(arr):\n            self.freq_map[value].append(index)\n\n    def query(self, left, right, value):\n        \"\"\"\n        Returns the frequency of the value `value` in the subarray `arr[left...right]`.\n        \"\"\"\n        indices = self.freq_map[value]\n        if not indices:\n            return 0\n        left_index = self.bisect_left(indices, left)\n        right_index = self.bisect_right(indices, right)\n        return right_index - left_index\n\n    def bisect_left(self, arr, target):\n        \"\"\"\n        Returns the leftmost index to insert `target` in `arr` to maintain sorted order.\n        \"\"\"\n        lo, hi = 0, len(arr)\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if arr[mid] < target:\n                lo = mid + 1\n            else:\n                hi = mid\n        return lo\n\n    def bisect_right(self, arr, target):\n        \"\"\"\n        Returns the rightmost index to insert `target` in `arr` to maintain sorted order.\n        \"\"\"\n        lo, hi = 0, len(arr)\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if target < arr[mid]:\n                hi = mid\n            else:\n                lo = mid + 1\n        return lo",
+  "test_code": "def test_range_freq_query():\n    arr = [1, 2, 2, 3, 3, 3, 4]\n    freq_query = RangeFreqQuery(arr)\n\n    assert freq_query.query(0, 6, 3) == 3\n    assert freq_query.query(2, 5, 2) == 2\n    assert freq_query.query(0, 6, 1) == 1\n\n    # Additional tests\n    assert freq_query.query(3, 6, 3) == 2\n    assert freq_query.query(0, 2, 2) == 2\n    assert freq_query.query(4, 6, 4) == 1\n\ntest_range_freq_query()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

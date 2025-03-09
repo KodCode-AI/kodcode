@@ -14,14 +14,17 @@ from jinja2 import Environment, FileSystemLoader, exceptions
 def get_args():
     # Experiment Settings
     parser = argparse.ArgumentParser(description="Unit Test Generation Manager.")
-    parser.add_argument("--unit_test_folder", type=str, default="../unit_test")
-    parser.add_argument("--output_folder", type=str, default="../data_step2")
+    parser.add_argument("--test_folder", type=str)
+    parser.add_argument("--output_folder", type=str, default="../demo")
     parser.add_argument("--save_to", type=str, default="json")
     
     return parser.parse_args()
 
 args = get_args() 
 print(f"Arguments: {args}") # For logging
+
+if args.test_folder is None:
+    raise ValueError("test_folder is required.")
 
 def get_prompt(instruction):
     env = Environment(loader=FileSystemLoader('prompts'))
@@ -36,11 +39,11 @@ total_count = 0
 pass_sequence_collection = []
 
 # Prepare output file path
-output_file_base = "PI"
-output_fail_file_base = "test_failed_5"
-unit_test_name = os.path.basename(args.unit_test_folder).replace("unit_test_", "")
-output_file = os.path.join(args.output_folder, f"{output_file_base}_{unit_test_name}.{args.save_to}")
-output_fail_file = os.path.join(args.output_folder, f"{output_fail_file_base}_{unit_test_name}_prepared.jsonl")
+output_file_base = "Verified"
+output_fail_file_base = "Failed"
+unit_test_name = os.path.basename(args.test_folder).replace("self_verification_", "")
+output_file = f"{args.output_folder}/{output_file_base}_{unit_test_name}.{args.save_to}"
+output_fail_file = f"{args.output_folder}/{output_fail_file_base}_{unit_test_name}_prepared.jsonl"
 
 # Clear output files if they exist
 if os.path.exists(output_file):
@@ -55,8 +58,8 @@ else:
     aggregated_data = [] if args.save_to != 'jsonl' else None
 
 # Iterate over each prompt directory (problem id) in unit_test_folder
-for prompt_dir in tqdm(sorted(os.listdir(args.unit_test_folder))):
-    prompt_path = os.path.join(args.unit_test_folder, prompt_dir)
+for prompt_dir in tqdm(sorted(os.listdir(args.test_folder))):
+    prompt_path = os.path.join(args.test_folder, prompt_dir)
     if not os.path.isdir(prompt_path):
         continue
     
@@ -74,7 +77,7 @@ for prompt_dir in tqdm(sorted(os.listdir(args.unit_test_folder))):
     
     # Iterate through each trial folder
     for trial_dir in sorted(os.listdir(prompt_path)):
-        if not trial_dir.startswith('trial_gpt4o_'):
+        if not trial_dir.startswith('trial_'):
             continue
         
         trial_path = os.path.join(prompt_path, trial_dir)
@@ -171,7 +174,7 @@ for prompt_dir in tqdm(sorted(os.listdir(args.unit_test_folder))):
         with open(output_fail_file, 'a') as outf:
             outf.write(json.dumps(problem_data) + "\n")
     else: # At least one passing solution
-        # Use the first passing solution as the response
+        # Use the chosen passing solution as the response
         response = chosen_passing_solution
         test_code = chosen_passing_test
             
@@ -203,7 +206,7 @@ if args.save_to != 'jsonl':
     with open(output_file, 'w') as outf:
         json.dump(aggregated_data, outf, indent=2)
 
-print(f"Finished processing data from {args.unit_test_folder}.")
+print(f"Finished processing data from {args.test_folder}.")
 print(f"Output File Path: {output_file}")
 print(f"\nStats:")
 print(f"Total examples processed: {total_count}")
@@ -238,14 +241,14 @@ for k in sorted(samples_at_k.keys()):
     print(f"Samples at {k}: {samples_at_k[k]}")
 
 # Save Pass@K and Pass Count Distribution to a file
-with open(os.path.join(args.output_folder, f"pass_at_k_{unit_test_name}.json"), 'w') as f:
+with open(f"{args.output_folder}/pass_at_k_{unit_test_name}.json", 'w') as f:
     json.dump({
         "pass_at_k": pass_at_k,
         "total_count": total_count
     }, f, indent=2)
 
 # Save the data to a CSV file
-csv_file_path = os.path.join(args.output_folder, f"pass_at_k_{unit_test_name}.csv")
+csv_file_path = f"{args.output_folder}/pass_at_k_{unit_test_name}.csv"
 with open(csv_file_path, 'w', newline='') as csvfile:
     csv_writer = csv.writer(csvfile)
     

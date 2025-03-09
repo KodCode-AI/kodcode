@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000119",
+    "row_id": 119,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to replace all occurrences of a given substring in a string, but only for occurrences that are surrounded by spaces.",
+  "solution_code": "def replace_surrounded_substring(text, old_substring, new_substring):\n    \"\"\"\n    Replace all occurrences of old_substring in text with new_substring,\n    but only when the old_substring is surrounded by spaces.\n    \"\"\"\n    pattern = r'\\b' + re.escape(old_substring) + r'\\b'\n    return re.sub(pattern, new_substring, text)",
+  "test_code": "import re\n\ndef test_replace_surrounded_substring():\n    assert replace_surrounded_substring(\"hello world, world is great\", \"world\", \"earth\") == \"hello earth, earth is great\"\n    assert replace_surrounded_substring(\"hello  world, world is great\", \"world\", \"planet\") == \"hello  planet, planet is great\"\n    assert replace_surrounded_substring(\"hello_world, world is great\", \"world\", \"planet\") == \"hello_world, world is great\"\n    assert replace_surrounded_substring(\"hello  world world, world is great\", \"world\", \"planet\") == \"hello  planet planet, planet is great\"\n    assert replace_surrounded_substring(\"hello world\", \"world\", \"planet\") == \"hello planet\"\n    assert replace_surrounded_substring(\"hello world\", \"planet\", \"world\") == \"hello world\"\n    assert replace_surrounded_substring(\"hello  world  world  world\", \"world\", \"\") == \"hello  2\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

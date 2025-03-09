@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000067",
+    "row_id": 67,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the sum of all even numbers in a list. You should use list comprehension along with the `sum()` function to achieve this.",
+  "solution_code": "def sum_of_evens(numbers):\n    \"\"\"\n    Returns the sum of all even numbers in the given list.\n    \n    Example:\n    - Given [1, 2, 3, 4, 5, 6], it should return 12 (2 + 4 + 6 = 12).\n    \"\"\"\n    return sum([num for num in numbers if num % 2 == 0])",
+  "test_code": "from solution import sum_of_evens\n\ndef test_sum_of_evens_empty_list():\n    assert sum_of_evens([]) == 0\n\ndef test_sum_of_evens_all_odd():\n    assert sum_of_evens([1, 3, 5, 7]) == 0\n\ndef test_sum_of_evens_all_even():\n    assert sum_of_evens([2, 4, 6, 8]) == 20\n\ndef test_sum_of_evens_mixed_numbers():\n    assert sum_of_evens([1, 2, 3, 4, 5, 6]) == 12\n\ndef test_sum_of_evens_with_zero():\n    assert sum_of_evens([0, 1, 2, 3, 4]) == 6",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

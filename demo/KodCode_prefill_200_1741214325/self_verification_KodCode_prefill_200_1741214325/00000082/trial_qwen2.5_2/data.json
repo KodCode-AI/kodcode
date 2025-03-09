@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000082",
+    "row_id": 82,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find disjunctive normal form (DNF) of a 2-variable boolean formula using the sympy library. Provide a simple explanation of the function and its inputs/output.",
+  "solution_code": "from sympy import symbols, And, Or, Not, to_dnf\n\n# Define the symbols\nx, y = symbols('x y')\n\ndef to_disjunctive_normal_form(formula):\n    \"\"\"\n    Returns the disjunctive normal form (DNF) of a 2-variable boolean formula.\n    \n    Parameters:\n    formula (str): A string representing a 2-variable boolean formula using 'x', 'y', and logical operators 'and', 'or', 'not'.\n\n    Returns:\n    str: The disjunctive normal form of the given formula.\n    \"\"\"\n    # Use sympy's to_dnf function to convert the formula to DNF\n    dnf_formula = to_dnf(formula)\n    return str(dnf_formula)",
+  "test_code": "import pytest\n\ndef test_to_disjunctive_normal_form():\n    # Test cases for the to_disjunctive_normal_form function\n    assert to_disjunctive_normal_form(\"x and y\") == \"(x & y)\"\n    assert to_disjunctive_normal_form(\"not x and y\") == \"((~x) & y)\"\n    assert to_disjunctive_normal_form(\"x or y\") == \"(x | y)\"\n    assert to_disjunctive_normal_form(\"not x or y\") == \"(((~x) | y))\"\n    assert to_disjunctive_normal_form(\"not x and not y\") == \"((~x) & (~y))\"\n    assert to_disjunctive_normal_form(\"not (x and y)\") == \"((~(x & y)))\"\n    assert to_disjunctive_normal_form(\"true and x\") == \"(True & x)\"\n    assert to_disjunctive_normal_form(\"false or y\") == \"(((False) | y))\"\n\n    # Edge cases\n    assert to_disjunctive_normal_form(\"x\") == \"x\"\n    assert to_disjunctive_normal_form(\"not x\") == \"~x\"\n    assert to_disjunctive_normal_form(\"true\") == \"True\"\n    assert to_disjunctive_normal_form(\"false\") == \"False\"\n\ndef test_to_disjunctive_normal_form_invalid_syntax():\n    # Invalid formula should throw a ValueError\n    with pytest.raises(ValueError):\n        to_disjunctive_normal_form(\"x and\")\n\ndef test_to_disjunctive_normal_form_malformed():\n    # Malformed formula should not evaluate correctly\n    assert to_disjunctive_normal_form(\"x and y or\") == \"(x & y & ~y)\"\n    assert to_disjunctive_normal_form(\"x and y or not z\") == \"(x & y & (~z))\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

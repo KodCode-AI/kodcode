@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000024",
+    "row_id": 24,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the number of paths from the top-left corner to the bottom-right corner of an M x N grid, where you can only move either down or right at any point in time. The function should handle cases where the grid size can be as large as 10x10 for efficiency. Use memoization to optimize the algorithm.",
+  "solution_code": "def count_paths(m, n, memo={}):\n    \"\"\"\n    Returns the number of unique paths from the top-left corner to the bottom-right corner\n    of an M x N grid. Movement is restricted to only down or right.\n    \"\"\"\n    key = (m, n)\n    if key in memo:\n        return memo[key]\n    if m == 1 or n == 1:\n        return 1  # Base case: if either dimension is 1, there's only one way to reach the end\n    memo[key] = count_paths(m - 1, n, memo) + count_paths(m, n - 1, memo)\n    return memo[key]",
+  "test_code": "from solution import count_paths\n\ndef test_count_paths_small_grid():\n    assert count_paths(2, 2) == 2\n\ndef test_count_paths_medium_grid():\n    assert count_paths(3, 3) == 6\n\ndef test_count_paths_large_grid():\n    assert count_paths(5, 5) == 70\n\ndef test_count_paths_one_row_or_column():\n    assert count_paths(1, 10) == 1\n    assert count_paths(10, 1) == 1\n\ndef test_count_paths_memoization():\n    # This tests the dynamic programming memoization effect by calling the function\n    # multiple times with the same inputs to check if it returns the cached result directly\n    count_paths(3, 3)\n    assert count_paths(3, 3) == 6  # Verifies the result comes from memoization",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

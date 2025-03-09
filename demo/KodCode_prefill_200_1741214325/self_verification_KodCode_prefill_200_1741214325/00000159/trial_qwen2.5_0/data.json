@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000159",
+    "row_id": 159,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a string without using extra space.",
+  "solution_code": "def reverse_string(s):\n    \"\"\"\n    Reverses the given string `s` without using extra space.\n    \n    Args:\n    s (str): The string to be reversed.\n\n    Returns:\n    str: The reversed string.\n    \"\"\"\n    return s[::-1]",
+  "test_code": "from solution import reverse_string\n\ndef test_reverse_string_empty():\n    assert reverse_string(\"\") == \"\"\n\ndef test_reverse_string_single_char():\n    assert reverse_string(\"a\") == \"a\"\n\ndef test_reverse_string_regular():\n    assert reverse_string(\"hello\") == \"olleh\"\n\ndef test_reverse_string_with_spaces():\n    assert reverse_string(\"hello world\") == \"dlrow olleh\"\n\ndef test_reverse_string_special_chars():\n    assert reverse_string(\"!!hello!!\") == \"!!olleh!!\"\n    assert reverse_string(\"!hello-123! nguy\u00ean!\") == \"!nghi\u00ean grievances-321 olleh!\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

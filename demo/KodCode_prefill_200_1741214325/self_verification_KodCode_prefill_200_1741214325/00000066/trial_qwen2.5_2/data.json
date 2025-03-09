@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000066",
+    "row_id": 66,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum sum of a subarray within an array of integers. This is the famous Kadane's algorithm problem.",
+  "solution_code": "def max_subarray_sum(arr):\n    \"\"\"\n    Returns the maximum sum of a contiguous subarray within the one-dimensional array of numbers.\n    \"\"\"\n    if not arr:\n        return 0\n    \n    # Initialize max_sum and current_sum with the first element\n    max_sum = current_sum = arr[0]\n    \n    # Iterate through the array starting from the second element\n    for num in arr[1:]:\n        # If current_sum is negative, discard it and start a new subarray\n        current_sum = max(num, current_sum + num)\n        # Update max_sum if current_sum is greater\n        max_sum = max(max_sum, current_sum)\n    \n    return max_sum",
+  "test_code": "from solution import max_subarray_sum\n\ndef test_max_subarray_sum_positive():\n    assert max_subarray_sum([1, 2, 3, 4, -10, 10]) == 10\n\ndef test_max_subarray_sum_single_element():\n    assert max_subarray_sum([5]) == 5\n\ndef test_max_subarray_sum_all_negative():\n    assert max_subarray_sum([-2, -3, -1]) == -1\n\ndef test_max_subarray_sum_mixed_elements():\n    assert max_subarray_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6\n\ndef test_max_subarray_sum_empty_array():\n    assert max_subarray_sum([]) == 0",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

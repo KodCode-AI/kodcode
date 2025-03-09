@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000070",
+    "row_id": 70,
+    "seed_ids": [
+      "1473",
+      "191",
+      "2471"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a list of `n` robots, each robot has a unique identifier from `1` to `n`. Each robot can move to the left or right on a number line, and each robot can move a maximum of `k` units in one step. You are also given an array `orders` where `orders[i]` is a list of robot identifiers that need to be at position `i + 1` on the number line. The goal is to move all robots to their respective positions with the minimum number of steps. Each robot can only move to its designated position and cannot move to a position that has already been assigned to another robot. Return the minimum number of steps required to achieve the goal, or `-1` if it is impossible to move all robots to their designated positions.",
+  "solution_code": "def min_steps_to_positions(robots, orders, k):\n    \"\"\"\n    Calculate the minimum number of steps to move all robots to their designated positions.\n    If it's impossible, return -1.\n    \"\"\"\n    # Count how many robots need to go to each position\n    position_count = [0] * (len(orders) + 1)\n    for r in robots:\n        if r in orders:\n            position_count[orders.index(r)] += 1\n    \n    # Calculate the steps from each robot's current position to its target position\n    # and check if the total steps can be covered within the given limit\n    current_positions = list(range(1, len(position_count) + 1))\n    steps_needed = [abs(current_positions[i] - position_count[i]) for i in range(len(position_count))]\n    \n    # Sort both lists to process the farthest moves first\n    positions, steps = zip(*sorted(zip(current_positions, steps_needed), key=lambda x: x[1], reverse=True))\n    max_steps = sum(steps)\n    \n    if max_steps > k * len(robots):\n        return -1\n    \n    # Check if we can move every robot in time\n    remaining_steps = k * len(robots)\n    for p, s in zip(positions, steps):\n        if s > k:\n            return -1\n        remaining_steps -= s\n        if remaining_steps < 0:\n            return -1\n    \n    return max_steps",
+  "test_code": "def test_min_steps_to_positions():\n    assert min_steps_to_positions([2, 2, 3, 3], [2, 3], 2) == 4\n    assert min_steps_to_positions([2, 2, 2], [2, 2, 2], 2) == -1\n    assert min_steps_to_positions([1, 1, 2, 3], [1, 2, 3], 3) == 2\n    assert min_steps_to_positions([4], [1], 1) == -1\n    assert min_steps_to_positions([1, 2, 3], [1, 2, 3], 3) == 0\n\nif __name__ == \"__main__\":\n    import pytest\n    pytest.main([__file__])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000061",
+    "row_id": 61,
+    "seed_ids": [
+      "294",
+      "2562",
+      "1881"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary string `s` consisting only of `0`s and `1`s. A **substring** of `s` is called **good** if it does not contain more than one `0`. You are also given an integer `k`. Your task is to find the **maximum** number of **good** substrings that can be obtained by rearranging the characters of `s` and then splitting the string into at most `k` non-empty substrings. Return the maximum number of good substrings you can obtain.\n\nFor example, if `s = \"1001010011\"` and `k = 3`, one possible way to split `s` into good substrings is `\"10010\"`, `\"100\"`, and `\"11\"`, which gives a total of 3 good substrings.",
+  "solution_code": "def max_good_substrings(s: str, k: int) -> int:\n    \"\"\"\n    Returns the maximum number of good substrings that can be obtained by rearranging\n    the characters of s and then splitting the string into at most k non-empty substrings.\n    \"\"\"\n    n = len(s)\n    counts = [0] * (n + 1)\n    for i in range(n):\n        counts[i + 1] = counts[i] + (1 if s[i] == '0' else 0)\n    \n    max_good = 0\n    for i in range(min(n, k) + 1):\n        if counts[i] > 1:\n            break\n        mask = (1 << i) - 1\n        for j in range(i, n, i + 1):\n            if i == 0 or (counts[j + 1] - counts[j - i] > 1):\n                mask |= (1 << (j - i + 1))\n        max_good = max(max_good, bin(mask).count('1'))\n    return max_good",
+  "test_code": "import pytest\n\ndef test_max_good_substrings():\n    assert max_good_substrings(\"1001010011\", 3) == 3\n    assert max_good_substrings(\"1000\", 1) == 2\n    assert max_good_substrings(\"100010001000\", 3) == 6\n    assert max_good_substrings(\"1111\", 2) == 3\n    assert max_good_substrings(\"101010\", 4) == 4\n    assert max_good_substrings(\"101010\", 2) == 3\n    assert max_good_substrings(\"1111111\", 2) == 2\n    assert max_good_substrings(\"0000\", 3) == 3\n\npytest.main([\"-v\", __file__])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

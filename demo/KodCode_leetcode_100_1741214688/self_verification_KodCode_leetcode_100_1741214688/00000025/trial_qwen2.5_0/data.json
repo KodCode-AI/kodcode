@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000025",
+    "row_id": 25,
+    "seed_ids": [
+      "438",
+      "2134",
+      "1288"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an array of integers `nums` and a positive integer `k`, return the maximum sum of a non-empty subarray of size `k` that contains at least one negative number. If there is no such subarray, return 0. A subarray is a contiguous part of an array.",
+  "solution_code": "def max_subarray_sum(nums, k):\n    \"\"\"\n    Returns the maximum sum of a non-empty subarray of size k that contains at least one negative number.\n    If there is no such subarray, returns 0.\n    \"\"\"\n    if len(nums) < k or k == 0:\n        return 0\n    \n    max_sum = float('-inf')\n    current_sum = 0\n    negative_included = False\n    for i in range(len(nums)):\n        current_sum += nums[i]\n        if nums[i] < 0:\n            negative_included = True\n        if i >= k - 1:\n            if negative_included and current_sum > max_sum:\n                max_sum = current_sum\n            if nums[i - k + 1] < 0:\n                negative_included = False\n            current_sum -= nums[i - k + 1]\n    \n    return max_sum if max_sum != float('-inf') else 0",
+  "test_code": "def test_max_subarray_sum():\n    assert max_subarray_sum([1, -1, 1], 3) == 0, \"Test case 1 failed\"\n    assert max_subarray_sum([-1, -2, -3, 4, 2, 3, 1], 3) == 9, \"Test case 2 failed\"\n    assert max_subarray_sum([1, 2, 3, -1, 2, 3], 3) == 6, \"Test case 3 failed\"\n    assert max_subarray_sum([1, 2, 3, 4, 5], 1) == 5, \"Test case 4 failed\"\n    assert max_subarray_sum([1, 2, 3, 4, 5], 5) == 15, \"Test case 5 failed\"\n    assert max_subarray_sum([10, 20, 30, -45, 19, 25], 4) == 35, \"Test case 6 failed\"\n\ndef test_with_empty_or_shorter_than_k():\n    assert max_subarray_sum([10, 20, 30], 4) == 0, \"Test case 7 failed\"\n    assert max_subarray_sum([], 1) == 0, \"Test case 8 failed\"\n    assert max_subarray_sum([1, 2, 3, 4, 5, 6], 7) == 0, \"Test case 9 failed\"\n\ndef test_no_negative_numbers_return_zero():\n    assert max_subarray_sum([1, 2, 3, 4, 5], 1) == 5, \"Test case 10 failed\"\n    assert max_subarray_sum([1, 2, 3, 4, 5], 3) == 12, \"Test case 11 failed\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

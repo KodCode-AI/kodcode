@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000030",
+    "row_id": 30,
+    "seed_ids": [
+      "1189",
+      "227",
+      "1099"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `text`, you want to use the characters of `text` to form as many instances of the word **\"racecar \"** as possible.  You can use each character in `text` **at most once**. Return the maximum number of instances that can be formed.",
+  "solution_code": "from collections import Counter\n\ndef max_racecar_instances(text: str) -> int:\n    \"\"\"\n    Given a string `text`, returns the maximum number of \"racecar\" instances that can be formed using the characters in `text`.\n    Each character in `text` can be used at most once.\n    \"\"\"\n    racecar_counter = Counter(\"racecar\")\n    text_counter = Counter(text)\n    \n    # Calculate the minimum required full matches of \"racecar\" in text\n    return min(text_counter[char] // racecar_counter[char] for char in racecar_counter)",
+  "test_code": "def test_max_racecar_instances():\n    assert max_racecar_instances(\"\u8d5b\u8f66\u7ade\u6280\") == 0  # Chinese characters should not affect the count\n    assert max_racecar_instances(\"racecar\") == 1\n    assert max_racecar_instances(\"rcaacecar\") == 1\n    assert max_racecar_instances(\"racecarracecar\") == 2\n    assert max_racecar_instances(\"racecabracelerac\") == 1\n    assert max_racecar_instances(\"racecarabracadabra\") == 2\n    assert max_racecar_instances(\"a\") == 0\n    assert max_racecar_instances(\"racecarca\") == 1\n    assert max_racecar_instances(\"racecarra\") == 1\n    assert max_racecar_instances(\"racecarracecarracecar\") == 3\n\ntest_max_racecar_instances()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

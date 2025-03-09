@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000182",
+    "row_id": 182,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find all possible subsets of a set. You can return them as a list of lists.",
+  "solution_code": "from typing import List\n\ndef find_subsets(nums: List[int]) -> List[List[int]]:\n    \"\"\"\n    Returns all possible subsets of the given list of numbers.\n    \"\"\"\n    subsets = [[]]\n    for num in nums:\n        subsets += [subset + [num] for subset in subsets]\n    return subsets",
+  "test_code": "from solution import find_subsets\n\ndef test_find_subsets_empty():\n    assert find_subsets([]) == [[]]\n\ndef test_find_subsets_one_element():\n    assert find_subsets([1]) == [[], [1]]\n\ndef test_find_subsets_two_elements():\n    assert find_subsets([1, 2]) == [[], [1], [2], [1, 2]]\n\ndef test_find_subsets_three_elements():\n    assert find_subsets([1, 2, 3]) == [\n        [], \n        [1], \n        [2], \n        [1, 2], \n        [3], \n        [1, 3], \n        [2, 3], \n        [1, 2, 3]\n    ]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

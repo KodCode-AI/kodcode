@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000160",
+    "row_id": 160,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the second largest number in a list.",
+  "solution_code": "def find_second_largest(numbers):\n    \"\"\"\n    Returns the second largest number in the list `numbers`.\n    If the list has less than 2 unique numbers, it returns None.\n    \"\"\"\n    if len(numbers) < 2:\n        return None\n    \n    # Find the largest and second largest numbers\n    first, second = float('-inf'), float('-inf')\n    for num in numbers:\n        if num > first:\n            first, second = num, first\n        elif first > num > second:\n            second = num\n            \n    # Check if the second largest is still the same as the largest (in case of duplicates)\n    if second == float('-inf'):\n        return None\n    return second",
+  "test_code": "from solution import find_second_largest\n\ndef test_find_second_largest_with_multiple_elements():\n    assert find_second_largest([10, 20, 30, 40, 50]) == 40\n    assert find_second_largest([55, 22, 33, 11, 99]) == 55\n\ndef test_find_second_largest_with_duplicate_max_values():\n    assert find_second_largest([99, 99, 34, 67, 67]) == 67\n    assert find_second_largest([88, 88, 88, 88]) is None\n\ndef test_find_second_largest_with_one_unique_element():\n    assert find_second_largest([100]) is None\n    assert find_second_largest([100, 100]) is None\n\ndef test_find_second_largest_with_reversed_order():\n    assert find_second_largest([5, 4, 3, 2, 1]) == 4\n    assert find_second_largest([20, 15, 25, 10]) == 20\n\ndef test_find_second_largest_with_negative_numbers():\n    assert find_second_largest([-10, -20, -30, -25]) == -25\n    assert find_second_largest([-1, -1, -2, -3, -4]) == -2",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

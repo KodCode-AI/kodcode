@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000096",
+    "row_id": 96,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to evaluate an arithmetic expression given as a string. The expression includes integers, the operators '+', '-', '*', and '(', ')', and has at least one operator.",
+  "solution_code": "import re\nimport operator\n\ndef arithmetic_eval(expression):\n    \"\"\"\n    Evaluates an arithmetic expression given as a string.\n    \n    Supported operations: +, -, *, (, )\n    \"\"\"\n    operators = {'+': operator.add, '-': operator.sub, '*': operator.mul}\n    def calculate(expr):\n        if isinstance(expr, int):\n            return expr\n        op = expr[1]\n        if op == '-':\n            return -calculate(expr[2])\n        elif op == '*':\n            return calculate(expr[2]) * calculate(expr[3])\n        elif op == '+':\n            return calculate(expr[2]) + calculate(expr[3])\n    \n    def parse_expression(expr):\n        stack = []\n        i = 0\n        while i < len(expr):\n            if expr[i].isdigit():\n                start = i\n                while i < len(expr) and expr[i].isdigit():\n                    i += 1\n                stack.append(int(expr[start:i]))\n                continue\n            if expr[i] in '+-*(':\n                stack.append(expr[i])\n                i += 1\n                continue\n            if expr[i] == ')':\n                sub_expr = []\n                while stack[-1] != '(':\n                    sub_expr.append(stack.pop())\n                stack.pop()  # Remove the '('\n                sub_expr.reverse()\n                stack.append(calculate(sub_expr))\n                i += 1\n        return stack\n    \n    tokens = parse_expression(expression)\n    return calculate(tokens)",
+  "test_code": "def test_arithmetic_eval():\n    assert arithmetic_eval(\"1 + 2 * 3\") == 7\n    assert arithmetic_eval(\"(1 + 2) * 3 - 4\") == 3\n    assert arithmetic_eval(\"4 - (2 * (1 + 1))\") == 0\n    assert arithmetic_eval(\"2 * 3 + 1\") == 7\n    assert arithmetic_eval(\"2 - 3 + 1\") == 0\n    assert arithmetic_eval(\"2 * (3 + 1) - 4\") == 4",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

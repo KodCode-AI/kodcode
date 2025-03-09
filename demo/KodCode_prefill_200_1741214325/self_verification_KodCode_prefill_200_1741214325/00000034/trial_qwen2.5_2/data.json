@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000034",
+    "row_id": 34,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to print all prime numbers up to a given number. Also, include a simple test function with some test cases to ensure the correctness of the solution.",
+  "solution_code": "def print_primes(n):\n    \"\"\"\n    Prints all prime numbers up to a given number n.\n    \"\"\"\n    if n < 2:\n        return  # No primes less than 2\n    \n    # Print 2 separately since it's the only even prime number\n    if n >= 2:\n        print(2)\n    \n    # Create a boolean array \"prime[0..n]\" and initialize\n    # all entries it as true. A value in prime[i] will\n    # finally be false if i is Not a prime, else true.\n    prime = [True for _ in range(n+1)]\n    p = 2\n    while p * p <= n:\n        # If prime[p] is not changed, then it is a prime\n        if prime[p]:\n            # Updating all multiples of p to not prime\n            for i in range(p * p, n + 1, p):\n                prime[i] = False\n        p += 1\n    \n    # Print all prime numbers\n    for p in range(3, n+1, 2):\n        if prime[p]:\n            print(p)",
+  "test_code": "from solution import print_primes\n\ndef test_print_primes_small_number():\n    print_primes(10)  # Should print: 2, 3, 5, 7\n\ndef test_print_primes_large_number():\n    captured_output = capture_printed_output(print_primes, 50)\n    expected_output = \"2\\n3\\n5\\n7\\n11\\n13\\n17\\n19\\n23\\n29\\n31\\n37\\n41\\n43\\n47\\n\"\n    assert captured_output == expected_output\n\ndef test_print_primes_no_primes():\n    captured_output = capture_printed_output(print_primes, 2)\n    assert captured_output == \"\"\n\ndef test_print_primes_empty_input():\n    captured_output = capture_printed_output(print_primes, 1)\n    assert captured_output == \"\"\n\n# Helper function to capture printed output\ndef capture_printed_output(func, *args, **kwargs):\n    from io import StringIO\n    import sys\n    original_stdout = sys.stdout\n    captured_output = StringIO()\n    sys.stdout = captured_output\n    \n    func(*args, **kwargs)\n    \n    sys.stdout = original_stdout\n    return captured_output.getvalue().strip()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

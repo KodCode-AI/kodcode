@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000025",
+    "row_id": 25,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum sum of a subarray of size k within an input array of integers.",
+  "solution_code": "def max_sum_subarray(arr, k):\n    \"\"\"\n    Returns the maximum sum of any subarray of size k from the input array.\n    :param arr: List[int] -- input array of integers\n    :param k: int -- size of the subarray\n    :return: int -- maximum sum of a subarray of size k\n    \"\"\"\n    if not arr or k <= 0 or k > len(arr):\n        return None\n    max_sum = window_sum = sum(arr[:k])\n    for i in range(len(arr) - k):\n        window_sum = window_sum - arr[i] + arr[i + k]\n        max_sum = max(max_sum, window_sum)\n    return max_sum",
+  "test_code": "from solution import max_sum_subarray\n\ndef test_max_sum_subarray_with_positive_numbers():\n    assert max_sum_subarray([1, 4, 2, 10, 23, 3, 1, 0, 20], 4) == 39\n\ndef test_max_sum_subarray_with_negative_numbers():\n    assert max_sum_subarray([-1, -4, -2, -10, -23, -3, -1, -20], 4) == -8\n\ndef test_max_sum_subarray_with_zero():\n    assert max_sum_subarray([0, 0, 0, 0], 2) == 0\n\ndef test_max_sum_subarray_with_k_larger_than_array():\n    assert max_sum_subarray([1, 2, 3], 4) is None\n\ndef test_max_sum_subarray_with_small_array():\n    assert max_sum_subarray([1], 1) == 1\n\ndef test_max_sum_subarray_with_k_equal_to_array_size():\n    assert max_sum_subarray([1, 2, 3, 4, 5], 5) == 15",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

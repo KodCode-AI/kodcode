@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000131",
+    "row_id": 131,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a string without using the built-in reverse function or slicing. Also, ensure that your function works for both strings and integer sequences treated as strings.",
+  "solution_code": "def reverse_string(s):\n    \"\"\"\n    Reverses the input string without using the built-in reverse function or slicing.\n    \n    Parameters:\n    s (str or int): The string or integer sequence to be reversed.\n    \n    Returns:\n    str: The reversed string.\n    \"\"\"\n    reversed_string = ''\n    for char in s:\n        reversed_string = char + reversed_string\n    return reversed_string",
+  "test_code": "from solution import reverse_string\n\ndef test_reverse_string_empty():\n    assert reverse_string('') == ''\n\ndef test_reverse_string_single_character():\n    assert reverse_string('a') == 'a'\n    assert reverse_string(9) == '9'\n\ndef test_reverse_string_lowercase():\n    assert reverse_string('hello') == 'olleh'\n    \ndef test_reverse_string_uppercase():\n    assert reverse_string('WORLD') == 'DLROW'\n    \ndef test_reverse_string_mixed_case():\n    assert reverse_string('HelloWorld') == 'dlroWolleH'\n    \ndef test_reverse_string_with_spaces():\n    assert reverse_string('   ') == '   '\n    \ndef test_reverse_string_with_integers():\n    assert reverse_string(12345) == '54321'",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

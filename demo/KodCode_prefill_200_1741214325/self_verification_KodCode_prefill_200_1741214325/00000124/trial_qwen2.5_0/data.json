@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000124",
+    "row_id": 124,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the single number in a list where every other number appears exactly twice. The function should have a linear time complexity and use constant space.",
+  "solution_code": "def single_number(nums):\n    \"\"\"\n    Find the single number in a list where every other number appears exactly twice.\n    Assumes one and only one number appears once and all others appear twice.\n    Returns the number that appears exactly once.\n\n    Args:\n    nums (List[int]): A list of integers.\n\n    Returns:\n    int: The integer that appears exactly once.\n    \"\"\"\n    unique = 0\n    for num in nums:\n        unique ^= num\n    return unique",
+  "test_code": "from solution import single_number\n\ndef test_single_number():\n    assert single_number([2, 2, 1]) == 1\n    assert single_number([4, 1, 2, 1, 2]) == 4\n    assert single_number([8]) == 8\n    assert single_number([7, 3, 5, 3, 7, 5, 6]) == 6",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

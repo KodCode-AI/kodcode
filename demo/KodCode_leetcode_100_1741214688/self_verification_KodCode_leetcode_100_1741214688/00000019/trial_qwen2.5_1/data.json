@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000019",
+    "row_id": 19,
+    "seed_ids": [
+      "2432",
+      "2215",
+      "554"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with finding the lexicographically smallest substring that can be formed by rearranging any number of characters within the string. A substring is defined as a contiguous sequence of characters within a string.\n\nReturn the lexicographically smallest substring found. If the string is empty or consists of a single character, return the string itself.",
+  "solution_code": "def smallest_substring(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest substring that can be formed by rearranging any number of characters within the string.\n    \"\"\"\n    if len(s) <= 1:\n        return s\n    # Convert string to list for mutations\n    chars = list(s)\n    n = len(chars)\n    # Sort the string to find the smallest character\n    min_char = min(chars)\n    start = None\n    # Find starting index of the smallest character\n    for i in range(n):\n        if chars[i] == min_char:\n            start = i\n            break\n    # Find the ending index of the smallest character\n    for i in range(start, n):\n        if chars[i] > min_char:\n            end = i\n            break\n    else:\n        end = n\n    # Form the smallest substring by taking all characters from the sorted string up to the first occurrence of min_char\n    smallest_sub = ''.join(sorted(s[:end]))\n    return smallest_sub",
+  "test_code": "from solution import smallest_substring\n\ndef test_smallest_substring_single_char():\n    assert smallest_substring(\"a\") == \"a\"\n\ndef test_smallest_substring_short_string():\n    assert smallest_substring(\"abc\") == \"a\"\n\ndef test_smallest_substring_mixed_chars():\n    assert smallest_substring(\"cbabc\") == \"abc\"\n\ndef test_smallest_substring_empty_string():\n    assert smallest_substring(\"\") == \"\"\n\ndef test_smallest_substring_large_string():\n    s = \"zzzazzzzz\"\n    assert smallest_substring(s) == \"a\"\n\ndef test_smallest_substring_with_duplicates():\n    s = \"bacdbcd\"\n    assert smallest_substring(s) == \"bcd\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

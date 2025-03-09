@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000167",
+    "row_id": 167,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to count missing data (None) in a nested list.",
+  "solution_code": "def count_missing_data(nested_list):\n    \"\"\"\n    Counts the number of missing data (None) in a nested list.\n    \n    Parameters:\n    nested_list (list): A nested list containing any type of elements.\n    \n    Returns:\n    int: The count of missing data (None) in the nested list.\n    \"\"\"\n    count = 0\n    for element in nested_list:\n        if element is None:\n            count += 1\n        elif isinstance(element, list):\n            count += count_missing_data(element)\n    return count",
+  "test_code": "from solution import count_missing_data\n\ndef test_count_missing_data_empty_list():\n    assert count_missing_data([]) == 0\n\ndef test_count_missing_data_single_element():\n    assert count_missing_data([1]) == 0\n\ndef test_count_missing_data_single_none():\n    assert count_missing_data([None]) == 1\n\ndef test_count_missing_data_nested_none():\n    assert count_missing_data([[None, 2], [3, None]]) == 2\n\ndef test_count_missing_data_complex_nested():\n    assert count_missing_data([[None, 2, [None, 3]], [4, None, [5, None]]]) == 5\n\ndef test_count_missing_data_no_none():\n    assert count_missing_data([[1, 2], [3, 4]]) == 0\n\ndef test_count_missing_data_mixed():\n    assert count_missing_data([None, [1, None], [2, 3], None]) == 3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000099",
+    "row_id": 99,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to detect a cycle in a directed graph using DFS",
+  "solution_code": "from collections import defaultdict\n\ndef dfs(graph, current_node, visited, recursion_stack):\n    \"\"\"\n    Returns True if a cycle is detected in the graph using DFS.\n    \"\"\"\n    visited[current_node] = True\n    recursion_stack[current_node] = True\n\n    # Check all the adjacent nodes\n    for neighbor in graph[current_node]:\n        if not visited[neighbor]:\n            if dfs(graph, neighbor, visited, recursion_stack):\n                return True\n        elif recursion_stack[neighbor]:\n            return True\n\n    recursion_stack[current_node] = False\n    return False\n\ndef detect_cycle_in_directed_graph(graph):\n    \"\"\"\n    Returns True if the graph contains a cycle.\n    \"\"\"\n    num_nodes = len(graph)\n    visited = [False] * num_nodes\n    recursion_stack = [False] * num_nodes\n\n    for node in range(num_nodes):\n        if not visited[node]:\n            if dfs(graph, node, visited, recursion_stack):\n                return True\n\n    return False",
+  "test_code": "from solution import detect_cycle_in_directed_graph\n\ndef create_graph(edges):\n    \"\"\"\n    Helper function to create a graph from a list of edges.\n    \"\"\"\n    graph = defaultdict(list)\n    for u, v in edges:\n        graph[u].append(v)\n    return graph\n\ndef test_empty_graph():\n    assert not detect_cycle_in_directed_graph(create_graph([]))\n\ndef test_directed_cycle():\n    assert detect_cycle_in_directed_graph(create_graph([(0, 1), (1, 2), (2, 0)]))\n\ndef test_cyclic_graph():\n    assert detect_cycle_in_directed_graph(create_graph([(0, 1), (1, 3), (3, 2), (2, 0), (2, 4), (4, 2)]))\n\ndef test_non_cyclic_graph():\n    assert not detect_cycle_in_directed_graph(create_graph([(1, 2), (3, 4)]))\n    \ndef test_self_loop():\n    assert detect_cycle_in_directed_graph(create_graph([(0, 0)]))\n    \ndef test_chain():\n    assert not detect_cycle_in_directed_graph(create_graph([(0, 1), (1, 2), (2, 3)]))",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

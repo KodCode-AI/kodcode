@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000148",
+    "row_id": 148,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum depth of a binary tree. The function should return an integer representing the maximum depth.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef max_depth(root: TreeNode) -> int:\n    \"\"\"\n    Returns the maximum depth of a binary tree.\n    \"\"\"\n    if not root:\n        return 0\n    left_depth = max_depth(root.left) if root.left else 0\n    right_depth = max_depth(root.right) if root.right else 0\n    return max(left_depth, right_depth) + 1",
+  "test_code": "import pytest\nfrom solution import max_depth, TreeNode\n\ndef create_tree(*values):\n    nodes = [None if val is None else TreeNode(val) for val in values]\n    kids = nodes[::-1]\n    root = kids.pop()\n    for node in nodes:\n        if node:\n            if kids:\n                node.left = kids.pop()\n            if kids:\n                node.right = kids.pop()\n    return root\n\ndef test_max_depth_empty_tree():\n    assert max_depth(None) == 0\n\ndef test_max_depth_single_node():\n    node = TreeNode(1)\n    assert max_depth(node) == 1\n\ndef test_max_depth_balanced_tree():\n    root = create_tree(3, 9, 20, None, None, 15, 7)\n    assert max_depth(root) == 3\n\ndef test_max_depth_right_heavy_tree():\n    root = create_tree(1, None, 2, None, 3, None, 4)\n    assert max_depth(root) == 4\n\ndef test_max_depth_left_heavy_tree():\n    root = create_tree(1, 2, None, 3, 4, None, None)\n    assert max_depth(root) == 4",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

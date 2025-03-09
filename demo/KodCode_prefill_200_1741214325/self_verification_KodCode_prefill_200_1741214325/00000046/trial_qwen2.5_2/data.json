@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000046",
+    "row_id": 46,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a number is a palindrome number. A palindrome number is a number that remains the same when its digits are reversed, such as 121 or 1331.",
+  "solution_code": "def is_palindrome_number(number: int) -> bool:\n    \"\"\"\n    Checks if the given number is a palindrome number.\n    \n    Args:\n    number (int): The number to check\n    \n    Returns:\n    bool: True if the number is a palindrome, False otherwise.\n    \"\"\"\n    if number < 0:\n        return False\n    original_number = number\n    reversed_number = 0\n    while number > 0:\n        digit = number % 10\n        reversed_number = reversed_number * 10 + digit\n        number = number // 10\n    return original_number == reversed_number",
+  "test_code": "from solution import is_palindrome_number\n\ndef test_is_palindrome_number_positive():\n    assert is_palindrome_number(121) == True\n    assert is_palindrome_number(1331) == True\n    assert is_palindrome_number(12321) == True\n\ndef test_is_palindrome_number_zero():\n    assert is_palindrome_number(0) == True\n\ndef test_is_palindrome_number_single_digit():\n    assert is_palindrome_number(1) == True\n    assert is_palindrome_number(9) == True\n\ndef test_is_palindrome_number_negative():\n    assert is_palindrome_number(-121) == False\n\ndef test_is_palindrome_number_not_palindrome():\n    assert is_palindrome_number(123) == False\n    assert is_palindrome_number(56789) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

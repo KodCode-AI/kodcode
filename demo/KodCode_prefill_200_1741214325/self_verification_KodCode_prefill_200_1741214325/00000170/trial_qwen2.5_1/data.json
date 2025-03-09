@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000170",
+    "row_id": 170,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the sum of the first `n` natural numbers.",
+  "solution_code": "def sum_of_naturals(n):\n    \"\"\"\n    Returns the sum of the first n natural numbers.\n    \"\"\"\n    return n * (n + 1) // 2",
+  "test_code": "from solution import sum_of_naturals\n\ndef test_sum_of_naturals_positive_numbers():\n    assert sum_of_naturals(5) == 15\n\ndef test_sum_of_naturals_zero():\n    assert sum_of_naturals(0) == 0\n\ndef test_sum_of_naturals_one():\n    assert sum_of_naturals(1) == 1\n\ndef test_sum_of_naturals_large_number():\n    assert sum_of_naturals(100) == 5050",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

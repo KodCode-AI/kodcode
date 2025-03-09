@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000084",
+    "row_id": 84,
+    "seed_ids": [
+      "1506",
+      "2281",
+      "1923"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a list of integers representing the heights of buildings on a city street. Each building's height is given by a positive integer. A group of buildings is considered **monotonic** if the heights either strictly increase or strictly decrease when moving from left to right. \n\nYour task is to find the maximum number of buildings that can be included in a monotonic group within the given list of building heights. \n\n**Note**: A group of buildings can consist of a single building, and adjacent buildings in the group must have consecutive heights (i.e., the height difference between any two adjacent buildings in the group is exactly 1).\n\nReturn the maximum size of such a monotonic group.\n\nExample 1:\n```\nInput: heights = [5, 4, 3, 2, 1, 2, 3, 4, 5]\nOutput: 5\nExplanation: The longest monotonic group is [5, 4, 3, 2, 1] or [1, 2, 3, 4, 5].\n```\n\nExample 2:\n```\nInput: heights = [1, 3, 5, 4, 2, 4, 6]\nOutput: 4\nExplanation: The longest monotonic group is [1, 3, 5] or [2, 4, 6].\n```\n\nConstraints:\n- `1 <= heights.length <= 10^5`\n- `1 <= heights[i] <= 10^9`",
+  "solution_code": "def max_monotonic_group(heights):\n    \"\"\"\n    Returns the maximum size of a monotonic group of buildings with consecutive heights.\n\n    :param heights: List[int] representing the heights of buildings.\n    :return: int representing the maximum size of such a monotonic group.\n    \"\"\"\n    n = len(heights)\n    max_length = 1\n    current_length = 1\n\n    for i in range(1, n):\n        if heights[i] == heights[i - 1] + 1 or heights[i] == heights[i - 1] - 1:\n            current_length += 1\n            max_length = max(max_length, current_length)\n        else:\n            current_length = 1\n\n    return max_length",
+  "test_code": "from solution import max_monotonic_group\n\ndef test_max_monotonic_group():\n    assert max_monotonic_group([5, 4, 3, 2, 1, 2, 3, 4, 5]) == 5\n    assert max_monotonic_group([1, 3, 5, 4, 2, 4, 6]) == 4\n    assert max_monotonic_group([10, 11, 12, 13, 14, 15]) == 6\n    assert max_monotonic_group([15, 14, 13, 12, 11, 10]) == 6\n    assert max_monotonic_group([8, 7, 6, 5, 4, 3, 2, 1, 8, 9]) == 5\n    assert max_monotonic_group([1]) == 1\n    assert max_monotonic_group([2, 2, 2, 2]) == 1\n    assert max_monotonic_group([1, 2, 3, 2, 1, 0]) == 3\n\ntest_max_monotonic_group()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000051",
+    "row_id": 51,
+    "seed_ids": [
+      "2515",
+      "264",
+      "1656"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a class `CustomComparator` that implements a custom sorting algorithm for an array of integers. The sorting algorithm should sort the array in ascending order based on the following rules:\n\n1. Elements at even indices should be sorted in ascending order.\n2. Elements at odd indices should be sorted in descending order.\n\nYour task is to implement the `CustomComparator` class with the following methods:\n\n- `CustomComparator(int[] arr)`: Constructor that initializes the array to be sorted.\n- `void sort()`: Sorts the array according to the rules mentioned above.\n- `int[] getResult()`: Returns the sorted array.\n\nAdditionally, provide a `main` method to test your implementation with a sample array and print the sorted array.",
+  "solution_code": "class CustomComparator:\n    def __init__(self, arr):\n        \"\"\"\n        Initializes the array to be sorted.\n        \"\"\"\n        self.arr = arr[:]\n\n    def sort(self):\n        \"\"\"\n        Sorts the array according to the rules:\n        - Elements at even indices are sorted in ascending order.\n        - Elements at odd indices are sorted in descending order.\n        \"\"\"\n        even_indices = sorted([self.arr[i] for i in range(0, len(self.arr), 2)])\n        odd_indices = sorted([self.arr[i] for i in range(1, len(self.arr), 2)], reverse=True)\n        \n        sorted_arr = []\n        for i in range(len(self.arr)):\n            if i % 2 == 0:\n                sorted_arr.append(even_indices.pop(0))\n            else:\n                sorted_arr.append(odd_indices.pop(0))\n        \n        self.arr = sorted_arr\n\n    def get_result(self):\n        \"\"\"\n        Returns the sorted array.\n        \"\"\"\n        return self.arr\n\n\ndef main():\n    comparator = CustomComparator([10, 11, 12, 13, 14, 15, 16, 17])\n    comparator.sort()\n    print(comparator.get_result())  # Expected output: [10, 17, 12, 15, 14, 13, 16, 11]\n\n\nif __name__ == \"__main__\":\n    main()",
+  "test_code": "from solution import CustomComparator\n\ndef test_custom_comparator():\n    comparator = CustomComparator([10, 11, 12, 13, 14, 15, 16, 17])\n    comparator.sort()\n    assert comparator.get_result() == [10, 17, 12, 15, 14, 13, 16, 11]\n\ndef test_empty_array():\n    comparator = CustomComparator([])\n    comparator.sort()\n    assert comparator.get_result() == []\n\ndef test_single_element_array():\n    comparator = CustomComparator([1])\n    comparator.sort()\n    assert comparator.get_result() == [1]\n\ndef test_odd_element_array():\n    comparator = CustomComparator([10, 11, 12])\n    comparator.sort()\n    assert comparator.get_result() == [10, 12, 11]\n\ndef test_all_even_indices_same():\n    comparator = CustomComparator([10, 10, 10, 10])\n    comparator.sort()\n    assert comparator.get_result() == [10, 10, 10, 10]\n\ndef test_all_odd_indices_same():\n    comparator = CustomComparator([10, 20, 10, 20])\n    comparator.sort()\n    assert comparator.get_result() == [10, 20, 10, 20]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

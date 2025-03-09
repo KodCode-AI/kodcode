@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000061",
+    "row_id": 61,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the first occurrence of an element in an array that is not repeated (i.e., appears exactly once). If there is no such element, return -1.",
+  "solution_code": "def find_unique_element(arr):\n    \"\"\"\n    Returns the index of the first unique element in the given array.\n    If no unique element is found, returns -1.\n    \"\"\"\n    element_counts = {}\n    \n    # Count occurrences of each element\n    for i, num in enumerate(arr):\n        if num in element_counts:\n            element_counts[num] += 1\n        else:\n            element_counts[num] = 1\n    \n    # Find the first unique element's index\n    for i, num in enumerate(arr):\n        if element_counts[num] == 1:\n            return i\n    \n    return -1",
+  "test_code": "from solution import find_unique_element\n\ndef test_find_unique_element():\n    assert find_unique_element([2, 3, 4, 5, 4]) == 1\n    assert find_unique_element([1, 2, 3, 4, 4, 3, 2]) == 0\n    assert find_unique_element([1, 1, 2, 2, 3, 3]) == -1\n    assert find_unique_element([10, 20, 20, 30]) == 0\n    assert find_unique_element([7, 7, 7, 7]) == -1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

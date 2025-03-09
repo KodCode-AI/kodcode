@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000195",
+    "row_id": 195,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a binary tree to its mirror. The function should take a single parameter, which is the root of the binary tree.",
+  "solution_code": "class TreeNode:\n    def __init__(self, key):\n        self.left = None\n        self.right = None\n        self.key = key\n\n    def insert(self, key):\n        if self.key:\n            if key < self.key:\n                if self.left is None:\n                    self.left = TreeNode(key)\n                else:\n                    self.left.insert(key)\n            elif key > self.key:\n                if self.right is None:\n                    self.right = TreeNode(key)\n                else:\n                    self.right.insert(key)\n        else:\n            self.key = key\n\n\ndef mirror_tree(root):\n    \"\"\"\n    Returns the mirror image of a binary tree by swapping the left and right children of every node.\n    \"\"\"\n    if root is not None:\n        # Swap the left and right children\n        root.left, root.right = root.right, root.left\n        # Recursively call the function for the left subtree\n        mirror_tree(root.left)\n        # Recursively call the function for the right subtree\n        mirror_tree(root.right)",
+  "test_code": "import pytest\nfrom solution import TreeNode, mirror_tree\n\n# Helper function to create a binary tree from pre-order traversal\ndef create_tree(preorder):\n    root = None\n    for value in preorder:\n        if root is None:\n            root = TreeNode(value)\n        else:\n            root.insert(value)\n    return root\n\n# Helper function to get the in-order traversal of a tree\ndef inorder_traversal(root):\n    if root is None:\n        return []\n    return inorder_traversal(root.left) + [root.key] + inorder_traversal(root.right)\n\ndef test_mirror_tree_simple():\n    preorder = [1, 2, 4, 5, 3, 6, 7]\n    root = create_tree(preorder)\n    mirrored_root = mirror_tree(root)\n    expected_inorder = [4, 2, 5, 1, 6, 3, 7]\n    assert inorder_traversal(mirrored_root) == expected_inorder\n\ndef test_mirror_tree_empty_tree():\n    root = None\n    mirrored_root = mirror_tree(root)\n    assert mirrored_root is None\n\ndef test_mirror_tree_single_node():\n    root = TreeNode(1)\n    mirrored_root = mirror_tree(root)\n    assert mirrored_root.key == 1 and mirrored_root.left is None and mirrored_root.right is None\n\ndef test_mirror_tree_complex():\n    preorder = [10, 20, 15, 30, 35, 40]\n    root = create_tree(preorder)\n    mirrored_root = mirror_tree(root)\n    expected_inorder = [15, 30, 35, 20, 40, 10]\n    assert inorder_traversal(mirrored_root) == expected_inorder",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

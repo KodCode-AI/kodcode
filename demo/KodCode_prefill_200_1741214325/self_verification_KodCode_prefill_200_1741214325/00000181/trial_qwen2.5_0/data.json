@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000181",
+    "row_id": 181,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find Fibonacci numbers up to a given limit 'n' and store the results in a list.",
+  "solution_code": "def fibonacci_up_to(n):\n    \"\"\"\n    Returns a list of Fibonacci numbers up to a given limit 'n'.\n    \"\"\"\n    if n <= 0:\n        return []\n    fib_list = [0]\n    if n == 1:\n        return fib_list\n    fib_list.append(1)\n    while True:\n        next_fib = fib_list[-1] + fib_list[-2]\n        if next_fib > n:\n            break\n        fib_list.append(next_fib)\n    return fib_list",
+  "test_code": "from solution import fibonacci_up_to\n\ndef test_fibonacci_up_to_zero():\n    assert fibonacci_up_to(0) == []\n\ndef test_fibonacci_up_to_one():\n    assert fibonacci_up_to(1) == [0]\n\ndef test_fibonacci_up_to_five():\n    assert fibonacci_up_to(5) == [0, 1, 1, 2, 3]\n\ndef test_fibonacci_up_to_ten():\n    assert fibonacci_up_to(10) == [0, 1, 1, 2, 3, 5, 8]\n\ndef test_fibonacci_up_to_large_limit():\n    assert fibonacci_up_to(100) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000064",
+    "row_id": 64,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to detect and remove duplicate elements from a list. Write a test case to validate your function.",
+  "solution_code": "def remove_duplicates(lst):\n    \"\"\"\n    Returns a new list with duplicates removed while preserving the original order.\n    \n    Args:\n    lst (list): The input list which may contain duplicate elements.\n    \n    Returns:\n    list: A list with unique elements.\n    \"\"\"\n    unique_elements = []\n    seen = set()\n    for item in lst:\n        if item not in seen:\n            unique_elements.append(item)\n            seen.add(item)\n    return unique_elements",
+  "test_code": "def test_remove_duplicates():\n    # Test with a list that has duplicates\n    assert remove_duplicates([1, 2, 2, 3, 4, 4, 4, 5]) == [1, 2, 3, 4, 5]\n    \n    # Test with a list that has no duplicates\n    assert remove_duplicates([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]\n    \n    # Test with an empty list\n    assert remove_duplicates([]) == []\n    \n    # Test with a list that has all the same elements\n    assert remove_duplicates([1, 1, 1, 1, 1]) == [1]\n    \n    # Test with a list that has strings with duplicates\n    assert remove_duplicates([\"apple\", \"banana\", \"apple\", \"orange\"]) == [\"apple\", \"banana\", \"orange\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

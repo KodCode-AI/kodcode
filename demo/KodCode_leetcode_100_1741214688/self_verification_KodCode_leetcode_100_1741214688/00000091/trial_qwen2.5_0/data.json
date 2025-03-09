@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000091",
+    "row_id": 91,
+    "seed_ids": [
+      "1460",
+      "1379",
+      "32"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` (a string consisting only of `'0's` and `'1's`), you can perform the following operation any number of times: choose any **non-empty subsequence** of `s` and toggle all its characters (i.e., change all `'0's` to `'1's` and all `'1's` to `'0's`). Determine if it is possible to make the string `s` **palindromic** (the same string read from left to right and from right to left) using these operations. Return `true` if it is possible, otherwise return `false`.",
+  "solution_code": "def can_make_palindrome(s):\n    \"\"\"\n    Determines if it is possible to make the binary string s palindromic\n    by toggling any non-empty subsequence any number of times.\n    \"\"\"\n    toggle_count = 0\n    for i in range(len(s) // 2):\n        if s[i] != s[~i]:  # ~i is equivalent to -i-1\n            toggle_count += 1\n    return toggle_count <= 1",
+  "test_code": "def test_can_make_palindrome():\n    assert can_make_palindrome(\"0000\") == True\n    assert can_make_palindrome(\"010010101\") == True\n    assert can_make_palindrome(\"0010100\") == True\n    assert can_make_palindrome(\"0101011\") == False\n    assert can_make_palindrome(\"11001011\") == True\n    assert can_make_palindrome(\"0001000\") == True\n    assert can_make_palindrome(\"1001001\") == True\n    assert can_make_palindrome(\"0110001\") == False",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

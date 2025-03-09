@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000118",
+    "row_id": 118,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the minimum element in a list.",
+  "solution_code": "def find_minimum(lst):\n    \"\"\"\n    Returns the minimum element in the given list.\n    \"\"\"\n    if not lst:  # check if the list is empty\n        return None\n    \n    min_element = lst[0]\n    for element in lst[1:]:\n        if element < min_element:\n            min_element = element\n            \n    return min_element",
+  "test_code": "from solution import find_minimum\n\ndef test_find_minimum_with_positive_numbers():\n    assert find_minimum([3, 1, 4, 1, 5, 9]) == 1\n\ndef test_find_minimum_with_negative_numbers():\n    assert find_minimum([-2, -3, -1, -4]) == -4\n\ndef test_find_minimum_with_mixed_numbers():\n    assert find_minimum([-5, 0, 5, -1, 10]) == -5\n\ndef test_find_minimum_with_empty_list():\n    assert find_minimum([]) is None\n\ndef test_find_minimum_with_single_element():\n    assert find_minimum([42]) == 42",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

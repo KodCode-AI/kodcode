@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000031",
+    "row_id": 31,
+    "seed_ids": [
+      "1361",
+      "485",
+      "1629"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with finding the lexicographically largest substring that is a palindrome. A palindrome is a string that reads the same backward as forward. If there are multiple palindromic substrings of the same length, return the one that is lexicographically largest. A substring is any contiguous sequence of characters within a string.",
+  "solution_code": "def find_largest_palindromic_substring(s):\n    \"\"\"\n    Finds the lexicographically largest palindromic substring in the given string s.\n    \"\"\"\n    def expand_around_center(left, right):\n        while left >= 0 and right < len(s) and s[left] == s[right]:\n            left -= 1\n            right += 1\n        return s[left + 1:right]\n    \n    largest_palindrome = \"\"\n    for i in range(len(s)):\n        # Odd length palindromes\n        palindrome_odd = expand_around_center(i, i)\n        # Even length palindromes\n        palindrome_even = expand_around_center(i, i + 1)\n        \n        # Update the largest palindrome found\n        if len(palindrome_odd) > len(largest_palindrome):\n            largest_palindrome = palindrome_odd\n        if len(palindrome_even) > len(largest_palindrome):\n            largest_palindrome = palindrome_even\n    \n    return largest_palindrome",
+  "test_code": "import pytest\n\ndef test_find_largest_palindromic_substring():\n    assert find_largest_palindromic_substring(\"babad\") == \"bab\" or find_largest_palindromic_substring(\"babad\") == \"aba\"\n    assert find_largest_palindromic_substring(\"cbbd\") == \"bb\"\n    assert find_largest_palindromic_substring(\"a\") == \"a\"\n    assert find_largest_palindromic_substring(\"ac\") == \"a\" or find_largest_palindromic_substring(\"ac\") == \"c\"\n    assert find_largest_palindromic_substring(\"racecar\") == \"racecar\"\n    assert find_largest_palindromic_substring(\"banana\") == \"anana\" or find_largest_palindromic_substring(\"banana\") == \"anana\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

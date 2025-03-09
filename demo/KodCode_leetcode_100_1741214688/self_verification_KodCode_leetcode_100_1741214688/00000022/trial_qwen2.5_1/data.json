@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000022",
+    "row_id": 22,
+    "seed_ids": [
+      "201",
+      "513",
+      "1941"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, return the **length** of the longest **palindromic** substring in `s`. A **palindromic** string is a string that reads the same backward as forward.",
+  "solution_code": "def longest_palindromic_substring(s: str) -> int:\n    \"\"\"\n    Returns the length of the longest palindromic substring in s.\n    \"\"\"\n    if not s:\n        return 0\n\n    n = len(s)\n    dp = [[False] * n for _ in range(n)]\n    start, max_length = 0, 1\n\n    # All substrings of length 1 are palindromes\n    for i in range(n):\n        dp[i][i] = True\n\n    # Check for sub-strings of length 2\n    for i in range(n - 1):\n        if s[i] == s[i + 1]:\n            dp[i][i + 1] = True\n            start = i\n            max_length = 2\n\n    # Check for lengths greater than 2\n    for length in range(3, n + 1):\n        for i in range(n - length + 1):\n            j = i + length - 1\n            if s[i] == s[j] and dp[i + 1][j - 1]:\n                dp[i][j] = True\n                start = i\n                max_length = length\n\n    return max_length",
+  "test_code": "from solution import longest_palindromic_substring\n\ndef test_longest_palindrome_single_character():\n    assert longest_palindromic_substring(\"a\") == 1\n\ndef test_longest_palindrome_short():\n    assert longest_palindromic_substring(\"aba\") == 3\n    assert longest_palindromic_substring(\"ab\") == 1\n\ndef test_longest_palindrome_middle_case():\n    assert longest_palindromic_substring(\"saippuakauppias\") == 16\n\ndef test_longest_palindrome_with_multiple_palindromes():\n    assert longest_palindromic_substring(\"bananas\") == 7\n    assert longest_palindromic_substring(\"babad\") == 3\n\ndef test_longest_palindrome_empty_string():\n    assert longest_palindromic_substring(\"\") == 0\n\ndef test_longest_palindrome_whole_string_palindrome():\n    assert longest_palindromic_substring(\"aaaaa\") == 5\n\ndef test_longest_palindrome_overlap():\n    assert longest_palindromic_substring(\"abcba\") == 5",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

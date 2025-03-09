@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000066",
+    "row_id": 66,
+    "seed_ids": [
+      "929",
+      "376",
+      "663"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a **binary search tree (BST)**, return the number of **valid** sequences of **node values** such that for every node, the value of that node is **strictly greater** than the sum of the values of all nodes that come before it and **strictly less** than the sum of the values of all nodes that come after it. In other words, a valid sequence is one where each node's value is the sum of a contiguous subsequence of its in-order traversal values. For example, in the tree:\n\n```\n    5\n   / \\\n  3   7\n / \\\n2   4\n```\n\nThe sequence `[2, 3, 4, 5, 7]` is valid because each node's value is greater than the sum of all previous nodes and less than the sum of all subsequent nodes. Note that the sequence must strictly follow the in-order traversal of the tree.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef count_valid_sequences(root: TreeNode) -> int:\n    \"\"\"\n    Returns the number of valid sequences in the binary search tree.\n    \"\"\"\n    def dfs(node, previous_sum, next_sum, min_val, max_val):\n        if not node:\n            return 0\n        if min_val < node.val < next_sum and previous_sum < node.val < max_val:\n            return 1 + dfs(node.left, previous_sum + node.val, next_sum, min_val, node.val) + dfs(node.right, previous_sum, next_sum + node.val, node.val, max_val)\n        return 0\n\n    return dfs(root, 0, 0, float('-inf'), float('inf'))",
+  "test_code": "def create_tree():\n    # Creating a tree:\n    #     5\n    #    / \\\n    #   3   7\n    #  / \\\n    # 2   4\n    root = TreeNode(5)\n    root.left = TreeNode(3)\n    root.right = TreeNode(7)\n    root.left.left = TreeNode(2)\n    root.left.right = TreeNode(4)\n    return root\n\ndef test_valid_sequences():\n    root = create_tree()\n    assert count_valid_sequences(root) == 2\n\ndef test_invalid_sequences():\n    root = TreeNode(5)\n    root.left = TreeNode(2)\n    root.right = TreeNode(7)\n    assert count_valid_sequences(root) == 0\n\ndef test_single_node():\n    root = TreeNode(5)\n    assert count_valid_sequences(root) == 1\n\ndef test_no_leaf():\n    root = TreeNode(5)\n    root.left = TreeNode(3)\n    root.right = TreeNode(6)\n    assert count_valid_sequences(root) == 1\n\ndef test_empty_tree():\n    assert count_valid_sequences(None) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

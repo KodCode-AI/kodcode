@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000105",
+    "row_id": 105,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the shortest distance from a point to a line in a 2D plane.",
+  "solution_code": "def shortest_distance_from_point_to_line(A, B, C, x, y):\n    \"\"\"\n    Calculate the shortest distance from a point (x, y) to a line represented \n    by the equation Ax + By + C = 0.\n    \n    Parameters:\n    A (float): Coefficient A of the line equation.\n    B (float): Coefficient B of the line equation.\n    C (float): Coefficient C of the line equation.\n    x (float): x-coordinate of the point.\n    y (float): y-coordinate of the point.\n    \n    Returns:\n    float: The shortest distance from the point to the line.\n    \"\"\"\n    numerator = abs(A * x + B * y + C)\n    denominator = (A * A + B * B) ** 0.5\n    return numerator / denominator",
+  "test_code": "import pytest\n\ndef test_shortest_distance_from_point_to_line():\n    # Line equation: 3x + 4y - 12 = 0\n    assert shortest_distance_from_point_to_line(3, 4, -12, 1, 2) == 2.0\n    # Line equation: x - y + 5 = 0\n    assert shortest_distance_from_point_to_line(1, -1, 5, 0, 0) == 5.0\n    # Line equation: 2x + 0y - 3 = 0\n    assert shortest_distance_from_point_to_line(2, 0, -3, 0, 1) == 1.5\n    # Line equation: -1x + 1y - 4 = 0\n    assert shortest_distance_from_point_to_line(-1, 1, -4, 0, 0) == 4.0\n\n# Edge Cases\ndef test_point_on_line():\n    # Line equation: x + y - 2 = 0\n    # Point (1, 1) lies on the line\n    assert shortest_distance_from_point_to_line(1, 1, -2, 1, 1) == 0.0\n\ndef test_parallel_line():\n    # Line equation: 4x - 2y + 10 = 0\n    assert shortest_distance_from_point_to_line(4, -2, 10, 0, 0) == 5.0\n\ndef test_coincident_line():\n    # Line equation: 2x + 4y - 8 = 0\n    # Distance remains unchanged even for points satisfying the equation\n    assert shortest_distance_from_point_to_line(2, 4, -8, 1, 1.5) == 0.5",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

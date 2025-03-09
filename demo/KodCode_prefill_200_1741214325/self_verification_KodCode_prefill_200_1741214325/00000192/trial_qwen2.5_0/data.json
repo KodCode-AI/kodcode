@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000192",
+    "row_id": 192,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the first repeating character in a string. If no character is repeating, return -1. For example, in the string \"programming\", the first repeating character is 'r'.",
+  "solution_code": "def first_repeating_char(s):\n    \"\"\"\n    Finds and returns the first repeating character in the given string.\n    If no character repeats, returns -1.\n    \"\"\"\n    seen = set()\n    for char in s:\n        if char in seen:\n            return char\n        seen.add(char)\n    return -1",
+  "test_code": "def test_first_repeating_char():\n    assert first_repeating_char(\"programming\") == 'r'\n    assert first_repeating_char(\"abcdef\") == -1\n    assert first_repeating_char(\"aabbccddeeff\") == 'a'\n    assert first_repeating_char(\"abccba\") == 'c'\n    assert first_repeating_char(\"xyz\") == -1\n    assert first_repeating_char(\"\") == -1\n    assert first_repeating_char(\"aa\") == 'a'\n\ndef test_first_repeating_char_with_numbers():\n    assert first_repeating_char(\"12341\") == '1'\n    assert first_repeating_char(\"78907\") == '7'\n    assert first_repeating_char(\"123\") == -1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

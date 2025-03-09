@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000068",
+    "row_id": 68,
+    "seed_ids": [
+      "2547",
+      "1334",
+      "133"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary tree, your task is to find the minimum **balance factor** of all its nodes. A node's balance factor is defined as the difference between the heights of its left and right subtrees, and the balance factor of the entire tree is the minimum balance factor of all its nodes. If the tree is empty, the balance factor is considered to be 0. Additionally, if a node does not have a left or right subtree, its balance factor is the height of the existing subtree. Return the minimum balance factor of the tree.\n\nFor example, consider the following tree:\n\n```\n    1\n   / \\\n  2   3\n /\n4\n```\n\nThe balance factors of the nodes are as follows:\n- Node 1: |2 - 1| = 1\n- Node 2: |1 - 0| = 1\n- Node 3: |0 - 0| = 0\n- Node 4: 1 (since it only has a left subtree)\n\nThe minimum balance factor is 0.\n\n**Note**: A node's height is defined as the number of edges on the longest path from the node to a leaf. A leaf node has a height of 0.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef height(root):\n    if not root:\n        return 0\n    return 1 + max(height(root.left), height(root.right))\n\ndef min_balance_factor(root):\n    if not root:\n        return 0\n    \n    left_height = height(root.left)\n    right_height = height(root.right)\n    current_balance = left_height - right_height\n    \n    left_min_balance = min_balance_factor(root.left)\n    right_min_balance = min_balance_factor(root.right)\n    \n    return min(current_balance, left_min_balance, right_min_balance)",
+  "test_code": "def test_min_balance_factor():\n    # Tree:\n    #     1\n    #    / \\\n    #   2   3\n    #  /\n    # 4\n    tree = TreeNode(1, TreeNode(2, TreeNode(4)), TreeNode(3))\n    assert min_balance_factor(tree) == 0\n\n    # Tree:\n    #     1\n    #    / \\\n    #   2   3\n    #  / \\\n    # 4   5\n    tree = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3))\n    assert min_balance_factor(tree) == -1\n\n    # Tree:\n    #     1\n    #    /\n    #   2\n    #  /\n    # 4\n    tree = TreeNode(1, TreeNode(2, TreeNode(4)))\n    assert min_balance_factor(tree) == -1\n\n    # Tree:\n    #     1\n    #    / \\\n    #   2   3\n    #  /     \\\n    # 4       5\n    tree = TreeNode(1, TreeNode(2, TreeNode(4)), TreeNode(3, None, TreeNode(5)))\n    assert min_balance_factor(tree) == -2\n\n    # Tree:\n    #     1\n    #    /\n    #   2\n    #  / \\\n    # 4   5\n    tree = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)))\n    assert min_balance_factor(tree) == 1\n\n    # Tree is empty\n    assert min_balance_factor(None) == 0\n\n    # Single node tree\n    tree = TreeNode(1)\n    assert min_balance_factor(tree) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

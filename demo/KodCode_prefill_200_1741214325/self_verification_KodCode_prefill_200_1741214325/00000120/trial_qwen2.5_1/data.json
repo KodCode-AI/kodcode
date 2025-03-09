@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000120",
+    "row_id": 120,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to merge two dictionaries. If the same key exists in both dictionaries, their values should be summed. If not, the value from the second dictionary should simply be added to the result.",
+  "solution_code": "def merge_dictionaries(dict1, dict2):\n    \"\"\"\n    Merges two dictionaries. If the same key exists in both dictionaries,\n    their values will be summed up. If not, the value from the second dictionary\n    will simply be added to the result.\n    \"\"\"\n    merged_dict = dict1.copy()  # Start with a copy of the first dictionary\n    for key, value in dict2.items():\n        merged_dict[key] = merged_dict.get(key, 0) + value\n    return merged_dict",
+  "test_code": "from solution import merge_dictionaries\n\ndef test_merge_dictionaries_same_key():\n    assert merge_dictionaries({'a': 1, 'b': 2}, {'b': 3, 'c': 4}) == {'a': 1, 'b': 5, 'c': 4}\n\ndef test_merge_dictionaries_no_overlap():\n    assert merge_dictionaries({'a': 1, 'b': 2}, {'c': 3, 'd': 4}) == {'a': 1, 'b': 2, 'c': 3, 'd': 4}\n\ndef test_merge_dictionaries_with_zeros():\n    assert merge_dictionaries({'x': 0, 'y': 0}, {'y': 1, 'z': 2}) == {'x': 0, 'y': 1, 'z': 2}\n\ndef test_merge_dictionaries_negative_values():\n    assert merge_dictionaries({'a': -2, 'b': -3}, {'b': -1, 'c': -5}) == {'a': -2, 'b': -4, 'c': -5}",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

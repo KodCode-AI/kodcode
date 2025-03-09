@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000033",
+    "row_id": 33,
+    "seed_ids": [
+      "135",
+      "2357",
+      "1719"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a matrix `grid` of size `m x n` containing only `0`s and `1`s, where `1` represents land and `0` represents water, a **landlocked area** is a region of land completely surrounded by water, with no connection to the boundary of the grid. You are allowed to fill any number of `0`s (turning them into `1`s) to form additional land. The goal is to connect at least one landlocked area to the boundary to make it non-landlocked. Return the minimum number of `0`s you need to flip to achieve this. If it is impossible to make any landlocked area non-landlocked, return `-1`.\n\n**Example 1:**\n\nInput: grid = [[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]]\n\nOutput: 2\n\nExplanation: We can flip two `0`s at positions (1, 1) and (2, 2) to make the landlocked area non-landlocked.\n\n**Example 2:**\n\nInput: grid = [[0,0,0],[0,1,1],[0,1,0]]\n\nOutput: -1\n\nExplanation: It is impossible to make any landlocked area non-landlocked.",
+  "solution_code": "def min_flips_to_connect(grid):\n    \"\"\"\n    Returns the minimum number of 0s to flip to connect at least one landlocked area to the boundary.\n    If it's impossible, returns -1.\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    \n    def dfs(x, y):\n        if x < 0 or x >= m or y < 0 or y >= n or grid[x][y] == 0:\n            return\n        grid[x][y] = 0  # Mark as visited by turning it to water\n        # Explore all four directions\n        dfs(x + 1, y)\n        dfs(x - 1, y)\n        dfs(x, y + 1)\n        dfs(x, y - 1)\n    \n    for i in range(1, m - 1):\n        for j in range(1, n - 1):\n            if grid[i][j] == 1:\n                visited = set()\n                dfs(i, j)\n                # Check all four boundaries to see if we can connect a landlocked area\n                for k in range(n):\n                    if grid[0][k] == 0 or grid[m - 1][k] == 0:\n                        return 1\n                    if (0, k) not in visited and grid[0][k] == 1:\n                        return 2\n                    if (m - 1, k) not in visited and grid[m - 1][k] == 1:\n                        return 2\n                for k in range(m):\n                    if grid[k][0] == 0 or grid[k][n - 1] == 0:\n                        return 1\n                    if (k, 0) not in visited and grid[k][0] == 1:\n                        return 2\n                    if (k, n - 1) not in visited and grid[k][n - 1] == 1:\n                        return 2\n                return -1\n    return -1",
+  "test_code": "from solution import min_flips_to_connect\n\ndef test_min_flips_to_connect():\n    assert min_flips_to_connect([[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]]) == 2\n    assert min_flips_to_connect([[0,0,0],[0,1,1],[0,1,0]]) == -1\n    assert min_flips_to_connect([[1,0,0,1],[1,1,1,1],[0,0,0,0],[1,1,0,0]]) == 0\n    assert min_flips_to_connect([[1,1,1,1,1],[0,0,0,0,0],[1,1,1,1,1],[1,0,0,0,1],[1,1,1,1,1]]) == 1\n    assert min_flips_to_connect([[0,1,0,1,0],[1,0,1,0,1],[0,1,0,1,0],[1,0,1,0,1]]) == 2",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

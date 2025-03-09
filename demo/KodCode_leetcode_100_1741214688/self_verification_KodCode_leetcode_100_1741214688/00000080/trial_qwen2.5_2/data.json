@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000080",
+    "row_id": 80,
+    "seed_ids": [
+      "16",
+      "1443",
+      "211"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a data structure to find the `k` closest points to a given target point `(tx, ty)` on a 2D plane. The points are represented as an array of coordinates, where each coordinate is an array of two integers `[x, y]`. Implement the `KClosestPoints` class:\n\n*   `KClosestPoints(int k)` Initializes the object with `k`.\n*   `void addPoint(int x, int y)` Adds the point `(x, y)` to the data structure.\n*   `List<List<Integer>> getKClosestPoints()` Returns the `k` closest points to the target point `(tx, ty)` sorted by their Manhattan distance to the target. The Manhattan distance between two points `(x1, y1)` and `(x2, y2)` is given by `abs(x1 - x2) + abs(y1 - y2)`.",
+  "solution_code": "import heapq\nfrom typing import List\n\nclass KClosestPoints:\n    def __init__(self, k: int):\n        self.k = k\n        self.points = []\n\n    def addPoint(self, x: int, y: int) -> None:\n        point = (abs(x - tx) + abs(y - ty), x, y)\n        heapq.heappush(self.points, point)\n\n    def getKClosestPoints(self) -> List[List[int]]:\n        k_closest = []\n        for _ in range(self.k):\n            _, x, y = heapq.heappop(self.points)\n            k_closest.append([x, y])\n        k_closest.sort()\n        return k_closest",
+  "test_code": "import heapq\nfrom solution import KClosestPoints\nfrom typing import List\n\ndef manhattan_distance(p1, p2):\n    return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])\n\ndef test_k_closest_points():\n    tx, ty = 3, 3\n    kcp = KClosestPoints(3)\n    kcp.addPoint(1, 2)\n    kcp.addPoint(2, 1)\n    kcp.addPoint(3, 4)\n    kcp.addPoint(4, 5)\n    result = kcp.getKClosestPoints()\n    expected = [[2, 1], [3, 4], [1, 2]]\n    assert manhattan_distance((2, 1), (3, 3)) == manhattan_distance(expected[0], (3, 3))\n    assert manhattan_distance((3, 4), (3, 3)) == manhattan_distance(expected[1], (3, 3))\n    assert manhattan_distance((1, 2), (3, 3)) == manhattan_distance(expected[2], (3, 3))\n\n    kcp = KClosestPoints(2)\n    kcp.addPoint(1, 1)\n    kcp.addPoint(2, 2)\n    kcp.addPoint(3, 3)\n    kcp.addPoint(4, 4)\n    result = kcp.getKClosestPoints()\n    expected = [[1, 1], [2, 2]]\n    assert manhattan_distance((1, 1), (3, 3)) == manhattan_distance(expected[0], (3, 3))\n    assert manhattan_distance((2, 2), (3, 3)) == manhattan_distance(expected[1], (3, 3))\n\ntest_k_closest_points()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

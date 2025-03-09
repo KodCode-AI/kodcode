@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000119",
+    "row_id": 119,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to replace all occurrences of a given substring in a string, but only for occurrences that are surrounded by spaces.",
+  "solution_code": "def replace_surrounded_substring(text, old_substring, new_substring):\n    \"\"\"\n    Replaces all occurrences of old_substring in text that are surrounded by spaces with new_substring.\n    \"\"\"\n    pattern = r'\\b{}\\b'.format(re.escape(old_substring))\n    return re.sub(pattern, new_substring, text)",
+  "test_code": "import re\nfrom solution import replace_surrounded_substring\n\ndef test_replace_surrounded_substring():\n    test_text = \"hello world, this is a test sentence with the word hello\"\n    assert replace_surrounded_substring(test_text, \"hello\", \"goodbye\") == \"goodbye world, this is a test sentence with the word goodbye\"\n\ndef test_no_change_if_not_surrounded():\n    test_text = \"hel lo world, this is a test sen tence with the word hello\"\n    assert replace_surrounded_substring(test_text, \"hello\", \"goodbye\") == test_text\n\ndef test_case_sensitivity():\n    test_text = \"hello World, this is a test sentence with the word hello\"\n    assert replace_surrounded_substring(test_text, \"hello\", \"goodbye\") == \"goodbye World, this is a test sentence with the word goodbye\"\n\ndef test_multiple_occurrences():\n    test_text = \"hello hello hello, this is a test sentence with the words hello and goodbye\"\n    assert replace_surrounded_substring(test_text, \"hello\", \"goodbye\") == \"goodbye goodbye goodbye, this is a test sentence with the words goodbye and goodbye\"\n\ndef test_replacement_with_same_substring():\n    test_text = \"hello hello hello, this is a test sentence with the words hello and goodbye\"\n    assert replace_surrounded_substring(test_text, \"hello\", \"hello\") == test_text\n\ndef test_replacement_with_empty_string():\n    test_text = \"hello world, this is a test sentence with the word hello\"\n    assert replace_surrounded_substring(test_text, \"hello\", \"\") == \" world, this is a test sentence with the word \"\n\ndef test_replacement_with_space():\n    test_text = \"hello world, this is a test sentence with the word hello\"\n    assert replace_surrounded_substring(test_text, \"hello\", \" \") == \" world, this is a test sentence with the word  \"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

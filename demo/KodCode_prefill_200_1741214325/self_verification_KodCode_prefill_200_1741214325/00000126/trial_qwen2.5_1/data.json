@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000126",
+    "row_id": 126,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a list of numbers is sorted in ascending order.",
+  "solution_code": "def is_ascending(lst):\n    \"\"\"\n    Returns True if the list is sorted in ascending order, otherwise False.\n    \"\"\"\n    return all(lst[i] <= lst[i + 1] for i in range(len(lst) - 1))",
+  "test_code": "def test_is_ascending():\n    assert is_ascending([1, 2, 3, 4, 5]) == True\n    assert is_ascending([10, 20, 20, 30, 40]) == True\n    assert is_ascending([5, 4, 3, 2, 1]) == False\n    assert is_ascending([1, 2, 3, 3, 4, 5]) == True\n    assert is_ascending([1, 2, 3, 5, 4]) == False\n    assert is_ascending([]) == True\n    assert is_ascending([7]) == True\n    assert is_ascending([1, 3, 2]) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

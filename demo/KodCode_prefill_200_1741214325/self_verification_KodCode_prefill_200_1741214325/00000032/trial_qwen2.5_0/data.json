@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000032",
+    "row_id": 32,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if the binary representation of a number is a palindrome.",
+  "solution_code": "def is_binary_palindrome(number):\n    \"\"\"\n    Returns True if the binary representation of the number is a palindrome, otherwise False.\n    \"\"\"\n    binary_str = bin(number)[2:]  # Convert number to binary and remove the '0b' prefix.\n    return binary_str == binary_str[::-1]",
+  "test_code": "def test_is_binary_palindrome():\n    assert is_binary_palindrome(1) == True  # binary is '1'\n    assert is_binary_palindrome(2) == False # binary is '10'\n    assert is_binary_palindrome(3) == True  # binary is '11'\n    assert is_binary_palindrome(4) == False # binary is '100'\n    assert is_binary_palindrome(5) == True  # binary is '101'\n    assert is_binary_palindrome(6) == True  # binary is '110'\n    assert is_binary_palindrome(7) == False # binary is '111'\n    assert is_binary_palindrome(9) == True  # binary is '1001'",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

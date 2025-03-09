@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000087",
+    "row_id": 87,
+    "seed_ids": [
+      "2477",
+      "1000",
+      "79"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a `m x n` grid of characters `board` and a word `word`, return `true` if `word` can be constructed from letters on the `board`. The word does not need to be constructed from letters adjacent in the same row or column, but it cannot use the same letter cell more than once. Each cell in the grid can only contribute one letter to the word. If the word can be formed, return `true`; otherwise, return `false`.",
+  "solution_code": "def exist(board, word):\n    \"\"\"\n    Check if the word can be constructed from the board.\n    \"\"\"\n    rows, cols = len(board), len(board[0])\n    \n    def dfs(r, c, i):\n        if i == len(word):\n            return True\n        if r < 0 or c < 0 or r >= rows or c >= cols or board[r][c] != word[i]:\n            return False\n        board[r][c] = \"#\"  # Mark as visited\n        res = (dfs(r+1, c, i+1) or\n               dfs(r-1, c, i+1) or\n               dfs(r, c+1, i+1) or\n               dfs(r, c-1, i+1))\n        board[r][c] = word[i]  # Restore the cell\n        return res\n    \n    for r in range(rows):\n        for c in range(cols):\n            if dfs(r, c, 0):\n                return True\n    return False",
+  "test_code": "from solution import exist\n\ndef test_exist_simple_word():\n    board = [\n        ['A','B','C','E'],\n        ['S','F','C','S'],\n        ['A','D','E','E']\n    ]\n    assert exist(board, \"ABCCED\") == True\n\ndef test_exist_complex_word():\n    board = [\n        ['A','B','C','E'],\n        ['S','F','C','S'],\n        ['A','D','E','E']\n    ]\n    assert exist(board, \"SEE\") == True\n\ndef test_exist_not_existing_word():\n    board = [\n        ['A','B','C','E'],\n        ['S','F','C','S'],\n        ['A','D','E','E']\n    ]\n    assert exist(board, \"ABCB\") == False\n\ndef test_exist_single_char_word():\n    board = [\n        ['A','B','C','E'],\n        ['S','F','C','S'],\n        ['A','D','E','E']\n    ]\n    assert exist(board, \"A\") == True\n\ndef test_exist_empty_word():\n    assert exist([], \"\") == True\n\ndef test_exist_single_row_board():\n    board = [\n        ['A','B','C','E']\n    ]\n    assert exist(board, \"ABCCED\") == True\n\ndef test_exist_single_column_board():\n    board = [\n        ['A'],\n        ['B'],\n        ['C'],\n        ['D'],\n        ['E']\n    ]\n    assert exist(board, \"ABCDE\") == True\n\ndef test_exist_single_element_board():\n    board = [\n        ['A']\n    ]\n    assert exist(board, \"A\") == True\n\ndef test_exist_large_board():\n    board = [\n        ['A','B','C','E'],\n        ['S','F','C','S'],\n        ['A','D','E','E'],\n        ['S','F','C','S'],\n        ['A','B','D','E']\n    ]\n    assert exist(board, \"ABCB\") == False",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

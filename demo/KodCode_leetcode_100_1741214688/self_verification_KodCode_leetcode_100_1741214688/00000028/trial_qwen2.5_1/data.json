@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000028",
+    "row_id": 28,
+    "seed_ids": [
+      "665",
+      "1647",
+      "892"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s`, your task is to find the **minimum** number of swaps required to group all the `1`'s present in the string into a contiguous (consecutive) substring. In one swap, you can choose any two indices `i` and `j` (0-indexed) and swap the characters at these indices. Return the **minimum** number of swaps required to achieve this.",
+  "solution_code": "def min_swaps_to_group_ones(s: str) -> int:\n    \"\"\"\n    Returns the minimum number of swaps required to group all '1's into a contiguous substring.\n    \"\"\"\n    ones_count = s.count('1')\n    max_ones_in_window = 0\n    current_ones = 0\n    for i in range(len(s)):\n        if s[i] == '1':\n            current_ones += 1\n        if i >= ones_count and s[i - ones_count] == '1':\n            current_ones -= 1\n        max_ones_in_window = max(max_ones_in_window, current_ones)\n    # The minimum swaps required is the number of '1's in the string minus the maximum count of '1's in any window.\n    return ones_count - max_ones_in_window",
+  "test_code": "import pytest\n\ndef test_min_swaps_to_group_ones():\n    assert min_swaps_to_group_ones(\"10110\") == 2\n    assert min_swaps_to_group_ones(\"0011100111\") == 4\n    assert min_swaps_to_group_ones(\"1111\") == 0\n    assert min_swaps_to_group_ones(\"000\") == 0\n    assert min_swaps_to_group_ones(\"110011001110001110\") == 6\n    assert min_swaps_to_group_ones(\"10001\") == 1\n    assert min_swaps_to_group_ones(\"1101111000110\") == 2",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

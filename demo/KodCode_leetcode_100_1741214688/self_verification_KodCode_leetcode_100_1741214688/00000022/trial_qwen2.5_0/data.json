@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000022",
+    "row_id": 22,
+    "seed_ids": [
+      "201",
+      "513",
+      "1941"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, return the **length** of the longest **palindromic** substring in `s`. A **palindromic** string is a string that reads the same backward as forward.",
+  "solution_code": "def longest_palindrome_length(s: str) -> int:\n    \"\"\"\n    Returns the length of the longest palindromic substring in the given string s.\n    \"\"\"\n    if not s:\n        return 0\n\n    n = len(s)\n    dp = [[False] * n for _ in range(n)]\n    maxLength = 1\n\n    # All substrings of length 1 are palindromes\n    for i in range(n):\n        dp[i][i] = True\n\n    # Check for substrings of length 2\n    start = 0\n    for i in range(n - 1):\n        if s[i] == s[i + 1]:\n            dp[i][i + 1] = True\n            maxLength = 2\n            start = i\n\n    # Check for lengths greater than 2\n    for length in range(3, n + 1):\n        for i in range(n - length + 1):\n            j = i + length - 1\n            if s[i] == s[j] and dp[i + 1][j - 1]:\n                dp[i][j] = True\n                if length > maxLength:\n                    maxLength = length\n                    start = i\n\n    return maxLength",
+  "test_code": "import pytest\n\ndef test_longest_palindrome_length():\n    assert longest_palindrome_length(\"babad\") == 3\n    assert longest_palindrome_length(\"cbbd\") == 2\n    assert longest_palindrome_length(\"a\") == 1\n    assert longest_palindrome_length(\"ac\") == 1\n    assert longest_palindrome_length(\"\") == 0\n    assert longest_palindrome_length(\"ccc\") == 3\n    assert longest_palindrome_length(\"banana\") == 5\n    assert longest_palindrome_length(\"racecar\") == 7",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

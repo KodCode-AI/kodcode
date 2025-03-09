@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000090",
+    "row_id": 90,
+    "seed_ids": [
+      585
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given a problem that involves calculating the difference between the square of the sum of the first \\( n \\) natural numbers and the sum of the squares of the first \\( n \\) natural numbers. Your task is to implement a function that returns this difference.\n\n### Problem Statement\n\nWrite a function `calculate_difference(n)` that takes a positive integer \\( n \\) and returns the difference between the square of the sum of the first \\( n \\) natural numbers and the sum of the squares of the first \\( n \\) natural numbers.\n\n#### Input\n- \\( n \\): A positive integer representing the number of natural numbers to consider.\n\n#### Output\n- An integer representing the difference as described.\n\n#### Constraints\n- \\( 1 \\leq n \\leq 10^6 \\)\n\n#### Example\n```python\nprint(calculate_difference(10))  # Output: 2640\nprint(calculate_difference(15))  # Output: 13160\nprint(calculate_difference(20))  # Output: 41230\nprint(calculate_difference(50))  # Output: 1582700\n```\n\n### Implementation Notes\n- Use the following formulas:\n  - Sum of the squares of the first \\( n \\) natural numbers: \\( \\frac{n(n + 1)(2n + 1)}{6} \\)\n  - Square of the sum of the first \\( n \\) natural numbers: \\( \\left(\\frac{n(n + 1)}{2}\\right)^2 \\)\n\n### Edge Cases\n- Ensure your function handles the smallest possible value of \\( n \\) (1) and the largest possible value of \\( n \\) (10^6).\n\n### Additional Challenge\n- Your solution should be efficient enough to handle large values of \\( n \\) without performance issues.",
+  "solution_code": "def calculate_difference(n):\n    \"\"\"\n    Calculates the difference between the square of the sum and the sum of the squares of the first n natural numbers.\n    \"\"\"\n    sum_of_squares = n * (n + 1) * (2 * n + 1) // 6\n    square_of_sum = (n * (n + 1) // 2) ** 2\n    return square_of_sum - sum_of_squares",
+  "test_code": "import pytest\n\ndef test_calculate_difference():\n    assert calculate_difference(10) == 2640\n    assert calculate_difference(15) == 13160\n    assert calculate_difference(20) == 41230\n    assert calculate_difference(50) == 1582700\n    assert calculate_difference(1) == 0\n    assert calculate_difference(1000000) == 2533335000000\n\ndef test_edge_cases():\n    assert calculate_difference(1) == 0\n    assert calculate_difference(2) == 4\n    assert calculate_difference(3) == 22\n    assert calculate_difference(4) == 70\n    assert calculate_difference(5) == 170",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

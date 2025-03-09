@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000052",
+    "row_id": 52,
+    "seed_ids": [
+      "1252",
+      "828",
+      "2560"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` of length `n`, and a positive integer `k`, you are allowed to perform the following operation **any number of times**: choose any index `i` (0-indexed) and flip the value of `s[i]` (i.e., change `s[i]` from `0` to `1` or from `1` to `0`). A **substring** of `s` is said to be **balanced** if the number of `1`s in the substring is equal to the number of `0`s. \n\nAfter performing the above operations, return the **maximum** possible length of a **balanced** substring of `s`. A balanced substring must have an equal number of `0`s and `1`s. If no such balanced substring can be formed, return `0`.\n\nFor example, if `s = \"00110011\"` and `k = 1`, you can flip the second `0` to `1` to form the balanced substring `\"01110011\"`, which has a length of `6`.",
+  "solution_code": "def max_balanced_substring_length(s: str, k: int) -> int:\n    \"\"\"\n    Returns the maximum possible length of a balanced substring of s.\n    \"\"\"\n    max_length = 0\n    balance = 0\n    left = 0\n    for right in range(len(s)):\n        balance += 1 if s[right] == '1' else -1\n        while balance < 0:\n            balance += 1 if s[left] == '1' else -1\n            left += 1\n        max_length = max(max_length, right - left + 1 + (2 * k))\n    return max_length",
+  "test_code": "def test_max_balanced_substring_length():\n    assert max_balanced_substring_length(\"010\", 1) == 4\n    assert max_balanced_substring_length(\"0011\", 2) == 6\n    assert max_balanced_substring_length(\"00110011\", 1) == 6\n    assert max_balanced_substring_length(\"01010101\", 2) == 8\n    assert max_balanced_substring_length(\"11111111\", 10) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

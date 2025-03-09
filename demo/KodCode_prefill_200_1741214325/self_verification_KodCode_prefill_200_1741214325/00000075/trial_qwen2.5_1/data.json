@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000075",
+    "row_id": 75,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a number is perfect or not.",
+  "solution_code": "def is_perfect_number(n):\n    \"\"\"\n    Returns True if n is a perfect number, False otherwise.\n    A perfect number is a positive integer that is equal to the sum of its proper divisors,\n    excluding the number itself. For example, 6 is a perfect number because 1 + 2 + 3 = 6.\n    \"\"\"\n    if n < 1:\n        return False\n    divisors_sum = 0\n    for i in range(1, n):\n        if n % i == 0:\n            divisors_sum += i\n    return divisors_sum == n",
+  "test_code": "from solution import is_perfect_number\n\ndef test_is_perfect_number_six():\n    assert is_perfect_number(6) == True\n\ndef test_is_perfect_number_twenty_eight():\n    assert is_perfect_number(28) == True\n\ndef test_is_not_perfect_number_four():\n    assert is_perfect_number(4) == False\n\ndef test_is_not_perfect_number_negative_numbers():\n    assert is_perfect_number(-6) == False\n\ndef test_is_not_perfect_number_zero():\n    assert is_perfect_number(0) == False\n\ndef test_is_not_perfect_number_one():\n    assert is_perfect_number(1) == False\n\ndef test_is_not_perfect_number_large_number():\n    assert is_perfect_number(496) == True\n    assert is_perfect_number(8128) == True\n    assert is_perfect_number(33550336) == True\n    assert is_perfect_number(8589869056) == True\n    assert is_perfect_number(137438691328) == True\n    assert is_perfect_number(2305843008139952128) == True\n\ndef test_is_not_perfect_number_other_numbers():\n    assert is_perfect_number(5) == False\n    assert is_perfect_number(10) == False\n    assert is_perfect_number(15) == False\n    assert is_perfect_number(18) == False\n    assert is_perfect_number(20) == False\n    assert is_perfect_number(21) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

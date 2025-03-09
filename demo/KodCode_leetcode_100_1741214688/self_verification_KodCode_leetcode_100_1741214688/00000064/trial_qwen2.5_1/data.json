@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000064",
+    "row_id": 64,
+    "seed_ids": [
+      "1470",
+      "1431",
+      "114"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and a node value `target`, return `true` if the `target` is found in the BST, and `false` otherwise. You may assume that each node in the BST has **uniquely** valued children. Additionally, provide a method to insert a new node with a given value into the BST while maintaining its properties.",
+  "solution_code": "To solve this problem, we need to implement two functions: `find_target`, which checks if a given target value exists in the BST, and `insert`, which inserts a new node with a given value into the BST while ensuring the BST properties are maintained.\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef find_target(root, target):\n    \"\"\"\n    Returns True if the target is found in the BST, and False otherwise.\n    \"\"\"\n    if root is None:\n        return False\n    if root.val == target:\n        return True\n    elif target < root.val:\n        return find_target(root.left, target)\n    else:\n        return find_target(root.right, target)\n\ndef insert(root, val):\n    \"\"\"\n    Inserts a new node with the given value into the BST.\n    \"\"\"\n    if root is None:\n        return TreeNode(val)\n    if val < root.val:\n        root.left = insert(root.left, val)\n    else:\n        root.right = insert(root.right, val)\n    return root",
+  "test_code": "from solution import TreeNode, find_target, insert\n\ndef test_find_target_exist():\n    root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(6, TreeNode(5), TreeNode(7)))\n    assert find_target(root, 3) == True\n    assert find_target(root, 5) == True\n    assert find_target(root, 7) == True\n\ndef test_find_target_not_exist():\n    root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(6, TreeNode(5), TreeNode(7)))\n    assert find_target(root, 0) == False\n    assert find_target(root, 8) == False\n\ndef test_insert():\n    root = None\n    root = insert(root, 4)\n    root = insert(root, 2)\n    root = insert(root, 6)\n    root = insert(root, 1)\n    root = insert(root, 3)\n    root = insert(root, 5)\n    root = insert(root, 7)\n    assert find_target(root, 2) == True\n    assert find_target(root, 6) == True\n    assert find_target(root, 1) == True\n    assert find_target(root, 3) == True\n    assert find_target(root, 5) == True\n    assert find_target(root, 7) == True\n    assert find_target(root, 0) == False\n    assert find_target(root, 8) == False",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

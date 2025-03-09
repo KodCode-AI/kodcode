@@ -18,16 +18,17 @@ def get_args():
     # Experiment Settings
     parser = argparse.ArgumentParser(description="Unit Test Generation Manager.")
     parser.add_argument("--input_folder", type=str, default=None)
-    parser.add_argument("--output_folder_prefix", type=str, default="../unit_test_Step2")
+    parser.add_argument("--output_folder_prefix", type=str, default="self_verification")
+    parser.add_argument("--model_nickname", type=str, default="qwen2.5")
 
     return parser.parse_args()
 
 args = get_args()
 print(f"Unit Test Generation Manager. Arguments: {args}") # For logging
 
-# Find all input files ending with _combined
-input_files = glob.glob(os.path.join(args.input_folder, "*_combined.jsonl"))
-print(f"Found {len(input_files)} input files")
+# Find all input files ending with _sanitized_prepared_results*.jsonl
+input_files = glob.glob(os.path.join(args.input_folder, "*_sanitized_prepared_results*.jsonl"))
+print(f"Found {len(input_files)} input files: {input_files}")
 
 folder_basename = os.path.basename(args.input_folder.rstrip('/'))
 print(f"Folder basename: {folder_basename}")
@@ -80,10 +81,10 @@ for input_file in input_files:
 
                 # Get trial number from input file name
                 file_basename = os.path.basename(input_file)
-                trial_num = int(re.search(r'prepared(\d+)_results', file_basename).group(1))
+                trial_num = int(re.search(r'prepared_results(\d+)', file_basename).group(1))
                 
                 # Create folder for this test case
-                test_folder = os.path.join(f"{args.output_folder_prefix}_{folder_basename}", prompt_id, f"trial_gpt4o_{trial_num}")
+                test_folder = os.path.join(f"{args.input_folder}/{args.output_folder_prefix}_{folder_basename}", prompt_id, f"trial_{args.model_nickname}_{trial_num}")
                 
                 # Skip if the test folder already exists
                 if os.path.exists(test_folder):

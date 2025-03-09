@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000199",
+    "row_id": 199,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the longest substring without repeating characters in a string.",
+  "solution_code": "def longest_substring_without_repeating(s: str) -> str:\n    \"\"\"\n    Finds the longest substring without repeating characters in a given string.\n    \"\"\"\n    if not s:\n        return \"\"\n\n    start = 0\n    max_length = 0\n    max_substring = \"\"\n    used_chars = {}\n\n    for i, char in enumerate(s):\n        if char in used_chars and start <= used_chars[char]:\n            start = used_chars[char] + 1\n        else:\n            if (i - start + 1) > max_length:\n                max_length = i - start + 1\n                max_substring = s[start:i+1]\n\n        used_chars[char] = i\n\n    return max_substring",
+  "test_code": "from solution import longest_substring_without_repeating\n\ndef test_longest_substring_with_empty_string():\n    assert longest_substring_without_repeating(\"\") == \"\"\n\ndef test_longest_substring_single_character():\n    assert longest_substring_without_repeating(\"a\") == \"a\"\n\ndef test_longest_substring_no_repeating_characters():\n    assert longest_substring_without_repeating(\"abcd\") == \"abcd\"\n\ndef test_longest_substring_repeating_characters():\n    assert longest_substring_without_repeating(\"abcabcbb\") == \"abc\"\n    assert longest_substring_without_repeating(\"bbbbb\") == \"b\"\n    assert longest_substring_without_repeating(\"pwwkew\") == \"wke\"\n\ndef test_longest_substring_with_spaces():\n    assert longest_substring_without_repeating(\" \") == \" \"\n    assert longest_substring_without_repeating(\"a a\") == \" a\"\n    assert longest_substring_without_repeating(\"a b a\") == \" b\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

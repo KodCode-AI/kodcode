@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000062",
+    "row_id": 62,
+    "seed_ids": [
+      "1442",
+      "522",
+      "2612"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times:\n\n- Choose any two indices `i` and `j` (0-indexed) where `0 <= i < j < s.length` and `s[i] = 'a'` and `s[j] = 'z'`. Reverse the substring `s[i+1..j-1]`.\n\nYour task is to determine the minimum number of operations required to transform the string `s` into a string where all characters are the same. If it is impossible to achieve such a string, return `-1`.\n\nFor example, given the string `s = \"azbzczbzcz\"`, you can perform the following operations:\n1. Choose `i = 0` and `j = 1` to get `s = \"aabzczbzcz\"`.\n2. Choose `i = 2` and `j = 3` to get `s = \"aaazbzczcz\"`.\n3. Choose `i = 4` and `j = 5` to get `s = \"aaaaaaazcz\"`.\n4. Choose `i = 6` and `j = 7` to get `s = \"aaaaaaaazz\"`.\n5. Choose `i = 8` and `j = 9` to get `s = \"aaaaaaaaaz\"`.\n\nReturn `5` as the answer.",
+  "solution_code": "def min_operations(s):\n    \"\"\"\n    Returns the minimum number of operations required to make all characters in s the same, or -1 if impossible.\n    \"\"\"\n    if 'a' not in s:\n        return 0 if s[0] == 'z' else -1\n    if 'z' not in s:\n        return 0\n    \n    min_ops = float('inf')\n    start = s.find('a')\n    end = s.rfind('z')\n    \n    while start >= 0 and end > start:\n        substring = s[start+1:end]\n        diff = max(0, (substring.count('a') - substring.count('z')))\n        min_ops = min(min_ops, diff)\n        start = s.find('a', start + 1)\n        end = s.rfind('z', 0, end - 1)\n    \n    if min_ops == float('inf'):\n        return -1\n    return min_ops",
+  "test_code": "def test_min_operations():\n    assert min_operations(\"azbzczbzcz\") == 5\n    assert min_operations(\"zzzazzzazz\") == 5\n    assert min_operations(\"zzzzz\") == 0\n    assert min_operations(\"aaaaa\") == 0\n    assert min_operations(\"aaazaaaz\") == 1\n    assert min_operations(\"zzzzzzzzaa\") == -1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

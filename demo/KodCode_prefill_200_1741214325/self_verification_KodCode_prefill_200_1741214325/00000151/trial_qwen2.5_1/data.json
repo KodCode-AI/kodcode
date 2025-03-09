@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000151",
+    "row_id": 151,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a decimal number to binary without using Python's built-in bin() function. Walk me through the process and the code.",
+  "solution_code": "To convert a decimal number to binary without using Python's built-in `bin()` function, we can use the following approach:\n\n1. Define a function `decimal_to_binary` that takes a decimal number as input.\n2. Initialize an empty string to store the binary representation.\n3. Use a while loop to divide the decimal number by 2 and get the remainder. Append the remainder to the string.\n4. Continue the process until the decimal number becomes 0.\n5. Reverse the string of remainders to get the correct binary representation.\n\ndef decimal_to_binary(decimal_number):\n    \"\"\"\n    Converts a decimal number to binary without using Python's built-in bin() function.\n    \"\"\"\n    if decimal_number == 0:\n        return \"0\"\n    \n    binary = \"\"\n    while decimal_number > 0:\n        remainder = decimal_number % 2\n        binary += str(remainder)\n        decimal_number = decimal_number // 2\n    \n    return binary[::-1]",
+  "test_code": "from solution import decimal_to_binary\n\ndef test_decimal_to_binary():\n    assert decimal_to_binary(10) == \"1010\"\n    assert decimal_to_binary(0) == \"0\"\n    assert decimal_to_binary(19) == \"10011\"\n    assert decimal_to_binary(255) == \"11111111\"\n    assert decimal_to_binary(4095) == \"111111111111\"\n    assert decimal_to_binary(2) == \"10\"\n    assert decimal_to_binary(1) == \"1\"\n    assert decimal_to_binary(2147483647) == \"1111111111111111111111111111111\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

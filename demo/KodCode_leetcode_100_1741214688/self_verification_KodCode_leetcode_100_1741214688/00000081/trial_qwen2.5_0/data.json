@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000081",
+    "row_id": 81,
+    "seed_ids": [
+      "1763",
+      "5",
+      "1094"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s`, return the longest substring of `s` that contains at least one occurrence of every character in the string `s`. If there are multiple substrings of the same length, return the substring that appears earliest in `s`. If no such substring exists, return an empty string.",
+  "solution_code": "def longest_substring_with_all_chars(s):\n    \"\"\"\n    Returns the longest substring that contains at least one occurrence of every character in the string `s`.\n    If there are multiple substrings of the same length, returns the earliest one.\n    If no such substring exists, returns an empty string.\n    \"\"\"\n    if not s:\n        return \"\"\n\n    char_last_position = {}\n    start = 0\n    max_length = 0\n    result = \"\"\n\n    for end, char in enumerate(s):\n        if char in char_last_position:\n            start = max(start, char_last_position[char] + 1)\n        char_last_position[char] = end\n\n        if end - start + 1 > max_length:\n            max_length = end - start + 1\n            result = s[start:end + 1]\n\n    return result",
+  "test_code": "def test_longest_substring_with_all_chars():\n    assert longest_substring_with_all_chars(\"aabbcc\") == \"aabbcc\"\n    assert longest_substring_with_all_chars(\"abcabcbb\") == \"abc\"\n    assert longest_substring_with_all_chars(\"abba\") == \"ab\"\n    assert longest_substring_with_all_chars(\"dvdf\") == \"vdf\"\n    assert longest_substring_with_all_chars(\"\") == \"\"\n    assert longest_substring_with_all_chars(\"x\") == \"\"\n    assert longest_substring_with_all_chars(\"xyy\") == \"xy\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

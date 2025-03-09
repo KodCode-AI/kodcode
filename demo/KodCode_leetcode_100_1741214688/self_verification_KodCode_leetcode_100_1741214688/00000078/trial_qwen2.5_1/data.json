@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000078",
+    "row_id": 78,
+    "seed_ids": [
+      "808",
+      "1671",
+      "1317"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary string `s`. A **substring** of `s` is called **good** if it does not contain any leading zeros and has an even length. Your task is to count the number of **good substrings** in `s`.\n\nFor example, given the string `s = \"1001010\"`, the good substrings are `\"10\"`, `\"010\"`, and `\"010\"`. Therefore, the answer is `3`.\n\nWrite a function `countGoodSubstrings(s: str) -> int` that returns the number of good substrings in the binary string `s`.\n\n**Constraints**:\n- `1 <= len(s) <= 1000`\n- `s` consists only of `0`s and `1`s.",
+  "solution_code": "def countGoodSubstrings(s: str) -> int:\n    \"\"\"\n    Counts the number of good substrings in the binary string s.\n    A good substring does not contain any leading zeros and has an even length.\n    \"\"\"\n    count = 0\n    n = len(s)\n    for i in range(n - 1):\n        if s[i] == '0':\n            continue\n        if i + 1 < n and s[i + 1] == '0':\n            continue\n        if (i + 2 < n) and s[i + 2] == '1' and s[i + 3] == '1':\n            count += 1\n            i += 3\n    return count",
+  "test_code": "def test_countGoodSubstrings():\n    assert countGoodSubstrings(\"1001010\") == 3\n    assert countGoodSubstrings(\"100010010\") == 5\n    assert countGoodSubstrings(\"01010101\") == 4\n    assert countGoodSubstrings(\"0000\") == 0\n    assert countGoodSubstrings(\"111111\") == 3\n    assert countGoodSubstrings(\"00110011\") == 6\n    assert countGoodSubstrings(\"10010101010010\") == 7\n\ntest_countGoodSubstrings()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

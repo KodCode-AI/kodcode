@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000034",
+    "row_id": 34,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to print all prime numbers up to a given number. Also, include a simple test function with some test cases to ensure the correctness of the solution.",
+  "solution_code": "def print_primes(n):\n    \"\"\"\n    Prints all prime numbers up to a given number n.\n    \"\"\"\n    if n < 2:\n        return\n    \n    sieve = [True] * (n + 1)\n    for x in range(2, int(n**0.5) + 1):\n        if sieve[x]:\n            for i in range(x*x, n + 1, x):\n                sieve[i] = False\n    \n    for x in range(2, n + 1):\n        if sieve[x]:\n            print(x, end=' ')",
+  "test_code": "from solution import print_primes\n\ndef test_print_primes():\n    # Test with a known prime number up to 10\n    import io\n    import contextlib\n    with contextlib.redirect_stdout(io.StringIO()) as output:\n        print_primes(10)\n        result = output.getvalue().strip()\n    assert result == '2 3 5 7 ', f\"Expected '2 3 5 7 ', got '{result}'\"\n    \n    # Test with 2, which is the smallest prime number\n    with contextlib.redirect_stdout(io.StringIO()) as output:\n        print_primes(2)\n        result = output.getvalue().strip()\n    assert result == '2 ', f\"Expected '2 ', got '{result}'\"\n    \n    # Test with a larger number\n    with contextlib.redirect_stdout(io.StringIO()) as output:\n        print_primes(30)\n        result = output.getvalue().strip()\n    assert result == '2 3 5 7 11 13 17 19 23 29 ', f\"Expected '2 3 5 7 11 13 17 19 23 29 ', got '{result}'\"\n    \n    # Test with 1, which should print nothing\n    with contextlib.redirect_stdout(io.StringIO()) as output:\n        print_primes(1)\n        result = output.getvalue().strip()\n    assert result == '', f\"Expected '', got '{result}'\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

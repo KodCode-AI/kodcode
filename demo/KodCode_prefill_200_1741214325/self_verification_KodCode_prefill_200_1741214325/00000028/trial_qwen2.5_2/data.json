@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000028",
+    "row_id": 28,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string is a valid double (a number with a decimal point).",
+  "solution_code": "import re\n\ndef is_valid_double(s):\n    \"\"\"\n    Returns True if the string is a valid double, False otherwise.\n    A valid double is defined as a number with a decimal point.\n    \"\"\"\n    # Regular expression to match a valid double\n    double_pattern = re.compile(r'^-?\\d+(?:\\.\\d+)?$')\n    return bool(double_pattern.match(s))",
+  "test_code": "import pytest\n\ndef test_is_valid_double_positive():\n    assert is_valid_double(\"123.456\") == True\n    assert is_valid_double(\"-123.456\") == True\n\ndef test_is_valid_double_decimal_only():\n    assert is_valid_double(\".456\") == True\n\ndef test_is_valid_double_integer():\n    assert is_valid_double(\"123\") == False\n    assert is_valid_double(\"-123\") == False\n\ndef test_is_valid_double_negative():\n    assert is_valid_double(\"-.456\") == True\n\ndef test_is_valid_double_empty():\n    assert is_valid_double(\"\") == False\n\ndef test_is_valid_double_special_chars():\n    assert is_valid_double(\"123.456.789\") == False\n    assert is_valid_double(\"123..456\") == False\n    assert is_valid_double(\"abc\") == False\n    assert is_valid_double(\"123..\") == False\n    assert is_valid_double(\".123\") == True\n    assert is_valid_double(\"123.\") == True",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

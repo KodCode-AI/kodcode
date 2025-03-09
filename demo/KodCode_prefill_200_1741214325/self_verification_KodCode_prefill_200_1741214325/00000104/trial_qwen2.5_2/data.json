@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000104",
+    "row_id": 104,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string is a valid identifier in Python.",
+  "solution_code": "import keyword\n\ndef is_valid_identifier(s):\n    \"\"\"\n    Returns True if the string is a valid Python identifier, otherwise False.\n    \n    :param s: the string to check\n    :return: bool\n    \"\"\"\n    # Check if the string is a Python keyword\n    if keyword.iskeyword(s):\n        return False\n    \n    # Check if the string starts with a letter or underscore\n    if not (s[0].isalpha() or s[0] == '_'):\n        return False\n    \n    # Check if the rest of the characters are alphanumeric or underscore\n    for char in s[1:]:\n        if not (char.isalnum() or char == '_'):\n            return False\n    \n    return True",
+  "test_code": "import keyword\nfrom solution import is_valid_identifier\n\ndef test_is_valid_identifier():\n    assert is_valid_identifier('valid_identifier') == True\n    assert is_valid_identifier('with_number4') == True\n    assert is_valid_identifier('_underscore_start') == True\n    assert is_valid_identifier('4invalid') == False\n    assert is_valid_identifier('for') == False  # Python keyword\n    assert is_valid_identifier('import') == False  # Python keyword\n    assert is_valid_identifier('if') == False  # Python keyword\n    assert is_valid_identifier('') == False\n    assert is_valid_identifier('invalid-character!') == False\n    assert is_valid_identifier('valid123') == True\n    assert is_valid_identifier('valid_123') == True",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

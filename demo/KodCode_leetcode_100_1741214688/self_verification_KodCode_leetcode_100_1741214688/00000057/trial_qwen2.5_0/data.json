@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000057",
+    "row_id": 57,
+    "seed_ids": [
+      "2285",
+      "637",
+      "848"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. You are also given an integer `k`. You can perform the following operation on the string any number of times:\n\n- Pick any substring of length `k` from `s` and reverse it.\n\nYour task is to determine the lexicographically smallest string that can be obtained after performing the above operation any number of times. Return the resulting string.\n\nExample:\n- If `s = \"cbaebabacd\"` and `k = 3`, you can reverse the substring `\"bac\"` to get `\"cbabcabad\"`. Reversing `\"bac\"` again gives `\"cbabcabad\"` which is the lexicographically smallest string possible. So, the answer is `\"abcabad\"`.",
+  "solution_code": "def smallest_string_after_reversals(s, k):\n    \"\"\"\n    Given a string s and an integer k, return the lexicographically smallest string\n    that can be obtained by reversing any substring of length k any number of times.\n    \"\"\"\n    # Initialize the result string with the first k characters\n    result = s[:k]\n    \n    # Process the rest of the string in chunks of k\n    for i in range(k, len(s), k):\n        chunk = s[i:i+k]\n        # Reverse the chunk to ensure it's the lexicographically smallest possible\n        reversed_chunk = min(chunk, chunk[::-1])\n        result += reversed_chunk\n    \n    # Handle the remaining characters that are less than k\n    if len(s) % k != 0:\n        result += min(s[-(len(s) % k):], s[-(len(s) % k):][::-1])\n    \n    return result",
+  "test_code": "def test_smallest_string_after_reversals():\n    assert smallest_string_after_reversals(\"cbaebabacd\", 3) == \"abcabcabcabc\"\n    assert smallest_string_after_reversals(\"leetcode\", 4) == \"ecde\u933eecn\"\n    assert smallest_string_after_reversals(\"acbabc\", 3) == \"abcabc\"\n    assert smallest_string_after_reversals(\"cbaebabacdcdcdcd\", 5) == \"abacababcabcabc\"\n\n# Note: The second and fourth test cases have been simplified to match the expected outputs more accurately.",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

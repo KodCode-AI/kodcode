@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000161",
+    "row_id": 161,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to generate all possible combinations of a given list of numbers.",
+  "solution_code": "from itertools import combinations\n\ndef generate_combinations(numbers):\n    \"\"\"\n    Generates all possible combinations of the given list of numbers.\n    \"\"\"\n    all_combinations = []\n    for r in range(1, len(numbers) + 1):\n        all_combinations.extend(combinations(numbers, r))\n    return all_combinations",
+  "test_code": "from solution import generate_combinations\nimport itertools\n\ndef test_generate_combinations():\n    numbers = [1, 2, 3]\n    expected_combinations = list(itertools.chain.from_iterable(itertools.combinations(numbers, r) for r in range(1, len(numbers) + 1)))\n    assert sorted(generate_combinations(numbers)) == sorted(expected_combinations)\n\ndef test_generate_combinations_empty_list():\n    numbers = []\n    expected_combinations = []\n    assert generate_combinations(numbers) == expected_combinations\n\ndef test_generate_combinations_single_element():\n    numbers = [1]\n    expected_combinations = [(), (1,)]\n    assert sorted(generate_combinations(numbers)) == sorted(expected_combinations)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

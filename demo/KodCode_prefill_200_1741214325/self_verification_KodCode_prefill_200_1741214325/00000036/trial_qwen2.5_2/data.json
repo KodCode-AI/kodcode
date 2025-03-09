@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000036",
+    "row_id": 36,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to print all the prime numbers in a given range. What are the factors to consider while implementing this function?",
+  "solution_code": "def print_primes(start: int, end: int):\n    \"\"\"\n    Prints all prime numbers in the given range from start to end (inclusive).\n    \"\"\"\n    if start > end or start < 2:\n        raise ValueError(\"Invalid range: start should not be greater than end and start should be at least 2.\")\n    \n    for num in range(start, end + 1):\n        if is_prime(num):\n            print(num)\n            \ndef is_prime(n: int) -> bool:\n    \"\"\"\n    Check if a number is prime.\n    \"\"\"\n    if n <= 1:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True",
+  "test_code": "from solution import print_primes, is_prime\n\ndef test_is_prime():\n    assert is_prime(2) == True\n    assert is_prime(3) == True\n    assert is_prime(4) == False\n    assert is_prime(5) == True\n    assert is_prime(29) == True\n    assert is_prime(49) == False\n\ndef test_print_primes():\n    start, end = 10, 20\n    expected_primes = [11, 13, 17, 19]\n    with capture_stdout() as stdout:\n        print_primes(start, end)\n    printed_primes = stdout.getvalue().strip().split('\\n')\n    assert all(map(lambda x: is_prime(int(x)), printed_primes))\n    assert set(printed_primes) == set(map(str, expected_primes))\n\ndef test_invalid_range():\n    try:\n        print_primes(10, 5)\n        assert False, \"Expected ValueError not raised for invalid range.\"\n    except ValueError:\n        assert True\n\ndef test_edge_cases():\n    start, end = 2, 2\n    with capture_stdout() as stdout:\n        print_primes(start, end)\n    printed_output = stdout.getvalue().strip()\n    assert printed_output == str(start)\n    \ndef test_with_no_primes():\n    start, end = 8, 8\n    with capture_stdout() as stdout:\n        print_primes(start, end)\n    printed_output = stdout.getvalue().strip()\n    assert printed_output == ''  # No output because there are no primes in the given range.",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

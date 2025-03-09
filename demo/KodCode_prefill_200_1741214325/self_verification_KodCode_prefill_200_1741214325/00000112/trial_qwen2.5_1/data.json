@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000112",
+    "row_id": 112,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to generate the Fibonacci sequence up to a given number n. The function should return a list of the Fibonacci numbers less than or equal to n.",
+  "solution_code": "def generate_fibonacci(n):\n    \"\"\"\n    Generates the Fibonacci sequence up to a given number n and returns a list of the Fibonacci numbers less than or equal to n.\n    \"\"\"\n    if n < 0:\n        return []\n    \n    fib_sequence = [0]\n    a, b = 0, 1\n    while b <= n:\n        fib_sequence.append(b)\n        a, b = b, a + b\n    return fib_sequence",
+  "test_code": "def test_generate_fibonacci_with_small_numbers():\n    assert generate_fibonacci(10) == [0, 1, 1, 2, 3, 5, 8]\n\ndef test_generate_fibonacci_with_large_number():\n    assert generate_fibonacci(100) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]\n\ndef test_generate_fibonacci_with_zero():\n    assert generate_fibonacci(0) == [0]\n\ndef test_generate_fibonacci_with_negative_number():\n    assert generate_fibonacci(-5) == []\n\ndef test_generate_fibonacci_with_single_element():\n    assert generate_fibonacci(1) == [0, 1]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

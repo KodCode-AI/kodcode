@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000098",
+    "row_id": 98,
+    "seed_ids": [
+      "318",
+      "1265",
+      "919"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a complete binary tree represented by an array `tree`, where `tree[i]` represents the value of the node at index `i`, and each parent node's value is the bitwise OR of its two children. You are given the root index `0` and a target value `target`. Your task is to insert a new node with value `target` into the array representation of the tree while maintaining the complete binary tree property, and return the new root index of the modified array.\n\nImplement the `CBTArrayInserter` class with the following methods:\n*   `CBTArrayInserter(int[] tree)`: Initializes the data structure with the given array `tree` representing the complete binary tree.\n*   `int insert(int target)`: Inserts a new node with value `target` into the tree and returns the new root index of the modified array.\n*   `int get_root()`: Returns the root index of the current state of the tree.",
+  "solution_code": "class CBTArrayInserter:\n    def __init__(self, tree):\n        self.tree = tree\n        self.size = len(tree)\n\n    def insert(self, target):\n        self.size += 1\n        index = self.size - 1\n        self.tree.append(target)\n        while index > 0 and self.tree[index] != 0:\n            parent = (index - 1) // 2\n            self.tree[parent] |= self.tree[index]\n            index = parent\n        return 0\n\n    def get_root(self):\n        return 0",
+  "test_code": "def test_cbt_array_inserter():\n    tree = [1, 2, 3, 4, 5, 6, 7]\n    inserter = CBTArrayInserter(tree)\n    assert inserter.insert(8) == 0  # Insert a new node with value 8 at the end\n    assert inserter.get_root() == 0  # The root index remains 0\n    assert inserter.insert(9) == 0  # Insert a new node with value 9 at the end\n    assert inserter.insert(10) == 0 # Insert a new node with value 10 at the end\n\n    tree = [0, 1, 0, 0, 2, 3, 4, 5, 6, 7]\n    inserter = CBTArrayInserter(tree)\n    assert inserter.insert(8) == 0  # Insert a new node with value 8 at the end\n    assert inserter.get_root() == 0  # The root index remains 0\n    assert inserter.insert(9) == 0  # Insert a new node with value 9 at the end\n    assert inserter.insert(10) == 0 # Insert a new node with value 10 at the end",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

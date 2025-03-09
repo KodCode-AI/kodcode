@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000085",
+    "row_id": 85,
+    "seed_ids": [
+      "1273",
+      "119",
+      "855"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, a **substring** `t` is called **balanced** if the number of occurrences of each letter in `t` is the same. For example, the substring `\"ababa\"` is balanced because each letter appears exactly twice. \n\nDesign an algorithm to find the length of the longest **balanced** substring `t` in `s`. Return the length of `t`. If no such substring exists, return `0`.",
+  "solution_code": "def longest_balanced_substring(s: str) -> int:\n    \"\"\"\n    Returns the length of the longest balanced substring in the given string s.\n    A balanced substring has the same number of occurrences for each character.\n    \"\"\"\n    max_len = 0\n    n = len(s)\n    for i in range(n):\n        for j in range(i + 1, n + 1):\n            substring = s[i:j]\n            if all(substring.count(char) == substring.count(next(iter(substring))) for char in set(substring)):\n                max_len = max(max_len, len(substring))\n    return max_len",
+  "test_code": "import pytest\n\ndef test_longest_balanced_substring():\n    assert longest_balanced_substring(\"abcbabc\u201d) == 4\n    assert longest_balanced_substring(\"aaabbbcc\") == 6\n    assert longest_balanced_substring(\"abcd\") == 0\n    assert longest_balanced_substring(\"aabbcc\") == 6\n    assert longest_balanced_substring(\"xxyyzzzz\") == 4\n    assert longest_balanced_substring(\"aabbcccdd\") == 4\n    assert longest_balanced_substring(\"bbaaac\") == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000047",
+    "row_id": 47,
+    "seed_ids": [
+      702
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are tasked with implementing and utilizing the Extended Euclidean Algorithm to solve a specific problem. Given two integers \\(m\\) and \\(n\\), your task is to find integers \\(a\\) and \\(b\\) such that \\(a \\cdot m + b \\cdot n = \\gcd(m, n)\\). Additionally, you need to use these coefficients to construct a new integer \\(k\\) such that \\(k = a^2 + b^2\\). \n\nHere are the requirements for your implementation:\n- **Input**: Two integers \\(m\\) and \\(n\\) (\\(-10^9 \\leq m, n \\leq 10^9\\)).\n- **Output**: A single integer \\(k\\) as described above.\n- **Performance Requirement**: Your solution should be efficient and handle the given constraints within a reasonable time.\n\n### Example\n\n```python\n# Example 1\nm = 10\nn = 6\n# Extended Euclidean Algorithm: 10 = 1*6 + 4, 6 = 1*4 + 2, 4 = 2*2 + 0\n# Bezout's identity: 10*(-1) + 6*2 = 2 (gcd of 10 and 6 is 2)\n# k = (-1)^2 + 2^2 = 1 + 4 = 5\n# Output: 5\n\n# Example 2\nm = 35\nn = 15\n# Extended Euclidean Algorithm: 35 = 2*15 + 5, 15 = 3*5 + 0\n# Bezout's identity: 35*(-3) + 15*7 = 5 (gcd of 35 and 15 is 5)\n# k = (-3)^2 + 7^2 = 9 + 49 = 58\n# Output: 58\n```\n\n### Implementation\n\nWrite a function `calculate_k(m: int, n: int) -> int` that takes two integers \\(m\\) and \\(n\\) as input and returns the integer \\(k\\) as described above.\n\n### Constraints\n- \\( -10^9 \\leq m, n \\leq 10^9 \\)\n\n### Note\n\nEnsure your implementation is correct by handling all edge cases and optimizing the solution to handle large inputs efficiently.",
+  "solution_code": "def extended_gcd(a, b):\n    \"\"\"\n    Returns a tuple (gcd, x, y) such that gcd is the greatest common divisor of a and b,\n    and x, y are the coefficients satisfying Bezout's identity ax + by = gcd(a, b).\n    \"\"\"\n    if a == 0:\n        return (b, 0, 1)\n    else:\n        gcd, x1, y1 = extended_gcd(b % a, a)\n        x = y1 - (b // a) * x1\n        y = x1\n        return (gcd, x, y)\n\ndef calculate_k(m: int, n: int) -> int:\n    \"\"\"\n    Calculates k = a^2 + b^2 where a and b are the Bezout coefficients for integers m and n.\n    \"\"\"\n    gcd, a, b = extended_gcd(m, n)\n    k = a**2 + b**2\n    return k",
+  "test_code": "import pytest\n\ndef test_calculate_k():\n    assert calculate_k(10, 6) == 5\n    assert calculate_k(35, 15) == 58\n    assert calculate_k(221, 143) == 56\n    assert calculate_k(-10, 10) == 200\n    assert calculate_k(7, 9) == 130\n    assert calculate_k(1, 2) == 5\n    assert calculate_k(1, 1) == 2\n    assert calculate_k(0, 5) == 25\n\nif __name__ == \"__main__\":\n    pytest.main()",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

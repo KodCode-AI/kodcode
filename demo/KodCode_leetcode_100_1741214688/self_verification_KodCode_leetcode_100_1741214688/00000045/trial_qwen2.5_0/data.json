@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000045",
+    "row_id": 45,
+    "seed_ids": [
+      "223",
+      "1228",
+      "1528"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary tree, return the vertical order traversal of its nodes' values. Vertical order traversal means starting from the root, traverse the tree column by column from left to right. If two nodes are in the same row and column, order them from left to right based on their values. The tree is represented using a list of `TreeNode` objects, where each `TreeNode` has an integer value, and left and right pointers to its children. If a node is `null`, it should be represented as `None` in the list. For example, the tree\n\n```\n    3\n   / \\\n  9  20\n    /  \\\n   15   7\n```\n\ncan be represented as `[3, [9], [20, 15, 7]]`. Return the vertical order traversal as a list of lists, where each sublist represents a vertical level.",
+  "solution_code": "from collections import defaultdict\n\nclass TreeNode:\n    def __init__(self, x):\n        self.val = x\n        self.left = None\n        self.right = None\n\ndef vertical_order_traversal(root):\n    \"\"\"\n    Returns the vertical order traversal of the tree nodes' values.\n    \"\"\"\n    if not root:\n        return []\n    \n    column_table = defaultdict(list)\n    min_column = max_column = 0\n    \n    def dfs(node, row, column):\n        nonlocal min_column, max_column\n        if node:\n            column_table[column].append((row, node.val))\n            min_column = min(min_column, column)\n            max_column = max(max_column, column)\n            dfs(node.left, row + 1, column - 1)\n            dfs(node.right, row + 1, column + 1)\n    \n    dfs(root, 0, 0)\n    \n    # Sort by row first, then by node value\n    vertical_order_list = []\n    for col in range(min_column, max_column + 1):\n        column_table[col].sort(key=lambda x: x[0])\n        vertical_order_list.append([val for row, val in column_table[col]])\n    \n    return vertical_order_list",
+  "test_code": "from solution import TreeNode, vertical_order_traversal\n\n# Example tree\n#     3\n#    / \\\n#   9  20\n#     /  \\\n#    15   7\nnode_3 = TreeNode(3)\nnode_9 = TreeNode(9)\nnode_20 = TreeNode(20)\nnode_15 = TreeNode(15)\nnode_7 = TreeNode(7)\n\nnode_3.left = node_9\nnode_3.right = node_20\nnode_20.left = node_15\nnode_20.right = node_7\n\ndef test_vertical_order_traversal():\n    assert vertical_order_traversal(node_3) == [[9], [3, 15], [20], [7]]\n\n# Tree with a single node\nsingle_node = TreeNode(1)\ndef test_single_node():\n    assert vertical_order_traversal(single_node) == [[1]]\n\n# Tree with no nodes\ndef test_no_nodes():\n    assert vertical_order_traversal(None) == []\n\n# Tree with multiple nodes\n#     10\n#    /  \\\n#   3    5\n#  / \\\n# 2   1\nnode_10 = TreeNode(10)\nnode_3 = TreeNode(3)\nnode_5 = TreeNode(5)\nnode_2 = TreeNode(2)\nnode_1 = TreeNode(1)\n\nnode_10.left = node_3\nnode_10.right = node_5\nnode_3.left = node_2\nnode_3.right = node_1\ndef test_multiple_nodes():\n    assert vertical_order_traversal(node_10) == [[2], [3], [10], [5, 1]]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

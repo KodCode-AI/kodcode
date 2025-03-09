@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000136",
+    "row_id": 136,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to create a queue using a list with two methods: enqueue and dequeue. The enqueue method adds an element to the end of the queue, and the dequeue method removes the element from the front of the queue.",
+  "solution_code": "class Queue:\n    \"\"\"\n    Queue implementation using a list with enqueue and dequeue methods.\n    \"\"\"\n    def __init__(self):\n        self.queue = []\n\n    def enqueue(self, item):\n        \"\"\"\n        Adds an element to the end of the queue.\n        \"\"\"\n        self.queue.append(item)\n\n    def dequeue(self):\n        \"\"\"\n        Removes the element from the front of the queue. Returns None if the queue is empty.\n        \"\"\"\n        if self.is_empty():\n            return None\n        return self.queue.pop(0)\n\n    def is_empty(self):\n        \"\"\"\n        Checks if the queue is empty.\n        \"\"\"\n        return len(self.queue) == 0",
+  "test_code": "import pytest\n\ndef test_queue_empty():\n    queue = Queue()\n    assert queue.is_empty()\n    assert queue.dequeue() is None\n\ndef test_queue_enqueue():\n    queue = Queue()\n    queue.enqueue(1)\n    queue.enqueue(2)\n    assert not queue.is_empty()\n    assert queue.queue == [1, 2]\n\ndef test_queue_enqueue_multiple():\n    queue = Queue()\n    queue.enqueue(1)\n    queue.enqueue(2)\n    queue.enqueue(3)\n    assert queue.queue == [1, 2, 3]\n\ndef test_queue_dequeue():\n    queue = Queue()\n    queue.enqueue(1)\n    queue.enqueue(2)\n    queue.enqueue(3)\n    assert queue.dequeue() == 1\n    assert queue.queue == [2, 3]\n\ndef test_queue_dequeue_empty():\n    queue = Queue()\n    assert queue.dequeue() is None\n\ndef test_queue_dequeue_multi_times():\n    queue = Queue()\n    queue.enqueue(1)\n    queue.enqueue(2)\n    queue.enqueue(3)\n    assert queue.dequeue() == 1\n    assert queue.dequeue() == 2\n    assert queue.dequeue() == 3\n    assert queue.is_empty()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000059",
+    "row_id": 59,
+    "seed_ids": [
+      223
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are tasked with implementing a modified version of the Selection Sort algorithm. Your goal is to sort a list of integers in ascending order but with a twist: instead of sorting the entire list, you will sort only the even numbers in the list and leave the odd numbers in their original positions.\n\nWrite a function `custom_selection_sort` that takes a list of integers as input and returns a new list where all even numbers are sorted in ascending order, while all odd numbers remain in their original positions.\n\n**Requirements**:\n- The function should handle an empty list and return an empty list.\n- The function should handle a list with only odd numbers and return the same list.\n- The function should handle a list with only even numbers and return the sorted list.\n\n**Constraints**:\n- The input list will contain integers.\n- The input list can have a maximum length of 1000.\n\n**Example**:\n```python\n>>> custom_selection_sort([9, 4, 2, 1, 5, 3])\n[3, 4, 2, 1, 5, 9]\n```\n\n**Explanation**:\n- The odd numbers (9, 1, 5, 3) remain in their original positions.\n- The even numbers (4, 2) are sorted in ascending order (4, 2).",
+  "solution_code": "def custom_selection_sort(arr):\n    \"\"\"\n    Returns a new list where all even numbers are sorted in ascending order,\n    while odd numbers remain in their original positions.\n    \"\"\"\n    # Extract the even numbers and sort them\n    even_numbers = sorted([num for num in arr if num % 2 == 0])\n    even_index = 0\n    \n    # Replace the even numbers in their original positions with the sorted ones\n    return [even_numbers[even_index] if num % 2 == 0 else num for index, num in enumerate(arr)]",
+  "test_code": "def test_custom_selection_sort():\n    assert custom_selection_sort([]) == []\n    assert custom_selection_sort([9, 4, 2, 1, 5, 3]) == [3, 4, 2, 1, 5, 9]\n    assert custom_selection_sort([1, 3, 5, 7]) == [1, 3, 5, 7]\n    assert custom_selection_sort([2, 4, 6, 8]) == [2, 4, 6, 8]\n    assert custom_selection_sort([4, 1, 3, 2]) == [2, 1, 3, 4]\n    assert custom_selection_sort([11, 22, 33, 44, 55, 66]) == [55, 22, 33, 44, 11, 66]",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

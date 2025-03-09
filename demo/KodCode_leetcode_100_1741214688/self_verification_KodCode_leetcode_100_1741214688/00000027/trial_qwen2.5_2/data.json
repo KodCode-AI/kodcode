@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000027",
+    "row_id": 27,
+    "seed_ids": [
+      "263",
+      "735",
+      "172"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of strings `words` and a string `target`, return the number of strings in `words` that contain the `target` as a substring. A substring is a contiguous sequence of characters within a string.",
+  "solution_code": "def count_substrings(words, target):\n    \"\"\"\n    Returns the number of strings in words that contain the target as a substring.\n    \"\"\"\n    return sum(target in word for word in words)",
+  "test_code": "def test_count_substrings():\n    assert count_substrings([\"code\", \"decode\", \"coding\"], \"code\") == 2\n    assert count_substrings([\"hello\", \"world\", \"python\"], \"o\") == 3\n    assert count_substrings([\"ababa\", \"aba\", \"a\", \"b\", \"ba\"], \"aba\") == 2\n    assert count_substrings([\"test\", \"exam\", \"sample\"], \"xyz\") == 0\n    assert count_substrings([\"one\", \"two\", \"three\", \"four\"], \" \") == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

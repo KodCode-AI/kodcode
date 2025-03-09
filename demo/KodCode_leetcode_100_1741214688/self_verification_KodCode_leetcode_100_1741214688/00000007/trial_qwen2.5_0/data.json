@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000007",
+    "row_id": 7,
+    "seed_ids": [
+      "1847",
+      "1865",
+      "898"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an integer array `nums`, you are tasked with designing a data structure that supports two types of queries efficiently:\n\n1. **Add** a positive integer to an element of a given index in the array `nums`.\n2. **Find** the maximum value in a given range of the array `nums`.\n\nImplement the `DynamicArray` class:\n\n*   `DynamicArray(int[] nums)` Initializes the `DynamicArray` object with the integer array `nums`.\n*   `void add(int index, int val)` Adds `val` to `nums[index]`, i.e., applies `nums[index] += val`.\n*   `int find(int left, int right)` Returns the maximum value in the subarray `nums[left...right]`.\n\nEnsure that the `find` operation is as efficient as possible, given the updates to the array.",
+  "solution_code": "class DynamicArray:\n    def __init__(self, nums):\n        self.nums = nums\n        self.max_sum = [num for num in nums]\n\n    def add(self, index, val):\n        self.nums[index] += val\n        # Update the max_sum array\n        for i in range(index, len(self.nums)):\n            self.max_sum[i] = max(self.nums[i], (self.max_sum[i-1] if i > 0 else 0) + self.nums[i])\n\n    def find(self, left, right):\n        if left == 0:\n            return self.max_sum[right]\n        return max(self.max_sum[right] - self.max_sum[left-1], self.nums[left])",
+  "test_code": "import pytest\n\ndef test_dynamic_array():\n    da = DynamicArray([1, 2, 3, 4, 5])\n    assert da.find(0, 4) == 5\n    da.add(2, 3)\n    assert da.find(0, 4) == 8\n    da.add(0, 5)\n    assert da.find(0, 4) == 10\n\ndef test_large_range():\n    da = DynamicArray([i for i in range(1000)])\n    da.add(999, 1000)\n    assert da.find(0, 999) == 1999\n\ndef test_empty_array():\n    da = DynamicArray([])\n    with pytest.raises(IndexError):\n        da.find(0, 0)\n\ndef test_single_element():\n    da = DynamicArray([1])\n    assert da.find(0, 0) == 1\n    da.add(0, 1)\n    assert da.find(0, 0) == 2\n\ndef test_one_add_operation():\n    da = DynamicArray([1, 2, 3])\n    da.add(1, 5)\n    assert da.find(0, 2) == 7",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

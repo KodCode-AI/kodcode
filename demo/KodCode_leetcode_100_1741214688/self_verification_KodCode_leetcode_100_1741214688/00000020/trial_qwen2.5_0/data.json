@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000020",
+    "row_id": 20,
+    "seed_ids": [
+      "803",
+      "1422",
+      "1678"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` (a string consisting only of '0's and '1's), you are allowed to perform the following operation any number of times: choose any two adjacent characters and flip them (i.e., change '0' to '1' and '1' to '0'). Your goal is to make the string as long as possible such that it does not contain the substring \"010\". Return the maximum length of the string you can achieve.\n\n**Example:**\n\n```python\nInput: s = \"110\"\nOutput: 3\nExplanation: We can flip the last two characters to get \"111\", which does not contain \"010\" as a substring.\n```\n\n**Constraints:**\n\n- `1 <= s.length <= 1000`\n- `s` consists only of '0's and '1's.",
+  "solution_code": "def max_length_no_010(s: str) -> int:\n    \"\"\"\n    Returns the maximum length of the string s (consisting only of '0's and '1's) \n    such that it does not contain the substring \"010\" after performing any number \n    of adjacent flips.\n    \"\"\"\n    n = len(s)\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    \n    dp = [[0, 0] for _ in range(n+1)]\n    dp[0] = [0, 0]  # No flips, No 010\n    dp[1] = [1, 0 if s[0] == '1' else 1]  # One flip, No 010\n    \n    for i in range(2, n+1):\n        dp[i][0] = dp[i-1][0] + 1  # No flip, use the previous configuration\n        if s[i-1] == '0':\n            dp[i][1] = dp[i-1][0] + 1  # Flip, use the previous no 010\n        else:\n            dp[i][1] = dp[i-1][1] + 1  # No flip, use the previous flip\n        if i >= 3 and s[i-1] == '1' and s[i-2] == '0' and s[i-3] == '0':\n            dp[i][1] = max(dp[i][1], dp[i-3][0] + 1)  # Check for \"010\" pattern\n    \n    return max(dp[n])",
+  "test_code": "import pytest\n\ndef test_max_length_no_010():\n    assert max_length_no_010(\"110\") == 3\n    assert max_length_no_010(\"000\") == 3\n    assert max_length_no_010(\"01010101010\") == 10\n    assert max_length_no_010(\"1000000\") == 7\n    assert max_length_no_010(\"0110000\") == 6\n    assert max_length_no_010(\"11111111111111111111111111\") == 20\n    assert max_length_no_010(\"10101010101010101010101010\") == 10\n    assert max_length_no_010(\"00110011001100110011\") == 18",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

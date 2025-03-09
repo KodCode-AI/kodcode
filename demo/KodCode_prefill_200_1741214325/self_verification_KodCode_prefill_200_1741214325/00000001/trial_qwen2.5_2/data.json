@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000001",
+    "row_id": 1,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort an array using the selection sort algorithm.",
+  "solution_code": "def selection_sort(arr):\n    \"\"\"\n    Sorts an array using the selection sort algorithm.\n    :param arr: List of integers to be sorted\n    :return: Sorted list of integers\n    \"\"\"\n    n = len(arr)\n    for i in range(n):\n        # Find the minimum element in remaining unsorted array\n        min_idx = i\n        for j in range(i+1, n):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n        \n        # Swap the found minimum element with the first element\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    return arr",
+  "test_code": "from solution import selection_sort\n\ndef test_selection_sort_with_positive_numbers():\n    assert selection_sort([64, 25, 12, 22, 11]) == [11, 12, 22, 25, 64]\n\ndef test_selection_sort_with_negative_numbers():\n    assert selection_sort([-64, -25, -12, -22, -11]) == [-64, -25, -22, -12, -11]\n\ndef test_selection_sort_with_mixed_numbers():\n    assert selection_sort([-1, 5, -7, 8, 0, 12, 10]) == [-7, -1, 0, 5, 8, 10, 12]\n\ndef test_selection_sort_with_single_element():\n    assert selection_sort([5]) == [5]\n\ndef test_selection_sort_with_empty_list():\n    assert selection_sort([]) == []",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

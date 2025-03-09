@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000019",
+    "row_id": 19,
+    "seed_ids": [
+      "2432",
+      "2215",
+      "554"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with finding the lexicographically smallest substring that can be formed by rearranging any number of characters within the string. A substring is defined as a contiguous sequence of characters within a string.\n\nReturn the lexicographically smallest substring found. If the string is empty or consists of a single character, return the string itself.",
+  "solution_code": "def smallest_lexicographical_substring(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest substring that can be formed by rearranging any number of characters within the string.\n    \"\"\"\n    if len(s) <= 1:\n        return s\n    \n    sorted_chars = sorted(s)\n    min_char = sorted_chars[0]\n    min_substring = s[0]\n    \n    for i, char in enumerate(s):\n        if char == min_char and i > 0 and s[:i].endswith(min_char):\n            break\n        if char < min_char or (char == min_char and s[i+1:].startswith(min_char)):\n            min_char = char\n            min_substring = char\n    \n    # Handle the edge case where the smallest character forms the entire string\n    if min_substring == min_char * len(s):\n        return min_char\n    \n    return min_substring + ''.join(sorted(s[len(min_substring):]))",
+  "test_code": "import pytest\n\ndef test_smallest_lexicographical_substring():\n    assert smallest_lexicographical_substring(\"daily\") == \"a\"\n    assert smallest_lexicographical_substring(\"leetcode\") == \"e\"\n    assert smallest_lexicographical_substring(\"loodecte\") == \"e\"\n    assert smallest_lexicographical_substring(\"aaa\") == \"aaa\"\n    assert smallest_lexicographical_substring(\"zzzzzzzzz\") == \"z\"\n    assert smallest_lexicographical_substring(\"aab\") == \"aab\"\n    assert smallest_lexicographical_substring(\"a\") == \"a\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000108",
+    "row_id": 108,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to count the occurrences of a substring in a given string. You should use only the built-in functions of python and no external libraries should be used.",
+  "solution_code": "def count_substring(string, substring):\n    \"\"\"\n    Counts the occurrences of a substring within a given string.\n    \n    Args:\n    string (str): The string to search within.\n    substring (str): The substring to count occurrences of.\n    \n    Returns:\n    int: The number of times the substring occurs in the string.\n    \"\"\"\n    count = start = 0\n    while True:\n        start = string.find(substring, start) + 1\n        if start > 0:\n            count += 1\n        else:\n            return count",
+  "test_code": "from solution import count_substring\n\ndef test_count_substring_empty_string():\n    assert count_substring(\"\", \"test\") == 0\n\ndef test_count_substring_no_occurrences():\n    assert count_substring(\"hello world\", \"badchar\") == 0\n\ndef test_count_substring_single_occurrence():\n    assert count_substring(\"test test test\", \"test\") == 3\n\ndef test_count_substring_multiple_occurrences():\n    assert count_substring(\"bambambambam\", \"bam\") == 4\n\ndef test_count_substring_substring_is_empty():\n    assert count_substring(\"any string\", \"\") == 0\n\ndef test_count_substring_substring_in_middle_of_word():\n    assert count_substring(\"abracadabra\", \"a\") == 5",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

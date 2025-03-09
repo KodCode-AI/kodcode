@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000125",
+    "row_id": 125,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum sum of a subarray within a given array. The subarray must contain at least one number.",
+  "solution_code": "def max_subarray_sum(arr):\n    \"\"\"\n    Returns the maximum sum of a contiguous subarray within the one-dimensional array of numbers.\n    \"\"\"\n    if not arr:\n        raise ValueError(\"Array is empty\")\n    \n    current_sum = max_sum = arr[0]\n    for num in arr[1:]:\n        current_sum = max(num, current_sum + num)\n        max_sum = max(max_sum, current_sum)\n    return max_sum",
+  "test_code": "`\ndef test_max_subarray_sum():\n    assert max_subarray_sum([1, -2, 3, 10, -4, 7, 2, -5]) == 18\n    assert max_subarray_sum([-2, -3, -1]) == -1\n    assert max_subarray_sum([5, 4, -1, 7, 8]) == 23\n    assert max_subarray_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6\n    assert max_subarray_sum([1]) == 1\n\ndef test_edge_cases():\n    assert max_subarray_sum([]) == 0, \"Should throw ValueError for empty array\"\n    assert max_subarray_sum(None) == 0, \"Should throw ValueError for None\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

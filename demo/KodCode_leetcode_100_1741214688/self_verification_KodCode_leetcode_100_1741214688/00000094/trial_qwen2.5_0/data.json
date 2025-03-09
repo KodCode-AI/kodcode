@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000094",
+    "row_id": 94,
+    "seed_ids": [
+      "2166",
+      "1091",
+      "2357"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Implement the `CircularArray` class that supports the following operations:\n\n- `CircularArray(int size)` Initializes the `CircularArray` with `size` elements, all set to zero.\n- `void set(int index, int val)` Sets the value at the given `index` to `val`. If the index is out of bounds, it should wrap around to the beginning or end of the array.\n- `int get(int index)` Returns the value at the given `index`. If the index is out of bounds, it should wrap around to the beginning or end of the array.\n- `void increment(int index, int val)` Increments the value at the given `index` by `val`. If the index is out of bounds, it should wrap around to the beginning or end of the array.\n\nAdditionally, provide a method:\n\n- `String toString()` Returns a string representation of the `CircularArray`, where each element is separated by a comma and the entire array is enclosed in square brackets.",
+  "solution_code": "class CircularArray:\n    def __init__(self, size: int):\n        \"\"\"\n        Initializes the CircularArray with `size` elements, all set to zero.\n        \"\"\"\n        self.size = size\n        self.array = [0] * size\n\n    def set(self, index: int, val: int):\n        \"\"\"\n        Sets the value at the given `index` to `val`.\n        If the index is out of bounds, it should wrap around to the beginning or end of the array.\n        \"\"\"\n        self.array[index % self.size] = val\n\n    def get(self, index: int) -> int:\n        \"\"\"\n        Returns the value at the given `index`.\n        If the index is out of bounds, it should wrap around to the beginning or end of the array.\n        \"\"\"\n        return self.array[index % self.size]\n\n    def increment(self, index: int, val: int):\n        \"\"\"\n        Increments the value at the given `index` by `val`.\n        If the index is out of bounds, it should wrap around to the beginning or end of the array.\n        \"\"\"\n        self.array[index % self.size] += val\n\n    def to_string(self) -> str:\n        \"\"\"\n        Returns a string representation of the `CircularArray`.\n        \"\"\"\n        return '[' + ','.join(map(str, self.array)) + ']'",
+  "test_code": "from solution import CircularArray\n\ndef test circular_array():\n    arr = CircularArray(5)\n    assert arr.to_string() == '[0,0,0,0,0]'\n    arr.set(3, 4)\n    assert arr.to_string() == '[0,0,0,4,0]'\n    arr.set(10, 5)\n    assert arr.to_string() == '[0,5,0,4,0]'\n    arr.increment(1, 7)\n    assert arr.to_string() == '[0,12,0,4,0]'\n    arr.increment(10, 2)\n    assert arr.to_string() == '[0,14,0,4,0]'\n    arr.increment(-1, 3)\n    assert arr.to_string() == '[3,14,0,4,0]'\n    arr.increment(-6, 3)\n    assert arr.to_string() == '[3,14,0,4,3]'\n    arr.increment(8, -2)\n    assert arr.to_string() == '[3,12,0,4,3]'\n    arr.increment(-9, -1)\n    assert arr.to_string() == '[3,11,0,4,3]'\n    arr.set(-2, 1)\n    assert arr.to_string() == '[1,11,0,4,3]'\n    arr.set(6, 2)\n    assert arr.to_string() == '[1,11,0,4,2]'",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

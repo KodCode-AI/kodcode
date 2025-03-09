@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000058",
+    "row_id": 58,
+    "seed_ids": [
+      "558",
+      "2000",
+      "1674"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a **0-indexed** string `s` and an integer `k`, reverse the segment of `s` that starts at index `0` and ends at the index of the **k-th** occurrence of the character `a` (**inclusive**). If the character `a` does not occur `k` times in `s`, do nothing. \n\n*   For example, if `s = \"abcdeaa \"` and `k = 3`, then you should reverse the segment that starts at `0` and ends at `3` (**inclusive**). The resulting string will be `\"aebcd \"`.\n\nReturn the resulting string.",
+  "solution_code": "def reverse_segment(s: str, k: int, target_char: str = 'a') -> str:\n    \"\"\"\n    Reverses the segment of the string s starting from index 0 up to the k-th occurrence\n    of the target character (inclusive). If the character does not occur k times, returns the original string.\n    \"\"\"\n    count = 0\n    for i, char in enumerate(s):\n        if char == target_char:\n            count += 1\n            if count == k:\n                end_index = i\n                break\n    else:  # If the loop did not break, we didn't find the k-th occurrence of the character\n        return s\n    \n    return s[:i+1][::-1] + s[i+1:] if i + 1 < len(s) else s[:i+1][::-1]",
+  "test_code": "from solution import reverse_segment\n\ndef test_reverse_segment():\n    assert reverse_segment(\"abcdeaa\", 3) == \"aebcd\"\n    assert reverse_segment(\"abcd\", 2) == \"abcd\"  # 'a' is only found once, so no change\n    assert reverse_segment(\"aabcde\", 2) == \"aaebcd\"  # 'a' is found twice, but in reverse order\n    assert reverse_segment(\"abcdaa\", 4) == \"aabcd\"  # 'a' is found four times, but the segment includes the second 'a'\n    assert reverse_segment(\"aaaaaa\", 1) == \"a\"  # 'a' is found many times, but the segment is only 1 character\n    assert reverse_segment(\"abcdefg\", 0) == \"abcdefg\"  # No 'a' at index 0, so no change\n    assert reverse_segment(\"\", 0) == \"\"  # Empty string, no changes",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

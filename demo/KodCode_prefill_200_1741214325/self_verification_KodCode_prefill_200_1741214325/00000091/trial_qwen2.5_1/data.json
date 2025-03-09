@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000091",
+    "row_id": 91,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find all prime numbers within a given range (inclusive). The function should return a list of all prime numbers within the range.",
+  "solution_code": "def find_primes_in_range(start, end):\n    \"\"\"\n    Returns a list of all prime numbers within the given range [start, end].\n    \"\"\"\n    def is_prime(n):\n        if n <= 1:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    primes = [num for num in range(start, end + 1) if is_prime(num)]\n    return primes",
+  "test_code": "from solution import find_primes_in_range\n\ndef test_find_primes_in_range():\n    assert find_primes_in_range(5, 10) == [5, 7]\n    assert find_primes_in_range(10, 15) == [11, 13]\n    assert find_primes_in_range(20, 25) == [23]\n    assert find_primes_in_range(1, 5) == [2, 3, 5]\n    assert find_primes_in_range(14, 14) == []\n    assert find_primes_in_range(30, 40) == [31, 37]\n    assert find_primes_in_range(50, 60) == [53, 59]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

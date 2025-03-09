@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000089",
+    "row_id": 89,
+    "seed_ids": [
+      "1202",
+      "982",
+      "2531"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given two strings `s` and `t`, both of length `n`, and an integer `k`, you can perform the following operation on `s` any number of times: choose `k` indices in `s` and rotate the substring of `s` starting at each of those indices by one position to the right (the last character moves to the front). A rotation is represented by a pair `[i, k]` where `i` is the starting index and `k` is the number of positions to rotate. Determine the lexicographically smallest string `s` that can be obtained after performing these operations, and also find the minimum number of operations required to achieve this.",
+  "solution_code": "def rotate_substring(s, index, k):\n    \"\"\"\n    Rotates the substring starting at index by k positions to the right.\n    If k is positive, it moves characters to the right; if negative, to the left.\n    \"\"\"\n    k = k % len(s)\n    return s[index:index+k] + s[index+k:index] + s[:index] if k > 0 else s[index+k:] + s[index:index+k]\n\ndef find_smallest_string(s, k):\n    \"\"\"\n    Finds the lexicographically smallest string s and the minimum number of operations required.\n    \"\"\"\n    n = len(s)\n    if k >= n - 1:\n        return s, 0\n    \n    smallest = s\n    min_operations = float('inf')\n    \n    for i in range(n):\n        current = s\n        operations = 0\n        for j in range(n):\n            min_index = j\n            for r in range(1, k+1):\n                rotated = rotate_substring(current, j, r)\n                if rotated < current:\n                    current = rotated\n                    operations += 1\n                    min_index = j\n                    break\n            if min_index == j:\n                break\n        if current < smallest:\n            smallest = current\n            min_operations = operations\n        s = smallest\n    \n    return smallest, min_operations",
+  "test_code": "from solution import find_smallest_string\n\ndef test_find_smallest_string():\n    assert find_smallest_string(\"daily\", 1) == (\"adily\", 1)\n    assert find_smallest_string(\"onlinesubmission\", 2) == (\"bimonlinesusmission\", 2)\n    assert find_smallest_string(\"acbbcabbba\", 3) == (\"aaabbbcccb\", 3)\n    assert find_smallest_string(\"abcdxyz\", 2) == (\"abcdxyz\", 0)\n    assert find_smallest_string(\"zzzzzzzzab\", 1) == (\"aabzzzzzzz\", 8)\n\ndef test_min_operations():\n    assert find_smallest_string(\"daily\", 1)[1] == 1\n    assert find_smallest_string(\"onlinesubmission\", 2)[1] == 2\n    assert find_smallest_string(\"acbbcabbba\", 3)[1] == 3\n    assert find_smallest_string(\"abcdxyz\", 2)[1] == 0\n    assert find_smallest_string(\"zzzzzzzzab\", 1)[1] == 8",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

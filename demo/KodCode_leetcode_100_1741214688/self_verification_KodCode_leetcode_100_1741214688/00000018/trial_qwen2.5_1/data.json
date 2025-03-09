@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000018",
+    "row_id": 18,
+    "seed_ids": [
+      "2482",
+      "2440",
+      "1887"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a **0-indexed** integer array `nums` of length `n`. You are allowed to perform the following operation on the array any number of times:\n\n- Choose an index `i` such that `0 <= i < n` and set `nums[i]` to `0`.\n\nYou are also given a **0-indexed** array `costs` of the same length, where `costs[i]` represents the cost of setting `nums[i]` to `0`. \n\nYour goal is to make all elements in `nums` equal to `0` with the minimum possible cost. \n\nReturn _the minimum cost to achieve this_.",
+  "solution_code": "def min_cost(nums, costs):\n    \"\"\"\n    Returns the minimum cost to set all elements in nums to 0.\n    \"\"\"\n    max_num = max(nums)\n    return sum(costs[i] for i in range(len(nums)) if nums[i] == max_num)",
+  "test_code": "def test_min_cost():\n    assert min_cost([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]) == 10  # Setting all to 1 has the minimum cost\n\ndef test_min_cost_with_zeros():\n    assert min_cost([0, 0, 0, 0], [1, 2, 3, 4]) == 0  # No cost since nums are already zeroes\n\ndef test_min_cost_all_same():\n    assert min_cost([5, 5, 5, 5], [1, 2, 3, 4]) == 4  # Setting 5 to 0 with the least cost\n\ndef test_min_cost_mixed_values():\n    assert min_cost([2, 5, 3, 7, 1], [4, 5, 2, 3, 1]) == 5  # Setting 1 to 0 has the least cost\n\ndef test_min_cost_single_element():\n    assert min_cost([1], [10]) == 10  # Only one element, setting it to 0 incurs the full cost",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

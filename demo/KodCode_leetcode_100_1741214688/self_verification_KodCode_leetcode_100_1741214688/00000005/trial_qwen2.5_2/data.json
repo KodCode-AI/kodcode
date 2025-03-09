@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000005",
+    "row_id": 5,
+    "seed_ids": [
+      "2338",
+      "1653",
+      "129"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary tree where each node contains a single digit from `0` to `9`. A **path** in the tree is defined as any sequence of nodes from some starting node to any leaf node. Each root-to-leaf path in the tree represents a number. For example, the path `1 -> 2 -> 3` represents the number `123`.\n\nYou need to find the sum of all root-to-leaf numbers in the tree. A **leaf** node is a node with no children. The result should be returned as an integer, and test cases are generated so that the answer will fit in a **32-bit** integer.",
+  "solution_code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\ndef sum_numbers(root):\n    \"\"\"\n    Returns the sum of all root-to-leaf numbers in the binary tree.\n    \"\"\"\n    return _sum_numbers(root, 0)\n    \ndef _sum_numbers(node, current_number):\n    if not node:\n        return 0\n    current_number = current_number * 10 + node.val\n    if not node.left and not node.right:  # It's a leaf node\n        return current_number\n    return _sum_numbers(node.left, current_number) + _sum_numbers(node.right, current_number)",
+  "test_code": "import pytest\n\n# Mock TreeNode class\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef create_tree(*values):\n    nodes = [TreeNode(v) if v is not None else None for v in values]\n    for i in range(len(nodes) // 2):\n        if nodes[i] is not None:\n            nodes[i].left = nodes[2 * i + 1] if 2 * i + 1 < len(nodes) else None\n            nodes[i].right = nodes[2 * i + 2] if 2 * i + 2 < len(nodes) else None\n    return nodes[0]\n\ndef sum_numbers(root):\n    \"\"\"\n    Returns the sum of all root-to-leaf numbers in the binary tree.\n    \"\"\"\n    return _sum_numbers(root, 0)\n\ndef _sum_numbers(node, current_number):\n    if not node:\n        return 0\n    current_number = current_number * 10 + node.val\n    if not node.left and not node.right:  # It's a leaf node\n        return current_number\n    return _sum_numbers(node.left, current_number) + _sum_numbers(node.right, current_number)\n\ndef test_sum_numbers():\n    assert sum_numbers(create_tree(1, 2, 3)) == 25  # 1->2 and 1->3, 25 = 12 + 13\n    assert sum_numbers(create_tree(4, 9, 0, 5, 1)) == 408  # 4->9->5 and 4->9->0->1, 408 = 495 + 4901\n\ndef test_single_node():\n    assert sum_numbers(create_tree(1)) == 1  # The tree consists of a single node 1\n\ndef test_empty_tree():\n    assert sum_numbers(None) == 0  # An empty tree\n\ndef test_no_leaf_nodes():\n    assert sum_numbers(create_tree(1, 2)) == 12  # 1 and 2, but no path to a leaf node, so only 12",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

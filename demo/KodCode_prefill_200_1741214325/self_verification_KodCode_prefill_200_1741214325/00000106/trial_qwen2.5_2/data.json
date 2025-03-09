@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000106",
+    "row_id": 106,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to perform insertion sort on a list of integers. Please make sure to provide detailed comments explaining each part of your code.",
+  "solution_code": "def insertion_sort(arr):\n    \"\"\"\n    Sorts a list of integers using the insertion sort algorithm.\n    \n    This algorithm iterates through the list, and for each element, it finds the correct\n    position within the sorted portion of the list and inserts it there. The algorithm\n    keeps growing the sorted portion of the list until the entire list is sorted.\n    \n    Args:\n        arr (list of int): The list of integers to sort.\n    \n    Returns:\n        list of int: The sorted list of integers.\n    \"\"\"\n    # Traverse through 1 to len(arr)\n    for i in range(1, len(arr)):\n        \n        # Store the current element\n        current_value = arr[i]\n        \n        # Initialize the position where the current element needs to be inserted\n        position = i\n        \n        # Move elements of arr[0..i-1], that are greater than current_value,\n        # to one position ahead of their current position\n        while position > 0 and arr[position - 1] > current_value:\n            arr[position] = arr[position - 1]\n            position -= 1\n        \n        # Insert the current element into its correct position\n        arr[position] = current_value\n    \n    return arr",
+  "test_code": "from solution import insertion_sort\n\ndef test_insertion_sort_positive_numbers():\n    arr = [9, 5, 1, 4, 3]\n    sorted_arr = insertion_sort(arr)\n    assert sorted_arr == [1, 3, 4, 5, 9]\n\ndef test_insertion_sort_negative_numbers():\n    arr = [-5, -9, -3, -4]\n    sorted_arr = insertion_sort(arr)\n    assert sorted_arr == [-9, -5, -4, -3]\n\ndef test_insertion_sort_mixed_numbers():\n    arr = [0, -1, 5, -2, 3]\n    sorted_arr = insertion_sort(arr)\n    assert sorted_arr == [-2, -1, 0, 3, 5]\n\ndef test_insertion_sort_empty_list():\n    arr = []\n    sorted_arr = insertion_sort(arr)\n    assert sorted_arr == []\n\ndef test_insertion_sort_already_sorted():\n    arr = [1, 2, 3, 4, 5]\n    sorted_arr = insertion_sort(arr)\n    assert sorted_arr == [1, 2, 3, 4, 5]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

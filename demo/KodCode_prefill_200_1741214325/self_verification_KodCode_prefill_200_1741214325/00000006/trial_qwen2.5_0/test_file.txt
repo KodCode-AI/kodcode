@@ -1,0 +1,2 @@
+WORD is here, but not in capital letters.
+word is here, in lowercase.

@@ -2,10 +2,11 @@ import torch
 import os
 import sys
 import argparse
+import copy
 import json
 import requests
 import concurrent.futures
-from time import sleep
+from time import sleep, time
 from tqdm import tqdm
 from utils import load_dataset_from_file, save_dataset, make_api_request_with_retry
 from vllm import LLM, SamplingParams
@@ -32,11 +33,12 @@ def get_args():
     parser.add_argument("--dtype", type=str, default="bfloat16", choices=["float16", "bfloat16"])
     parser.add_argument("--tensor_parallel_size", type=int, default=1, help="Number of GPUs to use for tensor parallelism. Only used for Llama 70B models.")
     parser.add_argument("--gpu_memory_utilization", type=float, default=0.95)
-    parser.add_argument("--max_tokens", type=int, default=4096)
-    parser.add_argument("--max_model_len", type=int, default=4096)
-    parser.add_argument("--temperature", type=float, default=0.8)
+    parser.add_argument("--max_tokens", type=int, default=8192)
+    parser.add_argument("--max_model_len", type=int, default=8192)
+    parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--top_p", type=float, default=1.0)
     parser.add_argument("--repetition_penalty", type=float, default=1.0)
+    parser.add_argument("--num_trials", type=int, default=1)
 
     return parser.parse_args()
 
@@ -45,14 +47,24 @@ print(f"Response Generation Manager. Arguments: {args}") # For logging
 
 if args.input_file is None:
     raise ValueError("Please specify the input file path.")
+    
+# Input check: check if ends with prepared.jsonl
+if not args.input_file.endswith("prepared.jsonl"):
+    print("Error: Input file must end with prepared.jsonl for KodCode pipeline. Please make sure you are using the correct input file.")
+    exit(1)
 
 # Constants for the local vllm engine
 MODEL_NAME = args.model_path
 INPUT_FILE_NAME = args.input_file 
 BATCH_SIZE = args.batch_size
-CHECKPOINT_FILE = f"{INPUT_FILE_NAME[:INPUT_FILE_NAME.rfind('.')]}_results_checkpoint.jsonl"
 CHECKPOINT_EVERY = args.checkpoint_every
-SAVED_FILE = f"{INPUT_FILE_NAME[:INPUT_FILE_NAME.rfind('.')]}_results.jsonl"
+
+if args.num_trials > 1:
+    checkpoint_files = [f"{INPUT_FILE_NAME[:INPUT_FILE_NAME.rfind('.')]}_results_checkpoint{i}.jsonl" for i in range(args.num_trials)]
+    saved_files = [f"{INPUT_FILE_NAME[:INPUT_FILE_NAME.rfind('.')]}_results{i}.jsonl" for i in range(args.num_trials)]
+else:
+    checkpoint_file = f"{INPUT_FILE_NAME[:INPUT_FILE_NAME.rfind('.')]}_results_checkpoint.jsonl"
+    saved_file = f"{INPUT_FILE_NAME[:INPUT_FILE_NAME.rfind('.')]}_results.jsonl"
 
 # Obtain config from configs/model_configs.json
 with open("model_configs.json", "r") as f:
@@ -150,11 +162,13 @@ def process_batch(batch, llm, params, tokenizer=None):
                     "role": "assistant",
                     "content": response
                 }
-            ],
+            ]
     return batch
 
 # Generate outputs, update dataset in batches, and overwrite checkpoint
-def generate_and_update(dataset, llm=None, params=None, tokenizer=None):
+def generate_and_update(dataset, checkpoint_file, llm=None, params=None, tokenizer=None):
+    processed_dataset = copy.deepcopy(dataset)
+
     # Initialize tokenizer
     if tokenizer is not None:
         if tokenizer.pad_token_id is None:
@@ -163,42 +177,43 @@ def generate_and_update(dataset, llm=None, params=None, tokenizer=None):
             tokenizer.padding_side = "right"
 
     # Intialize the dataset with the checkpoint file (if it exists)
-    if os.path.exists(CHECKPOINT_FILE):
-        last_checkpoint_idx = len(load_dataset_from_file(CHECKPOINT_FILE))
+    if os.path.exists(checkpoint_file):
+        last_checkpoint_idx = len(load_dataset_from_file(checkpoint_file))
         print(f"Checkpoint file found. Resuming from last checkpoint with index {last_checkpoint_idx}.")
-        dataset[:last_checkpoint_idx] = load_dataset_from_file(CHECKPOINT_FILE)
+        processed_dataset[:last_checkpoint_idx] = load_dataset_from_file(checkpoint_file)
         # Calculate total number of batches
-        num_batches = (len(dataset) - last_checkpoint_idx + BATCH_SIZE - 1) // BATCH_SIZE
+        num_batches = (len(processed_dataset) - last_checkpoint_idx + BATCH_SIZE - 1) // BATCH_SIZE
 
         print(f"Remaining number of batches: {num_batches}")
     else:
         last_checkpoint_idx = 0
         # Calculate total number of batches
-        num_batches = (len(dataset) + BATCH_SIZE - 1) // BATCH_SIZE
+        num_batches = (len(processed_dataset) + BATCH_SIZE - 1) // BATCH_SIZE
         print(f"Total number of batches: {num_batches}")
 
     for i in tqdm(range(num_batches)):
         start_idx = i * BATCH_SIZE + last_checkpoint_idx
-        end_idx = min((i + 1) * BATCH_SIZE + last_checkpoint_idx, len(dataset))
-        batch = dataset[start_idx:end_idx]
+        end_idx = min((i + 1) * BATCH_SIZE + last_checkpoint_idx, len(processed_dataset))
+        batch = processed_dataset[start_idx:end_idx]
         if args.engine == "together":
             batch = process_batch_with_api(batch)
         else:
             batch = process_batch(batch, llm, params, tokenizer)
         
-        dataset[start_idx:end_idx] = batch
+        processed_dataset[start_idx:end_idx] = batch
         # Overwrite the same checkpoint file after serveral batches
         if i % CHECKPOINT_EVERY == 0:
-            save_dataset(dataset[:end_idx], CHECKPOINT_FILE)
+            save_dataset(processed_dataset[:end_idx], checkpoint_file)
             print(f"Dataset checkpoint saved after batch {i + 1}.")
 
-    return dataset
+    return processed_dataset
 
 # Main function to control workflow
 def main():
     # Load instructions from the input file
     dataset = load_dataset_from_file(INPUT_FILE_NAME)
     
+    # Initialize the engine
     if args.engine == "together":
         print("Start together API engine...")
         llm = None
@@ -213,15 +228,17 @@ def main():
             trust_remote_code=True,
             max_model_len = args.max_model_len, # limited by kv-cache 
             tensor_parallel_size = args.tensor_parallel_size,
-            gpu_memory_utilization = args.gpu_memory_utilization)
-    
+            gpu_memory_utilization = args.gpu_memory_utilization
+        )
+
         params = SamplingParams(
             max_tokens=args.max_tokens,
             temperature=args.temperature,
             top_p=args.top_p,
             repetition_penalty=args.repetition_penalty,
             stop_token_ids=stop_token_ids,
-            )
+        )
+
         tokenizer = AutoTokenizer.from_pretrained(args.model_path)
     elif args.engine == "hf":
         print("Start Hugging Face engine...")
@@ -236,14 +253,22 @@ def main():
     else:
         raise ValueError("Invalid engine type.")
 
-    updated_dataset = generate_and_update(dataset, llm, params, tokenizer=tokenizer)
+    if args.num_trials == 1:
+        updated_dataset = generate_and_update(dataset, checkpoint_file, llm, params, tokenizer=tokenizer)
+        save_dataset(updated_dataset, saved_file, convert_to_jsonl=True)
 
-    # Save final dataset
-    save_dataset(updated_dataset, SAVED_FILE)
+        # Optionally remove the checkpoint file after completion
+        os.remove(checkpoint_file)
+        print("Final dataset saved. Checkpoint removed.")
+    else:
+        for i in range(args.num_trials):
+            params.seed = int(time() + i)
+            updated_dataset = generate_and_update(dataset, checkpoint_files[i], llm, params, tokenizer=tokenizer)
+            save_dataset(updated_dataset, saved_files[i], convert_to_jsonl=True)
 
-    # Optionally remove the checkpoint file after completion
-    os.remove(CHECKPOINT_FILE)
-    print("Final dataset saved. Checkpoint removed.")
+            # Optionally remove the checkpoint file after completion
+            os.remove(checkpoint_files[i])
+            print(f"Dataset for trial {i} saved. Checkpoint {i} removed.")
 
 # Run the main function
 if __name__ == "__main__":

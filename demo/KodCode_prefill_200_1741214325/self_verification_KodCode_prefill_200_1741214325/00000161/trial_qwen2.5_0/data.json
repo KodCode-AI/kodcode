@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000161",
+    "row_id": 161,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to generate all possible combinations of a given list of numbers.",
+  "solution_code": "from itertools import combinations\n\ndef generate_combinations(numbers):\n    \"\"\"\n    Generate all possible combinations of a given list of numbers including the empty set.\n    :param numbers: List of numbers to generate combinations from.\n    :return: A list of tuples, each representing a combination.\n    \"\"\"\n    all_combinations = []\n    for r in range(len(numbers) + 1):\n        for combo in combinations(numbers, r):\n            all_combinations.append(combo)\n    return all_combinations",
+  "test_code": "import pytest\nfrom solution import generate_combinations\n\ndef test_empty_list():\n    assert generate_combinations([]) == [(),]\n\ndef test_single_element_list():\n    assert generate_combinations([1]) == [(), (1,)]\n\ndef test_two_elements_list():\n    assert generate_combinations([1, 2]) == [(), (1,), (2,), (1, 2)]\n\ndef test_three_elements_list():\n    assert generate_combinations([1, 2, 3]) == [(), (1,), (2,), (3,), (1, 2), (1, 3), (2, 3), (1, 2, 3)]\n\ndef test_with_duplicates():\n    assert generate_combinations([1, 2, 1]) == [(), (1,), (2,), (1, 1), (1, 2), (2, 1)]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

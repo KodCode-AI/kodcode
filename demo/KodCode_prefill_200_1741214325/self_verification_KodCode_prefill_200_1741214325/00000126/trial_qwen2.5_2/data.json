@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000126",
+    "row_id": 126,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a list of numbers is sorted in ascending order.",
+  "solution_code": "def is_sorted_ascending(numbers):\n    \"\"\"\n    Returns True if the list of numbers is sorted in ascending order, else False.\n    \"\"\"\n    return all(numbers[i] <= numbers[i + 1] for i in range(len(numbers) - 1))",
+  "test_code": "from solution import is_sorted_ascending\n\ndef test_is_sorted_ascending_positive():\n    assert is_sorted_ascending([1, 2, 3, 4, 5]) == True\n\ndef test_is_sorted_ascending_with_equal_elements():\n    assert is_sorted_ascending([1, 1, 2, 3, 4]) == True\n\ndef test_is_sorted_ascending_negative():\n    assert is_sorted_ascending([5, 3, 2, 1]) == False\n\ndef test_is_sorted_ascending_single_element():\n    assert is_sorted_ascending([5]) == True\n\ndef test_is_sorted_ascending_empty_list():\n    assert is_sorted_ascending([]) == True\n\ndef test_is_sorted_ascending_mixed():\n    assert is_sorted_ascending([1, 2, 3, 2, 5]) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000047",
+    "row_id": 47,
+    "seed_ids": [
+      "952",
+      "222",
+      "232"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a class `MyStack` to implement a last in first out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (`push`, `pop`, `top`, and `empty`). Implement the `MyStack` class:\n\n*   `void push(int x)` Pushes element x to the top of the stack.\n*   `int pop()` Removes the element from the top of the stack and returns it.\n*   `int top()` Returns the element at the top of the stack.\n*   `boolean empty()` Returns `true` if the stack is empty, `false` otherwise.\n\n**Notes:** \n\n*   You must use **only** standard operations of a queue, which means only `enqueue`, `deque`, `size`, and `is empty` operations are valid.\n*   Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.",
+  "solution_code": "from collections import deque\n\nclass MyStack:\n    def __init__(self):\n        \"\"\"\n        Initialize your data structure here.\n        \"\"\"\n        self.queue1 = deque()\n        self.queue2 = deque()\n\n    def push(self, x: int) -> None:\n        \"\"\"\n        Push element x onto stack.\n        \"\"\"\n        self.queue2.append(x)\n        while self.queue1:\n            self.queue2.append(self.queue1.popleft())\n        self.queue1, self.queue2 = self.queue2, self.queue1\n\n    def pop(self) -> int:\n        \"\"\"\n        Removes the element on top of the stack and returns that element.\n        \"\"\"\n        return self.queue1.popleft()\n\n    def top(self) -> int:\n        \"\"\"\n        Get the top element.\n        \"\"\"\n        return self.queue1[0]\n\n    def empty(self) -> bool:\n        \"\"\"\n        Returns whether the stack is empty.\n        \"\"\"\n        return not self.queue1",
+  "test_code": "from collections import deque\nimport pytest\n\ndef test_my_stack():\n    my_stack = MyStack()\n    my_stack.push(1)\n    my_stack.push(2)\n    assert my_stack.top() == 2\n    assert my_stack.pop() == 2\n    assert my_stack.empty() is False\n\n    my_stack.push(3)\n    assert my_stack.pop() == 3\n    assert my_stack.pop() == 1\n    assert my_stack.empty() is True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

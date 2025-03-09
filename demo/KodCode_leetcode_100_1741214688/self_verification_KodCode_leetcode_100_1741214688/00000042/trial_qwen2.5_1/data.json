@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000042",
+    "row_id": 42,
+    "seed_ids": [
+      "1567",
+      "1072",
+      "617"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given two binary strings `a` and `b`, return _the sum of `a` and `b` when interpreted as binary numbers._ The length of each string is in the range `[1, 1000]` and consists only of `'0'` or `'1'`. Both `a` and `b` can represent very large numbers.",
+  "solution_code": "def add_binary(a: str, b: str) -> str:\n    \"\"\"\n    Given two binary strings, return their sum as a binary string.\n    \"\"\"\n    # Convert binary strings to integers, sum them, then convert back to binary\n    return bin(int(a, 2) + int(b, 2))[2:]",
+  "test_code": "from solution import add_binary\n\ndef test_add_binary_positive():\n    assert add_binary(\"11\", \"1\") == \"100\"\n\ndef test_add_binary_single_digit():\n    assert add_binary(\"0\", \"0\") == \"0\"\n\ndef test_add_binary_mixed():\n    assert add_binary(\"1010\", \"1011\") == \"10101\"\n\ndef test_add_binary_large_numbers():\n    assert add_binary(\"11111111111111111111111111111101\", \"1\") == \"100000000000000000000000000000000\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

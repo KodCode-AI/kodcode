@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000134",
+    "row_id": 134,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the second smallest number in a list. If the list has less than two unique numbers, return `None`. For example, for the list `[3, 5, 2, 2, 8, 1, 1, 4]`, the function should return `3`. However, for the list `[1, 1]` or `[5]`, the function should return `None`.",
+  "solution_code": "def second_smallest(numbers):\n    \"\"\"\n    Finds the second smallest number in a list.\n    Returns None if there are less than two unique numbers.\n    \"\"\"\n    unique_numbers = set(numbers)\n    if len(unique_numbers) < 2:\n        return None\n    else:\n        return sorted(unique_numbers)[1]",
+  "test_code": "def test_second_smallest():\n    assert second_smallest([3, 5, 2, 2, 8, 1, 1, 4]) == 3\n    assert second_smallest([1, 1]) == None\n    assert second_smallest([5]) == None\n    assert second_smallest([2, 2, 2, 2, 2]) == None\n    assert second_smallest([10, 9, 8, 10, 8, 10, 8]) == 9\n    assert second_smallest([7, 7, 6, 6, 5, 4, 4, 3, 2, 1]) == 6",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

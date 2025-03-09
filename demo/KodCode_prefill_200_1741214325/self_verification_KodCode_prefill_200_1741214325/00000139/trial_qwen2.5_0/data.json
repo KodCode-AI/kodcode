@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000139",
+    "row_id": 139,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum sum of a subarray within a given array. This is known as the maximum subarray problem. You should use Kadane's algorithm to implement this.",
+  "solution_code": "def max_subarray_kadane(arr):\n    \"\"\"\n    Finds the maximum sum of a contiguous subarray within a one-dimensional array of numbers.\n    This implementation uses Kadane's algorithm.\n    \"\"\"\n    max_current = max_global = arr[0]\n    for num in arr[1:]:\n        max_current = max(num, max_current + num)\n        if max_current > max_global:\n            max_global = max_current\n    return max_global",
+  "test_code": "from solution import max_subarray_kadane\n\ndef test_max_subarray_kadane_positive():\n    assert max_subarray_kadane([1, 2, 3, -2, 5]) == 9\n\ndef test_max_subarray_kadane_single_negative():\n    assert max_subarray_kadane([-1]) == -1\n\ndef test_max_subarray_kadane_all_negative():\n    assert max_subarray_kadane([-2, -3, -1, -5]) == -1\n\ndef test_max_subarray_kadane_random():\n    assert max_subarray_kadane([2, 3, -2, 1, -5, 4, -3]) == 6\n\ndef test_max_subarray_kadane_mixed():\n    assert max_subarray_kadane([5, -2, 3, 4, -1, 2, 1, -5, 4]) == 10\n\ndef test_max_subarray_kadane_empty():\n    assert max_subarray_kadane([]) == 0",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000005",
+    "row_id": 5,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a string to an integer. Consider edge cases where the string may contain leading or trailing whitespaces, and it might also contain invalid characters.",
+  "solution_code": "import string\n\ndef str_to_int(s: str) -> int:\n    \"\"\"\n    Converts a string to an integer, considering edge cases with leading/trailing whitespaces and invalid characters.\n    \"\"\"\n    # Remove leading and trailing whitespaces\n    s = s.strip()\n    \n    if not s:\n        return 0\n    \n    sign = 1\n    i = 0\n    if s[0] == '-':\n        sign = -1\n        i = 1\n    elif s[0] == '+':\n        i = 1\n\n    int_val = 0\n    for char in s[i:]:\n        if char.isdigit():\n            int_val = int_val * 10 + int(char)\n        else:\n            break\n    \n    # Handle 32-bit signed integer range\n    INT_MAX = 2**31 - 1\n    INT_MIN = -2**31\n\n    if sign * int_val > INT_MAX:\n        return INT_MAX\n    elif sign * int_val < INT_MIN:\n        return INT_MIN\n    else:\n        return sign * int_val",
+  "test_code": "import pytest\n\ndef test_str_to_int_positive():\n    assert str_to_int(\"42\") == 42\n    assert str_to_int('0000042') == 42\n\ndef test_str_to_int_negative():\n    assert str_to_int(\"-42\") == -42\n    assert str_to_int(\"-12345678901234567890\") == -2147483648  # INT_MIN\n\ndef test_invalid_characters():\n    assert str_to_int(\"   123abc\") == 123\n    assert str_to_int(\"abc123\") == 0  # No valid digit at the start\n\ndef test_empty_string():\n    assert str_to_int(\"\") == 0\n\ndef test_trailing_whitespace():\n    assert str_to_int(\"  -42\") == -42\n\ndef test_leading_whitespace():\n    assert str_to_int(\"42   \") == 42",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000001",
+    "row_id": 1,
+    "seed_ids": [
+      "1910",
+      "1844",
+      "1535"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, and an integer `k`, you can perform the following operation on `s` `k` times: \n\n*   Choose any non-empty substring of `s` and sort its characters in **ascending** order.\n\nAfter performing the operations, return the **lexicographically largest** string `s` that can be obtained. A substring is a contiguous sequence of characters in a string, and a string is lexicographically larger than another if it comes later in a dictionary order.",
+  "solution_code": "def largest_string(s: str, k: int) -> str:\n    \"\"\"\n    Returns the lexicographically largest string obtainable by sorting substrings.\n    \"\"\"\n    n = len(s)\n    if k == 0:\n        return s\n    \n    # Sort the string in chunks, where each chunk size is as large as possible\n    # to maximize the lexicographic order\n    chunk_size = n // (k + 1)\n    for _ in range(k):\n        s = ''.join(sorted(s[i:i + chunk_size] + s[i + chunk_size:i + 2 * chunk_size]) for i in range(0, n - chunk_size + 1))\n    return s",
+  "test_code": "from solution import largest_string\n\ndef test_largest_string_single_sort():\n    assert largest_string(\"1111111111222\", 1) == \"222111111111\"\n\ndef test_largest_string_empty_string():\n    assert largest_string(\"\", 1) == \"\"\n\ndef test_largest_string_k_zero():\n    assert largest_string(\"abc\", 0) == \"abc\"\n\ndef test_largest_string_large_k():\n    assert largest_string(\"1234\", 2) == \"4321\"\n\ndef test_largest_string_with_repetitions():\n    assert largest_string(\"zzzz\", 2) == \"zzzz\"\n\ndef test_largest_string_mixed_activity():\n    assert largest_string(\"aabcbbca\", 2) == \"aaabcbbca\"\n\ndef test_largest_string_trivial_case():\n    assert largest_string(\"a\", 1) == \"a\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

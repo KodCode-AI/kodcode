@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000199",
+    "row_id": 199,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the longest substring without repeating characters in a string.",
+  "solution_code": "def length_of_longest_substring(s: str) -> int:\n    \"\"\"\n    Finds the length of the longest substring without repeating characters.\n    \"\"\"\n    char_index_map = {}\n    left = 0\n    max_length = 0\n    \n    for right in range(len(s)):\n        if s[right] in char_index_map:\n            left = max(left, char_index_map[s[right]] + 1)\n        char_index_map[s[right]] = right\n        max_length = max(max_length, right - left + 1)\n    \n    return max_length",
+  "test_code": "from solution import length_of_longest_substring\n\ndef test_length_of_longest_substring_empty_string():\n    assert length_of_longest_substring(\"\") == 0\n\ndef test_length_of_longest_substring_single_character():\n    assert length_of_longest_substring(\"a\") == 1\n\ndef test_length_of_longest_substring_all_unique_characters():\n    assert length_of_longest_substring(\"abcdefg\") == 7\n\ndef test_length_of_longest_substring_with_repeating_characters():\n    assert length_of_longest_substring(\"abcabcbb\") == 3\n    assert length_of_longest_substring(\"bbbbb\") == 1\n    assert length_of_longest_substring(\"pwwkew\") == 3\n    assert length_of_longest_substring(\"abba\") == 2\n    assert length_of_longest_substring(\"tmmzuxt\") == 5\n\ndef test_length_of_longest_substring_with_similar_characters():\n    assert length_of_longest_substring(\"dvdf\") == 3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

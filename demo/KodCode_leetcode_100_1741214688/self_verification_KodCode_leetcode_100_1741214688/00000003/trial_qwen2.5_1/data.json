@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000003",
+    "row_id": 3,
+    "seed_ids": [
+      "2233",
+      "2203",
+      "2168"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times: choose any two adjacent characters in `s` and swap them if the first character has a higher ASCII value than the second character. After performing any number of operations, return the lexicographically smallest string that can be obtained. Note that the ASCII values of lowercase English letters range from 97 to 122.",
+  "solution_code": "def smallest_string(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest string possible by swapping adjacent\n    characters if the first character has a higher ASCII value than the second.\n    \"\"\"\n    s_list = list(s)\n    i = 0\n    while i < len(s_list) - 1:\n        if s_list[i] > s_list[i + 1]:\n            s_list[i], s_list[i + 1] = s_list[i + 1], s_list[i]\n            i = 0\n        else:\n            i += 1\n    return ''.join(s_list)",
+  "test_code": "def test_smallest_string():\n    assert smallest_string(\"cba\") == \"abc\"\n    assert smallest_string(\"baaca\") == \"aaabc\"\n    assert smallest_string(\"bdda\") == \"addb\"\n    assert smallest_string(\"zyx\") == \"xyz\"\n    assert smallest_string(\"a\") == \"a\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

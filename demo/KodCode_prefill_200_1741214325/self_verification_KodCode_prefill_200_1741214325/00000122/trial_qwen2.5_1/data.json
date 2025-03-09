@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000122",
+    "row_id": 122,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum number in an array using recursion.",
+  "solution_code": "def find_max_recursive(arr):\n    \"\"\"\n    Recursively find the maximum number in an array.\n    \n    :param arr: List of numbers\n    :return: Maximum number in the array\n    \"\"\"\n    if len(arr) == 1:\n        return arr[0]\n    else:\n        sub_max = find_max_recursive(arr[1:])\n        return arr[0] if arr[0] > sub_max else sub_max",
+  "test_code": "from solution import find_max_recursive\n\ndef test_find_max_recursive_empty():\n    assert find_max_recursive([]) == None\n\ndef test_find_max_recursive_positive():\n    assert find_max_recursive([1, 5, 3, 9, 2]) == 9\n\ndef test_find_max_recursive_negative():\n    assert find_max_recursive([-1, -5, -3, -9, -2]) == -1\n\ndef test_find_max_recursive_mixed():\n    assert find_max_recursive([1, -5, 3, -9, 2]) == 3\n\ndef test_find_max_recursive_single_element():\n    assert find_max_recursive([42]) == 42",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

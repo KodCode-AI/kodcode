@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000042",
+    "row_id": 42,
+    "seed_ids": [
+      589
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "#### Problem Description\nGiven a positive integer `limit`, determine the number of Lychrel numbers below `limit`. A Lychrel number is defined as a number that does not form a palindrome through the reverse and add process within a given number of iterations. For this problem, consider a number to be a Lychrel number if it fails to form a palindrome within 50 iterations.\n\n#### Requirements\n- **Input**: A positive integer `limit` (1 \u2264 limit \u2264 100000).\n- **Output**: The count of Lychrel numbers below `limit`.\n- **Performance**: Your solution should handle the largest possible input efficiently.\n\n#### Example\n```python\nInput: limit = 10000\nOutput: 249\n```\n\n#### Constraints\n- The solution should be able to process inputs up to `limit = 100000`.\n- The solution should not rely on external libraries for palindrome checking.\n\n#### Implementation Steps\n1. Define a function `is_palindrome(n: int) -> bool` to check if a number is a palindrome.\n2. Define a function `sum_reverse(n: int) -> int` to return the sum of a number and its reverse.\n3. Implement a function `count_lychrel(limit: int) -> int` to count the number of Lychrel numbers below `limit`.\n\n#### Additional Notes\n- You can assume that no number below `limit` will exceed the maximum number of iterations (50).\n- Optimize your palindrome checking mechanism to handle large numbers efficiently.\n\n#### Submission\nProvide the complete implementation of the `count_lychrel` function.",
+  "solution_code": "def is_palindrome(n: int) -> bool:\n    \"\"\"\n    Check if a number is a palindrome.\n    \"\"\"\n    return str(n) == str(n)[::-1]\n\ndef sum_reverse(n: int) -> int:\n    \"\"\"\n    Return the sum of a number and its reverse.\n    \"\"\"\n    return n + int(str(n)[::-1])\n\ndef count_lychrel(limit: int) -> int:\n    \"\"\"\n    Return the count of Lychrel numbers below the given limit.\n    \"\"\"\n    lychrel_count = 0\n    for num in range(1, limit):\n        for _ in range(50):\n            num = sum_reverse(num)\n            if is_palindrome(num):\n                break\n        else:\n            lychrel_count += 1\n    return lychrel_count",
+  "test_code": "def test_count_lychrel():\n    assert count_lychrel(10000) == 249\n    assert count_lychrel(2000) == 106\n    assert count_lychrel(1000) == 52\n    assert count_lychrel(100) == 19\n    assert count_lychrel(100000) == 24960\n    assert count_lychrel(1) == 0",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

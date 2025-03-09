@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000180",
+    "row_id": 180,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string `s` contains a sequence of consecutive repeating characters that are not adjacent to each other.",
+  "solution_code": "def has_separated_repeats(s: str) -> bool:\n    \"\"\"\n    Returns True if the string s contains at least one sequence of \n    consecutive repeating characters that are not adjacent to each other;\n    otherwise, returns False.\n\n    >>> has_separated_repeats(\"abcddcba\")\n    False\n    >>> has_separated_repeats(\"a\")\n    False\n    >>> has_separated_repeats(\"abdccbda\")\n    True\n    \"\"\"\n    prev_char = None\n    repeat_count = 0\n    for i, char in enumerate(s):\n        if char == prev_char:\n            repeat_count += 1\n            # Check if the repeat is not adjacent\n            if i > 0 and s[i-1] != char:\n                return True\n        else:\n            prev_char = char\n            repeat_count = 1\n\n    return False",
+  "test_code": "from solution import has_separated_repeats\n\ndef test_no_repeats():\n    assert not has_separated_repeats(\"abcdefg\")\n\ndef test_adjacent_repeats():\n    assert not has_separated_repeats(\"aabbcc\")\n\ndef test_non_adjacent_repeats():\n    assert has_separated_repeats(\"aabbccdd\")\n\ndef test_single_char():\n    assert not has_separated_repeats(\"a\")\n\ndef test_several_non_adjacent_repeats():\n    assert has_separated_repeats(\"ababa\")\n    assert has_separated_repeats(\"abcda\")\n    assert has_separated_repeats(\"abbcdd\")",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

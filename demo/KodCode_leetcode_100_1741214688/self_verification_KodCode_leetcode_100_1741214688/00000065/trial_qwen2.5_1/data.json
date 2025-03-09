@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000065",
+    "row_id": 65,
+    "seed_ids": [
+      "824",
+      "1329",
+      "1955"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an array `nums` consisting of integers from `1` to `n` inclusive, where `n` is the length of the array. The array is initially sorted in ascending order. However, exactly one element is missing from the array, and the array is not necessarily contiguous. Your task is to find the missing element and return it. \n\nFor example, if the array is `[1, 2, 4, 5, 6]`, the missing element is `3`, and you should return `3`. If the array is `[1, 3, 4, 5]`, the missing element is `2`, and you should return `2`.\n\nReturn the missing element in the array.",
+  "solution_code": "def find_missing_element(nums):\n    \"\"\"\n    Finds the missing element in the array which is sorted in ascending order except for\n    one missing number. The array contains integers from 1 to n inclusive, where n is the\n    length of the array + 1 due to the missing number.\n    \"\"\"\n    n = len(nums) + 1\n    expected_sum = n * (n + 1) // 2\n    actual_sum = sum(nums)\n    return expected_sum - actual_sum",
+  "test_code": "def test_find_missing_element():\n    assert find_missing_element([1, 2, 4, 5, 6]) == 3\n    assert find_missing_element([1, 3, 4, 5]) == 2\n    assert find_missing_element([1, 2, 3, 5]) == 4\n    assert find_missing_element([2, 3, 4, 5, 6, 7, 8, 9, 10]) == 1\n    assert find_missing_element([1, 2, 3, 4, 5, 7, 8, 9, 10]) == 6\n\ndef test_edge_cases():\n    assert find_missing_element([1]) == 2\n    assert find_missing_element([2]) == 1\n    assert find_missing_element([3, 4, 5]) == 2",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000062",
+    "row_id": 62,
+    "seed_ids": [
+      "1442",
+      "522",
+      "2612"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times:\n\n- Choose any two indices `i` and `j` (0-indexed) where `0 <= i < j < s.length` and `s[i] = 'a'` and `s[j] = 'z'`. Reverse the substring `s[i+1..j-1]`.\n\nYour task is to determine the minimum number of operations required to transform the string `s` into a string where all characters are the same. If it is impossible to achieve such a string, return `-1`.\n\nFor example, given the string `s = \"azbzczbzcz\"`, you can perform the following operations:\n1. Choose `i = 0` and `j = 1` to get `s = \"aabzczbzcz\"`.\n2. Choose `i = 2` and `j = 3` to get `s = \"aaazbzczcz\"`.\n3. Choose `i = 4` and `j = 5` to get `s = \"aaaaaaazcz\"`.\n4. Choose `i = 6` and `j = 7` to get `s = \"aaaaaaaazz\"`.\n5. Choose `i = 8` and `j = 9` to get `s = \"aaaaaaaaaz\"`.\n\nReturn `5` as the answer.",
+  "solution_code": "def min_operations_to_uniform_string(s: str) -> int:\n    \"\"\"\n    Returns the minimum number of operations required to transform the string\n    into a string where all characters are the same. If it is impossible to achieve,\n    returns -1.\n    \"\"\"\n    if len(set(s)) != 2 or 'a' not in s or 'z' not in s:\n        return -1\n    \n    count_a, count_z = s.count('a'), s.count('z')\n    if count_a > count_z:\n        return s.rfind('z') - s.find('z') + 1\n    else:\n        return s.rfind('a') - s.find('a') + 1",
+  "test_code": "def test_min_operations_to_uniform_string():\n    assert min_operations_to_uniform_string(\"azbzczbzcz\") == 5\n    assert min_operations_to_uniform_string(\"aaazzzzz\") == 1\n    assert min_operations_to_uniform_string(\"zzzzyy\") == 4\n    assert min_operations_to_uniform_string(\"aaa\") == -1\n    assert min_operations_to_uniform_string(\"zzz\") == -1\n    assert min_operations_to_uniform_string(\"azzazzazz\") == 3\n    assert min_operations_to_uniform_string(\"aazzazzazz\") == 4\n    assert min_operations_to_uniform_string(\"zzazzazz\") == 3\n\ntest_min_operations_to_uniform_string()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

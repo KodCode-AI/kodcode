@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000014",
+    "row_id": 14,
+    "seed_ids": [
+      "2607",
+      "1880",
+      "1315"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given the root of a binary tree, return the sum of values of all nodes that have an odd-valued parent. If there are no such nodes, return 0. A parent node is considered odd if its value is an odd number.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef sum_odd_parent_nodes(root: TreeNode) -> int:\n    \"\"\"\n    Returns the sum of values of all nodes that have an odd-valued parent.\n    If there are no such nodes, returns 0.\n    \"\"\"\n    def dfs(node: TreeNode, is_odd_parent: bool) -> int:\n        if not node:\n            return 0\n        if is_odd_parent:\n            return node.val + dfs(node.left, node.val % 2 != 0) + dfs(node.right, node.val % 2 != 0)\n        else:\n            return dfs(node.left, node.val % 2 != 0) + dfs(node.right, node.val % 2 != 0)\n    return dfs(root, root.val % 2 != 0)",
+  "test_code": "from solution import TreeNode, sum_odd_parent_nodes\n\ndef test_sum_odd_parent_nodes():\n    # Tree:        1\n    #              / \\\n    #             2   3\n    #            / \\   \\\n    #           4   5   6\n    node_4 = TreeNode(4)\n    node_5 = TreeNode(5)\n    node_6 = TreeNode(6)\n    node_2 = TreeNode(2, node_4, node_5)\n    node_3 = TreeNode(3, None, node_6)\n    root = TreeNode(1, node_2, node_3)\n    assert sum_odd_parent_nodes(root) == 12  # 4 + 5 + 3 (since 2 and 1 are odd, and 5, 3 are children of odd nodes)\n\ndef test_sum_odd_one_branch():\n    # Tree:        1\n    #              / \\\n    #             2   3\n    #            /     \\\n    #           4       5\n    node_4 = TreeNode(4)\n    node_5 = TreeNode(5)\n    node_2 = TreeNode(2, node_4, None)\n    node_3 = TreeNode(3, None, node_5)\n    root = TreeNode(1, node_2, node_3)\n    assert sum_odd_parent_nodes(root) == 6  # 4 (since 2 is odd, and 4 is child of odd node)\n\ndef test_sum_odd_multiple_branches():\n    # Tree:        1\n    #              / \\\n    #             2   3\n    #            / \\   \\\n    #           4   5   6\n    #          / \\\n    #         7   8\n    node_7 = TreeNode(7)\n    node_8 = TreeNode(8)\n    node_4 = TreeNode(4, node_7, node_8)\n    node_2 = TreeNode(2, node_4, None)\n    node_3 = TreeNode(3, None, node_6)\n    root = TreeNode(1, node_2, node_3)\n    assert sum_odd_parent_nodes(root) == 18  # 8 + 7 + 5 + 3 (since 2, 4, 1 are odd, and 7, 8, 5, 3 are children of odd nodes)\n\ndef test_sum_no_odd_node():\n    # Tree:        2\n    #              / \\\n    #             4   6\n    #            / \\\n    #           8   10\n    node_8 = TreeNode(8)\n    node_10 = TreeNode(10)\n    node_4 = TreeNode(4, node_8, node_10)\n    node_2 = TreeNode(2, node_4, None)\n    root = TreeNode(2, node_2, None)\n    assert sum_odd_parent_nodes(root) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

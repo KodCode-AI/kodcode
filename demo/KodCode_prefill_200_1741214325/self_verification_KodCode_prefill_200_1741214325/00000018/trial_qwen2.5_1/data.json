@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000018",
+    "row_id": 18,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the minimal path sum from top to bottom in a binary tree. The minimal path is defined as the path that minimizes the sum of node values along the path from root to leaf.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef minimal_path_sum(root: TreeNode) -> int:\n    \"\"\"\n    Returns the minimal path sum from top to bottom in a binary tree.\n    \"\"\"\n    def dfs(node):\n        if not node:\n            return 0, float('inf')\n        if not node.left and not node.right:\n            return 1, node.val\n        left_depth, left_sum = dfs(node.left)\n        right_depth, right_sum = dfs(node.right)\n        current_depth = max(left_depth, right_depth) + 1\n        current_sum = min(left_sum, right_sum) + node.val\n        return current_depth, current_sum\n    \n    _, result = dfs(root)\n    return result",
+  "test_code": "from solution import minimal_path_sum, TreeNode\n\ndef create_tree(*vals):\n    def add_node(index, val):\n        if not tree[index]:\n            tree[index] = TreeNode()\n        if val is not None:\n            tree[index].val = val\n        left_index = 2 * index + 1\n        right_index = 2 * index + 2\n        if left_index < len(tree):\n            add_node(left_index, vals[left_index])\n        if right_index < len(tree):\n            add_node(right_index, vals[right_index])\n    tree = [None] * 20\n    add_node(0, None)\n    for i, val in enumerate(vals):\n        if val is not None:\n            add_node(i, val)\n    return tree[0]\n\ndef test_minimal_path_sum():\n    # Create a binary tree\n    root = create_tree(\n        60, 20, 80, 40, 50, None, 100, None, 65\n    )\n    assert minimal_path_sum(root) == 180\n\n    # Create another binary tree\n    root2 = create_tree(\n        10, 20, 20, 30, 40, 30, 50\n    )\n    assert minimal_path_sum(root2) == 50\n\n    # Create a binary tree with negative values\n    root3 = create_tree(\n        -6, -2, -8, -10, -4\n    )\n    assert minimal_path_sum(root3) == -18\n\n    # Create a binary tree with a single root node\n    root4 = create_tree(1)\n    assert minimal_path_sum(root4) == 1\n\n    # Create a binary tree with all leaves at the same level\n    root5 = create_tree(\n        2, 3, 7, 8, 4, 5, None, None, 1\n    )\n    assert minimal_path_sum(root5) == 11\n\n# The following lines are for the test functions\n# and would be executed when running the script\n# directly.\nif __name__ == \"__main__\":\n    test_minimal_path_sum()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

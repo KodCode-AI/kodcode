@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000104",
+    "row_id": 104,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string is a valid identifier in Python.",
+  "solution_code": "import keyword\n\ndef is_valid_identifier(s):\n    \"\"\"\n    Returns True if s is a valid Python identifier, False otherwise.\n    \"\"\"\n    if not s or not isinstance(s, str): return False\n    if s[0].isdigit(): return False  # Identifiers cannot start with a digit.\n    if keyword.iskeyword(s): return False  # Keywords are not valid as identifiers.\n    return s.isidentifier()\n\n\nThis function checks if the given string is a valid Python identifier by considering the following:\n- The string is not empty.\n- The string is a string itself.\n- The string does not start with a digit.\n- The string is not a Python keyword.\n- The string follows Python's identifier naming rules.",
+  "test_code": "import pytest\nfrom solution import is_valid_identifier\n\ndef test_is_valid_identifier():\n    assert is_valid_identifier(\"myIdentifier123\") == True\n    assert is_valid_identifier(\"123myIdentifier\") == False\n    assert is_valid_identifier(\"for\") == False\n    assert is_valid_identifier(\"\") == False\n    assert is_valid_identifier(\"validIdentifier\") == True\n    assert is_valid_identifier(\"Invalid-Identifier\") == False  # Contains invalid character '-'\n    assert is_valid_identifier(\"valid2023\") == True\n    assert is_valid_identifier(\"2023Invalid\") == False  # Starts with a number\n    assert is_valid_identifier(\"ValidIdentifier123\") == True\n\ndef test_is_valid_identifier_empty_string():\n    assert is_valid_identifier(\"\") == False\n\ndef test_is_valid_identifier_non_string_input():\n    assert is_valid_identifier(123) == False\n\ndef test_is_valid_identifier_keyword():\n    assert is_valid_identifier(\"class\") == False\n\ndef test_is_valid_identifier_capitalized():\n    assert is_valid_identifier(\"MyIdentifier\") == False\n\n\nThis set of tests covers a variety of scenarios, ensuring that the function behaves as expected for valid and invalid identifiers, including checking for keywords and special characters that are not allowed in identifiers.",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

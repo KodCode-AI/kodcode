@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000001",
+    "row_id": 1,
+    "seed_ids": [
+      "1910",
+      "1844",
+      "1535"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, and an integer `k`, you can perform the following operation on `s` `k` times: \n\n*   Choose any non-empty substring of `s` and sort its characters in **ascending** order.\n\nAfter performing the operations, return the **lexicographically largest** string `s` that can be obtained. A substring is a contiguous sequence of characters in a string, and a string is lexicographically larger than another if it comes later in a dictionary order.",
+  "solution_code": "def largest_string(s: str, k: int) -> str:\n    \"\"\"\n    Returns the lexicographically largest string that can be obtained by performing\n    the specified operations on s, k times.\n    \"\"\"\n    n = len(s)\n    if k == 0 or n == 0:\n        return s\n\n    # If k is greater than or equal to half the length of the string, we can sort\n    # the entire string in descending order to get the maximum lexicographic string\n    if k >= (n + 1) // 2:\n        return ''.join(sorted(s, reverse=True))\n\n    # Otherwise, we need to simulate the operations\n    for _ in range(k):\n        max_slice = \"\"\n        max_char = s[0]\n        for i in range(1, n):\n            if s[i] >= max_char:\n                max_char = s[i]\n                max_slice = s[i:]\n                break\n        if max_slice:\n            s = max_slice + s[s.index(max_slice) + len(max_slice):]\n        else:\n            break\n\n    return s",
+  "test_code": "from solution import largest_string\n\ndef test_largest_string_no_operations():\n    assert largest_string(\"abc\", 0) == \"abc\"\n\ndef test_largest_string_k_equal_to_string_length():\n    assert largest_string(\"abc\", 3) == \"cba\"\n\ndef test_largest_string_k_half_string_length():\n    assert largest_string(\"abc\", 1) == \"cba\"\n\ndef test_largest_string_k_greater_than_string_length_half():\n    assert largest_string(\"abc\", 2) == \"cba\"\n\ndef test_largest_string_with_operations():\n    assert largest_string(\"edcba\", 3) == \"eabcd\"\n\ndef test_largest_string_with_operations_empty_string():\n    assert largest_string(\"\", 2) == \"\"\n\ndef test_largest_string_with_operations_initially_sorted_string():\n    assert largest_string(\"abcdef\", 2) == \"abcdef\"\n\ndef test_largest_string_with_operations_complex_string():\n    assert largest_string(\"acbzae\", 2) == \"aeabcz\"\n\ndef test_largest_string_with_operations_complex_string_after_first_operation():\n    assert largest_string(\"aeabcz\", 1) == \"aceabz\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000168",
+    "row_id": 168,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to parse and extract specific data from XML using `xml.etree.ElementTree`",
+  "solution_code": "import xml.etree.ElementTree as ET\n\ndef extract_data_from_xml(xml_string, tag_name):\n    \"\"\"\n    Parses the provided XML string and extracts the text associated with the specified tag.\n    \n    Args:\n        xml_string (str): The XML data as a string.\n        tag_name (str): The tag name whose value is to be extracted.\n    \n    Returns:\n        list: A list of text values for the specified tag. Returns an empty list if the tag is not found.\n    \"\"\"\n    root = ET.fromstring(xml_string)\n    return [node.text for node in root.iter(tag_name)]",
+  "test_code": "import xml.etree.ElementTree as ET\nfrom solution import extract_data_from_xml\n\ndef test_extract_data_from_xml():\n    xml_data = '''<data>\n                    <country name=\"Liechtenstein\">\n                        < Ranking >2</ Ranking >\n                        <year>2008</ year>\n                        <gdppc>141100</ gdppc>\n                    </country>\n                    <country name=\"Singapore\">\n                        < Ranking >4</ Ranking >\n                        <year>2011</ year>\n                        <gdppc>59900</ gdppc>\n                    </country>\n                </data>'''\n    expected_output = ['2', '4']\n    assert extract_data_from_xml(xml_data, ' Ranking ') == expected_output\n\ndef test_extract_nonexistent_tag():\n    xml_data = '''<data>\n                    <country name=\"Liechtenstein\">\n                        < Ranking >2</ Ranking >\n                        <year>2008</ year>\n                        <gdppc>141100</ gdppc>\n                    </country>\n                    <country name=\"Singapore\">\n                        < Ranking >4</ Ranking >\n                        <year>2011</ year>\n                        <gdppc>59900</ gdppc>\n                    </country>\n                </data>'''\n    expected_output = []\n    assert extract_data_from_xml(xml_data, 'nonexistent_tag') == expected_output\n\ndef test_extract_data_with_whitespace():\n    xml_data = '''<data>\n                    <country name=\"Liechtenstein\">\n                        < Ranking >  2  </ Ranking >\n                    </country>\n                </data>'''\n    expected_output = ['  2  ']\n    assert extract_data_from_xml(xml_data, ' Ranking ') == expected_output\n\ndef test_empty_xml():\n    xml_data = '<empty></empty>'\n    expected_output = []\n    assert extract_data_from_xml(xml_data, 'nonexistent_tag') == expected_output",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

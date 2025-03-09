@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000151",
+    "row_id": 151,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a decimal number to binary without using Python's built-in bin() function. Walk me through the process and the code.",
+  "solution_code": "def decimal_to_binary(n: int) -> str:\n    \"\"\"\n    Converts a decimal number to its binary representation without using Python's built-in bin() function.\n    \"\"\"\n    if n == 0:\n        return \"0\"\n    binary = []\n    while n > 0:\n        binary.append(str(n % 2))\n        n = n // 2\n    binary.reverse()\n    return ''.join(binary)",
+  "test_code": "def test_decimal_to_binary():\n    assert decimal_to_binary(0) == '0'\n    assert decimal_to_binary(1) == '1'\n    assert decimal_to_binary(2) == '10'\n    assert decimal_to_binary(3) == '11'\n    assert decimal_to_binary(4) == '100'\n    assert decimal_to_binary(5) == '101'\n    assert decimal_to_binary(14) == '1110'\n    assert decimal_to_binary(255) == '11111111'\n    assert decimal_to_binary(256) == '100000000'\n    assert decimal_to_binary(1023) == '1111111111'\n\ndef test_single_digit():\n    assert decimal_to_binary(1) == '1'\n    assert decimal_to_binary(9) == '1001'",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

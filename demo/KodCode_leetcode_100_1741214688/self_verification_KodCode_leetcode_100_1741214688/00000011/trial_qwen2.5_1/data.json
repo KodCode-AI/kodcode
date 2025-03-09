@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000011",
+    "row_id": 11,
+    "seed_ids": [
+      "1427",
+      "1300",
+      "174"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a matrix `grid` of size `m x n` containing non-negative integers, and a target value `target`, you need to determine if there exists a path from the top-left corner to the bottom-right corner such that the sum of the values along the path is exactly `target`. You can only move rightward or downward at any point in time. If such a path exists, return `true`; otherwise, return `false`.",
+  "solution_code": "def has_path_with_target(grid, target):\n    \"\"\"\n    Determines if there exists a path from the top-left corner to the bottom-right corner\n    such that the sum of the values along the path is exactly `target`.\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    return dfs(grid, target, 0, 0, m, n)\n\ndef dfs(grid, target, i, j, m, n):\n    if i == m or j == n or grid[i][j] == -1:\n        return False\n    if i == m - 1 and j == n - 1 and grid[i][j] == target:\n        return True\n    temp = grid[i][j]\n    grid[i][j] = -1\n    found = dfs(grid, target - temp, i + 1, j, m, n) or dfs(grid, target - temp, i, j + 1, m, n)\n    grid[i][j] = temp\n    return found",
+  "test_code": "from solution import has_path_with_target\n\ndef test_has_path_with_target():\n    grid1 = [[1, 3, 2], [1, 5, 1], [4, 2, 1]]\n    target1 = 8\n    assert has_path_with_target(grid1, target1) == True\n\n    grid2 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n    target2 = 20\n    assert has_path_with_target(grid2, target2) == True\n\n    grid3 = [[1, 3, 1], [1, 5, 1], [4, 2, 1]]\n    target3 = 13\n    assert has_path_with_target(grid3, target3) == False\n\n    grid4 = [[1, 5, 1], [1, -2, 1], [4, 2, -1]]\n    target4 = 7\n    assert has_path_with_target(grid4, target4) == False\n\n    grid5 = [[1, 3], [2, 2], [3, 1], [4, 0]]\n    target5 = 10\n    assert has_path_with_target(grid5, target5) == True\n\n    grid6 = [[1, 3, 2], [1, -1, 1], [4, -1, 1]]\n    target6 = 7\n    assert has_path_with_target(grid6, target6) == True\n\n    grid7 = [[2, 3, 1], [1, 4, 1], [1, 1, 1]]\n    target7 = 15\n    assert has_path_with_target(grid7, target7) == False\n\n    grid8 = [[3, 9, 4]]\n    target8 = 11\n    assert has_path_with_target(grid8, target8) == True\n\n    grid9 = [[1, 2]]\n    target9 = 3\n    assert has_path_with_target(grid9, target9) == True\n\n    grid10 = [[1]]\n    target10 = 1\n    assert has_path_with_target(grid10, target10) == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000083",
+    "row_id": 83,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the area of a circle given its radius.",
+  "solution_code": "import math\n\ndef calculate_circle_area(radius):\n    \"\"\"\n    Calculates the area of a circle given its radius.\n    \n    Parameters:\n    radius (float): The radius of the circle.\n    \n    Returns:\n    float: The area of the circle.\n    \"\"\"\n    return math.pi * (radius ** 2)",
+  "test_code": "import math\nfrom solution import calculate_circle_area\n\ndef test_circle_area():\n    assert abs(calculate_circle_area(0) - 0) < 1e-6\n    assert abs(calculate_circle_area(1) - math.pi) < 1e-6\n    assert abs(calculate_circle_area(2) - (math.pi * 4)) < 1e-6\n    assert abs(calculate_circle_area(5) - (math.pi * 25)) < 1e-6",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

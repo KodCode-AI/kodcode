@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000038",
+    "row_id": 38,
+    "seed_ids": [
+      "2414",
+      "2220",
+      "1929"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase letters only, return the _length of the **longest** substring that can be obtained by replacing at most one character in `s` with any other character, such that the resulting substring is an alphabetical continuous string._\n\nFor example, in the string `\"abcbdefg\"`, you can replace the `c` with `a` to get `\"aabdefg\"`, which is an alphabetical continuous string of length 7.",
+  "solution_code": "def longest_alphabetical_substring(s: str) -> int:\n    \"\"\"\n    Returns the length of the longest substring that can be obtained by replacing \n    at most one character in s with any other character, such that the resulting \n    substring is an alphabetical continuous string.\n    \"\"\"\n    max_length = 1\n    start = 0\n    allowed_replacement = True\n    \n    for end in range(1, len(s)):\n        if abs(ord(s[end]) - ord(s[end - 1])) == 1 or s[end] == s[end - 1]:\n            continue\n        \n        if allowed_replacement:\n            allowed_replacement = False\n            while start < end - 1 and (ord(s[start]) != ord(s[end - 1]) or abs(ord(s[start]) - ord(s[start + 1])) != 1):\n                start += 1\n            \n            if start < end - 1:\n                start += 1\n        else:\n            break\n        \n        max_length = max(max_length, end - start + 1)\n    \n    # Check the last segment\n    max_length = max(max_length, end - start + 1)\n    \n    return max_length",
+  "test_code": "def test_longest_alphabetical_substring():\n    assert longest_alphabetical_substring(\"abcbdefg\") == 7\n    assert longest_alphabetical_substring(\"aaaaa\") == 5\n    assert longest_alphabetical_substring(\"abcdek\") == 6\n    assert longest_alphabetical_substring(\"abcbdefgh\") == 8\n    assert longest_alphabetical_substring(\"xyz\") == 3\n    assert longest_alphabetical_substring(\"xya\") == 3\n    assert longest_alphabetical_substring(\"abc\") == 3\n    assert longest_alphabetical_substring(\"abdefghijklmnopqrstuvwxyza\") == 27",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

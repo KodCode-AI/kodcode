@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000012",
+    "row_id": 12,
+    "seed_ids": [
+      "1476",
+      "2214",
+      "1720"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a function `maxProfitWithTransactionFee` that calculates the maximum profit you can achieve from trading a stock given an array of daily prices and a transaction fee. You can complete as many buy-sell transactions as you like, but you need to pay the transaction fee for each transaction. A transaction consists of buying and then selling one share of the stock. You cannot engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).\n\n### Function Signature\n```python\ndef maxProfitWithTransactionFee(prices: List[int], fee: int) -> int:\n    pass\n```\n\n### Constraints\n- `1 <= prices.length <= 5 * 10^4`\n- `0 <= prices[i] <= 10^5`\n- `0 <= fee < 10^5`",
+  "solution_code": "def maxProfitWithTransactionFee(prices: list, fee: int) -> int:\n    \"\"\"\n    Calculate the maximum profit you can achieve from trading a stock with a transaction fee.\n    \"\"\"\n    n = len(prices)\n    if n < 2:\n        return 0\n    \n    # Initialize variables to keep track of the maximum profit when we hold and when we do not hold a stock\n    hold = -prices[0]  # Assume we buy the stock on the first day\n    not_hold = 0       # No stock in hand\n    \n    for i in range(1, n):\n        # If we decide to buy or keep the stock\n        hold = max(hold, not_hold - prices[i])\n        # If we decide to sell the stock\n        not_hold = max(not_hold, hold + prices[i] - fee)\n    \n    return not_hold",
+  "test_code": "def test_maxProfitWithTransactionFee():\n    assert maxProfitWithTransactionFee([1, 3, 2, 8, 4, 9], 2) == 8, \"Test case 1 failed\"\n    assert maxProfitWithTransactionFee([1, 3, 7, 5, 10, 3], 3) == 6, \"Test case 2 failed\"\n    assert maxProfitWithTransactionFee([1], 0) == 0, \"Test case 3 failed\"\n    assert maxProfitWithTransactionFee([1, 2, 3, 4, 5], 1) == 3, \"Test case 4 failed\"\n    assert maxProfitWithTransactionFee([7, 6, 4, 3, 1], 2) == 0, \"Test case 5 failed\"\n\nif __name__ == \"__main__\":\n    import pytest\n    pytest.main([__file__])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000052",
+    "row_id": 52,
+    "seed_ids": [
+      "1252",
+      "828",
+      "2560"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` of length `n`, and a positive integer `k`, you are allowed to perform the following operation **any number of times**: choose any index `i` (0-indexed) and flip the value of `s[i]` (i.e., change `s[i]` from `0` to `1` or from `1` to `0`). A **substring** of `s` is said to be **balanced** if the number of `1`s in the substring is equal to the number of `0`s. \n\nAfter performing the above operations, return the **maximum** possible length of a **balanced** substring of `s`. A balanced substring must have an equal number of `0`s and `1`s. If no such balanced substring can be formed, return `0`.\n\nFor example, if `s = \"00110011\"` and `k = 1`, you can flip the second `0` to `1` to form the balanced substring `\"01110011\"`, which has a length of `6`.",
+  "solution_code": "def max_balanced_substring_length(s, k):\n    \"\"\"\n    Given a binary string s and an integer k, returns the maximum possible length of a balanced substring.\n    A balanced substring has an equal number of 0s and 1s, and k flips are allowed.\n    \"\"\"\n    balance = 0\n    max_length = 0\n    for i in range(len(s)):\n        balance += 1 if s[i] == '1' else -1\n        if balance < 0:\n            balance = 0\n        max_length = max(max_length, balance)\n    balance = 0\n    for i in range(len(s)):\n        balance += 1 if s[i] == '0' else -1\n        if balance < 0:\n            balance = 0\n        max_length = max(max_length, balance)\n    return min(max_length + k * 2, len(s))",
+  "test_code": "import pytest\n\ndef test_max_balanced_substring_length():\n    assert max_balanced_substring_length(\"00110011\", 1) == 6\n    assert max_balanced_substring_length(\"0010\", 0) == 2\n    assert max_balanced_substring_length(\"10000\", 1) == 4\n    assert max_balanced_substring_length(\"0101010\", 2) == 8\n    assert max_balanced_substring_length(\"0001111\", 2) == 6\n    assert max_balanced_substring_length(\"0000\", 3) == 6\n    assert max_balanced_substring_length(\"11110000\", 3) == 6\n    assert max_balanced_substring_length(\"11001100\", 1) == 6\n    assert max_balanced_substring_length(\"010101\", 0) == 4\n    assert max_balanced_substring_length(\"10101010\", 1) == 6\n    assert max_balanced_substring_length(\"111111111\", 3) == 9\n\npytest.main()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

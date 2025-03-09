@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000175",
+    "row_id": 175,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to print the first nth Fibonacci numbers in the format `[F(1), F(2), F(3), ..., F(n)]`.",
+  "solution_code": "def fibonacci(n):\n    \"\"\"\n    Returns the first n Fibonacci numbers as a list.\n    \"\"\"\n    if n < 1:\n        return []\n    elif n == 1:\n        return [0]\n    elif n == 2:\n        return [0, 1]\n    \n    fib_sequence = [0, 1]\n    for i in range(2, n):\n        next_fib = fib_sequence[-1] + fib_sequence[-2]\n        fib_sequence.append(next_fib)\n    \n    return fib_sequence",
+  "test_code": "from solution import fibonacci\n\ndef test_fibonacci_positive():\n    assert fibonacci(5) == [0, 1, 1, 2, 3]\n\ndef test_fibonacci_single():\n    assert fibonacci(1) == [0]\n\ndef test_fibonacci_two():\n    assert fibonacci(2) == [0, 1]\n\ndef test_fibonacci_zero():\n    assert fibonacci(0) == []\n\ndef test_fibonacci_negative():\n    assert fibonacci(-5) == []",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

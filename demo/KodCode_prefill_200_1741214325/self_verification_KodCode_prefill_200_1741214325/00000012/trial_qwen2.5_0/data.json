@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000012",
+    "row_id": 12,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert the first and last characters of a string to uppercase and return the modified string.",
+  "solution_code": "def convert_chars_to_uppercase(s):\n    \"\"\"\n    Converts the first and last characters of a string to uppercase and returns the modified string.\n    If the string is empty or has only one character, it returns the string as is but in uppercase.\n    \"\"\"\n    if len(s) == 0:\n        return s\n    elif len(s) == 1:\n        return s.upper()\n    else:\n        return s[0].upper() + s[1:-1] + s[-1].upper()",
+  "test_code": "def test_convert_chars_to_uppercase():\n    assert convert_chars_to_uppercase(\"\") == \"\"\n    assert convert_chars_to_uppercase(\"a\") == \"A\"\n    assert convert_chars_to_uppercase(\"abc\") == \"Abc\"\n    assert convert_chars_to_uppercase(\"abcd\") == \"Abcd\"\n    assert convert_chars_to_uppercase(\"aBcD\") == \"ABcD\"\n    assert convert_chars_to_uppercase(\"hello\") == \"Hhello\"\n    assert convert_chars_to_uppercase(\"WORLD\") == \"WWORLD\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

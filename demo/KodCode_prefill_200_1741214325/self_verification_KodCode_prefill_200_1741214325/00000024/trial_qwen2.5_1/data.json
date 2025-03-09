@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000024",
+    "row_id": 24,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the number of paths from the top-left corner to the bottom-right corner of an M x N grid, where you can only move either down or right at any point in time. The function should handle cases where the grid size can be as large as 10x10 for efficiency. Use memoization to optimize the algorithm.",
+  "solution_code": "import functools\n\ndef count_paths(m, n):\n    \"\"\"\n    Returns the number of paths from the top-left corner to the bottom-right corner of an M x N grid.\n    Movement is restricted to down and right.\n    \"\"\"\n    @functools.lru_cache(maxsize=None)\n    def dp(r, c):\n        if r == 0 or c == 0:\n            return 1\n        return dp(r - 1, c) + dp(r, c - 1)\n    \n    return dp(m - 1, n - 1)",
+  "test_code": "from solution import count_paths\n\ndef test_count_paths_small_grid():\n    assert count_paths(2, 2) == 2\n\ndef test_count_paths_medium_grid():\n    assert count_paths(3, 3) == 6\n    assert count_paths(4, 3) == 10\n    assert count_paths(3, 4) == 10\n\ndef test_count_paths_large_grid():\n    assert count_paths(10, 10) == 184756\n\ndef test_count_paths_with_m_equal_n():\n    for i in range(1, 11):\n        assert count_paths(i, i) == (2 * i - 2) // 2 + 1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

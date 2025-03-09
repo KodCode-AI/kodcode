@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000057",
+    "row_id": 57,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to count the number of uppercase letters in a given string. The function should also handle edge cases such as an empty string or a string with no uppercase letters.",
+  "solution_code": "def count_uppercase_letters(s):\n    \"\"\"\n    Counts and returns the number of uppercase letters in the given string.\n    \"\"\"\n    return sum(1 for c in s if c.isupper())",
+  "test_code": "def test_count_uppercase_letters_empty_string():\n    assert count_uppercase_letters(\"\") == 0\n\ndef test_count_uppercase_letters_no_uppercase():\n    assert count_uppercase_letters(\"hello world\") == 0\n\ndef test_count_uppercase_letters_all_uppercase():\n    assert count_uppercase_letters(\"HELLO WORLD\") == 10\n\ndef test_count_uppercase_letters_mixed_case():\n    assert count_uppercase_letters(\"HeLlO WoRlD\") == 6",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

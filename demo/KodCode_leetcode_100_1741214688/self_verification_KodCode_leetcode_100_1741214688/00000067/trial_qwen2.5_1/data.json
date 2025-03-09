@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000067",
+    "row_id": 67,
+    "seed_ids": [
+      "1814",
+      "2135",
+      "1330"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an integer array `nums` and an integer `k`. The _value_ of this array is defined as the sum of `|nums[i] - nums[i + 1]|` for all `0 <= i < nums.length - 1`. You are allowed to select any subarray of the given array and shift its elements cyclically (i.e., rotate the subarray elements to the left or right) any number of times. You can perform this operation **only once**. Find the maximum possible value of the final array after performing the operation.",
+  "solution_code": "def max_possible_value(nums, k):\n    \"\"\"\n    Computes the maximum possible value of the array after performing\n    at most one cyclic shift operation on any subarray.\n    \"\"\"\n    n = len(nums)\n    prefix_sum = [0] * n\n    total_sum = 0\n    \n    # Calculate prefix sums and total sum\n    for i in range(n):\n        prefix_sum[i] = total_sum + nums[i]\n        total_sum += nums[i]\n    \n    # Calculate the initial value of the array\n    initial_value = sum(abs(nums[i] - nums[(i + 1) % n]) for i in range(n))\n    \n    # Check all possible subarrays for the best cyclic shift\n    for start in range(n):\n        for end in range(start, n):\n            shift_value = abs(nums[start] - nums[(end + 1) % n]) + abs(nums[end] - nums[(start + 1) % n])\n            shift_value -= abs(nums[end] - nums[(start - 1 + n) % n]) + abs(nums[(start - 1 + n) % n] - nums[(end + 1) % n])\n            initial_value = max(initial_value, shift_value)\n    \n    return initial_value",
+  "test_code": "def test_max_possible_value():\n    assert max_possible_value([1, 3, 0, 0, 2], 3) == 6\n    assert max_possible_value([1, 2, 3, 4, 5], 2) == 10\n    assert max_possible_value([1, 1, 1, 1], 2) == 4\n    assert max_possible_value([5, 5, 5, 5], 1) == 8\n    assert max_possible_value([1, 2, 3], 2) == 4\n    assert max_possible_value([10, 2, 3, 4, 5, 6, 7, 8, 9], 4) == 32",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

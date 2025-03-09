@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000187",
+    "row_id": 187,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the Floyd Warshall shortest path algorithm from a given directed graph. The graph is represented using an adjacency matrix.",
+  "solution_code": "def floyd_warshall(graph):\n    \"\"\"\n    Function to implement Floyd-Warshall algorithm to find the shortest paths between all pairs of vertices.\n    The graph should be represented as an adjacency matrix, where graph[i][j] represents the weight of the edge\n    from vertex i to vertex j. If there is no edge, graph[i][j] should be infinity.\n    \"\"\"\n    V = len(graph)  # Number of vertices\n    # Adding the vertices separately\n    for k in range(V):\n        for i in range(V):\n            for j in range(V):\n                graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])\n    return graph",
+  "test_code": "import numpy as np\n\ndef test_floyd_warshall():\n    # Create a sample adjacency matrix with an infinity indicating no direct edge\n    graph = np.array([\n        [0, 3, inf, inf],\n        [inf, 0, 1, 7],\n        [inf, inf, 0, inf],\n        [inf, inf, 2, 0]\n    ])\n    # Expected output after applying Floyd-Warshall algorithm\n    expected_output = np.array([\n        [0, 3, 4, 11],\n        [inf, 0, 1, 8],\n        [inf, inf, 0, 3],\n        [inf, inf, 2, 0]\n    ])\n    # Convert inf to np.inf for comparison\n    graph[np.isinf(graph)] = np.inf\n    expected_output[np.isinf(expected_output)] = np.inf\n    # Run the Floyd-Warshall algorithm\n    output = floyd_warshall(graph)\n    # Check if the output matches the expected output\n    assert np.array_equal(output, expected_output)\n\ndef test_floyd_warshall_empty():\n    # An empty graph\n    graph = np.array([[]])\n    output = floyd_warshall(graph)\n    assert output == graph\n\ndef test_floyd_warshall_single_node():\n    # A single node graph\n    graph = np.array([[0]])\n    output = floyd_warshall(graph)\n    assert output == graph",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

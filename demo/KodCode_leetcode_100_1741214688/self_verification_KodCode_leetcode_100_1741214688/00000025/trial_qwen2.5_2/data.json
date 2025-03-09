@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000025",
+    "row_id": 25,
+    "seed_ids": [
+      "438",
+      "2134",
+      "1288"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an array of integers `nums` and a positive integer `k`, return the maximum sum of a non-empty subarray of size `k` that contains at least one negative number. If there is no such subarray, return 0. A subarray is a contiguous part of an array.",
+  "solution_code": "def max_subarray_sum(nums, k):\n    \"\"\"\n    Return the maximum sum of a non-empty subarray of size k that contains at least one negative number.\n    If no such subarray exists, return 0.\n    \"\"\"\n    n = len(nums)\n    if n < k or k <= 0:\n        return 0\n    \n    max_sum = float('-inf')\n    current_sum = 0\n    has_negative = False\n    \n    for i in range(n):\n        current_sum += nums[i]\n        if nums[i] < 0:\n            has_negative = True\n        \n        if i >= k - 1:\n            if has_negative:\n                max_sum = max(max_sum, current_sum)\n            current_sum -= nums[i - k + 1]\n            if nums[i - k + 1] < 0:\n                has_negative = False\n    \n    return max(max_sum, 0) if max_sum != float('-inf') else 0",
+  "test_code": "from solution import max_subarray_sum\n\ndef test_max_subarray_sum_positive():\n    assert max_subarray_sum([1, 2, 3, -4, 5], 2) == 6\n\ndef test_max_subarray_sum_negative():\n    assert max_subarray_sum([-1, -2, -3, 4, 5], 3) == -6\n\ndef test_max_subarray_sum_no_negative():\n    assert max_subarray_sum([1, 2, 3], 2) == 0\n\ndef test_max_subarray_sum_single_element():\n    assert max_subarray_sum([1], 1) == 1\n\ndef test_max_subarray_sum_k_larger_than_nums():\n    assert max_subarray_sum([1, 2, 3], 4) == 0\n\ndef test_max_subarray_sum_all_negative():\n    assert max_subarray_sum([-5, -3, -10, -1], 2) == -6\n\ndef test_max_subarray_sum_mixed():\n    assert max_subarray_sum([10, -5, 20, -10, -30, 50], 3) == 55",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

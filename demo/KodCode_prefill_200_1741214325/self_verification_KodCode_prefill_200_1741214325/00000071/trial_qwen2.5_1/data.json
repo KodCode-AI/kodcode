@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000071",
+    "row_id": 71,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the sum of all the multiples of 3 or 5 below 1000.",
+  "solution_code": "def sum_of_multiples():\n    \"\"\"\n    Returns the sum of all the multiples of 3 or 5 below 1000.\n    \"\"\"\n    return sum(i for i in range(1000) if i % 3 == 0 or i % 5 == 0)",
+  "test_code": "from solution import sum_of_multiples\n\ndef test_sum_of_multiples_1000():\n    assert sum_of_multiples() == 233168",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

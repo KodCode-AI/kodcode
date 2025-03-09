@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000022",
+    "row_id": 22,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the number of occurrences of a substring within a given string. The function should be case-insensitive.",
+  "solution_code": "def count_substring_occurrences(main_string, substring):\n    \"\"\"\n    Returns the number of times the substring appears in the main string,\n    ignoring case.\n    \"\"\"\n    return sum(main_string[i:i+len(substring)].casefold() == substring.casefold() for i in range(len(main_string)))",
+  "test_code": "import pytest\n\ndef test_count_substring_occurrences():\n    assert count_substring_occurrences(\"Hello, hello, HELLO!\", \"hello\") == 3\n\ndef test_count_substring_occurrences_empty_string():\n    assert count_substring_occurrences(\"\", \"test\") == 0\n\ndef test_count_substring_occurrences_no_occurrence():\n    assert count_substring_occurrences(\"abcABCABC\", \"xyz\") == 0\n\ndef test_count_substring_occurrences_case_sensitivity():\n    assert count_substring_occurrences(\"CaseSensitive CaseSensitive\", \"cASEsENSITIVE\") == 2\n\ndef test_count_substring_occurrences_single_character():\n    assert count_substring_occurrences(\"aAaAaA\", \"a\") == 3\n    assert count_substring_occurrences(\"aAaAaA\", \"A\") == 3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

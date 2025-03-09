@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000022",
+    "row_id": 22,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the number of occurrences of a substring within a given string. The function should be case-insensitive.",
+  "solution_code": "def count_substring(string, substring):\n    \"\"\"\n    Returns the number of occurrences of a substring within a given string, case-insensitively.\n    \n    :param string: The main string where we want to search for occurrences.\n    :param substring: The substring we want to count within the main string.\n    :return: The count of occurrences of the substring within the string.\n    \"\"\"\n    return sum(1 for i in range(len(string)) if string[i:i+len(substring)].lower() == substring.lower())",
+  "test_code": "def test_count_substring_case_insensitive():\n    assert count_substring(\"Hello World\", \"world\") == 1\n    assert count_substring(\"Python Programming\", \"pro\") == 2\n    assert count_substring(\"Case Insensitive\", \"INSENSITIVE\") == 1\n    assert count_substring(\"Repeated Repeated Repeated\", \"repeated\") == 3\n\ndef test_count_substring_empty():\n    assert count_substring(\"\", \"a\") == 0\n    assert count_substring(\"a\", \"\") == 0\n\ndef test_count_substring_single_char():\n    assert count_substring(\"aaa\", \"a\") == 3\n    assert count_substring(\"aaa\", \"b\") == 0\n\ndef test_count_substring_overlapping():\n    assert count_substring(\"ABCabcABCabc\", \"abc\") == 2\n    assert count_substring(\"ABCabcABCabc\", \"ABCA\") == 1\n\ndef test_count_substring_no_occurrences():\n    assert count_substring(\"No Substring Here\", \"notexistent\") == 0",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

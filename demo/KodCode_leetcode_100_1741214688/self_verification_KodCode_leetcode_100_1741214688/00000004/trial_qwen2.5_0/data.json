@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000004",
+    "row_id": 4,
+    "seed_ids": [
+      "765",
+      "2513",
+      "1915"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, a **substring** of `s` is called a **balanced substring** if the number of distinct characters in it is exactly `k`. For a given integer `k`, return the number of balanced substrings in `s`.\n\nExample:\n```python\ns = \"abcabc\", k = 2\nOutput: 3\nExplanation: The balanced substrings are \"ab\", \"bc\", and \"ab\".\n```\n\nExample:\n```python\ns = \"aaabbbccc\", k = 3\nOutput: 1\nExplanation: The only balanced substring is \"aaabbbccc\".\n```",
+  "solution_code": "def count_balanced_substrings(s, k):\n    \"\"\"\n    Returns the number of substrings in s where the number of distinct characters is exactly k.\n    \"\"\"\n    count = 0\n    len_s = len(s)\n    for start in range(len_s):\n        distinct_chars = set()\n        for end in range(start, len_s):\n            distinct_chars.add(s[end])\n            if len(distinct_chars) == k:\n                count += 1\n            elif len(distinct_chars) > k:\n                break\n    return count",
+  "test_code": "from solution import count_balanced_substrings\n\ndef test_count_balanced_substrings():\n    assert count_balanced_substrings(\"abcabc\", 2) == 3\n    assert count_balanced_substrings(\"aaabbbccc\", 3) == 1\n    assert count_balanced_substrings(\"aabbcc\", 2) == 3\n    assert count_balanced_substrings(\"xyzz\", 2) == 1\n    assert count_balanced_substrings(\"zzzzz\", 2) == 0\n\nif __name__ == \"__main__\":\n    import pytest\n    pytest.main([__file__])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

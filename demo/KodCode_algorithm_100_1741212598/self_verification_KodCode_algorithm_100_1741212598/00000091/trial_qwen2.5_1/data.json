@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000091",
+    "row_id": 91,
+    "seed_ids": [
+      736
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "### Context\nYou are working on a computational number theory project and need to implement a function to calculate the number of distinct prime factors for a given number. The function should be efficient and handle edge cases properly.\n\n### Problem Description\nWrite a Python function `calculate_distinct_prime_factors` that takes an integer \\( n \\) and returns the number of distinct prime factors of \\( n \\). The function should follow the following specifications:\n\n- **Input**:\n  - A positive integer \\( n \\) where \\( 1 \\leq n \\leq 10^6 \\).\n\n- **Output**:\n  - An integer representing the number of distinct prime factors of \\( n \\).\n\n### Example\n```python\nprint(calculate_distinct_prime_factors(51242183))  # Output: 3\nprint(calculate_distinct_prime_factors(123456789))  # Output: 2\n```\n\n### Constraints\n- \\( 1 \\leq n \\leq 10^6 \\)\n\n### Notes\n- Ensure that your implementation is efficient and handles edge cases correctly.\n\n### Hint\nConsider the provided code snippet for inspiration but do not directly copy the code. Think about how you can optimize the algorithm for better performance.",
+  "solution_code": "def calculate_distinct_prime_factors(n: int) -> int:\n    \"\"\"\n    Returns the number of distinct prime factors of the given number n.\n    \"\"\"\n    count = 0\n    i = 2\n    # Check for each number from 2 to the square root of n\n    while i * i <= n:\n        # If i is a prime factor\n        if n % i == 0:\n            count += 1\n            # Divide n by this prime factor and check for the next\n            while n % i == 0:\n                n //= i\n        i += 1\n    # If n is a prime number greater than 2\n    if n > 1:\n        count += 1\n    return count",
+  "test_code": "`\nimport pytest\nfrom solution import calculate_distinct_prime_factors\n\ndef test_calculate_distinct_prime_factors():\n    assert calculate_distinct_prime_factors(51242183) == 3\n    assert calculate_distinct_prime_factors(123456789) == 2\n    assert calculate_distinct_prime_factors(2) == 1  # Prime number\n    assert calculate_distinct_prime_factors(221) == 2  # 221 = 13 * 17\n    assert calculate_distinct_prime_factors(100) == 2  # 100 = 2^2 * 5^2\n    assert calculate_distinct_prime_factors(1) == 0  # Edge case, 1 has no prime factors",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

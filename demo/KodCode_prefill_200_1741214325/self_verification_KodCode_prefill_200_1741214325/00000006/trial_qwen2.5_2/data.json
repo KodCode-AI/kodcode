@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000006",
+    "row_id": 6,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to search for a specific word in a text file. The function should take two parameters: the file path and the word to search for. The function should return a list of line numbers where the word is found. If the word is not found, return an empty list. The function should ignore case sensitivity.",
+  "solution_code": "def search_word_in_file(file_path, word):\n    \"\"\"\n    Searches for a specific word in a text file and returns a list of line numbers\n    where the word is found. Ignores case sensitivity.\n    \n    Parameters:\n    file_path (str): Path to the text file.\n    word (str): The word to search for.\n    \n    Returns:\n    list: A list of line numbers where the word is found.\n    \"\"\"\n    word = word.lower()\n    with open(file_path, 'r', encoding='utf-8') as file:\n        lines = file.readlines()\n        line_numbers = []\n        for i, line in enumerate(lines, 1):\n            if word in line.lower():\n                line_numbers.append(i)\n        return line_numbers",
+  "test_code": "import os\nfrom tempfile import NamedTemporaryFile\nfrom solution import search_word_in_file\n\ndef test_search_word_in_file():\n    # Create a temporary file with some content\n    content = \"\"\"This is a test file.\nThis file contains multiple lines with the word 'test'.\nThe word 'test' appears here again.\nAn unrelated line without the word.\nThe test is finished.\"\"\"\n    with NamedTemporaryFile(delete=False, mode='w', encoding='utf-8') as temp_file:\n        temp_file.write(content)\n        file_path = temp_file.name\n\n    # Test the function\n    assert search_word_in_file(file_path, 'test') == [2, 3, 6]\n    assert search_word_in_file(file_path, 'unrelated') == [5]\n    assert search_word_in_file(file_path, 'finish') == [7]\n    assert search_word_in_file(file_path, 'not_here') == []\n\n    # Clean up the temporary file\n    os.remove(file_path)\n\ndef test_case_insensitive_search():\n    # Create a temporary file with lowercase and mixed case content\n    content = \"this IS a TeSt FiLe.\"\n    with NamedTemporaryFile(delete=False, mode='w', encoding='utf-8') as temp_file:\n        temp_file.write(content)\n        file_path = temp_file.name\n\n    # Test the function\n    assert search_word_in_file(file_path, 'this') == [1]\n    assert search_word_in_file(file_path, 'is') == [1]\n    assert search_word_in_file(file_path, 'teSt') == [1]\n    assert search_word_in_file(file_path, 'file') == [1]\n\n    # Clean up the temporary file\n    os.remove(file_path)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

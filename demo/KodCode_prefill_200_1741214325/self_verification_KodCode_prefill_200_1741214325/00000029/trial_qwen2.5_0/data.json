@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000029",
+    "row_id": 29,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to implement a simple bubble sort algorithm.",
+  "solution_code": "def bubble_sort(arr):\n    \"\"\"\n    Sorts an array using the bubble sort algorithm.\n    \n    Parameters:\n    arr (list): The list of elements to be sorted.\n    \n    Returns:\n    list: The sorted list.\n    \"\"\"\n    n = len(arr)\n    for i in range(n):\n        # Create a flag that will allow the function to terminate early if there's nothing left to sort\n        already_sorted = True\n        for j in range(n - i - 1):\n            if arr[j] > arr[j + 1]:\n                # Swap if the element found is greater than the next element\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n                already_sorted = False\n        # If there were no swaps during the last iteration, the array is already sorted, and we can terminate\n        if already_sorted:\n            break\n    return arr",
+  "test_code": "from solution import bubble_sort\n\ndef test_bubble_sort_empty():\n    assert bubble_sort([]) == []\n\ndef test_bubble_sort_single_element():\n    assert bubble_sort([5]) == [5]\n\ndef test_bubble_sort_already_sorted():\n    assert bubble_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]\n\ndef test_bubble_sort_descending_order():\n    assert bubble_sort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]\n\ndef test_bubble_sort_random_numbers():\n    assert bubble_sort([34, 12, 24, 9, 5]) == [5, 9, 12, 24, 34]\n\ndef test_bubble_sort_with_duplicates():\n    assert bubble_sort([2, 4, 1, 2, 3]) == [1, 2, 2, 3, 4]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

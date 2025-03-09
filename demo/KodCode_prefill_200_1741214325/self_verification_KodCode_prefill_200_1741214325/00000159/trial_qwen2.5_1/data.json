@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000159",
+    "row_id": 159,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a string without using extra space.",
+  "solution_code": "def reverse_string(s):\n    \"\"\"\n    Reverses the given string without using extra space.\n    \n    :param s: The input string to be reversed\n    :return: The reversed string\n    \"\"\"\n    # Convert string to list of characters since strings are immutable in Python\n    str_list = list(s)\n    start, end = 0, len(str_list) - 1\n    while start < end:\n        # Swap characters at start and end positions\n        str_list[start], str_list[end] = str_list[end], str_list[start]\n        start += 1\n        end -= 1\n    # Convert list of characters back to string\n    return ''.join(str_list)",
+  "test_code": "from solution import reverse_string\n\ndef test_reverse_string_empty():\n    assert reverse_string(\"\") == \"\"\n\ndef test_reverse_string_single_char():\n    assert reverse_string(\"a\") == \"a\"\n\ndef test_reverse_string_normal():\n    assert reverse_string(\"hello\") == \"olleh\"\n\ndef test_reverse_string_with_spaces():\n    assert reverse_string(\"hello world\") == \"dlrow olleh\"\n\ndef test_reverse_string_special_chars():\n    assert reverse_string(\"!@#$%^&*()\") == \")(*&^%$#@!\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

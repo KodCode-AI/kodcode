@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000058",
+    "row_id": 58,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a given string. Here's a rough outline on how you might approach the problem:",
+  "solution_code": "def reverse_string(s):\n    \"\"\"\n    Returns the reverse of the given string.\n    \"\"\"\n    return s[::-1]",
+  "test_code": "from solution import reverse_string\n\ndef test_reverse_string_empty():\n    assert reverse_string(\"\") == \"\"\n\ndef test_reverse_string_single_character():\n    assert reverse_string(\"a\") == \"a\"\n\ndef test_reverse_string_normal():\n    assert reverse_string(\"hello\") == \"olleh\"\n\ndef test_reverse_string_with_spaces():\n    assert reverse_string(\"hello world\") == \"dlrow olleh\"\n\ndef test_reverse_string_with_punctuation():\n    assert reverse_string(\"hello, world!\") == \"!dlrow ,olleh\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000063",
+    "row_id": 63,
+    "seed_ids": [
+      "2449",
+      "1456",
+      "1711"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` and an integer `k`, return the minimum number of operations required to make exactly `k` characters in the string '1'. In one operation, you can choose any substring of the string and flip all the characters in it (i.e., change '0' to '1' and '1' to '0'). Two strings are considered to be **similar** if they have the same number of '1's. The test cases are generated such that the binary string `s` can always be made to have exactly `k` '1's.",
+  "solution_code": "def min_operations_to_k_ones(binary_str, k):\n    \"\"\"\n    Calculates the minimum number of operations required to have exactly k '1's in the binary string.\n    \"\"\"\n    ones = sum(1 for char in binary_str if char == '1')\n    if ones == k:\n        return 0\n    \n    max_consecutive_ones = current_consecutive_ones = binary_str.count('1')\n    for i in range(len(binary_str)):\n        if binary_str[i] == '1':\n            current_consecutive_ones -= 1\n        else:\n            max_consecutive_ones = max(max_consecutive_ones, (i + 1 - current_consecutive_ones) - 1)\n            current_consecutive_ones = 0\n    \n    operations = k - ones if binary_str[-1] == '0' else k - ones + max_consecutive_ones\n    return operations",
+  "test_code": "def test_min_operations_to_k_ones():\n    assert min_operations_to_k_ones(\"00010101001\", 3) == 3\n    assert min_operations_to_k_ones(\"0101010\", 1) == 2\n    assert min_operations_to_k_ones(\"111000\", 3) == 0\n    assert min_operations_to_k_ones(\"00\", 1) == 1\n    assert min_operations_to_k_ones(\"1111111\", 5) == 6\n\ndef test_min_operations_with_large_input():\n    input_str = '0' * 100 + '1' * 100 + '0' * 100 + '1' * 100\n    assert min_operations_to_k_ones(input_str, 200) == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

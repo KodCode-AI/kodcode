@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000099",
+    "row_id": 99,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to detect a cycle in a directed graph using DFS",
+  "solution_code": "from collections import defaultdict\n\ndef dfs visit(graph, node, visited, rec_stack):\n    \"\"\"\n    Helper function to detect cycle using DFS.\n    :param graph: Directed graph represented as adjacency list.\n    :param node: Current node being processed.\n    :param visited: Set of visited nodes.\n    :param rec_stack: Stack to keep track of nodes in the current recursion.\n    :return: True if cycle is detected, False otherwise.\n    \"\"\"\n    if node in rec_stack:\n        # Node is in recursion stack, cycle is detected.\n        return True\n    if node in visited:\n        # Node is already visited, no need to explore further.\n        return False\n\n    # Mark current node as visited and add to recursion stack.\n    visited.add(node)\n    rec_stack.add(node)\n\n    # Recur for all the vertices adjacent to this node.\n    for neighbor in graph[node]:\n        if dfs visit(graph, neighbor, visited, rec_stack):\n            return True\n\n    # Remove the node from recursion stack.\n    rec_stack.remove(node)\n    return False\n\ndef detect_cycle(graph):\n    \"\"\"\n    Returns True if a cycle is detected in the directed graph, False otherwise.\n    :param graph: Directed graph represented as adjacency list.\n    :return: True if cycle is detected, False otherwise.\n    \"\"\"\n    visited = set()\n    rec_stack = set()\n    for node in graph:\n        if dfs visit(graph, node, visited, rec_stack):\n            return True\n    return False",
+  "test_code": "from solution import detect_cycle, dfs_visit\n\ndef test_dfs_visit_no_cycle():\n    graph = {\n        0: [1],\n        1: [2],\n        2: []\n    }\n    assert not dfs_visit(graph, 0, set(), set())\n\ndef test_dfs_visit_cycle():\n    graph = {\n        0: [1],\n        1: [2],\n        2: [0]\n    }\n    assert dfs_visit(graph, 0, set(), set())\n\ndef test_detect_cycle_no_cycle():\n    graph = {\n        0: [1],\n        1: [2],\n        2: []\n    }\n    assert not detect_cycle(graph)\n\ndef test_detect_cycle_cycle():\n    graph = {\n        0: [1],\n        1: [2],\n        2: [0]\n    }\n    assert detect_cycle(graph)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

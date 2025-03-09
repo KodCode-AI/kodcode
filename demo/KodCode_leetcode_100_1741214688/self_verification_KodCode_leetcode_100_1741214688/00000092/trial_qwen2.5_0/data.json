@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000092",
+    "row_id": 92,
+    "seed_ids": [
+      "1298",
+      "2511",
+      "1926"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a 2D grid representing a map of islands and water. The grid contains the following characters:\n- `'W'` for water (you cannot move through water).\n- `'L'` for land (you can move through land).\n- `'S'` for start (your starting position, guaranteed to be on land).\n\nYou can move up, down, left, or right from any land cell to an adjacent land cell. The goal is to find the shortest path from the start position to any border cell (a cell on the edge of the grid) that is also land. You cannot move diagonally. If there is no such path, return `-1`.\n\nReturn the number of steps in the shortest path, or `-1` if no such path exists.",
+  "solution_code": "from collections import deque\n\ndef shortest_land_distance(grid):\n    \"\"\"\n    Returns the shortest path from the start position to any border cell that is also land.\n    If no such path exists, returns -1.\n    \"\"\"\n    if not grid or not grid[0]:\n        return -1\n    \n    rows, cols = len(grid), len(grid[0])\n    start_row, start_col = -1, -1\n    \n    # Find the start position\n    for i in range(rows):\n        for j in range(cols):\n            if grid[i][j] == 'S':\n                start_row, start_col = i, j\n                break\n        if start_row != -1:\n            break\n    \n    if start_row == -1:\n        return -1\n    \n    # Perform BFS\n    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n    queue = deque([(start_row, start_col, 0)])\n    visited = set([(start_row, start_col)])\n    \n    while queue:\n        row, col, steps = queue.popleft()\n        \n        if row == 0 or col == 0 or row == rows - 1 or col == cols - 1:\n            if grid[row][col] == 'L':  # Check if it's a land cell on the border\n                return steps\n            continue\n        \n        for dr, dc in directions:\n            new_row, new_col = row + dr, col + dc\n            if 0 <= new_row < rows and 0 <= new_col < cols and grid[new_row][new_col] == 'L' and (new_row, new_col) not in visited:\n                visited.add((new_row, new_col))\n                queue.append((new_row, new_col, steps + 1))\n    \n    return -1",
+  "test_code": "def test_shortest_land_distance():\n    # Test 1\n    grid = [\n        ['W', 'W', 'L'],\n        ['L', 'S', 'L'],\n        ['W', 'W', 'L']\n    ]\n    assert shortest_land_distance(grid) == 2\n\n    # Test 2\n    grid = [\n        ['W', 'L', 'L'],\n        ['L', 'S', 'L'],\n        ['W', 'W', 'W']\n    ]\n    assert shortest_land_distance(grid) == 1\n\n    # Test 3\n    grid = [\n        ['W', 'W', 'W'],\n        ['W', 'S', 'W'],\n        ['W', 'W', 'W']\n    ]\n    assert shortest_land_distance(grid) == -1\n\n    # Test 4\n    grid = [\n        ['W', 'W', 'W'],\n        ['L', 'S', 'L'],\n        ['W', 'W', 'W']\n    ]\n    assert shortest_land_distance(grid) == -1\n\n    # Test 5\n    grid = [\n        ['L', 'W', 'W'],\n        ['L', 'L', 'S'],\n        ['W', 'L', 'W']\n    ]\n    assert shortest_land_distance(grid) == 2\n\nif __name__ == \"__main__\":\n    import pytest\n    pytest.main([__file__])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

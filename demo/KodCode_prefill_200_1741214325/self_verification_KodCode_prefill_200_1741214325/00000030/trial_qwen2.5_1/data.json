@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000030",
+    "row_id": 30,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to determine if all elements in an array are unique. Pseudocode is not necessary. Please include comments in your code to explain its functionality.",
+  "solution_code": "def are_elements_unique(arr):\n    \"\"\"\n    Determines if all elements in the array are unique.\n\n    Arguments:\n    arr -- list of elements\n\n    Returns:\n    bool -- True if all elements are unique, False otherwise.\n    \"\"\"\n    # Convert the list to a set and compare its length to the original list's length\n    return len(arr) == len(set(arr))",
+  "test_code": "from solution import are_elements_unique\n\ndef test_unique_elements():\n    assert are_elements_unique([1, 2, 3, 4, 5]) == True\n\ndef test_duplicate_elements():\n    assert are_elements_unique([1, 2, 3, 3, 5]) == False\n\ndef test_empty_array():\n    assert are_elements_unique([]) == True\n\ndef test_single_element_array():\n    assert are_elements_unique([42]) == True\n\ndef test_multiple_duplicates():\n    assert are_elements_unique([1, 2, 3, 3, 2, 1]) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

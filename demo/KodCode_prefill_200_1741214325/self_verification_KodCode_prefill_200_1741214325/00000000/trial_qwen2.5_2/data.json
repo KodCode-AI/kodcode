@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000000",
+    "row_id": 0,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to remove duplicate characters from a string, maintaining the original order of characters.",
+  "solution_code": "def remove_duplicates(input_string: str) -> str:\n    \"\"\"\n    Returns a new string with duplicate characters removed while preserving the original order.\n    \"\"\"\n    seen = set()\n    result = []\n    for char in input_string:\n        if char not in seen:\n            seen.add(char)\n            result.append(char)\n    return ''.join(result)",
+  "test_code": "from solution import remove_duplicates\n\ndef test_remove_duplicates_with_duplicates():\n    assert remove_duplicates(\"programming\") == \"progamin\"\n\ndef test_remove_duplicates_no_duplicates():\n    assert remove_duplicates(\"abcdef\") == \"abcdef\"\n\ndef test_remove_duplicates_with_spaces():\n    assert remove_duplicates(\"a b b c c d\") == \"a b c d\"\n\ndef test_remove_duplicates_empty_string():\n    assert remove_duplicates(\"\") == \"\"\n\ndef test_remove_duplicates_with_special_characters():\n    assert remove_duplicates(\"!!@@##$$%%^^&&**\") == \"!@#$%^&*\"\n\ndef test_remove_duplicates_multiple_occurrences():\n    assert remove_duplicates(\"taco cat\") == \"tac o \"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

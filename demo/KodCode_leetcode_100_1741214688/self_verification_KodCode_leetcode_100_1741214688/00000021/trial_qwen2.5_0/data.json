@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000021",
+    "row_id": 21,
+    "seed_ids": [
+      "61",
+      "79",
+      "623"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and an integer `k`, write a function to find the `k`th smallest element in the tree. Ensure your solution does not modify the tree.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef kth_smallest(root: TreeNode, k: int) -> int:\n    \"\"\"\n    Returns the kth smallest element in the given binary search tree.\n    \"\"\"\n    def inorder_traversal(node: TreeNode):\n        return inorder_traversal(node.left) + [node.val] + inorder_traversal(node.right) if node else []\n    \n    return inorder_traversal(root)[k-1]",
+  "test_code": "import pytest\n\n# Test helper functions and classes\ndef create_bst_from_list(arr):\n    if not arr:\n        return None\n    nodes = [TreeNode(val) if val is not None else None for val in arr]\n    for i, node in enumerate(nodes):\n        if node:\n            node.left = nodes[2 * i + 1] if 2 * i + 1 < len(nodes) else None\n            node.right = nodes[2 * i + 2] if 2 * i + 2 < len(nodes) else None\n    return nodes[0]\n\n# Test cases\ndef test_kth_smallest_simple_tree():\n    root = create_bst_from_list([3, 1, 4, None, 2])\n    assert kth_smallest(root, 1) == 1\n    assert kth_smallest(root, 2) == 2\n    assert kth_smallest(root, 3) == 3\n    assert kth_smallest(root, 4) == 4\n\ndef test_kth_smallest_empty_tree():\n    root = create_bst_from_list([])\n    with pytest.raises(IndexError):\n        kth_smallest(root, 1)\n\ndef test_kth_smallest_large_tree():\n    root = create_bst_from_list([5, 3, 6, 2, 4, None, None, 1])\n    assert kth_smallest(root, 1) == 1\n    assert kth_smallest(root, 2) == 2\n    assert kth_smallest(root, 3) == 3\n    assert kth_smallest(root, 4) == 4\n    assert kth_smallest(root, 5) == 5\n    assert kth_smallest(root, 6) == 6\n\ndef test_kth_smallest_single_node():\n    root = create_bst_from_list([1])\n    assert kth_smallest(root, 1) == 1\n\n# Run the tests\ndef _run_tests():\n    pytest.main([__file__])\n\nif __name__ == \"__main__\":\n    _run_tests()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

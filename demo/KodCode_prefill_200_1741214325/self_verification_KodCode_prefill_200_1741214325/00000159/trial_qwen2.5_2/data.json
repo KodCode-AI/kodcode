@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000159",
+    "row_id": 159,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a string without using extra space.",
+  "solution_code": "def reverse_string(s):\n    \"\"\"\n    Reverses the given string s without using extra space.\n    \"\"\"\n    s = list(s)  # Convert string to list to allow in-place modification\n    left, right = 0, len(s) - 1\n    while left < right:\n        s[left], s[right] = s[right], s[left]  # Swap characters\n        left, right = left + 1, right - 1\n    return ''.join(s)  # Convert list back to string",
+  "test_code": "from solution import reverse_string\n\ndef test_reverse_string_positive():\n    assert reverse_string(\"hello\") == \"olleh\"\n\ndef test_reverse_string_empty():\n    assert reverse_string(\"\") == \"\"\n\ndef test_reverse_string_single_char():\n    assert reverse_string(\"a\") == \"a\"\n\ndef test_reverse_string_whitespace():\n    assert reverse_string(\"   \") == \"   \"\n\ndef test_reverse_string_with_punctuation():\n    assert reverse_string(\"hello, world!\") == \"!dlrow ,olleh\"\n\ndef test_reverse_string_special_chars():\n    assert reverse_string(\"!@#\") == \"#@!\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

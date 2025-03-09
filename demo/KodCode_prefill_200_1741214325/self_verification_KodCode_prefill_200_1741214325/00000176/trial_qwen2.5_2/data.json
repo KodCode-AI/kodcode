@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000176",
+    "row_id": 176,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the minimum number of deletions required to make a string a palindrome.",
+  "solution_code": "def min_deletions_to_palindrome(s):\n    \"\"\"\n    Returns the minimum number of deletions required to make the string a palindrome.\n    \"\"\"\n    n = len(s)\n    dp = [[0] * n for _ in range(n)]\n    \n    # Fill the dp table\n    for length in range(2, n + 1):\n        for i in range(n - length + 1):\n            j = i + length - 1\n            if s[i] == s[j]:\n                dp[i][j] = dp[i + 1][j - 1]\n            else:\n                dp[i][j] = min(dp[i + 1][j], dp[i][j - 1]) + 1\n    \n    return dp[0][n - 1]",
+  "test_code": "from solution import min_deletions_to_palindrome\n\ndef test_min_deletions_to_palindrome():\n    assert min_deletions_to_palindrome(\"abdbca\") == 1\n    assert min_deletions_to_palindrome(\"cddpd\") == 2\n    assert min_deletions_to_palindrome(\"pqr\") == 2\n    assert min_deletions_to_palindrome(\"aaa\") == 0\n    assert min_deletions_to_palindrome(\"abc\") == 2\n    assert min_deletions_to_palindrome(\"abca\") == 1\n    assert min_deletions_to_palindrome(\"abcda\") == 1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

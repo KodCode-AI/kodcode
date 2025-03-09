@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000099",
+    "row_id": 99,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to detect a cycle in a directed graph using DFS",
+  "solution_code": "from collections import defaultdict\n\ndef has_cycle_dfs(graph, vertex, visited, rec_stack):\n    \"\"\"\n    This function uses Depth First Search to detect if there is a cycle in a directed graph.\n    It uses a dictionary to store visited and recursion stack status for each vertex.\n    :param graph: adjacency list representation of the graph\n    :param vertex: current vertex\n    :param visited: set of visited vertices\n    :param rec_stack: set to keep track of vertices in the current recursion stack\n    :return: True if a cycle is detected, False otherwise\n    \"\"\"\n    visited[vertex] = True\n    rec_stack[vertex] = True\n\n    for neighbor in graph[vertex]:\n        if not visited[neighbor]:\n            if has_cycle_dfs(graph, neighbor, visited, rec_stack):\n                return True\n        elif rec_stack[neighbor]:\n            return True\n\n    rec_stack[vertex] = False\n    return False\n\ndef detect_cycle(graph):\n    \"\"\"\n    Returns True if the graph contains a cycle, False otherwise.\n    \"\"\"\n    visited = defaultdict(bool)\n    rec_stack = defaultdict(bool)\n\n    for node in graph:\n        if not visited[node]:\n            if has_cycle_dfs(graph, node, visited, rec_stack):\n                return True\n\n    return False",
+  "test_code": "from solution import detect_cycle\n\ndef test_digraph_with_cycle():\n    # Example of a graph with a cycle: a -> b, b -> c, c -> a\n    graph = {\n        'a': ['b'],\n        'b': ['c'],\n        'c': ['a'],\n    }\n    assert detect_cycle(graph) == True\n\ndef test_digraph_without_cycle():\n    # Example of a graph without a cycle: a -> b, b -> c\n    graph = {\n        'a': ['b'],\n        'b': ['c'],\n    }\n    assert detect_cycle(graph) == False\n\ndef test_digraph_single_node():\n    # Single node graph should not contain a cycle\n    graph = {\n        'a': [],\n    }\n    assert detect_cycle(graph) == False\n\ndef test_digraph_complex_cycle():\n    # Example of a graph with a different cycle: a -> b, b -> c, c -> d, d -> a\n    graph = {\n        'a': ['b'],\n        'b': ['c'],\n        'c': ['d'],\n        'd': ['a'],\n    }\n    assert detect_cycle(graph) == True\n\ndef test_digraph_complex_no_cycle():\n    # Example of a graph without any cycles: a -> b, b -> c, c -> d\n    graph = {\n        'a': ['b'],\n        'b': ['c'],\n        'c': ['d'],\n    }\n    assert detect_cycle(graph) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

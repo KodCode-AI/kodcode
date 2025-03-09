@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000050",
+    "row_id": 50,
+    "seed_ids": [
+      "1057",
+      "1399",
+      "157"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an integer `n`, you are asked to find the number of ways to represent `n` as a sum of consecutive positive integers. For example, `5` can be represented as `2 + 3`, which is one way. Return the total number of ways to represent `n` in this manner.\n\nNote: Consecutive positive integers are those where each integer is one more than the previous one, such as `1, 2, 3, ...`.",
+  "solution_code": "def count_ways_to_sum_consecutively(n):\n    \"\"\"\n    Given an integer n, returns the number of ways to represent n as a sum of consecutive positive integers.\n    \"\"\"\n    total_ways = 0\n    start = 1\n    current_sum = 0\n    \n    while start <= n // 2:\n        current_sum += start\n        start += 1\n        \n        while current_sum > n:\n            current_sum -= start - 1\n            start -= 1\n        \n        if current_sum == n:\n            total_ways += 1\n    \n    return total_ways",
+  "test_code": "from solution import count_ways_to_sum_consecutively\n\ndef test_count_ways_to_sum_consecutively():\n    assert count_ways_to_sum_consecutively(5) == 2  # 1+4 or 2+3\n    assert count_ways_to_sum_consecutively(9) == 3  # 4+5, 2+3+4, 1+2+3+3\n    assert count_ways_to_sum_consecutively(15) == 4  # 1+2+3+4+5, 8+7, 4+5+6, 1+2+3+4+5\n    assert count_ways_to_sum_consecutively(1) == 1  # 1\n    assert count_ways_to_sum_consecutively(3) == 1  # 1+2\n    assert count_ways_to_sum_consecutively(16) == 1  # No way to represent 16 as sum of consecutive positive integers",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

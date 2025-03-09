@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000098",
+    "row_id": 98,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the Fibonacci sequence up to a certain number of terms.",
+  "solution_code": "def fibonacci(n):\n    \"\"\"\n    Returns the first n terms of the Fibonacci sequence.\n    The Fibonacci sequence is a series of numbers where each number is the sum \n    of the two preceding ones, usually starting with 0 and 1.\n    \n    Parameters:\n    n (int): The number of terms in the Fibonacci sequence to generate.\n    \n    Returns:\n    list: A list containing the first n terms of the Fibonacci sequence.\n    \"\"\"\n    if n <= 0:\n        return []\n    elif n == 1:\n        return [0]\n    elif n == 2:\n        return [0, 1]\n    \n    sequence = [0, 1]\n    for i in range(2, n):\n        next_value = sequence[-1] + sequence[-2]\n        sequence.append(next_value)\n    \n    return sequence",
+  "test_code": "from solution import fibonacci\n\ndef test_fibonacci_zero_terms():\n    assert fibonacci(0) == []\n\ndef test_fibonacci_one_term():\n    assert fibonacci(1) == [0]\n\ndef test_fibonacci_two_terms():\n    assert fibonacci(2) == [0, 1]\n\ndef test_fibonacci_five_terms():\n    assert fibonacci(5) == [0, 1, 1, 2, 3]\n\ndef test_fibonacci_ten_terms():\n    assert fibonacci(10) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

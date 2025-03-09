@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000068",
+    "row_id": 68,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to implement the quick sort algorithm, and explain the code line by line.",
+  "solution_code": "def quick_sort(arr):\n    \"\"\"\n    Sorts an array using the quick sort algorithm.\n\n    Parameters:\n    arr (list): The list to be sorted.\n\n    Returns:\n    list: The sorted list.\n    \"\"\"\n    # Base case: if the array has 1 or 0 elements, it is already sorted\n    if len(arr) <= 1:\n        return arr\n\n    # Recursive case\n    else:\n        # Select the pivot element (here, the last element is chosen)\n        pivot = arr[-1]\n        # Partition the array into two halves based on the pivot\n        smaller_elements = [x for x in arr[:-1] if x <= pivot]\n        larger_elements = [x for x in arr[:-1] if x > pivot]\n\n        # Recursively sort the smaller and larger arrays, then combine with the pivot\n        return quick_sort(smaller_elements) + [pivot] + quick_sort(larger_elements)\n\n\nLet's break down the code line by line:\n1. **Function Definition**: Defines a function named `quick_sort` that takes a list `arr` as its parameter.\n2. **Base Case**: Checks if the input array has 1 or 0 elements. If so, it returns the array as it is already sorted.\n3. **Recursive Case**: If the array has more than one element, continues to the next steps.\n   - **Pivot**: Chooses the last element of the array as the pivot.\n   - **Partitioning**: Uses list comprehensions to create two new lists: `smaller_elements` for elements less than or equal to the pivot, and `larger_elements` for elements greater than the pivot.\n   - **Recursive Sorting**: Recursively calls `quick_sort` on the `smaller_elements` and `larger_elements`, and combines the results with the pivot in between.\n4. **Return**: Returns the sorted list.\n\nThe pivot selection and partitioning are crucial steps in implementing the quick sort algorithm, and the recursion progresses until the base case is reached.",
+  "test_code": "from solution import quick_sort\n\ndef test_quick_sort Albania():\n    assert quick_sort([3, 6, 8, 10, 1, 2, 1]) == [1, 1, 2, 3, 6, 8, 10]\n\ndef test_quick_sort_Burma():\n    assert quick_sort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]\n\ndef test_quick_sort_Canada():\n    assert quick_sort([10, 5, 2, 3, 7, 8, 1]) == [1, 2, 3, 5, 7, 8, 10]\n\ndef test_quick_sort_Denmark():\n    assert quick_sort([1, 1, 1, 1, 1]) == [1, 1, 1, 1, 1]\n\ndef test_quick_sort_Empty_list():\n    assert quick_sort([]) == []\n\ndef test_quick_sort_One_element():\n    assert quick_sort([7]) == [7]\n\ndef test_quick_sort_Mix_of_positive_and_negative():\n    assert quick_sort([-5, -1, 5, 1]) == [-5, -1, 1, 5]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

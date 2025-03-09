@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000025",
+    "row_id": 25,
+    "seed_ids": [
+      "438",
+      "2134",
+      "1288"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an array of integers `nums` and a positive integer `k`, return the maximum sum of a non-empty subarray of size `k` that contains at least one negative number. If there is no such subarray, return 0. A subarray is a contiguous part of an array.",
+  "solution_code": "def max_subarray_sum_with_negative(nums, k):\n    \"\"\"\n    Returns the maximum sum of a non-empty subarray of size k that contains at least one negative number.\n    If there is no such subarray, returns 0.\n    \"\"\"\n    n = len(nums)\n    max_sum = float('-inf')\n    for i in range(n - k + 1):\n        current_sum = sum(nums[i:i+k])\n        has_negative = any(num < 0 for num in nums[i:i+k])\n        if has_negative:\n            max_sum = max(max_sum, current_sum)\n    return max_sum if max_sum != float('-inf') else 0",
+  "test_code": "from solution import max_subarray_sum_with_negative\n\ndef test_max_subarray_sum_with_negative():\n    assert max_subarray_sum_with_negative([4, -2, 5, -1, 2, 3], 3) == 7\n    assert max_subarray_sum_with_negative([-1, -2, -3, -4], 2) == -1\n    assert max_subarray_sum_with_negative([1, 2, 3, 4, 5], 2) == 9  # No negative numbers in the optimal subarray\n    assert max_subarray_sum_with_negative([1, -2, 3, -4, 5], 3) == 2  # Optimal subarray [3, -4, 5]\n    assert max_subarray_sum_with_negative([5, 4, -2, 1], 2) == 4  # Optimal subarray [4, -2] or [-2, 1]\n    assert max_subarray_sum_with_negative([10, -5, 3, -2, 8], 3) == 8  # Optimal subarray [-5, 3, -2] or [3, -2, 8]\n    assert max_subarray_sum_with_negative([1, 2, 3], 4) == 0  # Subarray size exceeds the array length\n\n# Example with no negative numbers\ndef test_max_subarray_no_negatives():\n    assert max_subarray_sum_with_negative([10, 20, 30, 40], 2) == 70\n\n# Example with single element array\ndef test_max_subarray_single_element():\n    assert max_subarray_sum_with_negative([10], 1) == 10",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

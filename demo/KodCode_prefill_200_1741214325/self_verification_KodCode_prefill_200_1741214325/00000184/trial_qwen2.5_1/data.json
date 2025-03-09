@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000184",
+    "row_id": 184,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort a list of integers in ascending order using the quicksort algorithm. Each integer is in the range of [0, 100000].",
+  "solution_code": "def quicksort(arr):\n    \"\"\"\n    Sorts an array of integers in ascending order using the quicksort algorithm.\n    \"\"\"\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quicksort(left) + middle + quicksort(right)",
+  "test_code": "from solution import quicksort\n\ndef test_quicksort_empty_list():\n    assert quicksort([]) == []\n\ndef test_quicksort_single_element():\n    assert quicksort([5]) == [5]\n\ndef test_quicksort_sorted_list():\n    assert quicksort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]\n\ndef test_quicksort_reverse_sorted_list():\n    assert quicksort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]\n\ndef test_quicksort_random_list():\n    assert quicksort([3, 6, 8, 10, 1, 2, 1]) == [1, 1, 2, 3, 6, 8, 10]\n\ndef test_quicksort_large_random_list():\n    import random\n    arr = [random.randint(0, 100000) for _ in range(1000)]\n    sorted_arr = sorted(arr)\n    assert quicksort(arr) == sorted_arr\n\ndef test_quicksort_with_duplicates():\n    assert quicksort([4, 2, 4, 8, 3, 2]) == [2, 2, 3, 4, 4, 8]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

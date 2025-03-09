@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000039",
+    "row_id": 39,
+    "seed_ids": [
+      "434",
+      "1061",
+      "141"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and a range `[low, high]`, return the sum of values of all nodes with a value in the given range. A binary search tree is a tree in which all nodes follow the property that the left subtree of a node contains only nodes with values less than the node's value, and the right subtree of a node contains only nodes with values greater than the node's value.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef rangeSumBST(root: TreeNode, low: int, high: int) -> int:\n    \"\"\"\n    Returns the sum of values of all nodes in the BST with values in the range [low, high].\n    \"\"\"\n    if root is None:\n        return 0\n    \n    sum_ = 0\n    if root.val >= low and root.val <= high:\n        sum_ += root.val\n    if root.val > low:\n        sum_ += rangeSumBST(root.left, low, high)\n    if root.val < high:\n        sum_ += rangeSumBST(root.right, low, high)\n    \n    return sum_",
+  "test_code": "def create_tree():\n    \"\"\"\n    Helper function to create a sample BST.\n    \"\"\"\n    tree = TreeNode(10)\n    tree.left = TreeNode(5, TreeNode(3, TreeNode(1), TreeNode(4)), TreeNode(7))\n    tree.right = TreeNode(15, None, TreeNode(18))\n    return tree\n\ndef test_rangeSumBST():\n    root = create_tree()\n    assert rangeSumBST(root, 7, 15) == 32\n    assert rangeSumBST(root, 11, 14) == 0\n    assert rangeSumBST(root, 1, 10) == 22\n    assert rangeSumBST(root, 5, 20) == 69\n    assert rangeSumBST(root, -100, 100) == 69  # This tests if values outside the range are not counted.\n\ndef test_empty_tree():\n    assert rangeSumBST(None, 7, 15) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

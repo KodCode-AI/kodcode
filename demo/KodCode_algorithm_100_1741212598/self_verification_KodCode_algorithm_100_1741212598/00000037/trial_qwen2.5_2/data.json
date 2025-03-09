@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000037",
+    "row_id": 37,
+    "seed_ids": [
+      526
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "Given the integer partition problem, where \\( p(n) \\) represents the number of different ways \\( n \\) coins can be separated into piles, implement a more optimized solution to find the least value of \\( n \\) for which \\( p(n) \\) is divisible by one million.\n\n**Scenario**:\nYou are required to implement an optimized version of the integer partition algorithm to handle larger values of \\( n \\) more efficiently.\n\n**Input**:\n- A single integer \\( n \\) (1 \u2264 \\( n \\) \u2264 10^6).\n\n**Output**:\n- Return the smallest integer \\( n \\) such that \\( p(n) \\) is divisible by one million.\n\n**Constraints**:\n- \\( 1 \\leq n \\leq 10^6 \\)\n\n**Performance Requirement**:\n- The solution should be efficient and able to handle values up to \\( n = 10^6 \\) within a reasonable time.\n\n**Implementation Challenges**:\n- Consider how to handle large values of \\( n \\) efficiently.\n- Ensure that intermediate results are cached to avoid redundant calculations.\n\n```python\ndef optimized_partition(n: int) -> int:\n    \"\"\"\n    >>> optimized_partition(1)\n    1\n\n    >>> optimized_partition(9)\n    14\n\n    >>> optimized_partition(1000000)\n    55374\n    \"\"\"\n    # Your optimized solution goes here\n```",
+  "solution_code": "def optimized_partition(n: int) -> int:\n    \"\"\"\n    >>> optimized_partition(1)\n    1\n\n    >>> optimized_partition(9)\n    14\n\n    >>> optimized_partition(1000000)\n    55374\n    \"\"\"\n    partition = [0] * (n + 1)\n    partition[0] = 1  # There's 1 way to partition 0, the empty partition.\n    \n    for i in range(1, n + 1):\n        for k in range(i, n + 1):\n            partition[k] += partition[k - i]\n    \n    for i in range(1, n + 1):\n        if partition[i] % 1000000 == 0:\n            return i\n\n    return -1  # This line should never be reached for n in the given range.",
+  "test_code": "import pytest\n\ndef test_optimized_partition():\n    assert optimized_partition(1) == 1\n    assert optimized_partition(9) == 14\n    assert optimized_partition(1000000) == 55374\n    assert optimized_partition(500000) == 373354\n    assert optimized_partition(200000) == 107943\n\ndef test_partition_function():\n    partition = [0] * 101\n    partition[0] = 1\n    for i in range(1, 101):\n        for k in range(i, 101):\n            partition[k] += partition[k - i]\n    assert partition[100] % 1000000 == 0\n    assert partition.index(0, 100) == 55374",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000079",
+    "row_id": 79,
+    "seed_ids": [
+      218
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given an unsorted list of integers and are required to perform a wiggle sort on it. The goal is to reorder the list such that each element is either greater or smaller than its adjacent elements, following the wiggle pattern.\n\n**Problem Description**:\nImplement the `wiggle_sort` function to achieve the desired wiggle sorting. The function should take a list of integers as input and return the list after performing the wiggle sort.\n\n**Input**:\n- A list of integers `nums`.\n\n**Output**:\n- A list of integers representing the wiggle sorted array.\n\n**Constraints**:\n- The length of `nums` is between 1 and 5000.\n- Each element in `nums` is an integer in the range \\([-10^5, 10^5]\\).\n\n**Performance Requirements**:\n- The solution should have a time complexity of \\(O(n)\\) and a space complexity of \\(O(1)\\).\n\n**Example**:\n```python\n>>> wiggle_sort([3, 5, 2, 1, 6, 4])\n[3, 5, 1, 6, 2, 4]\n```\n\n**Note**:\n- Ensure that your implementation adheres to the provided constraints and performance requirements.",
+  "solution_code": "def wiggle_sort(nums):\n    \"\"\"\n    Rearranges the elements of the input list in a wiggle pattern.\n    Each element is greater or smaller than its adjacent elements.\n    \n    :param nums: List[int] - a list of integers\n    :return: List[int] - a list of integers in a wiggle sorted order\n    \"\"\"\n    for i in range(1, len(nums)):\n        if i % 2 == 1 and nums[i] <= nums[i - 1]:\n            nums[i], nums[i - 1] = nums[i - 1], nums[i]\n        elif i % 2 == 0 and nums[i] >= nums[i - 1]:\n            nums[i], nums[i - 1] = nums[i - 1], nums[i]\n    return nums",
+  "test_code": "from solution import wiggle_sort\n\ndef test_wiggle_sort_with_positive_numbers():\n    assert wiggle_sort([3, 5, 2, 1, 6, 4]) == [3, 5, 1, 6, 2, 4]\n\ndef test_wiggle_sort_with_negative_numbers():\n    assert wiggle_sort([-2, -5, -4, -7, -3]) == [-2, -5, -4, -7, -3]\n\ndef test_wiggle_sort_with_mixed_sign_numbers():\n    assert wiggle_sort([-2, 5, -3, -2, 3, 3]) == [-2, 5, -3, 3, -2, 3]\n\ndef test_wiggle_sort_with_single_element():\n    assert wiggle_sort([1]) == [1]\n\ndef test_wiggle_sort_with_empty_list():\n    assert wiggle_sort([]) == []",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

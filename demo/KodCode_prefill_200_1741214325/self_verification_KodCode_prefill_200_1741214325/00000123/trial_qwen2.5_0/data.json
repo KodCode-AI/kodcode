@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000123",
+    "row_id": 123,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check for prime numbers.",
+  "solution_code": "def is_prime(n):\n    \"\"\"\n    Returns True if n is a prime number, else returns False.\n    \n    A prime number is a natural number greater than 1 that is not a product of two smaller natural numbers.\n    \"\"\"\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+  "test_code": "python\r\ndef test_is_prime():\r\n    assert is_prime(2) == True\r\n    assert is_prime(3) == True\r\n    assert is_prime(4) == False\r\n    assert is_prime(5) == True\r\n    assert is_prime(17) == True\r\n    assert is_prime(18) == False\r\n    assert is_prime(19) == True\r\n    assert is_prime(20) == False\r\n    assert is_prime(23) == True\r\n    assert is_prime(25) == False\r\n    assert is_prime(29) == True\r\n    assert is_prime(97) == True\r\n    assert is_prime(100) == False\r\n    assert is_prime(101) == True\r\n    assert is_prime(102) == False\r\n    assert is_prime(103) == True\r\n    assert is_prime(104) == False\r\n    assert is_prime(105) == False\r\n    assert is_prime(106) == False\r\n    assert is_prime(107) == True\r\n    assert is_prime(108) == False\r\n    assert is_prime(109) == True\r\n    assert is_prime(110) == False\r\n\r\ndef test_special_cases():\r\n    assert is_prime(1) == False\r\n    assert is_prime(-7) == False\r\n    assert is_prime(0) == False\r\n    assert is_prime(2) == True\r\n    assert is_prime(3) == True\r\n    assert is_prime(4) == False\r\n\r\ndef test_large_numbers():\r\n    assert is_prime(982451653) == True  # Known prime number\r\n    assert is_prime(982451654) == False # Known composite number\r\n    assert is_prime(1234567891) == True # Known prime number\r\n    assert is_prime(1234567890) == False# Known composite number",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

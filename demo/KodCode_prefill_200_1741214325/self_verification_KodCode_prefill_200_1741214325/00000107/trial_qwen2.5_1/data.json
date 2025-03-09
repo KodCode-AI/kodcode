@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000107",
+    "row_id": 107,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find all the pairs of numbers in a list that sum to a given target.",
+  "solution_code": "def find_pairs_with_sum(numbers, target):\n    \"\"\"\n    Returns a list of tuples representing the pairs of numbers in 'numbers' that sum to 'target'.\n    \"\"\"\n    seen = set()\n    pairs = set()\n    for number in numbers:\n        complement = target - number\n        if complement in seen:\n            pairs.add((min(number, complement), max(number, complement)))\n        seen.add(number)\n    return list(pairs)",
+  "test_code": "def test_find_pairs_with_sum():\n    assert find_pairs_with_sum([1, 3, 2, 2], 4) == [(1, 3), (2, 2)]\n    assert find_pairs_with_sum([1, 5, 7, -1], 6) == [(-1, 7), (1, 5)]\n    assert find_pairs_with_sum([1, 2, 3, 7, -2, -7, 1], 5) == [(-2, 7), (1, 4), (1, 4)]\n    assert find_pairs_with_sum([], 4) == []\n    assert find_pairs_with_sum([1, 2, 3, 4], 8) == []",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000075",
+    "row_id": 75,
+    "seed_ids": [
+      "1053",
+      "2375",
+      "2254"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times: choose a non-empty substring `s[i... j]` (i.e., `s[i]` is the first character and `s[j]` is the last character) and reverse it. The goal is to make the string `s` **lexicographically** **smallest** possible. Return the smallest string `s` you can obtain after performing this operation any number of times.",
+  "solution_code": "def smallest_by_reversing_substrings(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest string by reversing substrings.\n    \"\"\"\n    # Initialize an empty list to store intervals of characters\n    intervals = []\n    start = 0  # Start of the current interval\n    \n    for i in range(1, len(s)):\n        # If the current character is lexicographically smaller than the previous one,\n        # it means the current start of the interval is the best start\n        if s[i] < s[start]:\n            intervals.append((start, i - 1))\n            start = i\n    intervals.append((start, len(s) - 1))  # Add the last interval\n    \n    # Reconstruct the string with the smallest lexicographical order\n    result = []\n    for start, end in intervals:\n        result.append(s[start:end + 1][::-1])  # Reverse the interval and add it to the result\n    \n    return ''.join(result)",
+  "test_code": "from solution import smallest_by_reversing_substrings\n\ndef test_smallest_by_reversing_substrings():\n    assert smallest_by_reversing_substrings(\"cba\") == \"abc\"\n    assert smallest_by_reversing_substrings(\"aefba\") == \"aabbf\"\n    assert smallest_by_reversing_substrings(\"dbba\") == \"baab\"\n    assert smallest_by_reversing_substrings(\"abcd\") == \"abcd\"\n    assert smallest_by_reversing_substrings(\"cbaebababcc\") == \"abacabcbb\"\n    assert smallest_by_reversing_substrings(\"leetcode\") == \"cdelotee\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

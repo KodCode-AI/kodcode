@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000195",
+    "row_id": 195,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a binary tree to its mirror. The function should take a single parameter, which is the root of the binary tree.",
+  "solution_code": "class TreeNode:\n    def __init__(self, x):\n        self.val = x\n        self.left = None\n        self.right = None\n\ndef mirror_tree(root):\n    \"\"\"\n    Returns the mirror image of the given binary tree.\n    \"\"\"\n    if root is not None:\n        root.left, root.right = mirror_tree(root.right), mirror_tree(root.left)\n    return root",
+  "test_code": "import pytest\nfrom solution import mirror_tree, TreeNode\n\ndef test_mirror_tree_simple():\n    root = TreeNode(1)\n    root.left = TreeNode(2)\n    root.right = TreeNode(3)\n    mirrored_root = mirror_tree(root)\n    assert mirrored_root.left.val == 3\n    assert mirrored_root.right.val == 2\n\ndef test_mirror_tree_complex():\n    root = TreeNode(1)\n    root.left = TreeNode(2)\n    root.right = TreeNode(3)\n    root.left.left = TreeNode(4)\n    root.left.right = TreeNode(5)\n    mirrored_root = mirror_tree(root)\n    assert mirrored_root.left.val == 3\n    assert mirrored_root.right.val == 2\n    assert mirrored_root.right.left.val == 5\n    assert mirrored_root.right.right.val == 4\n\ndef test_mirror_tree_single_node():\n    root = TreeNode(1)\n    mirrored_root = mirror_tree(root)\n    assert mirrored_root == root\n\ndef test_mirror_tree_empty():\n    mirrored_root = mirror_tree(None)\n    assert mirrored_root is None",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

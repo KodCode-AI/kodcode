@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000021",
+    "row_id": 21,
+    "seed_ids": [
+      "61",
+      "79",
+      "623"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and an integer `k`, write a function to find the `k`th smallest element in the tree. Ensure your solution does not modify the tree.",
+  "solution_code": "class TreeNode:\n    \"\"\"Definition for a binary tree node.\"\"\"\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef kthSmallest(root: TreeNode, k: int) -> int:\n    \"\"\"\n    Find the kth smallest element in a binary search tree without modifying the tree.\n    \"\"\"\n    def inorder(node: TreeNode):\n        if not node:\n            return []\n        return inorder(node.left) + [node.val] + inorder(node.right)\n    \n    return inorder(root)[k - 1]",
+  "test_code": "import pytest\n\ndef create_bst(*args):\n    \"\"\"Helper function to create a BST from given arguments.\"\"\"\n    nodes = {val: TreeNode(val) for val in args}\n    for i, (val, left, right) in enumerate(zip(args, [args[i + 1] for i in range(len(args) - 1)], [None if i + 2 >= len(args) else args[i + 2] for i in range(len(args) - 1)])):\n        nodes[val].left = nodes[left] if left is not None else None\n        nodes[val].right = nodes[right] if right is not None else None\n    return nodes[args[0]]\n\ndef test_kthSmallest():\n    root = create_bst(3, 1, 4, 0, 2)\n    assert kthSmallest(root, 1) == 0\n    assert kthSmallest(root, 2) == 1\n    assert kthSmallest(root, 3) == 2\n    assert kthSmallest(root, 4) == 3\n    assert kthSmallest(root, 5) == 4\n\ndef test_kthSmallest_large_tree():\n    root = create_bst(5, 3, 7, 2, 4, None, 8, 1, None, None, None, None, 6, None, 9)\n    assert kthSmallest(root, 1) == 1\n    assert kthSmallest(root, 8) == 7\n    assert kthSmallest(root, 9) == 9\n\ndef test_kthSmallest_empty_tree():\n    assert kthSmallest(None, 1) is None\n\ndef test_kthSmallest_single_node_tree():\n    root = create_bst(5)\n    assert kthSmallest(root, 1) == 5\n\ndef test_kthSmallest_out_of_bounds():\n    root = create_bst(5)\n    assert kthSmallest(root, 2) is None",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000064",
+    "row_id": 64,
+    "seed_ids": [
+      "1470",
+      "1431",
+      "114"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and a node value `target`, return `true` if the `target` is found in the BST, and `false` otherwise. You may assume that each node in the BST has **uniquely** valued children. Additionally, provide a method to insert a new node with a given value into the BST while maintaining its properties.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef find_in_bst(root: TreeNode, target: int) -> bool:\n    \"\"\"\n    Returns True if the target is found in the BST, False otherwise.\n    \"\"\"\n    current = root\n    while current:\n        if current.val == target:\n            return True\n        elif target < current.val:\n            current = current.left\n        else:\n            current = current.right\n    return False\n\ndef insert_into_bst(root: TreeNode, val: int) -> TreeNode:\n    \"\"\"\n    Inserts a new node with the given value into the BST while maintaining its properties.\n    \"\"\"\n    if not root:\n        return TreeNode(val)\n    \n    current = root\n    while True:\n        if val < current.val:\n            if current.left is None:\n                current.left = TreeNode(val)\n                break\n            current = current.left\n        else:\n            if current.right is None:\n                current.right = TreeNode(val)\n                break\n            current = current.right\n    return root",
+  "test_code": "def create_bst() -> TreeNode:\n    \"\"\"\n    Creates and returns a simple BST with nodes 2, 1, and 3.\n    \"\"\"\n    root = TreeNode(2)\n    root.left = TreeNode(1)\n    root.right = TreeNode(3)\n    return root\n\ndef test_find_in_bst():\n    root = create_bst()\n    assert find_in_bst(root, 1) == True\n    assert find_in_bst(root, 3) == True\n    assert find_in_bst(root, 2) == True\n    assert find_in_bst(root, 4) == False\n\ndef test_insert_into_bst():\n    root = create_bst()\n    assert find_in_bst(insert_into_bst(root, 4), 4) == True\n    assert find_in_bst(insert_into_bst(root, 0), 0) == True\n    assert find_in_bst(insert_into_bst(root, -1), -1) == True\n    assert find_in_bst(root, 2) == True\n\ndef test_insertion_maintains_structure():\n    root = create_bst()\n    new_root = insert_into_bst(root, 4)\n    assert find_in_bst(new_root.left, 1) == True\n    assert find_in_bst(new_root.right, 3) == True\n    assert find_in_bst(new_root.right.right, 4) == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

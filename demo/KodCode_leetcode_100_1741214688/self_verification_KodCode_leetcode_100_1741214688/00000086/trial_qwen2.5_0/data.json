@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000086",
+    "row_id": 86,
+    "seed_ids": [
+      "670",
+      "36",
+      "1039"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. You can perform the following operation at most once: choose two distinct indices `i` and `j` where `s[i]` is a vowel ('a', 'e', 'i', 'o', 'u'), and replace `s[i]` with `s[j]` and vice versa. A string is considered **beautiful** if it meets the following criteria:\n1. The string is a palindrome.\n2. The string contains exactly three distinct characters.\n\nReturn `true` if you can make the string `s` beautiful, and `false` otherwise.",
+  "solution_code": "def can_make_beautiful_palindrome(s: str) -> bool:\n    \"\"\"\n    Determine if the string can be modified to be a palindrome with exactly \n    three distinct characters by swapping two vowels.\n    \"\"\"\n    vowel_set = {'a', 'e', 'i', 'o', 'u'}\n    char_counts = [0] * 26  # To count occurrences of each character in the alphabet\n    vowel_count = 0\n    first_vowel = None\n    middle_char = None\n\n    for char in s:\n        index = ord(char) - ord('a')\n        char_counts[index] += 1\n\n        if char in vowel_set:\n            vowel_count += 1\n            if first_vowel is None:\n                first_vowel = char\n            elif char != first_vowel:\n                middle_char = char\n\n    # Conditions for a string to be beautiful:\n    # 1. At most one character can have an odd count.\n    # 2. There should be at most three distinct characters.\n    # 3. If there are exactly three distinct characters, one of them must be repeated (palindrome requirement).\n\n    if len(set(s)) > 3:\n        return False\n\n    if len(set(s)) < 3:\n        return True  # Can always form a palindrome with 1 or 2 distinct characters.\n\n    odd_count_chars = sum(1 for count in char_counts if count % 2 != 0)\n\n    if odd_count_chars > 1:\n        return False  # More than one character with an odd count cannot form a palindrome.\n\n    if vowel_count == 3 and all(count == 0 for index in range(26) if char_counts[index] % 2 != 0 and index != ord(first_vowel) - ord('a') and index != ord(middle_char) - ord('a')):\n        return False  # Cannot form a palindrome if there are three distinct vowels.\n\n    return True",
+  "test_code": "import pytest\n\ndef test_can_make_beautiful_palindrome():\n    assert can_make_beautiful_palindrome(\"eaae\") == True\n    assert can_make_beautiful_palindrome(\"aceca\") == True\n    assert can_make_beautiful_palindrome(\"eee\") == False\n    assert can_make_beautiful_palindrome(\"aa\") == True\n    assert can_make_beautiful_palindrome(\"abc\") == False\n    assert can_make_beautiful_palindrome(\"automobile\") == False\n    assert can_make_beautiful_palindrome(\"aau\") == True\n    assert can_make_beautiful_palindrome(\"aaabc\") == True\n    assert can_make_beautiful_palindrome(\"aa\") == True\n    assert can_make_beautiful_palindrome(\"aab\") == True\n    assert can_make_beautiful_palindrome(\"aaabc\") == True\n    assert can_make_beautiful_palindrome(\"aaab\") == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

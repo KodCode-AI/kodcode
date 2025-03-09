@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000032",
+    "row_id": 32,
+    "seed_ids": [
+      "1685",
+      "499",
+      "2501"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an integer array `nums` sorted in **non-decreasing** order. Define a function `f(x)` for each element `x` in `nums` such that `f(x)` is the number of elements in `nums` that are strictly less than `x`. Build and return an integer array `result` with the same length as `nums` such that `result[i]` is equal to the summation of `f(nums[i])` for all `i` in the array. In other words, `result[i]` is equal to `sum(f(nums[i]))` where `0 <= j < nums.length` and `j != i` (0-indexed).",
+  "solution_code": "def count_smaller(nums):\n    \"\"\"\n    Given an integer array nums sorted in non-decreasing order, this function\n    returns the result array where each element is the sum of 'f(nums[j])' for\n    all j != i, where f(x) is the number of elements strictly less than x in nums.\n    \"\"\"\n    # Create a copy of nums to track original indices\n    indexed_nums = sorted(enumerate(nums), key=lambda x: x[1])\n    result = [0] * len(nums)\n    from sortedcontainers import SortedList\n    sl = SortedList()\n    \n    for index, num in indexed_nums:\n        # Get the count of elements strictly less than nums[index]\n        count = sl.bisect_left(num)\n        # Update the sum of f(nums[i]) for current index\n        result[index] = sum(count for count in sl if count < num)\n        # Add the current number to the sorted list\n        sl.add(num)\n    \n    return result",
+  "test_code": "from solution import count_smaller\n\ndef test_count_smaller():\n    assert count_smaller([6, 5, 4, 8]) == [2, 1, 1, 3]\n    assert count_smaller([2, 0, 1]) == [1, 0, 0]\n    assert count_smaller([10, 10, 10, 0, 0]) == [0, 0, 0, 1, 2]\n    assert count_smaller([1]) == [0]\n    assert count_smaller([3, 2, 1, 0, 4, 5]) == [1, 1, 1, 0, 3, 4]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

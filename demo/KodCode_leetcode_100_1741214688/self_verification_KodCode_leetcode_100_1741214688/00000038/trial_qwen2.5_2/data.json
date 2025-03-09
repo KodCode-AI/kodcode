@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000038",
+    "row_id": 38,
+    "seed_ids": [
+      "2414",
+      "2220",
+      "1929"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase letters only, return the _length of the **longest** substring that can be obtained by replacing at most one character in `s` with any other character, such that the resulting substring is an alphabetical continuous string._\n\nFor example, in the string `\"abcbdefg\"`, you can replace the `c` with `a` to get `\"aabdefg\"`, which is an alphabetical continuous string of length 7.",
+  "solution_code": "def longest_alphabetical_substring(s: str) -> int:\n    \"\"\"\n    Returns the length of the longest substring that can be obtained by\n    replacing at most one character in s with any other character such that\n    the resulting substring is an alphabetical continuous string.\n    \"\"\"\n    start, max_len, last_char, consecutives = 0, 1, chr(ord(s[0]) - 1), 0\n\n    for end in range(1, len(s)):\n        if ord(s[end]) == ord(last_char) + 1:\n            consecutives += 1\n        else:\n            consecutives = 1\n        last_char = s[end]\n\n        if consecutives > 1:\n            start = max(start, s.rfind(chr(ord(last_char) - 1), 0, end - consecutives + 1) + 1)\n\n        max_len = max(max_len, end - start + 1)\n\n    return max_len",
+  "test_code": "from solution import longest_alphabetical_substring\n\ndef test_longest_alphabetical_substring():\n    assert longest_alphabetical_substring(\"abcbdefg\") == 7\n    assert longest_alphabetical_substring(\"abcde\") == 5\n    assert longest_alphabetical_substring(\"a\") == 1\n    assert longest_alphabetical_substring(\"azbcdefg\") == 5\n    assert longest_alphabetical_substring(\"aabbccddeeff\") == 2\n    assert longest_alphabetical_substring(\"zab\") == 3\n    assert longest_alphabetical_substring(\"zzzzzzz\") == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000034",
+    "row_id": 34,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to print all prime numbers up to a given number. Also, include a simple test function with some test cases to ensure the correctness of the solution.",
+  "solution_code": "def print_primes(n):\n    \"\"\"\n    Prints all prime numbers up to n.\n    \"\"\"\n    if n < 2:\n        return  # No primes less than 2\n    \n    for possiblePrime in range(2, n + 1):\n        # Assume number is prime until shown it is not. \n        isPrime = True\n        for num in range(2, int(possiblePrime ** 0.5) + 1):\n            if possiblePrime % num == 0:\n                isPrime = False\n                break\n        if isPrime:\n            print(possiblePrime)",
+  "test_code": "from solution import print_primes\n\ndef test_print_primes():\n    test_cases = [\n        (5, \"2\\n3\\n5\\n\"),\n        (11, \"2\\n3\\n5\\n7\\n11\\n\"),\n        (2, \"2\\n\"),\n        (0, \"\"),\n        (1, \"\"),\n        (19, \"2\\n3\\n5\\n7\\n11\\n13\\n17\\n19\\n\")\n    ]\n    \n    for input_num, expected_output in test_cases:\n        with print_function_capturing() as output:\n            print_primes(input_num)\n        assert output.getvalue().strip() == expected_output\n\nimport sys\nfrom contextlib import redirect_stdout\n\ndef print_function_capturing():\n    class StringIO:\n        def __init__(self):\n            self.string = \"\"\n\n        def write(self, content):\n            self.string += content\n\n        def getvalue(self):\n            return self.string\n\n    return StringIO()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

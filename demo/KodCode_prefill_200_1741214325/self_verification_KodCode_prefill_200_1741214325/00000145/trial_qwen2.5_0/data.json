@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000145",
+    "row_id": 145,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort a list of integers using the Bubble sort algorithm.",
+  "solution_code": "def bubble_sort(arr):\n    \"\"\"\n    Sorts a list of integers using the Bubble sort algorithm.\n    \"\"\"\n    n = len(arr)\n    for i in range(n):\n        swapped = False\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n                swapped = True\n        if not swapped:\n            break\n    return arr",
+  "test_code": "``\nfrom solution import bubble_sort\n\ndef test_bubble_sort_empty_list():\n    assert bubble_sort([]) == []\n\ndef test_bubble_sort_single_element():\n    assert bubble_sort([5]) == [5]\n\ndef test_bubble_sort_sorted_list():\n    assert bubble_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]\n\ndef test_bubble_sort_reverse_sorted_list():\n    assert bubble_sort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]\n\ndef test_bubble_sort_random_list():\n    assert bubble_sort([64, 34, 25, 12, 22, 11, 90]) == [11, 12, 22, 25, 34, 64, 90]\n\ndef test_bubble_sort_with_duplicates():\n    assert bubble_sort([64, 34, 25, 12, 22, 11, 11, 90, 22]) == [11, 11, 12, 22, 22, 25, 34, 64, 90]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

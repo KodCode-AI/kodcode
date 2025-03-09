@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000154",
+    "row_id": 154,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a given string into a list of words. Splitting can be done based on multiple characters. For instance, splitting can be done using the characters ',', '.', and ' ' (space). How would you approach this problem?",
+  "solution_code": "def split_string_into_words(s: str):\n    \"\"\"\n    Splits a given string into words based on the delimiters: ',', '.', and ' '.\n    \"\"\"\n    delimiters = [',', '.', ' ']\n    words = []\n    current_word = ''\n    for char in s:\n        if char in delimiters:\n            if current_word:  # If there is a non-empty word to add\n                words.append(current_word)\n                current_word = ''\n        else:\n            current_word += char\n    if current_word:  # Add the last word if any\n        words.append(current_word)\n    return words",
+  "test_code": "def test_split_string_into_words():\n    assert split_string_into_words(\"Hello, world. This is a test.\") == [\"Hello\", \"world\", \"This\", \"is\", \"a\", \"test\"]\n    assert split_string_into_words(\"Split,these,words,using,multiple,delimiters.\") == [\"Split\", \"these\", \"words\", \"using\", \"multiple\", \"delimiters\"]\n    assert split_string_into_words(\"NoDelimitersHere\") == [\"NoDelimitersHere\"]\n    assert split_string_into_words(\"Trailing,separator,\") == [\"Trailing\", \"separator\"]\n    assert split_string_into_words(\"Leading,separator,,Leading,combinations,of,delimiters., \") == [\"Leading\", \"separator\", \"Leading\", \"combinations\", \"of\", \"delimiters\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

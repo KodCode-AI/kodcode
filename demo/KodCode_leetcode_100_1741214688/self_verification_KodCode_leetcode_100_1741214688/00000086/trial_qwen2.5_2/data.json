@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000086",
+    "row_id": 86,
+    "seed_ids": [
+      "670",
+      "36",
+      "1039"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. You can perform the following operation at most once: choose two distinct indices `i` and `j` where `s[i]` is a vowel ('a', 'e', 'i', 'o', 'u'), and replace `s[i]` with `s[j]` and vice versa. A string is considered **beautiful** if it meets the following criteria:\n1. The string is a palindrome.\n2. The string contains exactly three distinct characters.\n\nReturn `true` if you can make the string `s` beautiful, and `false` otherwise.",
+  "solution_code": "def can_beautiful_string(s: str) -> bool:\n    \"\"\"\n    Determines if string s can be made beautiful by swapping at most one vowel character.\n    A string is considered beautiful if it is a palindrome and contains exactly three distinct characters.\n    \"\"\"\n    vowels = set('aeiou')\n    distinct_chars = set(s)\n    vowel_count = sum(1 for char in s if char in vowels)\n    \n    if len(distinct_chars) > 3:\n        return False\n    \n    if len(distinct_chars) == 3 and s != s[::-1]:\n        return False\n    \n    if len(distinct_chars) == 2:\n        return s == s[::-1]\n    \n    if len(distinct_chars) == 1:\n        return len(s) == s.count(next(iter(distinct_chars))) and s == s[::-1]\n    \n    # Exactly three distinct characters and palindrome\n    if len(distinct_chars) == 3 and s == s[::-1]:\n        # Check if any two characters can be swapped to form a palindrome\n        for char in vowels:\n            if char in distinct_chars:\n                temp_chars = list(distinct_chars)\n                temp_chars.remove(char)\n                for other_char in temp_chars:\n                    # Swap and check if palindrome\n                    if (s.replace(other_char, char, 1) + s.replace(other_char, char, 1)[1:] == \n                        s.replace(other_char, char, 1) + s.replace(other_char, char, 1)[0]):\n                        return True\n    return False",
+  "test_code": "from solution import can_beautiful_string\n\ndef test_can_beautiful_string():\n    assert can_beautiful_string(\"a\") == True\n    assert can_beautiful_string(\"aa\") == False\n    assert can_beautiful_string(\"aba\") == False\n    assert can_beautiful_string(\"abca\") == True\n    assert can_beautiful_string(\"abc\") == False\n    assert can_beautiful_string(\"abcba\") == True\n    assert can_beautiful_string(\"aaaa\") == True\n    assert can_beautiful_string(\"aabaa\") == True\n    assert can_beautiful_string(\"adnea\") == True\n    assert can_beautiful_string(\"aeiaa\") == False\n    assert can_beautiful_string(\"auvia\") == True\n    assert can_beautiful_string(\"\ud264\") == True  # Non-English character test, should act as any other character\n    assert can_beautiful_string(\"pii\") == False\n    assert can_beautiful_string(\"aaab\") == False\n    assert can_beautiful_string(\"aaaaa\") == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000079",
+    "row_id": 79,
+    "seed_ids": [
+      "1157",
+      "751",
+      "2288"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a class `RangeFreqQuery` that supports efficient frequency queries on a given array `arr`. The goal is to implement a method that can quickly determine the frequency of any element within a specified range of the array. Specifically, implement the `RangeFreqQuery` class:\n\n- `RangeFreqQuery(int[] arr)`: Initializes the class with the given array `arr`.\n- `int query(int left, int right, int value)`: Returns the frequency of the value `value` in the subarray `arr[left...right]`.\n\nFor example, given the array `arr = [1, 2, 2, 3, 3, 3, 4]`, the query `query(0, 6, 3)` should return `3` since the value `3` appears three times in the subarray `arr[0...6]`.",
+  "solution_code": "from collections import defaultdict\n\nclass RangeFreqQuery:\n    def __init__(self, arr):\n        \"\"\"\n        Initializes the class with the given array.\n        \"\"\"\n        self.index_map = defaultdict(list)\n        for index, value in enumerate(arr):\n            self.index_map[value].append(index)\n    \n    def query(self, left, right, value):\n        \"\"\"\n        Returns the frequency of the value in the subarray arr[left...right].\n        \"\"\"\n        if value not in self.index_map:\n            return 0\n        indices = self.index_map[value]\n        left_idx = self._binary_search(indices, left)\n        right_idx = self._binary_search(indices, right + 1) - 1\n        return right_idx - left_idx + 1 if right_idx >= left_idx else 0\n    \n    def _binary_search(self, indices, target):\n        left, right = 0, len(indices)\n        while left < right:\n            mid = (left + right) // 2\n            if indices[mid] < target:\n                left = mid + 1\n            else:\n                right = mid\n        return left",
+  "test_code": "import pytest\nfrom solution import RangeFreqQuery\n\ndef test_range_freq_query_positive():\n    arr = [1, 2, 2, 3, 3, 3, 4]\n    freq_query = RangeFreqQuery(arr)\n    assert freq_query.query(0, 6, 3) == 3\n    assert freq_query.query(0, 2, 2) == 2\n    assert freq_query.query(3, 6, 4) == 1\n\ndef test_range_freq_query_empty_subarray():\n    arr = [1, 2, 2, 3, 3, 3, 4]\n    freq_query = RangeFreqQuery(arr)\n    assert freq_query.query(4, 4, 1) == 0\n\ndef test_range_freq_query_single_value():\n    arr = [1, 1, 1, 1, 1, 1, 1]\n    freq_query = RangeFreqQuery(arr)\n    assert freq_query.query(0, 6, 1) == 7\n\ndef test_range_freq_query_no_occurrence():\n    arr = [1, 2, 3, 4, 5, 6, 7]\n    freq_query = RangeFreqQuery(arr)\n    assert freq_query.query(0, 6, 8) == 0\n\ndef test_range_freq_query_negative_numbers():\n    arr = [-1, -2, -2, -3, -3, -3, -4]\n    freq_query = RangeFreqQuery(arr)\n    assert freq_query.query(0, 6, -3) == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

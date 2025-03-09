@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000016",
+    "row_id": 16,
+    "seed_ids": [
+      "1168",
+      "1462",
+      "1727"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a grid of size `m x n` where each cell can either be `0` (land) or `1` (water). You can change any number of `0`s to `1`s to form one or more islands. An island is a maximal 4-directionally connected group of `1`s. You want to maximize the number of islands in the grid. What is the maximum number of islands you can form?",
+  "solution_code": "def maxNumberOfIslands(grid):\n    \"\"\"\n    Returns the maximum number of islands that can be formed.\n    \"\"\"\n    if not grid:\n        return 0\n\n    rows, cols = len(grid), len(grid[0])\n    visited = set()\n\n    def dfs(r, c):\n        if (\n            not (0 <= r < rows and 0 <= c < cols)\n            or grid[r][c] == \"0\"\n            or (r, c) in visited\n        ):\n            return 0\n        visited.add((r, c))\n        dfs(r + 1, c)\n        dfs(r - 1, c)\n        dfs(r, c + 1)\n        dfs(r, c - 1)\n        return 1\n\n    return sum(dfs(r, c) for r in range(rows) for c in range(cols) if grid[r][c] == \"1\")",
+  "test_code": "from solution import maxNumberOfIslands\n\ndef test_maxNumberOfIslands_empty_grid():\n    assert maxNumberOfIslands([]) == 0\n\ndef test_maxNumberOfIslands_one_island():\n    grid = [\n        [\"1\", \"1\", \"0\", \"0\", \"0\"],\n        [\"1\", \"1\", \"0\", \"0\", \"0\"],\n        [\"0\", \"0\", \"1\", \"0\", \"0\"],\n        [\"0\", \"0\", \"0\", \"1\", \"1\"]\n    ]\n    assert maxNumberOfIslands(grid) == 3\n\ndef test_maxNumberOfIslands_no_islands():\n    grid = [\n        [\"0\", \"0\", \"0\", \"0\", \"0\"],\n        [\"0\", \"0\", \"0\", \"0\", \"0\"],\n        [\"0\", \"0\", \"0\", \"0\", \"0\"],\n        [\"0\", \"0\", \"0\", \"0\", \"0\"]\n    ]\n    assert maxNumberOfIslands(grid) == 0\n\ndef test_maxNumberOfIslands_all_islands():\n    grid = [\n        [\"1\", \"0\", \"1\", \"0\", \"1\"],\n        [\"0\", \"1\", \"0\", \"1\", \"0\"],\n        [\"1\", \"0\", \"1\", \"0\", \"1\"],\n        [\"0\", \"1\", \"0\", \"1\", \"0\"]\n    ]\n    assert maxNumberOfIslands(grid) == 4\n\ndef test_maxNumberOfIslands_complex_grid():\n    grid = [\n        [\"1\", \"1\", \"0\", \"0\", \"0\"],\n        [\"1\", \"1\", \"0\", \"0\", \"0\"],\n        [\"0\", \"0\", \"1\", \"1\", \"0\"],\n        [\"0\", \"0\", \"1\", \"1\", \"0\"],\n        [\"0\", \"0\", \"0\", \"0\", \"1\"]\n    ]\n    assert maxNumberOfIslands(grid) == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

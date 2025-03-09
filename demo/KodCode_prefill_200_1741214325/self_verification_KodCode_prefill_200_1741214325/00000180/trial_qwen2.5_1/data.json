@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000180",
+    "row_id": 180,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string `s` contains a sequence of consecutive repeating characters that are not adjacent to each other.",
+  "solution_code": "def has_consecutive_repeating_chars(s):\n    \"\"\"\n    Returns True if the string contains a sequence of at least two consecutive repeating characters \n    that are not adjacent to each other. Otherwise, returns False.\n    \"\"\"\n    if len(s) < 2:\n        return False\n    \n    prev_char = s[0]\n    consecutive_count = 1\n    \n    for char in s[1:]:\n        if char == prev_char:\n            consecutive_count += 1\n        else:\n            if consecutive_count >= 2:\n                return True\n            consecutive_count = 1\n        prev_char = char\n    \n    # Check the last sequence\n    return consecutive_count >= 2",
+  "test_code": "from solution import has_consecutive_repeating_chars\n\ndef test_consecutive_repeating_chars():\n    assert not has_consecutive_repeating_chars(\"abc\")  # No consecutive repeating characters\n    assert not has_consecutive_repeating_chars(\"aaab\") # 'a' repeats but not separated by non-repeating chars\n    assert has_consecutive_repeating_chars(\"aabb\")    # 'a' and 'b' have consecutive repeats\n    assert has_consecutive_repeating_chars(\"abbc\")    # 'b' has a non-adjacent repeat\n    assert has_consecutive_repeating_chars(\"cabbac\")  # 'b' has a non-adjacent repeat\n    assert not has_consecutive_repeating_chars(\"aaab\") # Single segment of 3 'a's without non-repeating char",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

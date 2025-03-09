@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000006",
+    "row_id": 6,
+    "seed_ids": [
+      "790",
+      "311",
+      "1320"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are allowed to perform the following operation any number of times: pick any substring `s[i...j]` and replace it with the same substring in reverse order. For example, `s = \"abcde\"` can be transformed into `\"dcbae\"` by replacing the substring `s[1...4]` with `\"dcba\"`. \n\nDetermine the lexicographically smallest string that can be obtained by performing the above operation any number of times. Return the resulting string.",
+  "solution_code": "def smallest_by_reversing_substrings(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest string by reversing substrings any number of times.\n    \"\"\"\n    n = len(s)\n    result = s\n    \n    for start in range(n):\n        for end in range(start + 1, n + 1):\n            substr = s[start:end]\n            reversed_substr = substr[::-1]\n            new_str = s[:start] + reversed_substr + s[end:]\n            if new_str < result:\n                result = new_str\n    \n    return result",
+  "test_code": "from solution import smallest_by_reversing_substrings\n\ndef test_smallest_by_reversing_substrings():\n    assert smallest_by_reversing_substrings(\"cba\") == \"abc\"\n    assert smallest_by_reversing_substrings(\"aaba\") == \"aaab\"\n    assert smallest_by_reversing_substrings(\"cdadabcc\") == \"aadbcabc\"\n    assert smallest_by_reversing_substrings(\"abcd\") == \"abcd\"\n    assert smallest_by_reversing_substrings(\"baab\") == \"aabb\"\n    assert smallest_by_reversing_substrings(\"abcd\") == \"abcd\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

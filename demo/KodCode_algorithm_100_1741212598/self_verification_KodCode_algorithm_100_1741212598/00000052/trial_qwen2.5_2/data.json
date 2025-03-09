@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000052",
+    "row_id": 52,
+    "seed_ids": [
+      1050
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are tasked with extending the functionality of a given function to not only find the largest power of two less than or equal to a given non-negative integer but also to handle an additional constraint: finding the smallest power of two greater than a given non-negative integer. This new function will be used in scenarios where binary allocations or specific power levels are required.\n\n**Function Signature**: `def find_next_power_of_two(number: int) -> int:`\n\n**Input and Output**:\n- **Input**: A single non-negative integer `number`.\n- **Output**: The smallest power of two greater than the given integer. If the input is 0, return 1.\n\n**Constraints**:\n- The input number will be in the range \\(0 \\leq \\text{number} \\leq 10^9\\).\n\n**Performance Requirements**:\n- The function should be efficient and handle the constraints within a reasonable time.\n\n**Scenario**:\nImagine you are working on a system where you need to allocate memory in the form of powers of two. You have a function to allocate memory based on the smallest power of two greater than a given request size. For example, if a request is for 5 units of memory, the system should allocate 8 units (2^3).\n\n**Example**:\n```python\nassert find_next_power_of_two(0) == 1\nassert find_next_power_of_two(1) == 2\nassert find_next_power_of_two(15) == 16\nassert find_next_power_of_two(16) == 32\n```\n\n**Note**:\n- You are not allowed to use any built-in functions or libraries for calculating powers of two.\n- The function should handle edge cases as described in the constraints.",
+  "solution_code": "def find_next_power_of_two(number: int) -> int:\n    \"\"\"\n    Returns the smallest power of two greater than the given non-negative integer.\n    If the input is 0, it returns 1.\n    \"\"\"\n    # Edge case: if the number is 0, return 1\n    if number == 0:\n        return 1\n    \n    power = 1\n    while power < number:\n        power *= 2\n    return power",
+  "test_code": "import pytest\n\ndef test_find_next_power_of_two():\n    # Test with edge case\n    assert find_next_power_of_two(0) == 1\n    # Test with smallest power of two\n    assert find_next_power_of_two(1) == 2\n    # Test with a number that is already a power of two\n    assert find_next_power_of_two(16) == 32\n    # Test with a number that's in between two powers of two\n    assert find_next_power_of_two(15) == 16\n    # Test with a larger number\n    assert find_next_power_of_two(100) == 128\n    # Test with the maximum possible input\n    assert find_next_power_of_two(10**9) == 1073741824\n\nif __name__ == \"__main__\":\n    pytest.main()",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

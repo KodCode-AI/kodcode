@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000048",
+    "row_id": 48,
+    "seed_ids": [
+      "1433",
+      "353",
+      "265"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of `n` jobs where each job is represented by a tuple `(start, end, cpuTime)`, determine the minimum time required to complete all jobs. Each job must be processed in the given order, and the jobs can only be processed one at a time. A job can start immediately after the previous job ends. The goal is to find the total time taken to complete all jobs, including the time spent on the jobs themselves and any waiting time.\n\nFor example, given the jobs `[(1, 3, 2), (2, 5, 3), (7, 9, 1)]`, the total time to complete all jobs is `10` (2 + 3 + 5).\n\nImplement the function `minCompletionTime(jobs)` that takes a list of jobs and returns the minimum completion time.",
+  "solution_code": "def minCompletionTime(jobs):\n    \"\"\"\n    Returns the minimum time required to complete all jobs.\n    \"\"\"\n    total_time = 0\n    current_time = 0\n    \n    for start, end, cpuTime in jobs:\n        current_time = max(current_time, start)  # Wait if the current job starts after the previous one ended.\n        total_time += cpuTime  # Add the CPU time of the current job to the total time.\n        current_time = end  # Move to the end time of the current job.\n    \n    return total_time",
+  "test_code": "def test_minCompletionTime():\n    assert minCompletionTime([(1, 3, 2)]) == 3\n    assert minCompletionTime([(1, 3, 2), (2, 5, 3), (7, 9, 1)]) == 10\n    assert minCompletionTime([(1, 2, 1), (3, 4, 2), (5, 6, 1)]) == 6\n    assert minCompletionTime([(1, 5, 3), (6, 8, 2), (10, 12, 4)]) == 12\n    assert minCompletionTime([(0, 1, 1), (1, 3, 1), (3, 4, 1)]) == 4",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

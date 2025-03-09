@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000088",
+    "row_id": 88,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to filter out the words that contain a specific substring and return a list of words that do not contain that substring from a given list of words.",
+  "solution_code": "def filter_words(words_list, substring):\n    \"\"\"\n    Returns a list of words that do not contain the specified substring.\n    \n    :param words_list: List of words to be filtered.\n    :param substring: Substring to filter out from the words.\n    :return: List of words that do not contain the specified substring.\n    \"\"\"\n    return [word for word in words_list if substring not in word]",
+  "test_code": "from solution import filter_words\n\ndef test_filter_words_no_substring():\n    assert filter_words([\"hello\", \"world\", \"python\"], \"a\") == [\"hello\", \"world\", \"python\"]\n\ndef test_filter_words_with_substring():\n    assert filter_words([\"apple\", \"banana\", \"grape\", \"peach\"], \"a\") == [\"grape\", \"peach\"]\n\ndef test_filter_words_empty_list():\n    assert filter_words([], \"test\") == []\n\ndef test_filter_words_all_match():\n    assert filter_words([\"test\", \"blast\", \"pasta\"], \"st\") == [\"pasta\"]\n\ndef test_filter_words_caseInsensitive():\n    assert filter_words([\"Apple\", \"banana\", \"grape\"], \"a\") == [\"banana\", \"grape\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000090",
+    "row_id": 90,
+    "seed_ids": [
+      "2320",
+      "2021",
+      "647"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, a **substring** `t` of `s` is called **balanced** if the number of vowels (`a`, `e`, `i`, `o`, `u`) in `t` is equal to the number of consonants. Return the number of **balanced** substrings in `s`.",
+  "solution_code": "def count_balanced_substrings(s: str) -> int:\n    \"\"\"\n    Returns the number of balanced substrings in the given string s.\n    A balanced substring has an equal number of vowels and consonants.\n    \"\"\"\n    vowels = 'aeiou'\n    balanced_count = 0\n    for i in range(len(s)):\n        vowel_count, consonant_count = 0, 0\n        for j in range(i, len(s)):\n            if s[j] in vowels:\n                vowel_count += 1\n            else:\n                consonant_count += 1\n            if vowel_count == consonant_count:\n                balanced_count += 1\n    return balanced_count",
+  "test_code": "from solution import count_balanced_substrings\n\ndef test_count_balanced_substrings_single_vowel():\n    assert count_balanced_substrings(\"aa\") == 0\n\ndef test_count_balanced_substrings_consonant_intermixed():\n    assert count_balanced_substrings(\"bcdf\") == 0\n    assert count_balanced_substrings(\"cfcfbgbgaac\") == 6\n\ndef test_count_balanced_substrings_mixed():\n    assert count_balanced_substrings(\"beaead\") == 5\n    assert count_balanced_substrings(\"aabbacbaee\") == 9\n\ndef test_count_balanced_substrings_all_vowel():\n    assert count_balanced_substrings(\"aaaaa\") == 10\n\ndef test_count_balanced_substrings_all_consonant():\n    assert count_balanced_substrings(\"bbbb\") == 0\n\ndef test_count_balanced_substrings_balanced_substring():\n    assert count_balanced_substrings(\"aeiou\") == 5",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

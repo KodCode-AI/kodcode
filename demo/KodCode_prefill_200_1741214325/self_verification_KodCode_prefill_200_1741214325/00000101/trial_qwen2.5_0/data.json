@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000101",
+    "row_id": 101,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to iterate over a list and print each number.",
+  "solution_code": "def print_numbers(numbers):\n    \"\"\"\n    Iterates over a list and prints each number.\n    \"\"\"\n    for num in numbers:\n        print(num)",
+  "test_code": "from solution import print_numbers\n\ndef test_print_numbers():\n    # Create a temporary file to capture print output\n    import io\n    import contextlib\n\n    captured_output = io.StringIO()  # Create StringIO object\n    with contextlib.redirect_stdout(captured_output):  # Redirect stdout to StringIO object\n        print_numbers([1, 2, 3, 4, 5])\n    output = captured_output.getvalue().strip().split('\\n')\n    assert output == ['1', '2', '3', '4', '5']\n\ndef test_print_numbers_with_empty_list():\n    import io\n    import contextlib\n    captured_output = io.StringIO()\n    with contextlib.redirect_stdout(captured_output):\n        print_numbers([])\n    output = captured_output.getvalue().strip()\n    assert output == ''",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

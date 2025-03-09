@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000069",
+    "row_id": 69,
+    "seed_ids": [
+      "306",
+      "202",
+      "1024"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with determining whether the string can be rearranged such that every even-indexed character is a vowel and every odd-indexed character is a consonant. Return `true` if such an arrangement is possible, otherwise return `false`. Note that the string length is at least 2 and at most 100.",
+  "solution_code": "def can_arrange_vowels consonants(s: str) -> bool:\n    \"\"\"\n    Determines if the string can be rearranged such that every even-indexed character\n    is a vowel and every odd-indexed character is a consonant.\n    \"\"\"\n    vowels = set(\"aeiou\")\n    odd_vowels, even_consonants = 0, 0\n\n    for i, char in enumerate(s):\n        if i % 2 == 0:\n            if char in vowels:\n                odd_vowels += 1\n        else:\n            if char not in vowels:\n                even_consonants += 1\n\n    return odd_vowels == len(s[1::2]) and even_consonants == len(s[::2]) % 2",
+  "test_code": "from solution import can_arrange_vowels_consonants\n\ndef test_can_arrange_vowels_consonants():\n    assert can_arrange_vowels_consonants(\"*a[d\") == False\n    assert can_arrange_vowels_consonants(\"l*m*n\") == False\n    assert can_arrange_vowels_consonants(\"*&^\") == True\n\ndef test_can_arrange_boundary_conditions():\n    assert can_arrange_vowels_consonants(\"a\") == False\n    assert can_arrange_vowels_consonants(\"aa\") == False\n\ndef test_can_arrange_random():\n    assert can_arrange_vowels_consonants(\"aeiou\") == False\n    assert can_arrange_vowels_consonants(\"abcdefg\") == False\n    assert can_arrange_vowels_consonants(\"baca\") == True\n    assert can_arrange_vowels_consonants(\"ab\") == False\n    assert can_arrange_vowels_consonants(\"aeiouy\") == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

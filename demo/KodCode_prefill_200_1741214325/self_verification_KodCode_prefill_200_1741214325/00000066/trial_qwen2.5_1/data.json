@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000066",
+    "row_id": 66,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum sum of a subarray within an array of integers. This is the famous Kadane's algorithm problem.",
+  "solution_code": "def max_subarray_sum(arr):\n    \"\"\"\n    Returns the maximum sum of a contiguous subarray within the one-dimensional array of numbers.\n    \"\"\"\n    if not arr:\n        return 0\n\n    current_sum = max_sum = arr[0]\n    for num in arr[1:]:\n        current_sum = max(num, current_sum + num)\n        max_sum = max(max_sum, current_sum)\n    return max_sum",
+  "test_code": "def test_max_subarray_sum():\n    assert max_subarray_sum([1, 2, 3, -2, 5]) == 9  # [1, 2, 3, -2, 5] -> 9\n    assert max_subarray_sum([-1, -2, -3, -4]) == -1  # Single element\n    assert max_subarray_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6  # [4, -1, 2, 1] -> 6\n    assert max_subarray_sum([0, -1, 2, -3, 5]) == 5  # Single positive number\n    assert max_subarray_sum([-3, -6, -2, -5, -4]) == -2  # All negative numbers\n    assert max_subarray_sum([]) == 0  # Empty array",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

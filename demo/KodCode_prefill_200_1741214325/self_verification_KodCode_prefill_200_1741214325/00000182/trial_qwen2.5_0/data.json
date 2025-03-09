@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000182",
+    "row_id": 182,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find all possible subsets of a set. You can return them as a list of lists.",
+  "solution_code": "from itertools import chain, combinations\n\ndef all_subsets(s):\n    \"\"\"\n    Returns a list of all possible subsets of the input set s.\n    \"\"\"\n    return list(chain.from_iterable(combinations(s, r) for r in range(len(s)+1)))",
+  "test_code": "from solution import all_subsets\n\ndef test_all_subsets_empty_set():\n    assert all_subsets(set()) == [()]\n\ndef test_all_subsets_one_element():\n    assert all_subsets({1}) == [(), (1,)]\n\ndef test_all_subsets_two_elements():\n    assert all_subsets({1, 2}) == [(), (1,), (2,), (1, 2)]\n\ndef test_all_subsets_three_elements():\n    assert all_subsets({1, 2, 3}) == [(), (1,), (2,), (3,), (1, 2), (1, 3), (2, 3), (1, 2, 3)]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

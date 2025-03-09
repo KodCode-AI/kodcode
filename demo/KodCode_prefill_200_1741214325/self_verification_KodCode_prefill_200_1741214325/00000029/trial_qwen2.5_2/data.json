@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000029",
+    "row_id": 29,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to implement a simple bubble sort algorithm.",
+  "solution_code": "def bubble_sort(arr):\n    \"\"\"\n    Sorts a list of numbers using the bubble sort algorithm.\n    \n    Parameters:\n    arr (list): The list of numbers to be sorted.\n    \n    Returns:\n    list: The sorted list.\n    \"\"\"\n    n = len(arr)\n    for i in range(n):\n        # Create a flag that will allow the function to terminate early if there's nothing left to sort\n        swapped = False\n        for j in range(0, n-i-1):\n            # Swap if the element found is greater than the next element\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n                swapped = True\n        # If no elements were swapped by inner loop, then break\n        if not swapped:\n            break\n    return arr",
+  "test_code": "import pytest\n\ndef test_bubble_sort_empty_list():\n    assert bubble_sort([]) == []\n\ndef test_bubble_sort_positive_numbers():\n    assert bubble_sort([64, 34, 25, 12, 22, 11, 90]) == [11, 12, 22, 25, 34, 64, 90]\n\ndef test_bubble_sort_negative_numbers():\n    assert bubble_sort([-64, -34, -25, -12, -22, -11, -90]) == [-90, -64, -34, -25, -22, -12, -11]\n\ndef test_bubble_sort_mixed_numbers():\n    assert bubble_sort([-64, 34, -25, 12, -22, 11, 90]) == [-64, -25, -22, -11, 11, 12, 34, 90]\n\ndef test_bubble_sort_already_sorted():\n    assert bubble_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]\n\ndef test_bubble_sort_single_element():\n    assert bubble_sort([42]) == [42]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

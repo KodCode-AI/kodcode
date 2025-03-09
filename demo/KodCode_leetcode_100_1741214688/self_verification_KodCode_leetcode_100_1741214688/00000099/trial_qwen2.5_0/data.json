@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000099",
+    "row_id": 99,
+    "seed_ids": [
+      "673",
+      "1120",
+      "2428"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary matrix `grid` of size `m x n`, flip the image horizontally, then invert all the values: change `0` to `1` and `1` to `0`. Return the resulting matrix. A flip horizontally means that for each row, the values are reversed, and inverting the values means that all `0`s are changed to `1`s and all `1`s are changed to `0`s.",
+  "solution_code": "def flip_and_invert_image(grid):\n    \"\"\"\n    Flips the given binary matrix horizontally and inverts all the values.\n    \"\"\"\n    flipped_inverted_grid = []\n    for row in grid:\n        # Reverse the row and invert the values\n        flipped_inverted_row = [1 - val for val in reversed(row)]\n        flipped_inverted_grid.append(flipped_inverted_row)\n    return flipped_inverted_grid",
+  "test_code": "import pytest\n\ndef test_flip_and_invert_image():\n    assert flip_and_invert_image([[1,1,0],[1,0,1],[0,0,0]]) == [[1,0,0],[0,1,0],[1,1,1]]\n    assert flip_and_invert_image([[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]) == [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]\n\ndef test_single_row_odd():\n    assert flip_and_invert_image([[0]]) == [[1]]\n\ndef test_single_row_even():\n    assert flip_and_invert_image([[1,0]]) == [[0,1]]\n\ndef test_zero_matrix():\n    assert flip_and_invert_image([[0,0],[0,0]]) == [[1,1],[1,1]]\n\ndef test_mixed():\n    assert flip_and_invert_image([[1,0,1],[0,1,0],[1,0,1]]) == [[0,1,0],[1,0,1],[0,1,0]]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

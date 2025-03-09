@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000096",
+    "row_id": 96,
+    "seed_ids": [
+      "2485",
+      "2345",
+      "796"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of `n` unique integers, determine if there exists a pair of integers in the list whose sum is equal to a given target integer `k`. If such a pair exists, return the indices of the two integers (0-indexed) in any order. If no such pair exists, return an empty list. Note that the same integer cannot be used twice.",
+  "solution_code": "def find_pair_with_sum(nums, k):\n    \"\"\"\n    Returns a list containing the indices of the two integers whose sum equals k.\n    If no such pair exists, returns an empty list.\n    \"\"\"\n    num_to_index = {}\n    for i, num in enumerate(nums):\n        complement = k - num\n        if complement in num_to_index:\n            return [num_to_index[complement], i]\n        num_to_index[num] = i\n    return []",
+  "test_code": "def test_find_pair_with_sum():\n    assert find_pair_with_sum([2, 7, 11, 15], 9) == [0, 1]\n    assert find_pair_with_index([3, 2, 4], 6) == [1, 2]\n    assert find_pair_with_index([3, 3], 6) == [0, 1]\n    assert find_pair_with_index([1, 2, 3, 4, 5], 10) == []\n    assert find_pair_with_sum([], 10) == []\n\ndef find_pair_with_index(nums, k):\n    return find_pair_with_sum(nums, k)",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

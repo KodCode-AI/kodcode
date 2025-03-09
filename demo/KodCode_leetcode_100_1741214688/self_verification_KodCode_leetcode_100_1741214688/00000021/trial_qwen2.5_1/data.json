@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000021",
+    "row_id": 21,
+    "seed_ids": [
+      "61",
+      "79",
+      "623"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and an integer `k`, write a function to find the `k`th smallest element in the tree. Ensure your solution does not modify the tree.",
+  "solution_code": "To find the `k`th smallest element in a given binary search tree (BST) without modifying the tree, we can perform an in-order traversal. In-order traversal of a BST processes nodes in ascending order. This can be accomplished using either recursion or an iterative approach with a stack. Here, we'll use an iterative approach.\n\nclass TreeNode:\n    def __init__(self, value=0, left=None, right=None):\n        self.value = value\n        self.left = left\n        self.right = right\n\ndef kth_smallest(root, k):\n    \"\"\"\n    Find the kth smallest element in a Binary Search Tree without modifying the tree.\n    \"\"\"\n    stack = []\n    current = root\n\n    while current or stack:\n        # Reach the leftmost node of the current subtree\n        while current:\n            stack.append(current)\n            current = current.left\n        \n        # Current must be None at this point\n        current = stack.pop()\n        k -= 1\n        \n        # If k becomes zero, we've found the kth smallest element\n        if k == 0:\n            return current.value\n        \n        # Move to the right subtree\n        current = current.right",
+  "test_code": "def setup_tree():\n    \"\"\"\n    Helper function to create a test BST.\n    \"\"\"\n    three = TreeNode(3)\n    one = TreeNode(1)\n    four = TreeNode(4)\n    two = TreeNode(2, one, three)\n    five = TreeNode(5)\n    root = TreeNode(4, two, five, right=TreeNode(6, right=TreeNode(7)))\n    return root\n\ndef test_kth_smallest():\n    \"\"\"\n    Test for the kth smallest element function.\n    \"\"\"\n    root = setup_tree()\n    assert kth_smallest(root, 1) == 1\n    assert kth_smallest(root, 2) == 2\n    assert kth_smallest(root, 3) == 3\n    assert kth_smallest(root, 4) == 4\n    assert kth_smallest(root, 5) == 5\n    assert kth_smallest(root, 6) == 6\n    assert kth_smallest(root, 7) == 7\n\ndef test_single_node_tree():\n    \"\"\"\n    Test for a tree with a single node.\n    \"\"\"\n    root = TreeNode(5)\n    assert kth_smallest(root, 1) == 5\n\n# Adding further test cases to edge cases\ndef test_no_left_subtree():\n    \"\"\"\n    Test for a tree where the left subtree is empty.\n    \"\"\"\n    root = TreeNode(4, right=TreeNode(6, TreeNode(7)))\n    assert kth_smallest(root, 1) == 4\n    assert kth_smallest(root, 2) == 6\n    assert kth_smallest(root, 3) == 7\n\n# Run tests\ntest_kth_smallest()\ntest_single_node_tree()\ntest_no_left_subtree()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000024",
+    "row_id": 24,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the number of paths from the top-left corner to the bottom-right corner of an M x N grid, where you can only move either down or right at any point in time. The function should handle cases where the grid size can be as large as 10x10 for efficiency. Use memoization to optimize the algorithm.",
+  "solution_code": "def num_paths_memo(m, n, memo={}):\n    \"\"\"\n    Returns the number of unique paths from the top-left corner to the bottom-right corner of an M x N grid.\n    Can only move down or right.\n    Uses memoization for optimization.\n    \"\"\"\n    if (m, n) in memo:\n        return memo[(m, n)]\n    if m == 1 or n == 1:\n        return 1\n    memo[(m, n)] = num_paths_memo(m - 1, n, memo) + num_paths_memo(m, n - 1, memo)\n    return memo[(m, n)]",
+  "test_code": "from solution import num_paths_memo\n\ndef test_num_paths_memo():\n    assert num_paths_memo(2, 3) == 3\n    assert num_paths_memo(3, 2) == 3\n    assert num_paths_memo(3, 3) == 6\n    assert num_paths_memo(1, 1) == 1\n    assert num_paths_memo(3, 7) == 28\n    assert num_paths_memo(5, 5) == 70",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

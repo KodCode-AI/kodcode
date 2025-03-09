@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000030",
+    "row_id": 30,
+    "seed_ids": [
+      "1189",
+      "227",
+      "1099"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `text`, you want to use the characters of `text` to form as many instances of the word **\"racecar \"** as possible.  You can use each character in `text` **at most once**. Return the maximum number of instances that can be formed.",
+  "solution_code": "from collections import Counter\n\ndef max_racecar_instances(text: str) -> int:\n    \"\"\"\n    Returns the maximum number of \"racecar\" instances that can be formed using characters from text.\n    \"\"\"\n    target_counter = Counter(\"racecar\")\n    text_counter = Counter(text)\n    \n    return min(text_counter[char] // target_counter[char] for char in target_counter if char in text_counter)",
+  "test_code": "from solution import max_racecar_instances\nfrom collections import Counter\n\ndef test_max_racecar_instances():\n    assert max_racecar_instances(\"racecar\") == 1\n    assert max_racecar_instances(\"racecaracecar\") == 2\n    assert max_racecar_instances(\"racceara\") == 1\n    assert max_racecar_instances(\"rrrraaaacecaarr\") == 2\n    assert max_racecar_instances(\"a\") == 0\n    assert max_racecar_instances(\"racecars\") == 0  # 's' is not in the target\n    assert max_racecar_instances(\"rcrcaaeerr\") == 1\n    assert max_racecar_instances(\"racecarracecar\") == 2",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

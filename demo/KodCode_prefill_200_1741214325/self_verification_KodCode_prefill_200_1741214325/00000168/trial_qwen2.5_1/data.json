@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000168",
+    "row_id": 168,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to parse and extract specific data from XML using `xml.etree.ElementTree`",
+  "solution_code": "import xml.etree.ElementTree as ET\n\ndef extract_data_from_xml(xml_string, tag_name):\n    \"\"\"\n    Parses the provided XML string and extracts the text content of the first occurrence of the specified tag.\n\n    :param xml_string: The XML data as a string.\n    :param tag_name: The name of the tag to extract the text from.\n    :return: The text content of the first <tag_name> element or None if not found.\n    \"\"\"\n    root = ET.fromstring(xml_string)\n    tag = root.find(tag_name)\n    if tag is not None:\n        return tag.text\n    return None",
+  "test_code": "import xml.etree.ElementTree as ET\nfrom solution import extract_data_from_xml\n\ndef test_extract_data_from_xml():\n    xml_string = '<root><data>extract this</data><ignore>other text</ignore></root>'\n    assert extract_data_from_xml(xml_string, 'data') == 'extract this'\n\ndef test_extract_nonexistent_tag():\n    xml_string = '<root><data>extract this</data><ignore>other text</ignore></root>'\n    assert extract_data_from_xml(xml_string, 'nonexistent') is None\n\ndef test_multiple_elements_same_tag():\n    xml_string = '<root><data>text1</data><data>text2</data></root>'\n    assert extract_data_from_xml(xml_string, 'data') == 'text1'  # Only the first one is extracted\n\ndef test_empty_xml():\n    xml_string = '<root></root>'\n    assert extract_data_from_xml(xml_string, 'data') is None",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

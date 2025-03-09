@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000177",
+    "row_id": 177,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort an array using the Quick Sort algorithm.",
+  "solution_code": "def quick_sort(arr):\n    \"\"\"\n    Sorts an array using the Quick Sort algorithm.\n    \n    Parameters:\n    arr (list): The list of elements to be sorted.\n    \n    Returns:\n    list: The sorted list.\n    \"\"\"\n    if len(arr) <= 1:\n        return arr\n    else:\n        pivot = arr[0]\n        less = [x for x in arr[1:] if x <= pivot]\n        greater = [x for x in arr[1:] if x > pivot]\n        return quick_sort(less) + [pivot] + quick_sort(greater)",
+  "test_code": "python\r\ndef test_quick_sort():\r\n    arr = [3, 6, 8, 10, 1, 2, 1]\r\n    sorted_arr = quick_sort(arr)\r\n    expected = [1, 1, 2, 3, 6, 8, 10]\r\n    assert sorted_arr == expected\r\n\r\ndef test_quick_sort_empty():\r\n    arr = []\r\n    sorted_arr = quick_sort(arr)\r\n    expected = []\r\n    assert sorted_arr == expected\r\n\r\ndef test_quick_sort_single_element():\r\n    arr = [5]\r\n    sorted_arr = quick_sort(arr)\r\n    expected = [5]\r\n    assert sorted_arr == expected\r\n\r\ndef test_quick_sort_negative_numbers():\r\n    arr = [3, -1, -12, 0, 15, 4]\r\n    sorted_arr = quick_sort(arr)\r\n    expected = [-12, -1, 0, 3, 4, 15]\r\n    assert sorted_arr == expected\r\n\r\ndef test_quick_sort_duplicate_elements():\r\n    arr = [4, 4, 4, 4, 4]\r\n    sorted_arr = quick_sort(arr)\r\n    expected = [4, 4, 4, 4, 4]\r\n    assert sorted_arr == expected\r\n\r\ndef test_quick_sort_already_sorted():\r\n    arr = [1, 2, 3, 4, 5]\r\n    sorted_arr = quick_sort(arr)\r\n    expected = [1, 2, 3, 4, 5]\r\n    assert sorted_arr == expected",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

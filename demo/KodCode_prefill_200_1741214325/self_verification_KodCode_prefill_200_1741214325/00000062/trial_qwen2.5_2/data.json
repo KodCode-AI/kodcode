@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000062",
+    "row_id": 62,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the second maximum number in a list of integers. If the list does not contain at least two different numbers, return None.",
+  "solution_code": "def second_maximum(numbers):\n    \"\"\"\n    Returns the second maximum number in a list of integers.\n    If the list does not contain at least two different numbers, returns None.\n    \"\"\"\n    if len(numbers) < 2:\n        return None\n    \n    max_num = second_max_num = float('-inf')\n    \n    for num in numbers:\n        if num > max_num:\n            second_max_num = max_num\n            max_num = num\n        elif max_num > num > second_max_num:\n            second_max_num = num\n            \n    if second_max_num == float('-inf'):\n        return None\n    return second_max_num",
+  "test_code": "from solution import second_maximum\n\ndef test_second_maximum_with_two_unique_numbers():\n    assert second_maximum([1, 2]) == 1\n\ndef test_second_maximum_with_sorted_repeating_numbers():\n    assert second_maximum([5, 5, 4, 4, 3, 3]) == 4\n\ndef test_second_maximum_with_descending_repeating_numbers():\n    assert second_maximum([10, 9, 10, 9]) == 9\n\ndef test_second_maximum_with_no_enough_unique_numbers():\n    assert second_maximum([2, 2]) == None\n\ndef test_second_maximum_with_random_numbers():\n    assert second_maximum([7, 8, 9, 10, 11, 9]) == 10\n\ndef test_second_maximum_with_only_one_number():\n    assert second_maximum([100]) == None\n\ndef test_second_maximum_with_empty_list():\n    assert second_maximum([]) == None",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

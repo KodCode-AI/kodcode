@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000003",
+    "row_id": 3,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to merge two sorted lists into one sorted list using the merge function from the heapq module. Since heapq's merge function can be used to merge multiple iterables directly, your function should accept two lists, sort each individually if they are not already sorted, and then merge them using heapq.merge(). Ensure the output is a list, not a heapq.merge object.",
+  "solution_code": "import heapq\n\ndef merge_sorted_lists(lst1, lst2):\n    \"\"\"\n    Merges two sorted lists into one sorted list using the heapq.merge function.\n    \n    Parameters:\n    lst1 (list): First sorted list.\n    lst2 (list): Second sorted list.\n    \n    Returns:\n    list: Merged and sorted list.\n    \"\"\"\n    # Ensure both lists are sorted\n    sorted_lst1 = sorted(lst1) if lst1 else []\n    sorted_lst2 = sorted(lst2) if lst2 else []\n    # Merge the sorted lists using heapq.merge and convert the result to a list\n    merged_list = list(heapq.merge(sorted_lst1, sorted_lst2))\n    return merged_list",
+  "test_code": "import pytest\nfrom solution import merge_sorted_lists\nfrom heapq import merge as built_in_merge\n\ndef test_merge_sorted_lists_positive():\n    assert merge_sorted_lists([1, 3, 5], [2, 4, 6]) == list(built_in_merge([1, 3, 5], [2, 4, 6]))\n\ndef test_merge_empty_lists():\n    assert merge_sorted_lists([], []) == []\n    assert merge_sorted_lists([], [2, 4, 6]) == [2, 4, 6]\n    assert merge_sorted_lists([1, 3, 5], []) == [1, 3, 5]\n\ndef test_merge_with_common_elements():\n    assert merge_sorted_lists([1, 3, 5], [2, 4, 6]) == list(built_in_merge([1, 3, 5], [2, 4, 6]))\n    assert merge_sorted_lists([1, 3, 5], [5, 6]) == list(built_in_merge([1, 3, 5], [5, 6]))\n\ndef test_merge_mixed_sign_numbers():\n    assert merge_sorted_lists([-1, 0, 2], [-2, -2, 3]) == list(built_in_merge([-1, 0, 2], [-2, -2, 3]))",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

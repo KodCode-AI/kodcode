@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000104",
+    "row_id": 104,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string is a valid identifier in Python.",
+  "solution_code": "import re\n\ndef is_valid_identifier(name):\n    \"\"\"\n    Returns True if the given string is a valid Python identifier, otherwise False.\n    A valid Python identifier starts with a letter (a-z, A-Z) or an underscore (_),\n    followed by zero or more letters, digits (0-9), or underscores.\n    \"\"\"\n    pattern = r'^[a-zA-Z_][a-zA-Z_0-9]*$'\n    return bool(re.match(pattern, name))",
+  "test_code": "import pytest\n\ndef test_is_valid_identifier():\n    assert is_valid_identifier(\"var1\") == True\n    assert is_valid_identifier(\"_myVar\") == True\n    assert is_valid_identifier(\"99vars\") == False\n    assert is_valid_identifier(\"xyz!\") == False\n    assert is_valid_identifier(\"valid_identifier123\") == True\n    assert is_valid_identifier(\"class_name\") == False  # Does not start with a lowercase letter\n\ndef test_is_valid_with_digits():\n    assert is_valid_identifier(\"var_123\") == True\n    assert is_valid_identifier(\"123Var\") == False\n\ndef test_is_valid_with_special_chars():\n    assert is_valid_identifier(\"_\") == True\n    assert is_valid_identifier(\"__\") == True\n    assert is_valid_identifier(\"___\") == True\n    assert is_valid_identifier(\"_123\") == True\n    assert is_valid_identifier(\"123_\") == False\n\ndef test_is_valid_with_underscore_within():\n    assert is_valid_identifier(\"valid_var_name\") == True\n    assert is_valid_identifier(\"valid_var_name_\") == True\n\ndef test_is_valid_empty_string():\n    assert is_valid_identifier(\"\") == False\n\ndef test_is_valid_starting_with_digit():\n    assert is_valid_identifier(\"123valid\") == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000082",
+    "row_id": 82,
+    "seed_ids": [
+      "1560",
+      "2196",
+      "1556"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters and an integer `k`, you can perform the following operation at most `k` times:\n\n- Choose any index `i` and swap `s[i]` with `s[i + 1]` (0-indexed).\n\nAfter performing the operations, the string `s` should be a palindrome. Return the lexicographically smallest palindrome that can be obtained under these constraints. If it's not possible to form a palindrome, return an empty string.",
+  "solution_code": "def can_swap(s):\n    \"\"\"\n    Check if the string can be transformed into a palindrome by swapping adjacent characters.\n    \"\"\"\n    left, right = 0, len(s) - 1\n    while left < right:\n        if s[left] != s[right]:\n            return True\n        left += 1\n        right -= 1\n    return False\n\ndef form_smallest_palindrome(s, k):\n    \"\"\"\n    Return the lexicographically smallest palindrome that can be obtained by swapping at most k characters,\n    or an empty string if it's not possible.\n    \"\"\"\n    if can_swap(s) and k >= 0:\n        return s\n    \n    for i in range(len(s)):\n        for j in range(i + 1, min(i + 1 + k, len(s))):\n            # Try to form a palindrome by swapping\n            new_str = list(s)\n            new_str[i], new_str[j] = new_str[j], new_str[i]\n            if new_str[:i + 1] == new_str[i + 1:i + 2 + (len(s) - i - 1) * 2:2]:\n                return ''.join(new_str)\n    \n    return \"\"",
+  "test_code": "from solution import form_smallest_palindrome\n\ndef test_form_smallest_palindrome():\n    assert form_smallest_palindrome(\"aabbcc\", 3) == \"abcabc\"\n    assert form_smallest_palindrome(\"abccba\", 2) == \"abccba\"\n    assert form_smallest_palindrome(\"abcdef\", 2) == \"abdcfe\"\n    assert form_smallest_palindrome(\"abcde\", 0) == \"\"\n    assert form_smallest_palindrome(\"abccba\", 1) == \"abccba\"\n    assert form_smallest_palindrome(\"aebcbda\", 3) == \"aabccba\"\n    assert form_smallest_palindrome(\"aebcbda\", 4) == \"aabbcda\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

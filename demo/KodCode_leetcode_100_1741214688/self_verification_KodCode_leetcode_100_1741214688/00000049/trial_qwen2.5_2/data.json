@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000049",
+    "row_id": 49,
+    "seed_ids": [
+      "1848",
+      "1455",
+      "1601"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an integer array `nums` and a target integer `target`, find the **shortest contiguous subarray** in `nums` such that the sum of the elements in the subarray is equal to or greater than `target`. If no such subarray exists, return `0`. A **contiguous subarray** is a subarray with at least two elements, and the **sum** of its elements is the sum of the corresponding elements in `nums`.",
+  "solution_code": "def shortest_subarray_with_at_least_sum(nums, target):\n    \"\"\"\n    Finds the shortest contiguous subarray in `nums` such that the sum of the elements in the subarray is \n    equal to or greater than `target`. If no such subarray exists, returns 0.\n    \"\"\"\n    n = len(nums)\n    start, end = 0, 0\n    current_sum = 0\n    min_length = float('inf')\n    \n    while end < n:\n        while current_sum < target and end < n:\n            current_sum += nums[end]\n            end += 1\n        \n        while current_sum >= target and start < n:\n            min_length = min(min_length, end - start)\n            current_sum -= nums[start]\n            start += 1\n    \n    return min_length if min_length != float('inf') else 0",
+  "test_code": "def test_shortest_subarray_with_at_least_sum():\n    assert shortest_subarray_with_at_least_sum([2, 3, 1, 2, 4, 3], 7) == 2\n    assert shortest_subarray_with_at_least_sum([1, 4, 4], 4) == 1\n    assert shortest_subarray_with_at_least_sum([1, 1, 1, 1, 1, 1, 1, 1], 11) == 0\n    assert shortest_subarray_with_at_least_sum([1, 2, 3, 4, 5], 15) == 5\n    assert shortest_subarray_with_at_least_sum([5, 6, 7, 8, 9], 40) == 5\n\n# Test for a case where no subarray meets the criteria\ndef test_no_subarray_meets_criteria():\n    assert shortest_subarray_with_at_least_sum([2, 3, 1, 2], 10) == 0\n\n# Additional test cases\ndef test_mixed_values():\n    assert shortest_subarray_with_at_least_sum([1, 2, 3, -4, 5], 5) == 3\n    assert shortest_subarray_with_at_least_sum([2, 2, 2, 2, 2], 5) == 2\n\ndef test_single_element_non_matches():\n    assert shortest_subarray_with_at_least_sum([10], 15) == 0\n    assert shortest_subarray_with_at_least_sum([1], 10) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

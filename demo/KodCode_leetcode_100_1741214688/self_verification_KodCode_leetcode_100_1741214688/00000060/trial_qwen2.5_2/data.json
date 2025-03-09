@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000060",
+    "row_id": 60,
+    "seed_ids": [
+      "2335",
+      "805",
+      "558"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a list of `n` tasks, each with a unique identifier from `1` to `n`. The tasks are to be scheduled on a single machine that processes them sequentially. Each task takes a certain amount of time to complete, which is given by an array `times` of length `n` where `times[i]` is the time required to complete the `i+1`-th task. The machine can skip any task once, but only before it starts processing that task. Once a task is skipped, it cannot be processed. Given `times` and an integer `k` (where `0 <= k <= n`), find the minimum possible time required to complete all tasks if you can skip up to `k` tasks. Return the minimum time.",
+  "solution_code": "def minimum_time_to_complete(tasks, k):\n    \"\"\"\n    Return the minimum time to complete all tasks with up to k skips.\n    \"\"\"\n    n = len(tasks)\n    times = sorted(tasks, reverse=True)\n    \n    if k >= n - 1:\n        return sum(tasks)\n    \n    prefix_sum = [0] * (n + 1)\n    for i in range(n):\n        prefix_sum[i + 1] = prefix_sum[i] + times[i]\n    \n    def is_possible(mid):\n        nonlocal times\n        if sum(times) - mid <= k:\n            return True\n        \n        for i in range(n):\n            if (prefix_sum[i] - mid) + (sum(times[i + 1:]) - (prefix_sum[-1] - prefix_sum[i + 1])) >= k + 1:\n                return True\n        return False\n    \n    low, high = 0, sum(tasks)\n    while low < high:\n        mid = (low + high) >> 1\n        if is_possible(mid):\n            high = mid\n        else:\n            low = mid + 1\n    return low",
+  "test_code": "import pytest\n\ndef test_minimum_time_to_complete():\n    assert minimum_time_to_complete([1, 2, 3, 4], 2) == 6\n    assert minimum_time_to_complete([9, 2, 2, 2, 2, 2, 7], 5) == 15\n    assert minimum_time_to_complete([1, 1, 1], 1) == 2\n    assert minimum_time_to_complete([10], 0) == 10\n    assert minimum_time_to_complete([2, 6, 3, 1, 2, 5], 3) == 10\n\nif __name__ == \"__main__\":\n    pytest.main()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

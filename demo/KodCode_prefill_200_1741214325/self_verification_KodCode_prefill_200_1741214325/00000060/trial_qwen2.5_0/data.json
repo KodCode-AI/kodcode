@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000060",
+    "row_id": 60,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to filter out all the strings from a given list that contain a specific substring.",
+  "solution_code": "def filter_strings_with_substring(string_list, substring):\n    \"\"\"\n    Returns a list of strings from the input list that contain the specified substring.\n    \n    :param string_list: List of strings to be filtered\n    :param substring: Substring to filter the strings by\n    :return: List of strings containing the specified substring\n    \"\"\"\n    return [s for s in string_list if substring in s]",
+  "test_code": "def test_filter_strings_with_substring():\n    assert filter_strings_with_substring([\"apple\", \"banana\", \"grape\", \"berry\"], \"a\") == [\"apple\", \"banana\", \"berry\"]\n    assert filter_strings_with_substring([\"hello\", \"world\", \"hi\"], \"h\") == [\"hello\", \"hi\"]\n    assert filter_strings_with_substring([\"sun\", \"moon\", \"star\"], \"xyz\") == []\n    assert filter_strings_with_substring([\"python\", \"java\", \"ruby\"], \"py\") == [\"python\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

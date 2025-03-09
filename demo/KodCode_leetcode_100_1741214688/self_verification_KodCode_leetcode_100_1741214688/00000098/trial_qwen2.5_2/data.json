@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000098",
+    "row_id": 98,
+    "seed_ids": [
+      "318",
+      "1265",
+      "919"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a complete binary tree represented by an array `tree`, where `tree[i]` represents the value of the node at index `i`, and each parent node's value is the bitwise OR of its two children. You are given the root index `0` and a target value `target`. Your task is to insert a new node with value `target` into the array representation of the tree while maintaining the complete binary tree property, and return the new root index of the modified array.\n\nImplement the `CBTArrayInserter` class with the following methods:\n*   `CBTArrayInserter(int[] tree)`: Initializes the data structure with the given array `tree` representing the complete binary tree.\n*   `int insert(int target)`: Inserts a new node with value `target` into the tree and returns the new root index of the modified array.\n*   `int get_root()`: Returns the root index of the current state of the tree.",
+  "solution_code": "class CBTArrayInserter:\n    def __init__(self, tree):\n        self.tree = tree\n        self.size = len(tree)\n\n    def insert(self, target):\n        self.size += 1\n        index = self.size - 1\n        self.tree.append(target)\n        while index > 0:\n            parent = (index - 1) // 2\n            if self.tree[parent] != self.tree[index] | self.tree[parent]:\n                self.tree[parent] |= self.tree[index]\n                index = parent\n            else:\n                break\n        return 0\n\n    def get_root(self):\n        return 0",
+  "test_code": "import pytest\n\ndef test_insert_and_get_root():\n    # Test Case 1\n    inserter = CBTArrayInserter([1, 2, 3])\n    assert inserter.insert(5) == 0\n    assert inserter.tree == [1, 2, 3, 5]  # 5 should be inserted at the last index while maintaining the property\n\n    # Test Case 2\n    inserter = CBTArrayInserter([1, 2, 4, 0])\n    assert inserter.insert(3) == 0\n    assert inserter.tree == [1, 2, 4, 0, 3]  # 3 should be inserted at the last index while maintaining the property\n\n    # Test Case 3\n    inserter = CBTArrayInserter([1, 2, 3, 5, 6])\n    assert inserter.insert(7) == 0\n    assert inserter.tree == [1, 2, 3, 5, 6, 7]  # 7 should be inserted at the last index while maintaining the property\n\n    # Test Case 4: Inserting a target equal to the root value\n    inserter = CBTArrayInserter([1, 2, 3, 4, 5])\n    assert inserter.insert(4) == 0\n    assert inserter.tree == [1, 2, 3, 5, 5, 4]  # Target 4 is already the root, should not change the tree structure\n\n    # Test Case 5: Inserting at the last level\n    inserter = CBTArrayInserter([1, 2, 3])\n    assert inserter.insert(0) == 0\n    assert inserter.tree == [1, 2, 3, 0]  # Target 0 should be inserted at the last index while maintaining the property\n\n# Note: The `get_root` method always returns 0 as per the implementation. We can add a test-case if the method's behavior changes.",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

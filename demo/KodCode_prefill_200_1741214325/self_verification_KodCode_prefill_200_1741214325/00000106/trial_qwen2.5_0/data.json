@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000106",
+    "row_id": 106,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to perform insertion sort on a list of integers. Please make sure to provide detailed comments explaining each part of your code.",
+  "solution_code": "def insertion_sort(arr):\n    \"\"\"\n    Perform insertion sort on a list of integers.\n    \n    Parameters:\n    arr (list): The list of integers to be sorted.\n    \n    Returns:\n    list: The sorted list of integers.\n    \n    Explanation:\n    1. Iterate over the array starting from the second element (index 1).\n    2. For each element, compare it with the elements before it to place it in the correct position.\n    3. If the current element is smaller than the previous element, swap them.\n    4. Continue this process until the current element is in the correct sorted position.\n    5. Repeat the process for all elements in the array.\n    \"\"\"\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n        # Move elements of arr[0..i-1], that are greater than key, to one position ahead of their current position\n        while j >= 0 and key < arr[j]:\n            arr[j + 1] = arr[j]\n            j -= 1\n        arr[j + 1] = key\n    return arr",
+  "test_code": "from solution import insertion_sort\n\ndef test_insertion_sort_positive_numbers():\n    assert insertion_sort([4, 5, 2, 6, 1, 3]) == [1, 2, 3, 4, 5, 6]\n\ndef test_insertion_sort_already_sorted():\n    assert insertion_sort([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]\n\ndef test_insertion_sort_negative_numbers():\n    assert insertion_sort([-2, -5, -4, -3, -1]) == [-5, -4, -3, -2, -1]\n\ndef test_insertion_sort_mixed_sign_numbers():\n    assert insertion_sort([-1, 3, -2, 5, 0]) == [-2, -1, 0, 3, 5]\n\ndef test_insertion_sort_duplicate_numbers():\n    assert insertion_sort([4, 2, 4, 2, 1]) == [1, 2, 2, 4, 4]\n\ndef test_insertion_sort_empty_list():\n    assert insertion_sort([]) == []\n\ndef test_insertion_sort_single_element():\n    assert insertion_sort([5]) == [5]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

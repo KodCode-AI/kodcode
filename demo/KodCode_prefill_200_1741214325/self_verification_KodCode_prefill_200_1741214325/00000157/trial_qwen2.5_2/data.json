@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000157",
+    "row_id": 157,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to solve the following problem: Given a list of lists, return the sum of all numbers in the sublists that have an even number of elements.",
+  "solution_code": "def sum_even_sublists(lst):\n    \"\"\"\n    Given a list of lists, return the sum of all numbers in the sublists that have an even number of elements.\n    \"\"\"\n    total_sum = 0\n    for sublist in lst:\n        if len(sublist) % 2 == 0:\n            total_sum += sum(sublist)\n    return total_sum",
+  "test_code": "from solution import sum_even_sublists\n\ndef test_sum_even_sublists_empty_list():\n    assert sum_even_sublists([]) == 0\n\ndef test_sum_even_sublists_single_element():\n    assert sum_even_sublists([[1]]) == 0\n\ndef test_sum_even_sublists_all_even_sublists():\n    assert sum_even_sublists([[1, 2], [3, 4], [5, 6]]) == 21\n\ndef test_sum_even_sublists_odd_and_even_sublists():\n    assert sum_even_sublists([[1, 2, 3], [4, 5], [6, 7, 8], [9]]) == 20\n\ndef test_sum_even_sublists_nested_even_sublists():\n    assert sum_even_sublists([[[1, 2], [3, 4, 5]], [[6, 7], [8]]]) == 24\n\ndef test_sum_even_sublists_without_even_sublists():\n    assert sum_even_sublists([[1, 2, 3], [4, 5], [6, 7, 8]]) == 0",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

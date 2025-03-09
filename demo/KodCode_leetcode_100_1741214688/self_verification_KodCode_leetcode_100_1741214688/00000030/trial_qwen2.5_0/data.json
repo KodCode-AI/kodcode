@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000030",
+    "row_id": 30,
+    "seed_ids": [
+      "1189",
+      "227",
+      "1099"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `text`, you want to use the characters of `text` to form as many instances of the word **\"racecar \"** as possible.  You can use each character in `text` **at most once**. Return the maximum number of instances that can be formed.",
+  "solution_code": "def max_racecar_instances(text):\n    \"\"\"\n    Returns the maximum number of \"racecar\" instances that can be formed from the given text.\n    \"\"\"\n    from collections import Counter\n    \n    required_chars = Counter(\"racecar\")\n    text_counter = Counter(text)\n    min_instances = float('inf')\n    \n    for char in required_chars:\n        if char in text_counter:\n            min_instances = min(min_instances, text_counter[char] // required_chars[char])\n        else:\n            return 0\n    \n    return min_instances",
+  "test_code": "import pytest\n\ndef test_max_racecar_instances():\n    assert max_racecar_instances(\"rcetarac\") == 1\n    assert max_racecar_instances(\"raceccara\") == 1\n    assert max_racecar_instances(\"raccaerace\") == 2\n    assert max_racecar_instances(\"racedracecar\") == 1\n    assert max_racecar_instances(\"eaaacccecceracc\") == 2\n    assert max_racecar_instances(\"racecar\") == 1\n    assert max_racecar_instances(\"a\") == 0\n    assert max_racecar_instances(\"racecarsracecar\") == 1  # Only one complete \"racecar\" can be formed",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

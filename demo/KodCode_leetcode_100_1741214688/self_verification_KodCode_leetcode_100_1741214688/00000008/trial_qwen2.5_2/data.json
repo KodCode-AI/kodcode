@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000008",
+    "row_id": 8,
+    "seed_ids": [
+      "1516",
+      "417",
+      "2266"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of strings `words` and a string `target`, you need to find the minimum number of adjacent swaps required to arrange the strings in `words` such that they form the `target` string. Each string in `words` can only be used once, and the order of the strings in `words` must match the order of the strings in `target`. A swap is defined as exchanging the positions of two adjacent strings in the list. Please return the minimum number of swaps required to achieve the `target` string. If it is not possible to arrange the strings in `words` to form the `target` string, return `-1`.\n\nFor example, given `words = [\"abc\",\"def\",\"ghi\"]` and `target = \"defabcghi\"`, the minimum number of swaps required is `2`. First, swap \"abc\" and \"def\", then swap \"def\" and \"ghi\". Therefore, the answer is `2`.",
+  "solution_code": "def min_swaps_to_target(words, target):\n    \"\"\"\n    Returns the minimum number of adjacent swaps required to arrange the strings in words\n    to form the target string. If it is not possible to form the target, returns -1.\n    \"\"\"\n    word_to_index = {word: idx for idx, word in enumerate(words)}\n    target_words = target.split()\n    words_pointer = 0\n    swaps = 0\n    \n    for target_word in target_words:\n        if target_word not in word_to_index:\n            return -1\n        index = word_to_index[target_word]\n        while index > words_pointer:\n            words_pointer += 1\n            swaps += 1\n        words_pointer = index + 1\n    \n    return swaps",
+  "test_code": "from solution import min_swaps_to_target\n\ndef test_min_swaps_to_target():\n    assert min_swaps_to_target([\"abc\",\"def\",\"ghi\"], \"defabcghi\") == 2\n    assert min_swaps_to_target([\"foo\",\"bar\",\"baz\"], \"barbazfoo\") == 3\n    assert min_swaps_to_target([\"hello\",\"world\",\"hello\"], \"helloworldhello\") == -1  # Duplicate of \"hello\" and \"world\" in source and target creates an error\n    assert min_swaps_to_target([\"a\",\"b\",\"c\"], \"cba\") == -1\n    assert min_swaps_to_target([\"one\",\"two\",\"three\"], \"threeonetwo\") == 2\n    assert min_swaps_to_target([\"cat\",\"dog\",\"mouse\"], \"catdogmouse\") == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

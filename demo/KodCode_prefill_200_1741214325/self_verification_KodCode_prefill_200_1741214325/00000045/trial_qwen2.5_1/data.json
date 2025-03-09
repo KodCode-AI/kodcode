@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000045",
+    "row_id": 45,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to duplicate a linked list, including both the values of the nodes and the node's next pointers. Here, a duplicated linked list means creating a copy of the original linked list with new memory allocated for each node.",
+  "solution_code": "class ListNode:\n    def __init__(self, x):\n        self.val = x\n        self.next = None\n\ndef duplicate_linked_list(head):\n    \"\"\"\n    Duplicates a linked list including values and next pointers.\n    \"\"\"\n    if not head:\n        return None\n    \n    current = head\n    while current:\n        new_node = ListNode(current.val)\n        new_node.next = current.next\n        current.next = new_node\n        current = new_node.next\n    \n    current = head\n    copy_head = None\n    copy_current = None\n    \n    while current:\n        if not copy_head:\n            copy_head = copy_current = current.next\n        else:\n            copy_current.next = current.next.next\n            copy_current = copy_current.next\n        current.next = current.next.next\n        current = current.next\n    \n    return copy_head",
+  "test_code": "def create_linked_list(values):\n    if not values:\n        return None\n    head = ListNode(values[0])\n    current = head\n    for value in values[1:]:\n        current.next = ListNode(value)\n        current = current.next\n    return head\n\ndef linked_list_to_list(head):\n    result = []\n    current = head\n    while current:\n        result.append(current.val)\n        current = current.next\n    return result\n\ndef test_duplicate_linked_list():\n    # Test with a simple linked list: 1 -> 2 -> 3\n    head = create_linked_list([1, 2, 3])\n    copied_head = duplicate_linked_list(head)\n    assert linked_list_to_list(copied_head) == [1, 2, 3]\n    \n    # Test with an empty linked list\n    head = create_linked_list([])\n    copied_head = duplicate_linked_list(head)\n    assert linked_list_to_list(copied_head) == []\n    \n    # Test with a linked list with one element: 4\n    head = create_linked_list([4])\n    copied_head = duplicate_linked_list(head)\n    assert linked_list_to_list(copied_head) == [4]\n    \n    # Test with a more complex linked list: 10 -> 20 -> 30 -> 40 -> 50\n    head = create_linked_list([10, 20, 30, 40, 50])\n    copied_head = duplicate_linked_list(head)\n    assert linked_list_to_list(copied_head) == [10, 20, 30, 40, 50]\n\ntest_duplicate_linked_list()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

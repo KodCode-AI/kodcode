@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000031",
+    "row_id": 31,
+    "seed_ids": [
+      "1361",
+      "485",
+      "1629"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with finding the lexicographically largest substring that is a palindrome. A palindrome is a string that reads the same backward as forward. If there are multiple palindromic substrings of the same length, return the one that is lexicographically largest. A substring is any contiguous sequence of characters within a string.",
+  "solution_code": "def find_largest_palindrome(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically largest palindromic substring in s.\n    \"\"\"\n    if not s:\n        return \"\"\n    \n    max_palindrome = \"\"\n    for i in range(len(s)):\n        for j in range(i+1, len(s)+1):\n            substring = s[i:j]\n            if substring == substring[::-1] and len(substring) > len(max_palindrome):\n                max_palindrome = substring\n                \n    return max_palindrome",
+  "test_code": "from solution import find_largest_palindrome\n\ndef test_find_largest_palindrome_single_char():\n    assert find_largest_palindrome(\"a\") == \"a\"\n\ndef test_find_largest_palindrome_even_length():\n    assert find_largest_palindrome(\"abba\") == \"abba\"\n\ndef test_find_largest_palindrome_odd_length():\n    assert find_largest_palindrome(\"abbac\") == \"abbac\"\n\ndef test_find_largest_palindrome_no_palindrome():\n    assert find_largest_palindrome(\"random\") == \"\"\n\ndef test_find_largest_palindrome_mixed_example():\n    assert find_largest_palindrome(\"babad\") == \"bab\"\n    assert find_largest_palindrome(\"cbbd\") == \"bb\"\n    assert find_largest_palindrome(\"a\") == \"a\"\n    assert find_largest_palindrome(\"ac\") == \"c\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

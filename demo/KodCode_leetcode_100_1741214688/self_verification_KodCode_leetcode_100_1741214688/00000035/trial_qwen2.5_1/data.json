@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000035",
+    "row_id": 35,
+    "seed_ids": [
+      "987",
+      "1753",
+      "11"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an integer array `nums` of length `n`, you are asked to perform the following operation exactly `k` times: choose an index `i` (0-indexed) from the array and increment `nums[i]` by 1. After performing these operations, find the maximum possible **GCD** (Greatest Common Divisor) of the array `nums`.\n\nReturn the maximum GCD you can achieve.",
+  "solution_code": "import math\nfrom typing import List\n\ndef max_possible_gcd(nums: List[int], k: int) -> int:\n    \"\"\"\n    Returns the maximum GCD after incrementing elements of nums exactly k times.\n    \"\"\"\n    max_element = max(nums)\n    min_gcd = max_element\n    for i in range(max_element):\n        current_gcd = 1\n        for num in nums:\n            if i + num * (k + 1) > 0:\n                current_gcd = math.gcd(current_gcd, i + num * (k + 1))\n        min_gcd = max(min_gcd, current_gcd)\n    return min_gcd",
+  "test_code": "from solution import max_possible_gcd\n\ndef test_max_possible_gcd():\n    assert max_possible_gcd([2, 6, 3, 4], 1) == 6\n    assert max_possible_gcd([3, 9, 5], 2) == 3\n    assert max_possible_gcd([1, 2, 3, 6], 3) == 6\n    assert max_possible_gcd([10, 10], 0) == 10\n    assert max_possible_gcd([4, 8, 16], 1) == 8\n    assert max_possible_gcd([1, 2, 3], 3) == 1\n\n# Test case with a larger k value\n    assert max_possible_gcd([2, 4, 8], 5) == 16",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000152",
+    "row_id": 152,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to determine whether a number is even or odd without using if else statements. You can use bitwise operators only.",
+  "solution_code": "def is_even(number):\n    \"\"\"\n    Returns True if the number is even, False otherwise.\n    Uses bitwise AND operator to determine if the number is even.\n    \"\"\"\n    return (number & 1) == 0",
+  "test_code": "from solution import is_even\n\ndef test_is_even():\n    assert is_even(4) is True\n    assert is_even(5) is False\n    assert is_even(0) is True\n    assert is_even(-2) is True\n    assert is_even(-3) is False\n\ndef test_is_odd():\n    assert is_even(3) is False\n    assert is_even(-1) is False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

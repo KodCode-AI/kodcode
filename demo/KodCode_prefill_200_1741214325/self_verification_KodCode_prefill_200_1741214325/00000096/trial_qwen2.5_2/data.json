@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000096",
+    "row_id": 96,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to evaluate an arithmetic expression given as a string. The expression includes integers, the operators '+', '-', '*', and '(', ')', and has at least one operator.",
+  "solution_code": "def evaluate_expression(expression: str) -> int:\n    \"\"\"\n    Evaluates an arithmetic expression given as a string.\n    The expression can include integers, the operators '+', '-', '*', \n    and '(', ')'.\n    \"\"\"\n    def compute(nums, ops):\n        while len(ops) > 0:\n            cur_op = ops.pop()\n            if cur_op == '+':\n                nums[-2] += nums[-1]\n                nums.pop()\n            elif cur_op == '-':\n                nums[-2] -= nums[-1]\n                nums.pop()\n            elif cur_op == '*':\n                nums[-2] *= nums[-1]\n                nums.pop()\n    \n    def evaluate(parens):\n        nums, ops = [], []\n        idx = 0\n        while idx < len(parens):\n            if parens[idx].isdigit():\n                num = 0\n                while idx < len(parens) and parens[idx].isdigit():\n                    num = num * 10 + int(parens[idx])\n                    idx += 1\n                nums.append(num)\n                idx -= 1\n            elif parens[idx] == '(':\n                temp = evaluate(parens[idx+1:])\n                nums.append(temp[0])\n                idx += temp[1]\n            elif parens[idx] == '+' or parens[idx] == '-' or parens[idx] == '*':\n                while len(ops) > 0 and ops[-1] != '(' and precedence[ops[-1]] >= precedence[paresns[idx]]:\n                    compute(nums, ops)\n                ops.append(parens[idx])\n            idx += 1\n        while len(ops) > 0:\n            compute(nums, ops)\n        return nums[0]\n\n    precedence = {'+': 1, '-': 1, '*': 2}\n    return evaluate(expression)",
+  "test_code": "import pytest\n\ndef test_evaluate_expression():\n    assert evaluate_expression(\"1+2\") == 3\n    assert evaluate_expression(\"1+2*3\") == 7\n    assert evaluate_expression(\"3+2*(1+2)*4\") == 31\n\ndef test_integer_only():\n    assert evaluate_expression(\"123\") == 123\n\ndef test_complex_expression():\n    assert evaluate_expression(\"2-1+1\") == 2\n    assert evaluate_expression(\"6*2-(4*3)\") == -6\n\ndef test_precedence():\n    assert evaluate_expression(\"2*3-4*5\") == -14\n\ndef test_parentheses():\n    assert evaluate_expression(\"5-(8-3)\") == 0\n    assert evaluate_expression(\"(2+2)*3\") == 12\n\ndef test_singleton():\n    assert evaluate_expression(\"1\") == 1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

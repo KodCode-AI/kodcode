@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000069",
+    "row_id": 69,
+    "seed_ids": [
+      "306",
+      "202",
+      "1024"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with determining whether the string can be rearranged such that every even-indexed character is a vowel and every odd-indexed character is a consonant. Return `true` if such an arrangement is possible, otherwise return `false`. Note that the string length is at least 2 and at most 100.",
+  "solution_code": "def can_arrange_string(s: str) -> bool:\n    \"\"\"\n    Determines if the string can be rearranged such that every even-indexed character is a vowel and every odd-indexed character is a consonant.\n    Returns true if such an arrangement is possible, otherwise false.\n    \"\"\"\n    vowels = set('aeiou')\n    even_vowels = set()\n    odd_consonants = set('bcdfghjklmnpqrstvwxyz')\n    odd_consonant_count = 0\n    \n    for i, char in enumerate(s):\n        if i % 2 == 0:\n            if char not in vowels:\n                return False\n            even_vowels.add(char)\n        else:\n            if char in vowels:\n                return False\n            if char in odd_consonants:\n                odd_consonant_count += 1\n            else:\n                return False\n    # Check if there are enough unique consonants to pair with the unique vowels\n    return len(even_vowels) <= odd_consonant_count",
+  "test_code": "from solution import can_arrange_string\n\ndef test_can_arrange_string():\n    assert can_arrange_string(\"aabb\") == True\n    assert can_arrange_string(\"aaabc\") == False\n    assert can_arrange_string(\"aa\") == False\n    assert can_arrange_string(\"cdd\") == True\n    assert can_arrange_string(\"be\") == False\n    assert can_arrange_string(\"aabbc\") == True\n    assert can_arrange_string(\"ace\") == True\n    assert can_arrange_string(\"bda\") == True\n    assert can_arrange_string(\"aabbccddee\") == True\n    assert can_arrange_string(\"abc\") == True\n    assert can_arrange_string(\"aaaccc\") == False\n\ndef test_odd_consonants():\n    assert can_arrange_string(\"a\") == False  # String length must be at least 2\n    assert can_arrange_string(\"aa\") == False  # At least one consonant is needed for odd positions\n\ndef test_vowel_parity():\n    assert can_arrange_string(\"ad\") == True\n    assert can_arrange_string(\"ae\") == False\n    assert can_arrange_string(\"aeiou\") == False\n\ndef test_consonant_parity():\n    assert can_arrange_string(\"bc\") == True\n    assert can_arrange_string(\"bdc\") == False",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

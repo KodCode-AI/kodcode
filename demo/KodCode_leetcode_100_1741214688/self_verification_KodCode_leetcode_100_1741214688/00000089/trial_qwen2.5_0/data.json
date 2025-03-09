@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000089",
+    "row_id": 89,
+    "seed_ids": [
+      "1202",
+      "982",
+      "2531"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given two strings `s` and `t`, both of length `n`, and an integer `k`, you can perform the following operation on `s` any number of times: choose `k` indices in `s` and rotate the substring of `s` starting at each of those indices by one position to the right (the last character moves to the front). A rotation is represented by a pair `[i, k]` where `i` is the starting index and `k` is the number of positions to rotate. Determine the lexicographically smallest string `s` that can be obtained after performing these operations, and also find the minimum number of operations required to achieve this.",
+  "solution_code": "def rotate_string(s, k):\n    \"\"\"\n    Rotates the string s by k positions to the right.\n    \"\"\"\n    return s[-k:] + s[:-k]\n\ndef lexicographically_smallest_string(s, k):\n    \"\"\"\n    Returns the lexicographically smallest string that can be obtained\n    by rotating the string s at any k indices and the number of such\n    operations needed.\n    \"\"\"\n    if k >= len(s) or len(set(s)) == 1:\n        return s, 1\n    \n    smallest = s\n    min_operations = float('inf')\n    \n    for i in range(len(s)):\n        for _ in range(k):\n            s = rotate_string(s, 1)\n            if s < smallest:\n                smallest = s\n                min_operations = 1\n            elif s == smallest:\n                min_operations += 1\n                \n    return smallest, min_operations",
+  "test_code": "from solution import lexicographically_smallest_string\n\ndef test_rotate_string_positive():\n    assert rotate_string(\"abcde\", 2) == \"deabc\"\n\ndef test_rotate_string_negative():\n    assert rotate_string(\"abcde\", -2) == \"cdeab\"\n\ndef test_lexicographically_smallest_string_positive():\n    assert lexicographically_smallest_string(\"baaca\", 3) == (\"aaabc\", 3)\n\ndef test_lexicographically_smallest_string_with_duplicates():\n    assert lexicographically_smallest_string(\"bbzb\", 2) == (\"bzbb\", 2)\n\ndef test_lexicographically_smallest_string_already_smallest():\n    assert lexicographically_smallest_string(\"abcd\", 4) == (\"abcd\", 1)\n\ndef test_lexicographically_smallest_string_single_char():\n    assert lexicographically_smallest_string(\"a\", 10) == (\"a\", 1)",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

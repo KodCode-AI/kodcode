@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000027",
+    "row_id": 27,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the union of elements in two lists.",
+  "solution_code": "def union_of_lists(list1, list2):\n    \"\"\"\n    Returns the union of elements in two lists.\n    \n    Args:\n    list1: First input list.\n    list2: Second input list.\n    \n    Returns:\n    A list containing the union of the two input lists, without duplicates.\n    \"\"\"\n    return list(set(list1 + list2))",
+  "test_code": "def test_union_of_lists():\n    assert union_of_lists([1, 2, 3], [3, 4, 5]) == [1, 2, 3, 4, 5]\n    assert union_of_lists([1, 2, 2, 3], [3, 3, 4, 4, 5]) == [1, 2, 3, 4, 5]\n    assert union_of_lists([], [1, 2, 3]) == [1, 2, 3]\n    assert union_of_lists([1, 2, 3], []) == [1, 2, 3]\n    assert union_of_lists([], []) == []",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

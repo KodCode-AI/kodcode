@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000120",
+    "row_id": 120,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to merge two dictionaries. If the same key exists in both dictionaries, their values should be summed. If not, the value from the second dictionary should simply be added to the result.",
+  "solution_code": "def merge_and_sum_dictionaries(dict1, dict2):\n    \"\"\"\n    Merges two dictionaries. If the same key exists in both, sums their values. \n    If not, from the second dictionary, the value should be added to the result.\n    \"\"\"\n    result = {**dict1}  # Start with the first dictionary's keys and values\n    for key, value in dict2.items():\n        result[key] = result.get(key, 0) + value  # Sum or add the new value\n    return result",
+  "test_code": "from solution import merge_and_sum_dictionaries\n\ndef test_merge_and_sum_dictionaries_empty_dicts():\n    assert merge_and_sum_dictionaries({}, {}) == {}\n\ndef test_merge_and_sum_dictionaries_no_overlap():\n    assert merge_and_sum_dictionaries({'a': 1, 'b': 2}, {'c': 3, 'd': 4}) == {'a': 1, 'b': 2, 'c': 3, 'd': 4}\n\ndef test_merge_and_sum_dictionaries_overlap_same_value():\n    assert merge_and_sum_dictionaries({'a': 1, 'b': 2}, {'a': 1, 'b': 2}) == {'a': 2, 'b': 4}\n\ndef test_merge_and_sum_dictionaries_overlap_different_values():\n    assert merge_and_sum_dictionaries({'a': 1, 'b': 2}, {'a': 3, 'b': 4}) == {'a': 4, 'b': 6}\n\ndef test_merge_and_sum_dictionaries_within_a_single_dict():\n    assert merge_and_sum_dictionaries({'a': 1, 'b': 2, 'c': 3}, {'b': 5, 'c': 7, 'd': 9}) == {'a': 1, 'b': 7, 'c': 10, 'd': 9}",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

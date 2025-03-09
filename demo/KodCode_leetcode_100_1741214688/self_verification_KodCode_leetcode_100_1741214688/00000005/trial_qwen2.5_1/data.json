@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000005",
+    "row_id": 5,
+    "seed_ids": [
+      "2338",
+      "1653",
+      "129"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary tree where each node contains a single digit from `0` to `9`. A **path** in the tree is defined as any sequence of nodes from some starting node to any leaf node. Each root-to-leaf path in the tree represents a number. For example, the path `1 -> 2 -> 3` represents the number `123`.\n\nYou need to find the sum of all root-to-leaf numbers in the tree. A **leaf** node is a node with no children. The result should be returned as an integer, and test cases are generated so that the answer will fit in a **32-bit** integer.",
+  "solution_code": "# Definition for a binary tree node.\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef sum_numbers(root: TreeNode) -> int:\n    \"\"\"\n    Returns the sum of all root-to-leaf numbers in the binary tree.\n    \"\"\"\n    def helper(node, path_sum):\n        if not node:\n            return 0\n        path_sum = path_sum * 10 + node.val\n        if not node.left and not node.right:\n            return path_sum\n        return helper(node.left, path_sum) + helper(node.right, path_sum)\n    \n    return helper(root, 0)",
+  "test_code": "import pytest\nfrom solution import sum_numbers, TreeNode\n\ndef create_tree(*values):\n    \"\"\"\n    Helper function to create a binary tree from a flat list of values,\n    where a null node is represented by None.\n    \"\"\"\n    if not values:\n        return None\n    nodes = [None if val is None else TreeNode(val) for val in values]\n    kids = nodes[::-1]\n    root = kids.pop()\n    for node in nodes:\n        if node:\n            if kids:\n                node.left = kids.pop()\n            if kids:\n                node.right = kids.pop()\n    return root\n\ndef test_sum_numbers_single_node():\n    assert sum_numbers(create_tree(1)) == 1\n\ndef test_sum_numbers_leaf_nodes():\n    assert sum_numbers(create_tree(1, 2, 3)) == 25  # 12 + 13 = 25\n    assert sum_numbers(create_tree(4, 9, 0, 5, 1)) == 1026  # 490 + 491 = 1026\n\ndef test_sum_numbers_with_one_path():\n    assert sum_numbers(create_tree(1,2)) == 12\n\ndef test_sum_numbers_complex_tree():\n    assert sum_numbers(create_tree(1,2,3,4,5,6,7,8,None,None, None, None, None, None, None, 9)) == 1026 # 123 + 124 + 135 + 136 + 147 + 148 + 159 + 169 = 1026",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

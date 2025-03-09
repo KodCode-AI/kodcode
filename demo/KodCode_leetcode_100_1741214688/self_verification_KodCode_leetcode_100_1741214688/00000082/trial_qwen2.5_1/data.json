@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000082",
+    "row_id": 82,
+    "seed_ids": [
+      "1560",
+      "2196",
+      "1556"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters and an integer `k`, you can perform the following operation at most `k` times:\n\n- Choose any index `i` and swap `s[i]` with `s[i + 1]` (0-indexed).\n\nAfter performing the operations, the string `s` should be a palindrome. Return the lexicographically smallest palindrome that can be obtained under these constraints. If it's not possible to form a palindrome, return an empty string.",
+  "solution_code": "def min LexicoPalindrome(s: str, k: int) -> str:\n    \"\"\"\n    Returns the lexicographically smallest palindrome that can be obtained by swapping adjacent characters at most k times.\n    If it's not possible to form a palindrome, returns an empty string.\n    \"\"\"\n    if k >= len(s) // 2:\n        return s == s[::-1] and s or \"\"\n\n    def reverse_substring(s, start, end):\n        while start < end:\n            s = s[:start] + s[end] + s[start+1:end] + s[start] + s[end+1:]\n            start += 1\n            end -= 1\n        return s\n\n    n = len(s)\n    for i in range(n // 2):\n        if s[i] != s[n - i - 1]:\n            if k < 2:\n                return \"\"\n            k -= 1\n            s = reverse_substring(s, i, n - i - 1)\n\n    return s",
+  "test_code": "from solution import min_lexico_palindrome\n\ndef test_min_lexico_palindrome_with_k_zero():\n    assert min_lexico_palindrome(\"abcb\", 0) == \"abcb\"\n\ndef test_min_lexico_palindrome_possible():\n    assert min_lexico_palindrome(\"bcb\", 1) == \"abc\"\n\ndef test_min_lexico_palindrome_impossible():\n    assert min_lexico_palindrome(\"bcb\", 0) == \"\"\n\ndef test_min_lexico_palindrome_uneven_k():\n    assert min_lexico_palindrome(\"aaab\", 2) == \"aaab\"\n\ndef test_min_lexico_palindrome_is_palindrome():\n    assert min_lexico_palindrome(\"madan\u6c21\u4e39mad\", 5) == \"madan\u6c21\u4e39mad\"\n\ndef test_min_lexico_palindrome_positive_numbers():\n    assert min_lexico_palindrome(\"aebcb\", 2) == \"aabc\"\n\ndef test_min_lexico_palindrome_negative_numbers():\n    assert min_lexico_palindrome(\"abcde\", 5) == \"abcde\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

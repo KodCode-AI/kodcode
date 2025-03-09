@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000053",
+    "row_id": 53,
+    "seed_ids": [
+      595
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are working on a game where a player draws discs from a bag containing one red and one blue disc. After each draw, one additional red disc is added to the bag, and the player draws again. The player wins if they draw more blue discs than red discs after a specified number of turns. The banker wants to set a prize fund such that the expected loss is minimized.\n\nGiven the number of turns `num_turns`, write a Python function `max_prize_fund` to determine the maximum prize fund that should be allocated for a single game. The function should calculate the probability of the player winning and then determine the prize fund that makes the expected loss zero, considering the original \u00a31 paid to play the game.\n\n**Function Signature**: `def max_prize_fund(num_turns: int) -> int:`\n\n**Input**:\n- `num_turns` (1 \u2264 num_turns \u2264 20): An integer representing the number of turns in the game.\n\n**Output**:\n- An integer representing the maximum prize fund that should be allocated for a single game.\n\n**Example**:\n```python\n>>> max_prize_fund(4)\n10\n>>> max_prize_fund(10)\n225\n```\n\n**Note**:\n- The function should return the maximum prize fund as an integer.\n- The probability of the player winning is calculated using combinatorial methods similar to the provided solution.",
+  "solution_code": "from math import comb\n\ndef max_prize_fund(num_turns: int) -> int:\n    \"\"\"\n    Calculates the maximum prize fund that should be allocated for a single game.\n    \"\"\"\n    prob_winning = 0\n    for i in range(1, num_turns // 2 + 1):\n        prob_winning += comb(num_turns, i) / (2 ** num_turns)\n    return int(1 / prob_winning)",
+  "test_code": "import pytest\n\ndef test_max_prize_fund():\n    assert max_prize_fund(4) == 10\n    assert max_prize_fund(10) == 225\n    assert max_prize_fund(1) == 2\n    assert max_prize_fund(2) == 3\n    assert max_prize_fund(20) == 92378\n\ndef test_max_prize_fund_edge_cases():\n    with pytest.raises(AssertionError):\n        max_prize_fund(0)\n    with pytest.raises(AssertionError):\n        max_prize_fund(-5)\n    with pytest.raises(AssertionError):\n        max_prize_fund(21)\n\nif __name__ == \"__main__\":\n    pytest.main()",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

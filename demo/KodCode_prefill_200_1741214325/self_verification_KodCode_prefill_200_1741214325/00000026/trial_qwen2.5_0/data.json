@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000026",
+    "row_id": 26,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the factorial of a number using recursion. The function should take an integer as an argument and return the factorial of that number.",
+  "solution_code": "def factorial(n):\n    \"\"\"\n    Calculates the factorial of a number using recursion.\n    :param n: Integer, the number to calculate the factorial for.\n    :return: Integer, the factorial of n.\n    \"\"\"\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n - 1)",
+  "test_code": "from solution import factorial\n\ndef test_factorial_zero():\n    assert factorial(0) == 1\n\ndef test_factorial_positive_numbers():\n    assert factorial(5) == 120\n    assert factorial(3) == 6\n\ndef test_factorial_one():\n    assert factorial(1) == 1\n\ndef test_factorial_large_number():\n    assert factorial(10) == 3628800\n\ndef test_factorial_negative_number():\n    try:\n        factorial(-1)\n    except ValueError:\n        pass\n    else:\n        assert False, \"Expected ValueError for negative input\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

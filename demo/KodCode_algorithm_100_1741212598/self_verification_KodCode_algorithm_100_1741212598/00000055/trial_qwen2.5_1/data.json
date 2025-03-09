@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000055",
+    "row_id": 55,
+    "seed_ids": [
+      474
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given a 2x2 grid, and you are required to calculate the number of unique paths from the top-left corner to the bottom-right corner, where you can only move right or down. The general solution extends to an \\(n \\times n\\) grid.\n\nWrite a Python function `calculate_paths(n: int) -> int` that returns the number of unique paths in an \\(n \\times n\\) grid.\n\n**Function Signature**: `def calculate_paths(n: int) -> int:`\n\n**Input**\n- `n` (1 <= n <= 100): An integer representing the size of the grid.\n\n**Output**\n- An integer representing the number of unique paths in the \\(n \\times n\\) grid.\n\n**Constraints**\n- The input `n` will be a positive integer.\n\n**Example**\n```python\nprint(calculate_paths(2))  # Output: 6\nprint(calculate_paths(20))  # Output: 137846528820\n```\n\n**Note**\n- Use combinatorial mathematics to solve the problem efficiently.\n- Ensure your function handles edge cases correctly.",
+  "solution_code": "def calculate_paths(n: int) -> int:\n    \"\"\"\n    Returns the number of unique paths in an n x n grid.\n    \"\"\"\n    import math\n    \n    # The number of unique paths in an n x n grid can be calculated using the formula:\n    # C(2n, n) = (2n)! / (n! * n!)\n    # This is because we need to make a total of 2n moves (n down and n right),\n    # and we need to choose n positions out of 2n for either type of move.\n    total_moves = 2 * n\n    down_moves = n\n    # Calculate the number of paths using the formula for combinations\n    paths = math.comb(total_moves, down_moves)\n    return paths",
+  "test_code": "import pytest\n\ndef test_calculate_paths():\n    assert calculate_paths(2) == 6\n    assert calculate_paths(3) == 20\n    assert calculate_paths(20) == 137846528820\n    assert calculate_paths(1) == 2  # Only two possible paths for a 1x1 grid\n    assert calculate_paths(0) == 1  # One path for a 0x0 grid, which is trivial\n\ndef test_calculate_paths_small_input():\n    for i in range(1, 11):\n        assert calculate_paths(i) == math.comb(2*i, i)\n\ndef test_calculate_paths_large_input():\n    assert calculate_paths(100) == math.comb(200, 100)",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000010",
+    "row_id": 10,
+    "seed_ids": [
+      "689",
+      "2075",
+      "1670"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a data structure to manage a collection of intervals with the following operations:\n\n- `addInterval(start, end)`: Add a new interval `[start, end]` to the collection.\n- `mergeOverlappingIntervals()`: Merge all overlapping intervals in the collection and return the merged intervals.\n- `removeInterval(start, end)`: Remove the interval `[start, end]` from the collection if it exists.\n- `getIntervals()`: Return the current collection of intervals.\n\nImplement the `IntervalManager` class:\n\n- `IntervalManager()`: Initializes the interval manager.\n- `void addInterval(int start, int end)`: Adds a new interval `[start, end]` to the collection. Ensure no duplicate intervals are added.\n- `List<int[]> mergeOverlappingIntervals()`: Merges all overlapping intervals in the collection and returns the merged intervals as a list of `[start, end]` pairs.\n- `void removeInterval(int start, int end)`: Removes the interval `[start, end]` from the collection if it exists.\n- `List<int[]> getIntervals()`: Returns the current collection of intervals as a list of `[start, end]` pairs.\n\n**Note**: Intervals are represented as `[start, end]` where `start` and `end` are inclusive. The intervals are sorted by their start time.",
+  "solution_code": "from typing import List\n\nclass IntervalManager:\n    def __init__(self):\n        self.intervals = []\n        \n    def addInterval(self, start: int, end: int) -> None:\n        # Ensure no duplicate intervals are added\n        for interval in self.intervals:\n            if interval[0] == start and interval[1] == end:\n                return\n        self.intervals.append([start, end])\n        self.intervals = self.mergeOverlappingIntervals()\n        \n    def mergeOverlappingIntervals(self) -> List[int[]]:\n        # Sort intervals based on start time\n        self.intervals.sort(key=lambda x: x[0])\n        merged = []\n        for interval in self.intervals:\n            if not merged or merged[-1][1] < interval[0]:\n                merged.append(interval)\n            else:\n                merged[-1][1] = max(merged[-1][1], interval[1])\n        return merged\n    \n    def removeInterval(self, start: int, end: int) -> None:\n        self.intervals = [interval for interval in self.intervals if interval[0] != start or interval[1] != end]\n        \n    def getIntervals(self) -> List[int[]]:\n        return self.intervals",
+  "test_code": "def test_interval_manager():\n    manager = IntervalManager()\n    manager.addInterval(1, 3)\n    manager.addInterval(2, 6)\n    manager.addInterval(8, 10)\n    manager.addInterval(15, 18)\n    assert manager.getIntervals() == [[1, 6], [8, 10], [15, 18]]\n    \n    manager.removeInterval(1, 4)\n    assert manager.getIntervals() == [[5, 6], [8, 10], [15, 18]]\n    \n    manager.removeInterval(15, 17)\n    assert manager.getIntervals() == [[5, 6], [8, 10]]\n    \n    manager.addInterval(10, 12)\n    assert manager.getIntervals() == [[5, 6], [8, 12]]\n    \n    manager.mergeOverlappingIntervals()\n    assert manager.getIntervals() == [[5, 12]]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

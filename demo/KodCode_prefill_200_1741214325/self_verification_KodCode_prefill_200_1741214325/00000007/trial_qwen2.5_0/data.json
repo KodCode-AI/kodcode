@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000007",
+    "row_id": 7,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given set of cevablar can win a greedy game played with blueblocks, greenblocks, and redblocks).",
+  "solution_code": "def can_win_game(cevablar):\n    \"\"\"\n    Returns True if the given set of cevablar (list of integers representing the number of blueblocks, greenblocks, and redblocks) \n    can win a greedy game, otherwise returns False.\n    A player wins if they can make more moves than their opponent.\n    A move consists of picking either a blueblock (decrementing the blueblock count by 1), a greenblock (decrementing the greenblock count by 2), or a redblock (decrementing the redblock count by 3).\n    \"\"\"\n    blueblocks, greenblocks, redblocks = cevablar\n    total_blocks = blueblocks + greenblocks + redblocks\n    green_blocks twice = greenblocks * 2\n    red_blocks\u4e09\u6b21 = redblocks * 3\n    \n    # The opponent's initial number of moves would be the sum of all blocks\n    opponent_moves = total_blocks\n    \n    # If the sum of all blocks is less than or equal to the opponent's initial moves, the player can't win\n    if total_blocks <= opponent_moves:\n        return False\n    \n    # The player's additional moves would be the sum of all blocks minus 2\n    player_moves = total_blocks - 2\n    \n    # Calculate the total possible moves for the player considering the initial moves of the opponent\n    player_possible_moves = (player_moves + 2) // 3 * 3 + (player_moves % 3 + 2) // 2 * 2 + player_moves % 3\n    \n    # If the player's total possible moves are greater than or equal to the opponent's moves, the player can win\n    return player_possible_moves >= opponent_moves",
+  "test_code": "import pytest\n\ndef test_can_win_game():\n    assert can_win_game([1, 1, 1]) == False\n    assert can_win_game([0, 2, 2]) == True\n    assert can_win_game([1, 2, 3]) == True\n    assert can_win_game([2, 1, 1]) == False\n    assert can_win_game([3, 3, 3]) == True\n\ndef test_can_win_game_with_zeroes():\n    assert can_win_game([0, 0, 0]) == False\n    assert can_win_game([0, 1, 1]) == True\n    assert can_win_game([1, 0, 1]) == True\n    assert can_win_game([1, 1, 0]) == True\n\ndef test_can_win_game_with_large_numbers():\n    assert can_win_game([5, 7, 9]) == True\n    assert can_win_game([10, 10, 10]) == True\n    assert can_win_game([20, 15, 10]) == True\n    assert can_win_game([50, 50, 50]) == True",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

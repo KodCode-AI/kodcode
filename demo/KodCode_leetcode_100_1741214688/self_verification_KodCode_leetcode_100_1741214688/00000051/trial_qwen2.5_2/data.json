@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000051",
+    "row_id": 51,
+    "seed_ids": [
+      "2515",
+      "264",
+      "1656"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a class `CustomComparator` that implements a custom sorting algorithm for an array of integers. The sorting algorithm should sort the array in ascending order based on the following rules:\n\n1. Elements at even indices should be sorted in ascending order.\n2. Elements at odd indices should be sorted in descending order.\n\nYour task is to implement the `CustomComparator` class with the following methods:\n\n- `CustomComparator(int[] arr)`: Constructor that initializes the array to be sorted.\n- `void sort()`: Sorts the array according to the rules mentioned above.\n- `int[] getResult()`: Returns the sorted array.\n\nAdditionally, provide a `main` method to test your implementation with a sample array and print the sorted array.",
+  "solution_code": "class CustomComparator:\n    def __init__(self, arr):\n        \"\"\"\n        Constructor that initializes the array to be sorted.\n        \"\"\"\n        self.arr = arr\n\n    def sort(self):\n        \"\"\"\n        Sorts the array according to the rules mentioned.\n        \"\"\"\n        even_indices = sorted(self.arr[::2])\n        odd_indices = sorted(self.arr[1::2], reverse=True)\n        self.arr = [even if i % 2 == 0 else odd for i, (even, odd) in enumerate(zip(even_indices, odd_indices + self.arr[-1:] * (len(self.arr) % 2)))]\n\n    def get_result(self):\n        \"\"\"\n        Returns the sorted array.\n        \"\"\"\n        return self.arr\n\n\ndef main():\n    arr = [4, 1, 3, 2, 6, 5]\n    comparator = CustomComparator(arr)\n    comparator.sort()\n    print(comparator.get_result())",
+  "test_code": "def test_custom_comparator():\n    def helper(arr):\n        comparator = CustomComparator(arr)\n        comparator.sort()\n        even_indices = sorted(arr[::2])\n        odd_indices = sorted(arr[1::2], reverse=True)\n        expected = [even if i % 2 == 0 else odd for i, (even, odd) in enumerate(zip(even_indices, odd_indices + arr[-1:] * (len(arr) % 2)))]\n        assert comparator.get_result() == expected\n\n    helper([4, 1, 3, 2, 6, 5])\n    helper([10, 15, 2, 5, 8, 7, 6, 4])\n    helper([3, 1, 4, 1, 5, 9, 2, 6])\n    helper([11, 9, 8, 7, 6, 5, 4, 3, 2, 1])\n    helper([])\n    helper([1])\n\nimport pytest\n\nif __name__ == \"__main__\":\n    pytest.main()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

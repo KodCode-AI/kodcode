@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000125",
+    "row_id": 125,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum sum of a subarray within a given array. The subarray must contain at least one number.",
+  "solution_code": "def max_subarray_sum(arr):\n    \"\"\"\n    Returns the maximum sum of a contiguous subarray within the given array.\n    \n    Parameters:\n    arr (list): A list of integers.\n    \n    Returns:\n    int: Maximum sum of a contiguous subarray.\n    \"\"\"\n    if not arr:\n        raise ValueError(\"Array is empty\")\n    \n    max_sum = current_sum = arr[0]\n    for num in arr[1:]:\n        current_sum = max(num, current_sum + num)\n        max_sum = max(max_sum, current_sum)\n    \n    return max_sum",
+  "test_code": "from solution import max_subarray_sum\n\ndef test_max_subarray_sum_positive_numbers():\n    assert max_subarray_sum([1, 2, 3, 4]) == 10\n\ndef test_max_subarray_sum_negative_numbers():\n    assert max_subarray_sum([-1, -2, -3, -4]) == -1\n\ndef test_max_subarray_sum_with_zeros():\n    assert max_subarray_sum([0, 0, 1, -1, 0]) == 1\n\ndef test_max_subarray_sum_mixed_values():\n    assert max_subarray_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6\n\ndef test_max_subarray_sum_single_element():\n    assert max_subarray_sum([-7]) == -7\n\ndef test_max_subarray_sum_empty_array():\n    with pytest.raises(ValueError):\n        max_subarray_sum([])",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

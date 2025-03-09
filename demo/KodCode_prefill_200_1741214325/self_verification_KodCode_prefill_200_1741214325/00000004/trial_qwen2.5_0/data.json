@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000004",
+    "row_id": 4,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the sum of all numbers in a list using recursion.",
+  "solution_code": "def sum_recursive(lst):\n    \"\"\"\n    Returns the sum of all numbers in a list using recursion.\n    \"\"\"\n    if not lst:\n        return 0\n    else:\n        return lst[0] + sum_recursive(lst[1:])",
+  "test_code": "from solution import sum_recursive\n\ndef test_sum_recursive_empty_list():\n    assert sum_recursive([]) == 0\n\ndef test_sum_recursive_single_element():\n    assert sum_recursive([5]) == 5\n\ndef test_sum_recursive_positive_numbers():\n    assert sum_recursive([1, 2, 3, 4, 5]) == 15\n\ndef test_sum_recursive_mixed_numbers():\n    assert sum_recursive([-1, 1, -2, 2, -3, 3]) == 0\n\ndef test_sum_recursive_large_list():\n    assert sum_recursive(range(1, 101)) == 5050",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

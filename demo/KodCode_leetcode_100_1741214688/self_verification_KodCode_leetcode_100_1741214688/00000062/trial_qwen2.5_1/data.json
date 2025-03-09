@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000062",
+    "row_id": 62,
+    "seed_ids": [
+      "1442",
+      "522",
+      "2612"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times:\n\n- Choose any two indices `i` and `j` (0-indexed) where `0 <= i < j < s.length` and `s[i] = 'a'` and `s[j] = 'z'`. Reverse the substring `s[i+1..j-1]`.\n\nYour task is to determine the minimum number of operations required to transform the string `s` into a string where all characters are the same. If it is impossible to achieve such a string, return `-1`.\n\nFor example, given the string `s = \"azbzczbzcz\"`, you can perform the following operations:\n1. Choose `i = 0` and `j = 1` to get `s = \"aabzczbzcz\"`.\n2. Choose `i = 2` and `j = 3` to get `s = \"aaazbzczcz\"`.\n3. Choose `i = 4` and `j = 5` to get `s = \"aaaaaaazcz\"`.\n4. Choose `i = 6` and `j = 7` to get `s = \"aaaaaaaazz\"`.\n5. Choose `i = 8` and `j = 9` to get `s = \"aaaaaaaaaz\"`.\n\nReturn `5` as the answer.",
+  "solution_code": "def min_operations_to_uniform(s: str) -> int:\n    \"\"\"\n    Calculates the minimum number of operations required to make the string uniform.\n    \"\"\"\n    if len(s) < 2:\n        return 0\n\n    min_operations = float('inf')\n    for i, j in ((0, s.rfind('a')), (s.find('z'), s.rfind('z'))):\n        operations = 0\n        while i < j:\n            operations += 1\n            k = s.rfind('z', i, j)  # Find the last 'z' in the substring s[i..j-1]\n            s = s[:i] + s[i:j][::-1] + s[j:]  # Reverse the substring s[i+1..k-1]\n            i = k  # Move 'i' to the last 'z'\n            j = s.find('a', i + 1)  # Find the next 'a' after 'i'\n        if i == j and s[i] == 'a':\n            min_operations = min(min_operations, operations)\n    if min_operations == float('inf'):\n        return -1\n    return min_operations",
+  "test_code": "def test_min_operations_to_uniform():\n    assert min_operations_to_uniform(\"azbzczbzcz\") == 5\n    assert min_operations_to_uniform(\"a\") == 0\n    assert min_operations_to_uniform(\"z\") == 0\n    assert min_operations_to_uniform(\"abz\") == 1\n    assert min_operations_to_uniform(\"azbz\") == 1\n    assert min_operations_to_uniform(\"aaz\") == -1\n    assert min_operations_to_uniform(\"zzaa\") == -1\n    assert min_operations_to_uniform(\"aba\") == -1\n    assert min_operations_to_uniform(\"azbzzbza\") == 2",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000097",
+    "row_id": 97,
+    "seed_ids": [
+      "896",
+      "1337",
+      "928"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a matrix `matrix` of size `m x n` containing integers, design an algorithm to find the sum of the maximum element in each row. For example, if the matrix is:\n\n```\n[\n  [1, 2, 3],\n  [4, 5, 6],\n  [7, 8, 9]\n]\n```\n\nThe output should be the sum of the maximum elements in each row, which is `3 + 6 + 9 = 18`.\n\nWrite a function `sumOfMaxElements(matrix: List[List[int]]) -> int` that returns the sum of the maximum elements in each row of the given matrix.\n\n### Example\n\n#### Input\n```\nmatrix = [\n  [1, 2, 3],\n  [4, 5, 6],\n  [7, 8, 9]\n]\n```\n\n#### Output\n```\n18\n```\n\n### Constraints\n\n- `1 <= m, n <= 100`\n- `-1000 <= matrix[i][j] <= 1000`",
+  "solution_code": "from typing import List\n\ndef sumOfMaxElements(matrix: List[List[int]]) -> int:\n    \"\"\"\n    Returns the sum of the maximum elements in each row of the given matrix.\n    \"\"\"\n    return sum(max(row) for row in matrix)",
+  "test_code": "from solution import sumOfMaxElements\n\ndef test_sumOfMaxElements():\n    assert sumOfMaxElements([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) == 18\n    assert sumOfMaxElements([[10], [20], [30]]) == 60\n    assert sumOfMaxElements([[-1, -2, -3], [-4, -5, -6], [-7, -8, -9]]) == -18\n    assert sumOfMaxElements([[5, 5, 5], [1, 1, 1], [10, 10, 10]]) == 25\n    assert sumOfMaxElements([[100, 200], [-50, 50], [0, 0]]) == 250",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

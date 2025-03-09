@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000019",
+    "row_id": 19,
+    "seed_ids": [
+      417
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are tasked with enhancing the djb2 hash algorithm to handle non-ASCII characters and to ensure that the generated hash values are consistent across different runs. Additionally, the function should support a configurable magic constant to allow for testing with different hash functions.\n\n**Task**: Implement a Python function `enhanced_djb2` that takes a string `s` and an optional `magic_constant` (default is 5381) as input and returns the hash value. The function should handle non-ASCII characters correctly and ensure that the hash value is consistent. The function should also support a configurable magic constant.\n\n**Input**:\n- `s`: A string (input to be hashed).\n- `magic_constant`: An integer (default is 5381) representing the magic constant used in the hash function.\n\n**Output**:\n- An integer representing the hash value.\n\n**Constraints**:\n- The length of the string `s` will not exceed 1000 characters.\n- The `magic_constant` will be a positive integer.\n\n**Performance Requirements**:\n- The function should be able to handle large strings efficiently.\n\n**Example**:\n```python\n>>> enhanced_djb2('Algorithms')\n3782405311\n\n>>> enhanced_djb2('scramble bits', 33)\n1609059040\n\n>>> enhanced_djb2('\u975eASCII', 5381)\n756778245\n```\n\n**Note**: Non-ASCII characters should be properly encoded using their ASCII values or Unicode code points, and the hash function should produce consistent results.",
+  "solution_code": "def enhanced_djb2(s: str, magic_constant: int = 5381) -> int:\n    \"\"\"\n    Returns the hash value of the string using the djb2 hash algorithm with a configurable magic constant.\n    \"\"\"\n    for char in s:\n        magic_constant = ((magic_constant * 33) + ord(char)) % 0xFFFFFFFF\n    return magic_constant",
+  "test_code": "import pytest\n\ndef test_enhanced_djb2():\n    assert enhanced_djb2('Algorithms') == 3782405311\n    assert enhanced_djb2('scramble bits', 33) == 1609059040\n    assert enhanced_djb2('\u975eASCII', 5381) == 756778245\n\ndef test_enhanced_djb2_unicode():\n    assert enhanced_djb2('\ud83d\ude0a\ud83d\ude80', 5381) == 2138187681\n    assert enhanced_djb2('m\u00fcller', 33) == 3388216817\n\ndef test_enhanced_djb2_edge_cases():\n    assert enhanced_djb2(' ', 5381) == 1767789659\n    assert enhanced_djb2('', 33) == 5381\n    assert enhanced_djb2('a', 100) == 6611\n\ndef test_enhanced_djb2_large_string():\n    large_string = 'a' * 1000  # 1000 'a' characters\n    hash_value = enhanced_djb2(large_string, 5381)\n    assert hash_value == 915069401\n\ndef test_enhanced_djb2_non_ascii_single_char():\n    assert enhanced_djb2('m\u00fcller', 33) == 3388216817\n    assert enhanced_djb2('\ud83d\ude0a', 5381) == 2138187681",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

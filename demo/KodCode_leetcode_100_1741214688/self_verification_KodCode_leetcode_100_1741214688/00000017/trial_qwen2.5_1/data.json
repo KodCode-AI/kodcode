@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000017",
+    "row_id": 17,
+    "seed_ids": [
+      "35",
+      "1979",
+      "1431"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an array of integers `nums` and an integer `k`, return the maximum number of consecutive 1's in the array if you can flip at most `k` 0's to 1's. The array length is at most 100,000, and `k` is between 0 and the length of the array.",
+  "solution_code": "def max_consecutive_ones(nums, k):\n    \"\"\"\n    Returns the maximum number of consecutive 1's in the array if you can flip at most k 0's to 1's.\n    \"\"\"\n    left = 0\n    max_ones = 0\n    zero_count = 0\n    \n    for right in range(len(nums)):\n        if nums[right] == 0:\n            zero_count += 1\n        \n        while zero_count > k:\n            if nums[left] == 0:\n                zero_count -= 1\n            left += 1\n        \n        max_ones = max(max_ones, right - left + 1)\n    \n    return max_ones",
+  "test_code": "def test_max_consecutive_ones():\n    assert max_consecutive_ones([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2) == 6\n    assert max_consecutive_ones([0, 0, 1, 1, 1, 0, 0], 0) == 3\n    assert max_consecutive_ones([1, 1, 1, 1], 2) == 4\n    assert max_consecutive_ones([0, 0, 0, 1], 1) == 4\n    assert max_consecutive_ones([0, 0, 0, 0], 4) == 4\n    assert max_consecutive_ones([1, 0, 0, 1, 1, 0, 1], 2) == 6\n    assert max_consecutive_ones([0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1], 3) == 9\n\ntest_max_consecutive_ones()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

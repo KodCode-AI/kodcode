@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000019",
+    "row_id": 19,
+    "seed_ids": [
+      "2432",
+      "2215",
+      "554"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with finding the lexicographically smallest substring that can be formed by rearranging any number of characters within the string. A substring is defined as a contiguous sequence of characters within a string.\n\nReturn the lexicographically smallest substring found. If the string is empty or consists of a single character, return the string itself.",
+  "solution_code": "def find_smallest_substring(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest substring of the given string.\n    \"\"\"\n    if len(s) <= 1:\n        return s\n    \n    # Convert the string into a list to easily sort it\n    char_list = sorted(s)\n    # The smallest substring will be the first few characters of the sorted list\n    min_char = char_list[0]\n    \n    # Find the starting index of the smallest character in the original string\n    start_index = s.index(min_char)\n    \n    # Try to find the smallest substring starting from the identified character\n    smallest_substring = min_char\n    for i in range(start_index, len(s)):\n        if s[i] < smallest_substring:\n            smallest_substring = s[i]\n            smallest_start = i\n            smallest_end = i + 1\n        elif s[i] == smallest_substring:\n            # If current character is the same as the smallest, extend the substring\n            smallest_end += 1\n    \n    return s[smallest_start:smallest_end]",
+  "test_code": "import pytest\n\ndef test_find_smallest_substring_empty_string():\n    assert find_smallest_substring(\"\") == \"\"\n\ndef test_find_smallest_substring_single_character():\n    assert find_smallest_substring(\"a\") == \"a\"\n\ndef test_find_smallest_substring_simple():\n    assert find_smallest_substring(\"baa\") == \"aab\"\n\ndef test_find_smallest_substring_repeated_characters():\n    assert find_smallest_substring(\"bbbaaaba\") == \"aaaaab\"\n\ndef test_find_smallest_substring_with_lexicographical_check():\n    assert find_smallest_substring(\"abc\") == \"abc\"\n    assert find_smallest_substring(\"dcba\") == \"abcd\"\n    assert find_smallest_substring(\"ababc\") == \"aabbc\"\n    assert find_smallest_substring(\"leetcode\") == \"cdeo\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

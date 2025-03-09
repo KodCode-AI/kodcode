@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000011",
+    "row_id": 11,
+    "seed_ids": [
+      "1427",
+      "1300",
+      "174"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a matrix `grid` of size `m x n` containing non-negative integers, and a target value `target`, you need to determine if there exists a path from the top-left corner to the bottom-right corner such that the sum of the values along the path is exactly `target`. You can only move rightward or downward at any point in time. If such a path exists, return `true`; otherwise, return `false`.",
+  "solution_code": "def has_valid_path(grid, target):\n    \"\"\"\n    Determine if there exists a path from the top-left corner to the bottom-right corner\n    such that the sum of the values along the path is exactly `target`.\n\n    :param grid: List[List[int]] - A 2D list of integers representing the grid.\n    :param target: int - The target sum.\n    :return: bool - True if such a path exists, False otherwise.\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    memo = {}\n\n    def dfs(x, y, current_sum):\n        if x == m or y == n or current_sum > target:\n            return False\n        if x == m - 1 and y == n - 1:\n            return current_sum == target\n        if (x, y, current_sum) in memo:\n            return memo[(x, y, current_sum)]\n\n        memo[(x, y, current_sum)] = dfs(x + 1, y, current_sum + grid[x][y]) or dfs(x, y + 1, current_sum + grid[x][y])\n        return memo[(x, y, current_sum)]\n\n    return dfs(0, 0, grid[0][0])",
+  "test_code": "def test_has_valid_path():\n    assert has_valid_path([[1, 1, 1], [1, 0, 0], [1, 1, 1]], 5) == True\n    assert has_valid_path([[1, 1, 1], [1, 0, 0], [1, 1, 1]], 8) == False\n    assert has_valid_path([[1, 2, 3], [4, 5, 6]], 12) == True\n    assert has_valid_path([[1, 2, 3], [4, 5, 6]], 16) == False\n    assert has_valid_path([[1], [1]], 2) == True\n    assert has_valid_path([[1], [1]], 0) == False\n    assert has_valid_path([[1], [1]], 1) == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

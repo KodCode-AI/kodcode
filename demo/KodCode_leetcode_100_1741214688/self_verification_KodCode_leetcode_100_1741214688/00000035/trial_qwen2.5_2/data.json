@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000035",
+    "row_id": 35,
+    "seed_ids": [
+      "987",
+      "1753",
+      "11"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an integer array `nums` of length `n`, you are asked to perform the following operation exactly `k` times: choose an index `i` (0-indexed) from the array and increment `nums[i]` by 1. After performing these operations, find the maximum possible **GCD** (Greatest Common Divisor) of the array `nums`.\n\nReturn the maximum GCD you can achieve.",
+  "solution_code": "from typing import List\nfrom math import gcd\nfrom functools import reduce\n\ndef maxGCD(nums: List[int], k: int) -> int:\n    \"\"\"\n    Increments an element in nums exactly k times to maximize the GCD of the array.\n    \"\"\"\n    # The optimal strategy is to maximize the GCD by making all elements the same\n    # Since we can increment any element any number of times, we can aim to make all elements equal.\n    # After k increments, we can achieve a maximum GCD by choosing the smallest element as the target value.\n    # Incrementing the smallest elements will ensure the GCD is maximized.\n    current_gcd = 0\n    min_num = min(nums)\n    for _ in range(k):\n        # Since we are incrementing the smallest number, the GCD is likely to increase\n        # Keeping track of the GCD as we increment the smallest element\n        current_gcd = gcd(current_gcd, min_num)\n        min_num += 1\n    return current_gcd",
+  "test_code": "import pytest\nfrom typing import List\n\ndef test_maxGCD():\n    assert maxGCD([2, 3, 5, 7], 1) == 1\n    assert maxGCD([6, 9, 3, 15], 3) == 3\n    assert maxGCD([30, 60, 120, 60], 10) == 60\n    assert maxGCD([5, 7, 11], 2) == 1\n    assert maxGCD([10, 10, 10], 1) == 10",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

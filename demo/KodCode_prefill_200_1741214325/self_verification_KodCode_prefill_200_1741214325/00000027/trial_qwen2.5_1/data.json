@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000027",
+    "row_id": 27,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the union of elements in two lists.",
+  "solution_code": "def find_union(list1, list2):\n    \"\"\"\n    Returns a list containing unique elements that are present in both list1 and list2.\n    \"\"\"\n    return list(set(list1 + list2))",
+  "test_code": "from solution import find_union\n\ndef test_find_union_with_unique_elements():\n    assert find_union([1, 2, 3], [4, 5, 6]) == [1, 2, 3, 4, 5, 6]\n\ndef test_find_union_with_common_elements():\n    assert find_union([1, 2, 2, 3], [2, 3, 3, 4]) == [1, 2, 3, 4]\n\ndef test_find_union_with_mixed_data_types():\n    assert find_union([1, 'a', 3], [2, 'a', 4]) == [1, 2, 3, 'a', 4]\n\ndef test_find_union_with_no_intersection():\n    assert find_union([1, 2, 3], [4, 5, 6]) == [1, 2, 3, 4, 5, 6]\n\ndef test_find_union_with_empty_lists():\n    assert find_union([], []) == []\n    assert find_union([], [1, 2, 3]) == [1, 2, 3]\n    assert find_union([1, 2, 3], []) == [1, 2, 3]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

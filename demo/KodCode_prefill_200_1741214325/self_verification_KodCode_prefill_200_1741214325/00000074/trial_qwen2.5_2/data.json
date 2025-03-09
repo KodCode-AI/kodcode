@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000074",
+    "row_id": 74,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given number is perfect square or not. The function should take an integer as input and return True if the number is a perfect square, False otherwise.",
+  "solution_code": "def is_perfect_square(num: int) -> bool:\n    \"\"\"\n    Checks if the given number is a perfect square.\n    \n    Args:\n    num (int): The number to check\n    \n    Returns:\n    bool: True if num is a perfect square, False otherwise.\n    \"\"\"\n    if num < 0:\n        return False\n    root = int(num ** 0.5)\n    return root * root == num",
+  "test_code": "import pytest\nfrom solution import is_perfect_square\n\ndef test_is_perfect_square_positive_perfect_square():\n    assert is_perfect_square(1) == True\n    assert is_perfect_square(4) == True\n    assert is_perfect_square(9) == True\n    assert is_perfect_square(16) == True\n    assert is_perfect_square(25) == True\n\ndef test_is_perfect_square_negative_number():\n    assert is_perfect_square(-4) == False\n\ndef test_is_perfect_square_non_perfect_square():\n    assert is_perfect_square(2) == False\n    assert is_perfect_square(3) == False\n    assert is_perfect_square(5) == False\n    assert is_perfect_square(6) == False\n    assert is_perfect_square(7) == False\n\ndef test_is_perfect_square_zero():\n    assert is_perfect_square(0) == True\n\ndef test_is_perfect_square_large_number():\n    assert is_perfect_square(15625) == True\n    assert is_perfect_square(15626) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

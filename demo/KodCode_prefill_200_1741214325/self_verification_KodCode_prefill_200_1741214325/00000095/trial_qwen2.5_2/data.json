@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000095",
+    "row_id": 95,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find all the root-to-leaf paths where the sum of all these path sums equals a target sum.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef path_sum(root, targetSum):\n    \"\"\"\n    Returns all root-to-leaf paths where the sum of the path equals the target sum.\n    \"\"\"\n    def dfs(node, path, pathList):\n        if not node:\n            return\n        path.append(node.val)\n        if not node.left and not node.right and sum(path) == targetSum:\n            pathList.append(path.copy())\n        dfs(node.left, path, pathList)\n        dfs(node.right, path, pathList)\n        path.pop()\n\n    result = []\n    dfs(root, [], result)\n    return result",
+  "test_code": "from solution import TreeNode, path_sum\n\ndef test_path_sum():\n    # Construct the tree:     5\n    #                         / \\\n    #                        4   8\n    #                       /   / \\\n    #                      11  13  4\n    #                     /  \\     \\\n    #                    7    2      1\n    root = TreeNode(5, \n                    TreeNode(4, \n                             TreeNode(11, \n                                      TreeNode(7), \n                                      TreeNode(2)), \n                             None), \n                    TreeNode(8, \n                             TreeNode(13), \n                             TreeNode(4, \n                                      None, \n                                      TreeNode(1))))\n    targetSum = 22\n\n    expected = [[5, 4, 11, 2], [5, 8, 4, 1]]\n    assert path_sum(root, targetSum) == expected\n\ntest_path_sum()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

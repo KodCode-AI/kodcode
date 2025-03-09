@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000047",
+    "row_id": 47,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given string is palindrome or not.",
+  "solution_code": "def is_palindrome(s: str) -> bool:\n    \"\"\"\n    Returns True if the given string is a palindrome, False otherwise.\n    \"\"\"\n    return s == s[::-1]",
+  "test_code": "import pytest\n\ndef test_is_palindrome_empty_string():\n    assert is_palindrome(\"\") == True\n\ndef test_is_palindrome_single_character():\n    assert is_palindrome(\"a\") == True\n\ndef test_is_palindrome_palindrome_odd_length():\n    assert is_palindrome(\"abccba\") == True\n\ndef test_is_palindrome_palindrome_even_length():\n    assert is_palindrome(\"racecar\") == True\n\ndef test_is_palindrome_not_palindrome_odd_length():\n    assert is_palindrome(\"hello\") == False\n\ndef test_is_palindrome_not_palindrome_even_length():\n    assert is_palindrome(\"hellothere\") == False\n\ndef test_is_palindrome_with_spaces():\n    assert is_palindrome(\"a man a plan a canal panama\") == True\n\ndef test_is_palindrome_with_special_characters():\n    assert is_palindrome(\"A man, a plan, a canal, Panama!\") == True\n\ndef test_is_palindrome_case_sensitive():\n    assert is_palindrome(\"Alice Bob, Bob Alice\") == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

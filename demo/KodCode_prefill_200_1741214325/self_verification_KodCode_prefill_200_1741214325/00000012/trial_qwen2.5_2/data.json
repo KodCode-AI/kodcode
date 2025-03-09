@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000012",
+    "row_id": 12,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert the first and last characters of a string to uppercase and return the modified string.",
+  "solution_code": "def modify_string(s):\n    \"\"\"\n    Converts the first and last characters of the string to uppercase.\n    \n    Parameters:\n    s (str): The input string.\n    \n    Returns:\n    str: The modified string with the first and last characters in uppercase.\n    \"\"\"\n    if len(s) <= 1:\n        return s.upper()\n    else:\n        return s[0].upper() + s[1:-1] + s[-1].upper()",
+  "test_code": "from solution import modify_string\n\ndef test_modify_string_empty_string():\n    assert modify_string(\"\") == \"\"\n\ndef test_modify_string_single_character():\n    assert modify_string(\"a\") == \"A\"\n\ndef test_modify_string_all_uppercase():\n    assert modify_string(\"abcd\") == \"ABcd\"\n\ndef test_modify_string_all_lowercase():\n    assert modify_string(\"abcde\") == \"Abccde\"\n\ndef test_modify_string_mixed_case():\n    assert modify_string(\"aBcDe\") == \"ABcDe\"\n\ndef test_modify_string_with_spaces():\n    assert modify_string(\"hello world\") == \"Hehello world\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

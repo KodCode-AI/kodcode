@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000049",
+    "row_id": 49,
+    "seed_ids": [
+      "1848",
+      "1455",
+      "1601"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an integer array `nums` and a target integer `target`, find the **shortest contiguous subarray** in `nums` such that the sum of the elements in the subarray is equal to or greater than `target`. If no such subarray exists, return `0`. A **contiguous subarray** is a subarray with at least two elements, and the **sum** of its elements is the sum of the corresponding elements in `nums`.",
+  "solution_code": "def shortest_subarray_with_sum_at_least_target(nums, target):\n    \"\"\"\n    Finds the shortest contiguous subarray in nums such that the sum of the\n    elements in the subarray is equal to or greater than target. Returns 0 if\n    no such subarray exists.\n    \"\"\"\n    n = len(nums)\n    if n < 2:\n        return 0\n    \n    shortest_length = float('inf')\n    left = 0\n    current_sum = 0\n    \n    for right in range(n):\n        current_sum += nums[right]\n        \n        while current_sum >= target:\n            shortest_length = min(shortest_length, right - left + 1)\n            current_sum -= nums[left]\n            left += 1\n    \n    return shortest_length if shortest_length != float('inf') else 0",
+  "test_code": "import pytest\n\ndef test_shortest_subarray_with_sum_at_least_target():\n    assert shortest_subarray_with_sum_at_least_target([2, 3, 1, 2, 4, 3], 7) == 2\n    assert shortest_subarray_with_sum_at_least_target([1, 4, 4], 4) == 1\n    assert shortest_subarray_with_sum_at_least_target([1, 1, 1, 1, 1, 1, 1, 1], 11) == 0\n    assert shortest_subarray_with_sum_at_least_target([1], 1) == 0\n    assert shortest_subarray_with_sum_at_least_target([1, 2, 3, 4, 5], 15) == 5\n    assert shortest_subarray_with_sum_at_least_target([1, 2, 3, 4, 5], 16) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

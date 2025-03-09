@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000092",
+    "row_id": 92,
+    "seed_ids": [
+      "1298",
+      "2511",
+      "1926"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a 2D grid representing a map of islands and water. The grid contains the following characters:\n- `'W'` for water (you cannot move through water).\n- `'L'` for land (you can move through land).\n- `'S'` for start (your starting position, guaranteed to be on land).\n\nYou can move up, down, left, or right from any land cell to an adjacent land cell. The goal is to find the shortest path from the start position to any border cell (a cell on the edge of the grid) that is also land. You cannot move diagonally. If there is no such path, return `-1`.\n\nReturn the number of steps in the shortest path, or `-1` if no such path exists.",
+  "solution_code": "from collections import deque\n\ndef shortest_path_to_border(grid):\n    \"\"\"\n    Finds the shortest path from the start position to any border cell that is also land.\n    :param grid: List[List[str]], a 2D grid representing the map.\n    :return: int, the number of steps in the shortest path or -1 if no path exists.\n    \"\"\"\n    rows, cols = len(grid), len(grid[0])\n    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n    start = None\n    visited = set()\n    \n    # Find the start position\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == 'S':\n                start = (r, c)\n                break\n        if start:\n            break\n    \n    if not start:\n        return -1\n    \n    queue = deque([(start, 0)])\n    visited.add(start)\n    \n    while queue:\n        (r, c), dist = queue.popleft()\n        if r == 0 or r == rows - 1 or c == 0 or c == cols - 1:\n            return dist\n        for dr, dc in directions:\n            nr, nc = r + dr, c + dc\n            if (0 <= nr < rows and 0 <= nc < cols and\n                grid[nr][nc] == 'L' and (nr, nc) not in visited):\n                visited.add((nr, nc))\n                queue.append(((nr, nc), dist + 1))\n                \n    return -1",
+  "test_code": "def test_shortest_path_to_border():\n    grid = [\n        ['L', 'L', 'L'],\n        ['L', 'S', 'L'],\n        ['L', 'L', 'L']\n    ]\n    assert shortest_path_to_border(grid) == 0\n\n    grid = [\n        ['L', 'L', 'L'],\n        ['W', 'S', 'L'],\n        ['L', 'L', 'L']\n    ]\n    assert shortest_path_to_border(grid) == 1\n\n    grid = [\n        ['L', 'L', 'L'],\n        ['L', 'S', 'W'],\n        ['L', 'L', 'L']\n    ]\n    assert shortest_path_to_border(grid) == -1\n\n    grid = [\n        ['W', 'L', 'L'],\n        ['L', 'S', 'L'],\n        ['L', 'L', 'W']\n    ]\n    assert shortest_path_to_border(grid) == 2\n\n    grid = [\n        ['L', 'W', 'L'],\n        ['L', 'S', 'L'],\n        ['W', 'L', 'L']\n    ]\n    assert shortest_path_to_border(grid) == -1\n\n    grid = [\n        ['L', 'L', 'L', 'W'],\n        ['L', 'S', 'L', 'L'],\n        ['L', 'L', 'L', 'L']\n    ]\n    assert shortest_path_to_border(grid) == 1\n\n    grid = [\n        ['W', 'W', 'W'],\n        ['W', 'S', 'W'],\n        ['W', 'W', 'W']\n    ]\n    assert shortest_path_to_border(grid) == -1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

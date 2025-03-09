@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000074",
+    "row_id": 74,
+    "seed_ids": [
+      "1721",
+      "2418",
+      "1704"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. You need to determine the lexicographically smallest palindrome by swapping any two adjacent characters in the string at most once. Return the resulting palindrome string. If it's not possible to form a palindrome by swapping at most one pair of adjacent characters, return the original string.",
+  "solution_code": "def form_smallest_palindrome(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest palindrome by swapping at most one pair of adjacent characters.\n    \"\"\"\n    s = list(s)\n    n = len(s)\n    for i in range(n // 2):\n        if s[i] != s[n - 1 - i]:\n            for j in range(i + 1, n):\n                if s[j] == s[n - 1 - i]:\n                    s[i], s[j] = s[j], s[i]\n                    break\n            else:\n                # If no match is found, try swapping with the last character\n                s[i], s[n - 1 - i] = s[n - 1 - i], s[i]\n            break\n    return ''.join(s)",
+  "test_code": "import pytest\n\ndef test_form_smallest_palindrome():\n    assert form_smallest_palindrome(\"egcfe\") == \"efcfe\"\n    assert form_smallest_palindrome(\"abcd\") == \"abcd\"\n    assert form_smallest_palindrome(\"edcba\") == \"abcde\"\n    assert form_smallest_palindrome(\"aabbcc\") == \"aabbc\"\n    assert form_smallest_palindrome(\"abcdedcba\") == \"abcdedcba\"\n    assert form_smallest_palindrome(\"abcde\") == \"abcde\"\n    assert form_smallest_palindrome(\"zzxyx\") == \"xyxzz\"\n    assert form_smallest_palindrome(\"x\") == \"x\"\n    assert form_smallest_palindrome(\"aab\") == \"aba\"\n    assert form_smallest_palindrome(\"baa\") == \"aba\"\n    assert form_smallest_palindrome(\"abcba\") == \"abcba\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

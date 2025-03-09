@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000096",
+    "row_id": 96,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to evaluate an arithmetic expression given as a string. The expression includes integers, the operators '+', '-', '*', and '(', ')', and has at least one operator.",
+  "solution_code": "def evaluate_expression(expression: str) -> int:\n    \"\"\"\n    Evaluates an arithmetic expression given as a string.\n    The expression includes integers, the operators '+', '-', '*', and '(', ')'.\n    \n    :param expression: str, the arithmetic expression to evaluate\n    :return: int, the result of the evaluation\n    \"\"\"\n    def compute(operands, operators):\n        right = operands.pop()\n        left = operands.pop()\n        op = operators.pop()\n        if op == '+':\n            operands.append(left + right)\n        elif op == '-':\n            operands.append(left - right)\n        elif op == '*':\n            operands.append(left * right)\n\n    def parse(expression):\n        num = 0\n        operands, operators = [], []\n        i, n = 0, len(expression)\n        while i < n:\n            if expression[i].isdigit():\n                num = num * 10 + int(expression[i])\n                i += 1\n                if i == n or not expression[i].isdigit():\n                    operands.append(num)\n                    num = 0\n            elif expression[i] in '+-*/':\n                while operators and operators[-1] != '(' and (expression[i] in '+-' or (expression[i] in '*/' and operators[-1] in '*/')):\n                    compute(operands, operators)\n                operators.append(expression[i])\n                i += 1\n            elif expression[i] == '(':\n                operators.append(expression[i])\n                i += 1\n            elif expression[i] == ')':\n                while operators[-1] != '(':\n                    compute(operands, operators)\n                operators.pop()  # Remove '(' from stack\n                i += 1\n        while operators:\n            compute(operands, operators)\n        return operands[-1]\n\n    return parse(expression)",
+  "test_code": "import pytest\n\ndef test_evaluate_expression():\n    assert evaluate_expression(\"3+2*2\") == 7\n    assert evaluate_expression(\" 3/2 \") == 1\n    assert evaluate_expression(\" 3+5 / 2 \") == 5\n    assert evaluate_expression(\"1 + 2 * 3 / 4 - 5\") == -2\n    assert evaluate_expression(\"(2+6)* 4 - 10 / 2\") == 14\n    assert evaluate_expression(\"-2+1\") == -1\n    assert evaluate_expression(\"2*(5+5*2)/3+(6/2+8)\") == 21",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

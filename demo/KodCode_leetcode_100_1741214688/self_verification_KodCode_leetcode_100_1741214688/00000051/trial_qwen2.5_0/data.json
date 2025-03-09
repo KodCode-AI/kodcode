@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000051",
+    "row_id": 51,
+    "seed_ids": [
+      "2515",
+      "264",
+      "1656"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a class `CustomComparator` that implements a custom sorting algorithm for an array of integers. The sorting algorithm should sort the array in ascending order based on the following rules:\n\n1. Elements at even indices should be sorted in ascending order.\n2. Elements at odd indices should be sorted in descending order.\n\nYour task is to implement the `CustomComparator` class with the following methods:\n\n- `CustomComparator(int[] arr)`: Constructor that initializes the array to be sorted.\n- `void sort()`: Sorts the array according to the rules mentioned above.\n- `int[] getResult()`: Returns the sorted array.\n\nAdditionally, provide a `main` method to test your implementation with a sample array and print the sorted array.",
+  "solution_code": "class CustomComparator:\n    def __init__(self, arr):\n        \"\"\"\n        Constructor that initializes the array to be sorted.\n        \"\"\"\n        self.arr = arr\n\n    def sort(self):\n        \"\"\"\n        Sorts the array according to the rules mentioned:\n        - Elements at even indices are sorted in ascending order.\n        - Elements at odd indices are sorted in descending order.\n        \"\"\"\n        even_indices_sorted = sorted(self.arr[::2])\n        odd_indices_sorted_desc = sorted(self.arr[1::2], reverse=True)\n\n        sorted_arr = []\n        for i in range(len(self.arr) // 2):\n            sorted_arr.append(even_indices_sorted[i])\n            if len(self.arr) % 2 == 0 or i < len(self.arr) // 2 - 1:\n                sorted_arr.append(odd_indices_sorted_desc[i])\n\n        for i in range(len(self.arr) % 2):\n            sorted_arr.append(even_indices_sorted.pop() if i % 2 == 0 else odd_indices_sorted_desc.pop())\n\n        self.arr = sorted_arr\n\n    def getResult(self):\n        \"\"\"\n        Returns the sorted array.\n        \"\"\"\n        return self.arr\n\n\ndef main():\n    arr = [4, 3, 1, 2]\n    comparator = CustomComparator(arr)\n    comparator.sort()\n    print(comparator.getResult())",
+  "test_code": "from pytest import mark, raises\n\n@mark.unit\ndef test_custom_comparator():\n    # Test with even length array\n    arr = [4, 3, 1, 2]\n    comparator = CustomComparator(arr)\n    comparator.sort()\n    assert comparator.getResult() == [1, 3, 2, 4]\n\n    # Test with odd length array\n    arr = [4, 3, 1]\n    comparator = CustomComparator(arr)\n    comparator.sort()\n    assert comparator.getResult() == [1, 3, 4]\n\n    # Test with array of length 2\n    arr = [2, 1]\n    comparator = CustomComparator(arr)\n    comparator.sort()\n    assert comparator.getResult() == [1, 2]\n\n    # Test with reversed sorted array\n    arr = [4, 2, 3, 1]\n    comparator = CustomComparator(arr)\n    comparator.sort()\n    assert comparator.getResult() == [2, 4, 3, 1]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

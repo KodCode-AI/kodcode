@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000087",
+    "row_id": 87,
+    "seed_ids": [
+      "2477",
+      "1000",
+      "79"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a `m x n` grid of characters `board` and a word `word`, return `true` if `word` can be constructed from letters on the `board`. The word does not need to be constructed from letters adjacent in the same row or column, but it cannot use the same letter cell more than once. Each cell in the grid can only contribute one letter to the word. If the word can be formed, return `true`; otherwise, return `false`.",
+  "solution_code": "def exist(board, word):\n    \"\"\"\n    Determines if the word can be constructed from letters on the board.\n    :param board: List[List[str]] representing the grid.\n    :param word: str representing the word to find.\n    :return: bool indicating whether the word can be formed.\n    \"\"\"\n    def dfs(board, row, col, word, index):\n        if index == len(word):\n            return True\n        if row < 0 or row >= len(board) or col < 0 or col >= len(board[0]) or board[row][col] != word[index]:\n            return False\n        \n        temp, board[row][col] = board[row][col], ''  # Mark as visited\n        found = dfs(board, row + 1, col, word, index + 1) or \\\n                dfs(board, row - 1, col, word, index + 1) or \\\n                dfs(board, row, col + 1, word, index + 1) or \\\n                dfs(board, row, col - 1, word, index + 1)\n        board[row][col] = temp  # Unmark for future iterations\n        return found\n    \n    for i in range(len(board)):\n        for j in range(len(board[0])):\n            if dfs(board, i, j, word, 0):\n                return True\n    return False",
+  "test_code": "def test_exist():\n    assert exist([[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"ABCCED\") == True\n    assert exist([[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"SEE\") == True\n    assert exist([[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"ABCB\") == False\n    assert exist([], \"ABCCED\") == False\n    assert exist([[\"a\"]], \"a\") == True\n    assert exist([[\"a\"]], \"b\") == False\n    assert exist([[\"a\",\"b\",\"c\"],[\"d\",\"e\",\"f\"]], \"acef\") == True\n    assert exist([[\"a\",\"b\",\"c\"],[\"d\",\"e\",\"f\"]], \"abcdef\") == False  # Cannot use the same cell more than once\n\ntest_exist()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

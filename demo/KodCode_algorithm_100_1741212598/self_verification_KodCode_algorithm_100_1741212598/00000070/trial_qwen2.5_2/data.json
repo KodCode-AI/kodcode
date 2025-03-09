@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000070",
+    "row_id": 70,
+    "seed_ids": [
+      286
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "**Scenario**: You are working on a project that involves processing text data in various languages, including those that use non-ASCII characters. You need a function to convert all uppercase letters to lowercase letters in a string, handling both ASCII and non-ASCII characters correctly.\n\n**Question**: Implement a function `enhanced_lower` that takes a string as input and returns a new string with all uppercase letters converted to lowercase. The function should handle both ASCII and non-ASCII characters and preserve the original order of characters in the string.\n\n**Input**: A string `text` (1 <= len(text) <= 10^5) consisting of alphanumeric characters, spaces, and punctuation marks. The string may contain non-ASCII characters.\n\n**Output**: A string where all uppercase letters in the input string are converted to lowercase.\n\n**Example**:\n```python\n>>> enhanced_lower(\"Hello, World!\")\n'hello, world!'\n>>> enhanced_lower(\"\u00a1Hola, MUNDO!\")\n'\u00a1hola, mundo!'\n>>> enhanced_lower(\"Python 3.8\")\n'python 3.8'\n>>> enhanced_lower(\"12345\")\n'12345'\n>>> enhanced_lower(\" caf\u00e9\")\n' caf\u00e9'\n```\n\n**Constraints**:\n- The input string will contain at least one character and at most 10^5 characters.\n- The string may contain non-ASCII characters.\n\n**Performance Requirement**: The function should handle large strings efficiently, aiming for a time complexity of O(n) and a space complexity of O(n).",
+  "solution_code": "def enhanced_lower(text):\n    \"\"\"\n    Converts all uppercase letters in the input string to lowercase.\n    Handles both ASCII and non-ASCII characters.\n    \"\"\"\n    return text.lower()",
+  "test_code": "import pytest\n\ndef test_enhanced_lower_ascii():\n    assert enhanced_lower(\"Hello, World!\") == 'hello, world!'\n    assert enhanced_lower(\"\u00a1Hola, MUNDO!\") == '\u00a1hola, mundo!'\n    assert enhanced_lower(\"Python 3.8\") == 'python 3.8'\n    assert enhanced_lower(\"12345\") == '12345'\n    assert enhanced_lower(\" caf\u00e9\") == ' caf\u00e9'\n\ndef test_enhanced_lower_non_ascii():\n    assert enhanced_lower(\"\u039a\u03b1\u03bb\u03b7\u03bc\u03ad\u03c1\u03b1\") == '\u03ba\u03b1\u03bb\u03b7\u03bc\u03ad\u03c1\u03b1'\n    assert enhanced_lower(\"\ud83d\ude00.prop\") == '\ud83d\ude00.prop'\n    assert enhanced_lower(\" teasers\") == ' teasers'\n    assert enhanced_lower(\"Teasers\") == 'teasers'\n    assert enhanced_lower(\"Teasers\ud83d\ude00\") == 'teasers\ud83d\ude00'",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

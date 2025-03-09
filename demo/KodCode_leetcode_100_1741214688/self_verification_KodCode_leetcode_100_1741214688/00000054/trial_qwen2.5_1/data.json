@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000054",
+    "row_id": 54,
+    "seed_ids": [
+      "1519",
+      "2137",
+      "1638"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given two strings `s` and `t` of equal length. Each string consists of lowercase English letters. A **swap** is defined as exchanging the positions of two characters within a string. Your task is to determine the minimum number of swaps required to make the string `s` an anagram of string `t`. An anagram of a string is another string that contains the same characters, only the order of characters can be different.\n\nFor example, if `s = \"abc\"` and `t = \"bca\"`, you can make `s` an anagram of `t` by swapping `s[0]` and `s[1]`, resulting in `s = \"bca\"`. Return the minimum number of swaps needed to achieve this.\n\nConstraints:\n- `1 <= s.length == t.length <= 100`\n- `s` and `t` consist of lowercase English letters.",
+  "solution_code": "def min_swaps_to_anagram(s: str, t: str) -> int:\n    \"\"\"\n    Returns the minimum number of swaps required to make s an anagram of t.\n    \"\"\"\n    from collections import Counter\n    s_count, t_count = Counter(s), Counter(t)\n    if s_count != t_count:\n        return -1  # Impossible to make an anagram if the counts of characters are different\n    swaps = 0\n    for char in s_count:\n        if s_count[char] > t_count[char]:\n            swaps += s_count[char] - t_count[char]\n    return swaps // 2  # Each pair of mismatched characters requires one swap",
+  "test_code": "def test_min_swaps_to_anagram():\n    assert min_swaps_to_anagram(\"abc\", \"bca\") == 0\n    assert min_swaps_to_anagram(\"abcd\", \"cdab\") == 2\n    assert min_swaps_to_anagram(\"abcd\", \"dacb\") == 4\n    assert min_swaps_to_anagram(\"bananas\", \"bananas\") == 0\n    assert min_swaps_to_anagram(\"abc\", \"cba\") == 1  # Only one swap needed\n    assert min_swaps_to_anagram(\"abc\", \"def\") == -1  # Different set of characters, not an anagram",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

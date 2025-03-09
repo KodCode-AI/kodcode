@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000006",
+    "row_id": 6,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to search for a specific word in a text file. The function should take two parameters: the file path and the word to search for. The function should return a list of line numbers where the word is found. If the word is not found, return an empty list. The function should ignore case sensitivity.",
+  "solution_code": "def search_word_in_file(file_path, search_word):\n    \"\"\"\n    Searches for a specific word in a text file and returns a list of line numbers where the word is found.\n    Ignores case sensitivity.\n    \"\"\"\n    result = []\n    try:\n        with open(file_path, 'r', encoding='utf-8') as file:\n            for line_number, line in enumerate(file, start=1):\n                if search_word.lower() in line.lower():\n                    result.append(line_number)\n    except FileNotFoundError:\n        print(f\"The file at {file_path} was not found.\")\n    return result",
+  "test_code": "def test_search_word_in_file():\n    import os\n\n    # Create a temporary file with some content\n    test_file_path = 'test_file.txt'\n    with open(test_file_path, 'w', encoding='utf-8') as file:\n        file.write(\"This is a test. This is only a test.\\n\")\n        file.write(\"Use a test for testing purposes.\\n\")\n        file.write(\"Testing is a common practice.\\n\")\n        file.write(\"This test is for testing functions.\\n\")\n\n    assert search_word_in_file(test_file_path, 'test') == [1, 2, 3, 4]\n    assert search_word_in_file(test_file_path, 'common') == [3]\n    assert search_word_in_file(test_file_path, 'notfound') == []\n    assert search_word_in_file(test_file_path, 'this') == [1, 2, 4]\n    assert search_word_in_file(test_file_path, 'use') == [2]\n\n    # Clean up\n    os.remove(test_file_path)\n\ndef test_search_word_case_insensitivity():\n    test_file_path = 'test_file.txt'\n    with open(test_file_path, 'w', encoding='utf-8') as file:\n        file.write(\"WORD is here, but not in capital letters.\\n\")\n        file.write(\"word is here, in lowercase.\\n\")\n\n    assert search_word_in_file(test_file_path, 'word') == [1, 2]\n    os.remove(test_file_path)\n\ndef test_file_not_found():\n    assert search_word_in_file('nonexistentfile.txt', 'anyword') == []",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

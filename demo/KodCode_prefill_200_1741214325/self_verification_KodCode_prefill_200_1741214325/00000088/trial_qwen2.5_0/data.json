@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000088",
+    "row_id": 88,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to filter out the words that contain a specific substring and return a list of words that do not contain that substring from a given list of words.",
+  "solution_code": "def filter_words_notContaining_substring(words, substring):\n    \"\"\"\n    Returns a list of words that do not contain the specified substring.\n    \n    :param words: List of words to filter.\n    :param substring: The substring to check for in the words.\n    :return: A list of words that do not contain the substring.\n    \"\"\"\n    return [word for word in words if substring not in word]",
+  "test_code": "def test_filter_words_notContaining_substring():\n    assert filter_words_notContaining_substring([\"hello\", \"world\", \"python\", \"alibaba\", \"cloud\"], \"o\") == [\"python\", \"cloud\"]\n    \ndef test_filter_words_notContaining_substring_empty_list():\n    assert filter_words_notContaining_substring([], \"x\") == []\n    \ndef test_filter_words_notContaining_substring_no_match():\n    assert filter_words_notContaining_substring([\"apple\", \"banana\", \"cherry\"], \"z\") == [\"apple\", \"banana\", \"cherry\"]\n    \ndef test_filter_words_notContaining_substring_with_substring():\n    assert filter_words_notContaining_substring([\"hello\", \"world\", \"homely\", \"como\"], \"lo\") == [\"hello\", \"homely\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

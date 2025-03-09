@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000059",
+    "row_id": 59,
+    "seed_ids": [
+      "1181",
+      "1859",
+      "1874"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given two arrays of integers, `nums1` and `nums2`, both of the same length, you are allowed to rearrange the elements of `nums1`. Your task is to find the maximum possible sum of the absolute differences between corresponding elements of `nums1` and `nums2`. In other words, you want to maximize the expression `\u03a3 |nums1[i] - nums2[i]|` for `0 <= i < length(nums1)`. Return this maximum possible sum.\n\nFor example, if `nums1 = [1, 2, 3, 4]` and `nums2 = [2, 1, 4, 3]`, one possible rearrangement of `nums1` could be `[4, 3, 2, 1]`, which would give a sum of `|4-2| + |3-1| + |2-4| + |1-3| = 10`. Find the optimal rearrangement of `nums1` to achieve the highest possible sum.",
+  "solution_code": "def max_absolute_sum(nums1, nums2):\n    \"\"\"\n    Returns the maximum possible sum of the absolute differences between corresponding elements of nums1 and nums2.\n    \"\"\"\n    # The optimal strategy is to sort nums1 and nums2 in reverse and forward order respectively before summing their differences.\n    sorted_nums1 = sorted(nums1)\n    sorted_nums2 = sorted(nums2, reverse=True)\n    return sum(abs(a - b) for a, b in zip(sorted_nums1, sorted_nums2))",
+  "test_code": "from solution import max_absolute_sum\n\ndef test_max_absolute_sum():\n    assert max_absolute_sum([1, 2, 3, 4], [2, 1, 4, 3]) == 10\n    assert max_absolute_sum([1, 2, 4, 5], [2, 1, 4, 4]) == 10\n    assert max_absolute_sum([1, 1, 1, 1], [4, 4, 4, 4]) == 12\n    assert max_absolute_sum([1], [1]) == 0\n    assert max_absolute_sum([1, 7], [4, 3]) == 8\n    assert max_absolute_sum([6, 12, 8, 10, 2, 5], [7, 1, 4, 8, 2, 9]) == 26\n\n# Test with different random inputs\nimport random\ndef test_random():\n    for _ in range(10):\n        nums1 = [random.randint(1, 100) for _ in range(10)]\n        nums2 = [random.randint(1, 100) for _ in range(10)]\n        assert max_absolute_sum(nums1, nums2) == max_absolute_sum(sorted(nums1, reverse=True), sorted(nums2))",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

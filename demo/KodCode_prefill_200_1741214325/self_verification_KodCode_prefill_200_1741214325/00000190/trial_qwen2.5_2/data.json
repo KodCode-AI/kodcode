@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000190",
+    "row_id": 190,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to determine if a number is a \"perfect square\" number. A \"perfect square\" number is an integer that is the square of an integer. For example, 16 is a perfect square because it is 4 squared.",
+  "solution_code": "def is_perfect_square(num: int) -> bool:\n    \"\"\"\n    Checks if the given number is a perfect square.\n    \n    Args:\n    num (int): The number to check.\n    \n    Returns:\n    bool: True if num is a perfect square, False otherwise.\n    \"\"\"\n    if num < 0:\n        return False\n    root = int(num ** 0.5)\n    return root * root == num",
+  "test_code": "from solution import is_perfect_square\n\ndef test_perfect_squares():\n    assert is_perfect_square(1) is True  # 1 = 1^2\n    assert is_perfect_square(4) is True  # 4 = 2^2\n    assert is_perfect_square(9) is True  # 9 = 3^2\n    assert is_perfect_square(16) is True # 16 = 4^2\n    assert is_perfect_square(25) is True # 25 = 5^2\n\ndef test_non_perfect_squares():\n    assert is_perfect_square(2) is False  # No integer square root\n    assert is_perfect_square(3) is False  # No integer square root\n    assert is_perfect_square(5) is False  # No integer square root\n    assert is_perfect_square(7) is False  # No integer square root\n    assert is_perfect_square(8) is False  # No integer square root\n\ndef test_zero_and_negative_numbers():\n    assert is_perfect_square(0) is True  # 0 = 0^2\n    assert is_perfect_square(-4) is False # Negative numbers cannot be perfect squares",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

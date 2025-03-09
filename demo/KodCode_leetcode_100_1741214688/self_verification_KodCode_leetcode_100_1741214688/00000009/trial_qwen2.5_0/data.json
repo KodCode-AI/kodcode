@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000009",
+    "row_id": 9,
+    "seed_ids": [
+      "1530",
+      "1550",
+      "2103"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters and an integer `k`. A **substring** of `s` is considered **balanced** if the frequency of each letter in the substring is at most `k`. Return the **maximum length** of a balanced substring of `s`.",
+  "solution_code": "def max_balanced_substring_length(s, k):\n    \"\"\"\n    Given a string s and an integer k, returns the length of the longest balanced\n    substring. A substring is balanced if the frequency of each letter is at most k.\n    \"\"\"\n    from collections import defaultdict\n    \n    char_count = defaultdict(int)\n    left = 0\n    max_length = 0\n    \n    for right in range(len(s)):\n        char_count[s[right]] += 1\n        \n        while min(char_count.values()) > k:\n            char_count[s[left]] -= 1\n            if char_count[s[left]] == 0:\n                del char_count[s[left]]\n            left += 1\n        \n        max_length = max(max_length, right - left + 1)\n    \n    return max_length",
+  "test_code": "from solution import max_balanced_substring_length\n\ndef test_max_balanced_substring_length():\n    assert max_balanced_substring_length(\"aaabb\", 3) == 3\n    assert max_balanced_substring_length(\"ababbc\", 2) == 5\n    assert max_balanced_substring_length(\"cccc\", 3) == 3\n    assert max_balanced_substring_length(\"abcd\", 1) == 1\n    assert max_balanced_substring_length(\"abcd\", 4) == 4\n    assert max_balanced_substring_length(\"aabacbebebe\", 3) == 7",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

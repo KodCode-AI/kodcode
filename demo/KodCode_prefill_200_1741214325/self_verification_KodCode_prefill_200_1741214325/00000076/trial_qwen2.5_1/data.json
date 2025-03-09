@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000076",
+    "row_id": 76,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the factorial of a number using a for loop.",
+  "solution_code": "def factorial(n):\n    \"\"\"\n    Calculate the factorial of a number using a for loop.\n    \n    Args:\n    n (int): The number to calculate the factorial for.\n    \n    Returns:\n    int: The factorial of the number.\n    \"\"\"\n    result = 1\n    for i in range(1, n + 1):\n        result *= i\n    return result",
+  "test_code": "import pytest\n\ndef test_factorial_positive_numbers():\n    assert factorial(5) == 120\n    assert factorial(3) == 6\n    assert factorial(1) == 1\n\ndef test_factorial_zero():\n    assert factorial(0) == 1\n\ndef test_factorial_large_number():\n    assert factorial(10) == 3628800\n\ndef test_factorial_negative_numbers():\n    with pytest.raises(ValueError):\n        factorial(-1)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

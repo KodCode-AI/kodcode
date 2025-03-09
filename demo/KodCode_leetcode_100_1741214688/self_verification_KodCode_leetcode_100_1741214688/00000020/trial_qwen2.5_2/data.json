@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000020",
+    "row_id": 20,
+    "seed_ids": [
+      "803",
+      "1422",
+      "1678"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary string `s` (a string consisting only of '0's and '1's), you are allowed to perform the following operation any number of times: choose any two adjacent characters and flip them (i.e., change '0' to '1' and '1' to '0'). Your goal is to make the string as long as possible such that it does not contain the substring \"010\". Return the maximum length of the string you can achieve.\n\n**Example:**\n\n```python\nInput: s = \"110\"\nOutput: 3\nExplanation: We can flip the last two characters to get \"111\", which does not contain \"010\" as a substring.\n```\n\n**Constraints:**\n\n- `1 <= s.length <= 1000`\n- `s` consists only of '0's and '1's.",
+  "solution_code": "def max_length(s):\n    \"\"\"\n    Returns the maximum length of a binary string s after performing the specified operation\n    such that the string does not contain the substring \"010\".\n    \"\"\"\n    dp = [[[0, 0, 0] for _ in range(len(s) + 1)] for _ in range(len(s) + 1)]\n    for i in range(len(s), -1, -1):\n        for j in range(len(s), -1, -1):\n            if i == len(s):\n                if j == len(s):\n                    dp[i][j][0] = 0\n                    dp[i][j][1] = 0\n                    dp[i][j][2] = 0\n                elif s[i] == '0':\n                    dp[i][j][1] = 1 + dp[i + 1][j][1] + dp[i + 1][j][2]\n                    dp[i][j][2] = dp[i + 1][j][2]\n                else:\n                    dp[i][j][1] = 1 + dp[i + 1][j][1]\n                    dp[i][j][2] = 1 + dp[i + 1][j][2]\n            elif j == len(s):\n                if s[i] == '0':\n                    dp[i][j][1] = 1 + dp[i][j + 1][1] + dp[i][j + 1][0]\n                    dp[i][j][2] = 1 + dp[i][j + 1][0] + dp[i][j + 1][2]\n                else:\n                    dp[i][j][0] = 1 + dp[i][j + 1][0] + dp[i][j + 1][1]\n                    dp[i][j][1] = 1 + dp[i][j + 1][1]\n                    dp[i][j][2] = 1 + dp[i][j + 1][2]\n            else:\n                if s[i] == '0':\n                    dp[i][j][1] = 1 + dp[i + 1][j][1] + dp[i + 1][j][2]\n                    dp[i][j][2] = dp[i + 1][j][2]\n                else:\n                    dp[i][j][1] = 1 + dp[i + 1][j][1]\n                    dp[i][j][2] = 1 + dp[i + 1][j][2]\n    return max(dp[0][0])",
+  "test_code": "import pytest\n\ndef test_max_length_simple_case():\n    assert max_length(\"110\") == 3\n\ndef test_max_length_all_zeros():\n    assert max_length(\"000\") == 3\n\ndef test_max_length_all_ones():\n    assert max_length(\"111\") == 3\n\ndef test_max_length_complex_case():\n    assert max_length(\"1001010\") == 5\n\ndef test_max_length_single_character():\n    assert max_length(\"1\") == 1\n\ndef test_max_length_with_initial_0():\n    assert max_length(\"01100110\") == 8\n\ndef test_max_length_with_alternating_01():\n    assert max_length(\"01010101\") == 4\n\ndef test_max_length_empty_string():\n    assert max_length(\"\") == 0\n\ndef test_max_length_long_string():\n    assert max_length(\"11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\") == 32",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

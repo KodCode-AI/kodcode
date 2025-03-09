@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000131",
+    "row_id": 131,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a string without using the built-in reverse function or slicing. Also, ensure that your function works for both strings and integer sequences treated as strings.",
+  "solution_code": "def reverse_string(input_str):\n    \"\"\"\n    Reverses the given string or integer sequence treated as a string without using slicing or the built-in reverse function.\n    \"\"\"\n    reverse_str = \"\"  # Initialize an empty string to store the reversed string\n    for char in input_str:\n        reverse_str = char + reverse_str  # Prepend each character to the result string\n    return reverse_str",
+  "test_code": "import pytest\n\ndef test_reverse_string():\n    assert reverse_string(\"hello\") == \"olleh\"\n    assert reverse_string(\"12345\") == \"54321\"\n    assert reverse_string(\"\") == \"\"\n\ndef test_reverse_integer_sequence():\n    assert reverse_string(\"123456789\") == \"987654321\"\n    assert reverse_string(\"0\") == \"0\"\n\ndef test_reverse_special_characters():\n    assert reverse_string(\"!@#$%^&*()\") == \")(*&^%$#@!\"\n\ndef test_reverse mixed_case():\n    assert reverse_string(\"Hello World!\") == \"!dlroW olleH\"\n    assert reverse_string(\"1a2b3c\") == \"c3b2a1\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

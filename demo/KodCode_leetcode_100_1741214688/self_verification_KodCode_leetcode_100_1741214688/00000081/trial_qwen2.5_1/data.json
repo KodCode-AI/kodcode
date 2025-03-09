@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000081",
+    "row_id": 81,
+    "seed_ids": [
+      "1763",
+      "5",
+      "1094"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s`, return the longest substring of `s` that contains at least one occurrence of every character in the string `s`. If there are multiple substrings of the same length, return the substring that appears earliest in `s`. If no such substring exists, return an empty string.",
+  "solution_code": "def longest_substring_with_all_chars(s: str) -> str:\n    \"\"\"\n    Finds the longest substring that contains at least one occurrence of every character in the string.\n    If there are multiple substrings of the same length, returns the one that appears earliest.\n    If no such substring exists, returns an empty string.\n    \"\"\"\n    n = len(s)\n    if n == 0:\n        return \"\"\n    \n    char_positions = {ch: [] for ch in set(s)}\n    \n    for i, ch in enumerate(s):\n        char_positions[ch].append(i)\n    \n    start, end = 0, 0\n    max_len = 0\n    min_end = float('inf')\n    char_count = len(char_positions)\n    \n    while end < n:\n        if char_count == 0:\n            if end - start + 1 > max_len:\n                max_len = end - start + 1\n                min_end = start\n            start = char_positions[s[start]].pop(0)\n            if not char_positions[s[start]]:\n                del char_positions[s[start]]\n            char_count += 1\n            start += 1\n        else:\n            char_count -= 1\n            end += 1\n            if end < n:\n                char_count += 1\n                if s[end] in char_positions:\n                    char_positions[s[end]].append(end)\n    \n    return s[min_end:min_end + max_len] if max_len > 0 else \"\"",
+  "test_code": "from solution import longest_substring_with_all_chars\n\ndef test_longest_substring_with_all_chars():\n    assert longest_substring_with_all_chars(\"xyyzyzyyx\") == \"zyzyyx\"\n    assert longest_substring_with_all_chars(\"abc\") == \"abc\"\n    assert longest_substring_with_all_chars(\"a\") == \"\"\n    assert longest_substring_with_all_chars(\"bbaaacbb\") == \"baaacb\"\n    assert longest_substring_with_all_chars(\"aabbccddeeff\") == \"aabbccddeeff\"\n    assert longest_substring_with_all_chars(\"abcdef\") == \"abcdef\"\n    assert longest_substring_with_all_chars(\"aaa\") == \"a\"\n    assert longest_substring_with_all_chars(\"aaab\") == \"aab\"\n    assert longest_substring_with_all_chars(\"abcabc\") == \"abc\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

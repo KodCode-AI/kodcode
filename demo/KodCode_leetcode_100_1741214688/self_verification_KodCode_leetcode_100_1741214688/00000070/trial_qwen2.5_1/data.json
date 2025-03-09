@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000070",
+    "row_id": 70,
+    "seed_ids": [
+      "1473",
+      "191",
+      "2471"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a list of `n` robots, each robot has a unique identifier from `1` to `n`. Each robot can move to the left or right on a number line, and each robot can move a maximum of `k` units in one step. You are also given an array `orders` where `orders[i]` is a list of robot identifiers that need to be at position `i + 1` on the number line. The goal is to move all robots to their respective positions with the minimum number of steps. Each robot can only move to its designated position and cannot move to a position that has already been assigned to another robot. Return the minimum number of steps required to achieve the goal, or `-1` if it is impossible to move all robots to their designated positions.",
+  "solution_code": "def min_steps_to_positions(n, k, orders):\n    \"\"\"\n    Returns the minimum number of steps required for all robots\n    to be at their designated positions, or -1 if it is impossible.\n    \"\"\"\n    # Create a dictionary to store the required positions for each robot\n    required_positions = {}\n    for i, order in enumerate(orders):\n        for robot_id in order:\n            if robot_id in required_positions:\n                if required_positions[robot_id] != i + 1:\n                    return -1  # Conflicting positions for the same robot\n            else:\n                required_positions[robot_id] = i + 1\n\n    # Calculate the minimum steps for each robot\n    steps = {}\n    for robot_id, position in required_positions.items():\n        current_pos = robot_id  # Assuming robots start at their identifier position\n        steps_needed = abs(position - current_pos) // k\n        if abs(position - current_pos) % k != 0:\n            steps_needed += 1\n        steps[robot_id] = steps_needed\n\n    # Find the maximum steps needed among all robots\n    max_steps = max(steps.values())\n    return max_steps",
+  "test_code": "def test_min_steps_to_positions():\n    assert min_steps_to_positions(3, 2, [[2, 1, 3], [], []]) == 2\n    assert min_steps_to_positions(3, 2, [[2, 1, 3], [2, 3, 1], [1, 3, 2]]) == -1\n    assert min_steps_to_positions(5, 3, [[4, 1, 5], [4, 5, 1], [], [3, 5, 1], []]) == 4\n    assert min_steps_to_positions(4, 2, [[2, 1], [], [3, 4], []]) == 2\n    assert min_steps_to_positions(3, 1, [[2, 1, 3], [2, 3, 1], [1, 3, 2]]) == 2\n\ntest_min_steps_to_positions()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

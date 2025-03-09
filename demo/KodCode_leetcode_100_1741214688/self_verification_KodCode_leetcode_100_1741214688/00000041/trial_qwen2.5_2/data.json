@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000041",
+    "row_id": 41,
+    "seed_ids": [
+      "1642",
+      "1217",
+      "994"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an `m x n` binary matrix `grid` representing a map where `0` indicates water and `1` indicates land. A **land bridge** is a path of adjacent `1`s (horizontally or vertically) that connects the leftmost column to the rightmost column. You have a limited number of `k` 0s that can be flipped to 1s to create additional land bridges. Find the minimum number of land bridges needed to connect the leftmost and rightmost columns of the grid, or return `-1` if it is impossible to do so with the given `k` 0s.",
+  "solution_code": "def min_land_bridges(grid, k):\n    \"\"\"\n    Returns the minimum number of land bridges needed to connect the leftmost\n    and rightmost columns of the grid, or -1 if it's impossible with the given k.\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    queue = []\n    directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]\n    visited = [[False] * n for _ in range(m)]\n    \n    # Enqueue all land cells in the leftmost column.\n    for i in range(m):\n        if grid[i][0] == 1:\n            queue.append((i, 0))\n            visited[i][0] = True\n    \n    # Perform BFS to find connected components.\n    while queue:\n        x, y = queue.pop(0)\n        if y == n - 1:\n            # If current cell is in the rightmost column, return the number of 0s flipped.\n            return 0 if k >= 0 else -1\n        for dx, dy in directions:\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < m and 0 <= ny < n and not visited[nx][ny]:\n                if grid[nx][ny] == 1:\n                    queue.append((nx, ny))\n                    visited[nx][ny] = True\n                elif k > 0:\n                    queue.append((nx, ny))\n                    visited[nx][ny] = True\n                    k -= 1\n    \n    # Check if rightmost column is reachable.\n    if any(grid[i][n-1] == 1 for i in range(m)):\n        return 1\n    return -1",
+  "test_code": "def test_min_land_bridges():\n    assert min_land_bridges([[0,0,0,0,0,0,0,0]], 1) == 1\n    assert min_land_bridges([[1,0,0,0,0,1,1,1],[0,0,1,1,1,1,0,0],[0,0,1,0,0,1,0,0]], 2) == 1\n    assert min_land_bridges([[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]], 0) == 5\n    assert min_land_bridges([[1,0],[0,0],[0,1]], 1) == -1\n    assert min_land_bridges([[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]], 2) == -1\n\ntest_min_land_bridges()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

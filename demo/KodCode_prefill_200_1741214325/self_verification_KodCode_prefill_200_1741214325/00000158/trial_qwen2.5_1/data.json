@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000158",
+    "row_id": 158,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to to count the number of times a character appears in a string",
+  "solution_code": "def char_count(text, character):\n    \"\"\"\n    Returns the number of times a character appears in a string.\n    \"\"\"\n    return text.count(character)",
+  "test_code": "from solution import char_count\n\ndef test_char_count_single_character():\n    assert char_count(\"hello\", \"l\") == 2\n\ndef test_char_count_multiple_characters():\n    assert char_count(\"banana\", \"a\") == 3\n\ndef test_char_count_empty_string():\n    assert char_count(\"\", \"a\") == 0\n\ndef test_char_count_with_whitespace():\n    assert char_count(\"hello world\", \" \") == 1\n\ndef test_char_count_case_sensitive():\n    assert char_count(\"Hello\", \"h\") == 0\n    assert char_count(\"Hello\", \"H\") == 1\n\ndef test_char_count_special_characters():\n    assert char_count(\"hello@world\", \"@\") == 1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

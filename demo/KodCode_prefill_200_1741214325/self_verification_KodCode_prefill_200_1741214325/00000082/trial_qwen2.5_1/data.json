@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000082",
+    "row_id": 82,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find disjunctive normal form (DNF) of a 2-variable boolean formula using the sympy library. Provide a simple explanation of the function and its inputs/output.",
+  "solution_code": "To find the disjunctive normal form (DNF) of a 2-variable boolean formula using the sympy library in Python, we need to:\n\n1. Define the boolean symbols (variables) for the 2 variables.\n2. Parse the boolean formula using these variables.\n3. Use sympy's `to_dnf` method to convert the boolean formula into its DNF form.\n\nfrom sympy import symbols, And, Or, Not\n\ndef dnf_formula(A, B, formula_str):\n    \"\"\"\n    Convert a 2-variable boolean formula to its DNF using sympy.\n\n    :param A: First boolean variable (symbol)\n    :param B: Second boolean variable (symbol)\n    :param formula_str: Boolean formula string in terms of A and B, using standard logical operators (and, or, not)\n    :return: DNF of the given boolean formula as a sympy expression\n    \"\"\"\n    formula = formula_str.replace('and', '&').replace('or', '|').replace('not', '~')\n    expr = eval(formula, {str(A): A, str(B): B})  # Convert string to sympy expression\n    dnf_expr = expr.to_dnf(simplify=True)\n    return dnf_expr",
+  "test_code": "from solution import dnf_formula\nfrom sympy import symbols\n\n# Define the symbols\nA, B = symbols('A B')\n\ndef test_dnf_formula():\n    assert dnf_formula(A, B, \"A and B\").equals(A & B)\n    assert dnf_formula(A, B, \"A and not B\").equals(A & ~B)\n    assert dnf_formula(A, B, \"not A and B\").equals(~A & B)\n    assert dnf_formula(A, B, \"not A and not B\").equals(~A & ~B)\n    assert dnf_formula(A, B, \"A or B\").equals(A | B)\n    assert dnf_formula(A, B, \"A or not B\").equals(A | ~B)\n    assert dnf_formula(A, B, \"not A or B\").equals(~A | B)\n    assert dnf_formula(A, B, \"not A or not B\").equals(~A | ~B)\n    assert dnf_formula(A, B, \"(A and not B) or (not A and B)\").equals((A & ~B) | (~A & B))  # XOR DNF\n    assert dnf_formula(A, B, \"(not A and B) or (A and not B)\").equals((~A & B) | (A & ~B))  # XOR DNF\n\nif __name__ == \"__main__\":\n    import pytest\n    pytest.main()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

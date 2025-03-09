@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000194",
+    "row_id": 194,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a given string to a list of integers, where each integer is the ASCII value of each character in the string.",
+  "solution_code": "def string_to_ascii_list(input_string):\n    \"\"\"\n    Converts a given string to a list of integers, where each integer is the ASCII value of each character in the string.\n    \"\"\"\n    return [ord(char) for char in input_string]",
+  "test_code": "def test_string_to_ascii_list():\n    assert string_to_ascii_list(\"AB\") == [65, 66]\n    assert string_to_ascii_list(\"Hello\") == [72, 101, 108, 108, 111]\n    assert string_to_ascii_list(\"\") == []\n    assert string_to_ascii_list(\"123\") == [49, 50, 51]\n\ndef test_empty_string():\n    assert string_to_ascii_list(\"\") == []\n\ndef test_string_with_spaces():\n    assert string_to_ascii_list(\"Hello World!\") == [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

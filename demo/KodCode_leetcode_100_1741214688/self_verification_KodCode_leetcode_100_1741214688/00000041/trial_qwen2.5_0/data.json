@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000041",
+    "row_id": 41,
+    "seed_ids": [
+      "1642",
+      "1217",
+      "994"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an `m x n` binary matrix `grid` representing a map where `0` indicates water and `1` indicates land. A **land bridge** is a path of adjacent `1`s (horizontally or vertically) that connects the leftmost column to the rightmost column. You have a limited number of `k` 0s that can be flipped to 1s to create additional land bridges. Find the minimum number of land bridges needed to connect the leftmost and rightmost columns of the grid, or return `-1` if it is impossible to do so with the given `k` 0s.",
+  "solution_code": "def min_land_bridges(grid, k):\n    \"\"\"\n    Returns the minimum number of land bridges needed to connect\n    the leftmost and rightmost columns of the grid, or -1 if it's impossible.\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    left_to_right = [[False] * n for _ in range(m)]\n    cnt_ones = 0\n    \n    # Create a bitmask for each row that indicates which columns have land (1) or water (0)\n    row_bitmasks = [int(''.join(str(int(cell == 1)) for cell in row), 2) for row in grid]\n    \n    def dfs(r, mask):\n        if mask == int('1' * n, 2):\n            return 0\n        if r == m - 1:\n            return float('inf')\n        if not (left_to_right[r] or (k and (mask & row_bitmasks[r]) == row_bitmasks[r])):\n            return dfs(r + 1, mask)\n        # Flip one 0 to 1\n        if k:\n            return 1 + min(dfs(r + 1, mask | (1 << j)) for j in range(n) if not (mask >> j) & 1)\n        # No 0s to flip\n        return float('inf')\n    \n    res = dfs(0, 0)\n    return res if res != float('inf') else -1",
+  "test_code": "import pytest\n\ndef test_min_land_bridges():\n    assert min_land_bridges([[0,0,1,0,0],[0,1,0,1,0],[1,1,0,1,1]], 1) == 1\n    assert min_land_bridges([[0,1,1,0],[0,0,0,0],[0,1,1,0]], 0) == 2\n    assert min_land_bridges([[1,1,1,0,0],[0,0,1,1,1],[0,0,1,0,0]], 2) == -1\n    assert min_land_bridges([[0,0,0,0,0,0,1], [0,0,0,0,0,0,1], [0,0,0,0,0,0,1]], 7) == 0\n    assert min_land_bridges([[0,0,0,0,0,0,1], [0,0,0,0,0,0,1], [0,0,0,0,0,0,1]], 6) == -1\n\npytest.main(['-v', 'min_land_bridges.py'])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

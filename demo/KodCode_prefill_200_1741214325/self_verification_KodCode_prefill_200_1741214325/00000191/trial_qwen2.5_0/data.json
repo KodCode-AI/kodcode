@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000191",
+    "row_id": 191,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a linked list in place.",
+  "solution_code": "class ListNode:\n    \"\"\"Simple linked list node class.\"\"\"\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef reverse_linked_list(head):\n    \"\"\"\n    Reverses a linked list in place and returns the new head.\n    \n    :param head: ListNode\n        The head node of the linked list to be reversed.\n    :return: ListNode\n        The new head node of the reversed linked list.\n    \"\"\"\n    prev = None\n    current = head\n    while current:\n        next_node = current.next  # Store next node\n        current.next = prev       # Reverse the current node's pointer\n        prev = current            # Move prev and current one step forward\n        current = next_node\n    return prev",
+  "test_code": "from solution import ListNode, reverse_linked_list\n\ndef test_reverse_linked_list():\n    # Create a linked list 1 -> 2 -> 3\n    node3 = ListNode(3)\n    node2 = ListNode(2, node3)\n    node1 = ListNode(1, node2)\n    \n    # Reverse it to 3 -> 2 -> 1\n    reversed_head = reverse_linked_list(node1)\n    assert reversed_head.value == 3\n    \n    # Check the next nodes\n    assert reversed_head.next.value == 2\n    assert reversed_head.next.next.value == 1\n    \ndef test_reverse_empty_list():\n    # Reverse an empty list, should return None\n    assert reverse_linked_list(None) is None\n\ndef test_reverse_single_node():\n    # Reverse a single node list, should return the same node\n    node = ListNode(4)\n    assert reverse_linked_list(node).value == 4",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

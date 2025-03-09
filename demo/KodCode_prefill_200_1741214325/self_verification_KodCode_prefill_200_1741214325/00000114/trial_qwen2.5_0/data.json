@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000114",
+    "row_id": 114,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to determine if a given number is a prime number. If it is, return True; otherwise, return False.",
+  "solution_code": "def is_prime(n):\n    \"\"\"\n    Determines if a given number n is a prime number.\n    Returns True if n is a prime, False otherwise.\n    \"\"\"\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+  "test_code": "from solution import is_prime\n\ndef test_is_prime_with_prime_number():\n    assert is_prime(2) == True\n    assert is_prime(3) == True\n    assert is_prime(5) == True\n    assert is_prime(11) == True\n\ndef test_is_prime_with_non_prime_number():\n    assert is_prime(4) == False\n    assert is_prime(9) == False\n    assert is_prime(15) == False\n    assert is_prime(100) == False\n\ndef test_is_prime_with_edge_cases():\n    assert is_prime(1) == False\n    assert is_prime(0) == False\n    assert is_prime(-3) == False\n    assert is_prime(-1) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

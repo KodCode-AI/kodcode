@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000032",
+    "row_id": 32,
+    "seed_ids": [
+      537
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are tasked with solving the Collatz Conjecture problem to find the starting number, under a given limit, that produces the longest sequence. Given a positive integer \\( n \\), find the number under \\( n \\) that generates the longest sequence.\n\n**Input Format**:\n- The input will be a single positive integer \\( n \\) (\\( 2 \\leq n \\leq 1,000,000 \\)).\n\n**Output Format**:\n- Output the starting number under \\( n \\) that produces the longest sequence.\n\n**Performance Requirements**:\n- Your solution should efficiently handle the input within the given constraints.\n\n**Example**:\n```\nInput:\n1000000\n\nOutput:\n837799\n```\n\n**Explanation**:\nThe number 837799 under 1,000,000 produces the longest sequence as per the Collatz conjecture.\n\n**Note**:\n- Your solution should be optimized to handle the given constraints efficiently.",
+  "solution_code": "def collatz_sequence_length(n):\n    \"\"\"\n    Returns the length of the Collatz sequence starting from n.\n    \"\"\"\n    length = 1\n    while n != 1:\n        if n % 2 == 0:\n            n = n // 2\n        else:\n            n = 3 * n + 1\n        length += 1\n    return length\n\ndef find_longest_collatz_sequence(n):\n    \"\"\"\n    Returns the starting number under n that produces the longest Collatz sequence.\n    \"\"\"\n    max_length = 0\n    starting_number = 0\n    for i in range(1, n):\n        length = collatz_sequence_length(i)\n        if length > max_length:\n            max_length = length\n            starting_number = i\n    return starting_number",
+  "test_code": "``\ndef test_collatz_sequence_length():\n    assert collatz_sequence_length(13) == 10\n    assert collatz_sequence_length(1) == 1\n\ndef test_find_longest_collatz_sequence():\n    assert find_longest_collatz_sequence(1000000) == 837799\n    assert find_longest_collatz_sequence(500) == 371\n    assert find_longest_collatz_sequence(100) == 97\n    assert find_longest_collatz_sequence(10) == 9\n    assert find_longest_collatz_sequence(10000) == 6171\n    assert find_longest_collatz_sequence(50000) == 37117",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results1.jsonl"
+}

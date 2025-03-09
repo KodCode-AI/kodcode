@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000087",
+    "row_id": 87,
+    "seed_ids": [
+      651
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given a function `bin_to_octal` that converts a binary string to its octal equivalent. The provided function already handles some edge cases and errors. Your task is to optimize the function to handle large binary strings more efficiently and to minimize the creation of intermediate data structures.\n\n**Function Signature**:\n```python\ndef bin_to_octal(bin_string: str) -> str:\n    # Your code here\n```\n\n**Input**:\n- `bin_string` (str): A binary string (composed of '0's and '1's).\n\n**Output**:\n- Return the octal equivalent of the binary string as a string.\n\n**Constraints**:\n- `1 <= len(bin_string) <= 10^6`\n\n**Performance Requirement**:\n- Optimize the function to handle large binary strings efficiently and minimize the use of additional data structures.\n\n**Example**:\n```python\n>>> bin_to_octal(\"1111\")\n'17'\n>>> bin_to_octal(\"101010101010011\")\n'52523'\n>>> bin_to_octal(\"\")\n''\n>>> bin_to_octal(\"a-1\")\nValueError: Non-binary value was passed to the function\n```\n\n**Note**: Ensure that your implementation handles all edge cases, including empty strings and non-binary strings, and performs optimally for large inputs.",
+  "solution_code": "def bin_to_octal(bin_string: str) -> str:\n    if not bin_string or not set(bin_string).issubset({'0', '1'}):\n        raise ValueError(\"Non-binary value was passed to the function\")\n    \n    octal = \"\"\n    dict = {4: \"1\", 5: \"2\", 6: \"3\", 7: \"4\", 0: \"0\", 1: \"1\", 2: \"2\", 3: \"3\"}\n    count = 0\n    for bit in reversed(bin_string):\n        count = (count << 1) | int(bit)\n        if count in dict:\n            octal = dict[count] + octal\n            count = 0\n    return octal",
+  "test_code": "import pytest\n\ndef test_bin_to_octal():\n    # Test cases\n    assert bin_to_octal(\"1111\") == \"17\"\n    assert bin_to_octal(\"101010101010011\") == \"52523\"\n    assert bin_to_octal(\"00011000\") == \"30\"\n    assert bin_to_octal(\"100\") == \"4\"\n    assert bin_to_octal(\"111\") == \"7\"\n    assert bin_to_octal(\"110010000000000000000000\") == \"407000\"\n    assert bin_to_octal(\"\") == \"\"\n\ndef test_bin_to_octal_errors():\n    with pytest.raises(ValueError):\n        bin_to_octal(\"a-1\")\n    with pytest.raises(ValueError):\n        bin_to_octal(\"1020\")\n\ndef test_bin_to_octal_empty_string():\n    assert bin_to_octal(\"\") == \"\"",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results0.jsonl"
+}

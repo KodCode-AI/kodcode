@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000026",
+    "row_id": 26,
+    "seed_ids": [
+      "2031",
+      "335",
+      "1814"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an array `nums` consisting of positive integers. A **triangle** is valid if the sum of its two shorter sides is greater than the length of the longest side. Return the number of **unique** triangles that can be formed from the elements of `nums`. Since the answer may be very large, return it **modulo** `109 + 7`. Two triangles are considered **unique** if at least one of their sides has different lengths.",
+  "solution_code": "def count_good_triangles(nums):\n    \"\"\"\n    Returns the number of unique triangles that can be formed from the elements of nums.\n    The result is modulo 10^9 + 7.\n    \"\"\"\n    MOD = 10**9 + 7\n    nums.sort()\n    n = len(nums)\n    count = 0\n\n    for i in range(n - 2):\n        k = i + 2\n        for j in range(i + 1, n - 1):\n            while k < n and nums[i] + nums[j] > nums[k]:\n                k += 1\n            count += k - j - 1\n            count %= MOD\n\n    return count",
+  "test_code": "from solution import count_good_triangles\n\ndef test_count_good_triangles():\n    assert count_good_triangles([2, 1, 3]) == 1\n    assert count_good_triangles([5, 8, 6, 1, 4]) == 2\n    assert count_good_triangles([1, 1, 1, 1]) == 0\n    assert count_good_triangles([10, 20, 30]) == 0\n    assert count_good_triangles([1, 2, 2, 3, 4]) == 3\n\ndef test_modulo_large():\n    assert count_good_triangles([10, 0, 8, 6, 14, 12, 16, 18, 20, 22, 24, 26]) == 22",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

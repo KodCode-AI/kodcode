@@ -172,6 +172,7 @@ KodCode-SFT-R1/
 KodCode-SFT-R1_Backup/
 KodCode-V1/
 KodCode-V1.1/
+KodCode-SFT-4o/
 data_step1/
 data_step2/
 data_step3/
@@ -210,7 +211,7 @@ seeds/apps/apps_train.json
 check.ipynb
 data_combine.ipynb
 
-pipeline/step1.2_gpt_completion_genai.sh
-pipeline/step3.2_gpt_i2c_genai.sh
-pipeline/step2.1_gpt_completion_genai.sh
+pipeline/step1.2_completion_genai.sh
+pipeline/step3.2_i2c_genai.sh
+pipeline/step2.1_completion_genai.sh
 pipeline/magpie_prefill/

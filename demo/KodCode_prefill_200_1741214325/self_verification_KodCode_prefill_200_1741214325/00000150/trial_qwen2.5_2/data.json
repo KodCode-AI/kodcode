@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000150",
+    "row_id": 150,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to determine if a given number is a power of two. A number is a power of two if it can be represented as 2^k where k is a non-negative integer. Assume the input is always a valid integer, both positive and negative, but negative numbers should be immediately determined as not powers of two.",
+  "solution_code": "def is_power_of_two(n: int) -> bool:\n    \"\"\"\n    Checks if the given number n is a power of two.\n    \"\"\"\n    if n <= 0:\n        return False\n    return (n & (n - 1)) == 0",
+  "test_code": "import pytest\n\ndef test_is_power_of_two_positive():\n    assert is_power_of_two(1) is True\n    assert is_power_of_two(2) is True\n    assert is_power_of_two(4) is True\n    assert is_power_of_two(16) is True\n\ndef test_is_power_of_two_not_positive():\n    assert is_power_of_two(0) is False\n    assert is_power_of_two(-2) is False\n    assert is_power_of_two(-4) is False\n\ndef test_is_power_of_two_large_values():\n    assert is_power_of_two(1048576) is True  # 2^20\n    assert is_power_of_two(2097152) is False  # 2^21 - 1 is not a power of two\n\ndef test_is_power_of_two_edge_cases():\n    assert is_power_of_two(3) is False\n    assert is_power_of_two(8) is True\n    assert is_power_of_two(1023) is False  # 2^10 - 1 is not a power of two",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

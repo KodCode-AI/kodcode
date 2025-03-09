@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000006",
+    "row_id": 6,
+    "seed_ids": [
+      "790",
+      "311",
+      "1320"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are allowed to perform the following operation any number of times: pick any substring `s[i...j]` and replace it with the same substring in reverse order. For example, `s = \"abcde\"` can be transformed into `\"dcbae\"` by replacing the substring `s[1...4]` with `\"dcba\"`. \n\nDetermine the lexicographically smallest string that can be obtained by performing the above operation any number of times. Return the resulting string.",
+  "solution_code": "def minimal_string(s):\n    \"\"\"\n    Returns the lexicographically smallest string that can be obtained by\n    performing the allowed operation on the input string `s`.\n    \"\"\"\n    # The idea is to move all the 'a's to the front as much as possible.\n    # This ensures that the string is as lexicographically small as possible.\n    # Search for the first occurrence of 'a' after any occurrence of a non-'a' character.\n    min_char = 'a'\n    first_index = float('inf')\n    for i in range(len(s)):\n        if s[i] < min_char:\n            min_char = s[i]\n            first_index = i\n        elif s[i] == min_char and i < first_index:\n            first_index = i\n    # If 'a' is not the smallest character, search for the first occurrence of the smallest character.\n    if min_char != 'a':\n        for i in range(len(s)):\n            if s[i] == min_char:\n                first_index = i\n                break\n    \n    # Reconstruct the string to start with the smallest character as many times as possible.\n    left_part = s[:first_index+1]\n    # If the string starts with 'a', the result is the string of 'a's and the remaining string.\n    if min_char == 'a':\n        right_part = s[first_index+1:]\n    else:\n        # Otherwise, the result is the smallest character and the smallest strings recursively.\n        right_part = min_char + minimal_string(s[first_index+1:])\n    \n    return left_part + right_part",
+  "test_code": "from solution import minimal_string\n\ndef test_minimal_string_single_char():\n    assert minimal_string(\"a\") == \"a\"\n\ndef test_minimal_string_all_a():\n    assert minimal_string(\"aaa\") == \"aaa\"\n    assert minimal_string(\"aaaa\") == \"aaaa\"\n\ndef test_minimal_string_mixed():\n    assert minimal_string(\"abca\") == \"aaabc\"\n    assert minimal_string(\"cbaa\") == \"aaaab\"\n    assert minimal_string(\"aaab\") == \"aaabb\"\n    assert minimal_string(\"cdaba\") == \"aaabcd\"\n\ndef test_minimal_string_with_z():\n    assert minimal_string(\"azbca\") == \"aaabc\"\n    assert minimal_string(\"zbcad\") == \"aaabc\"\n    assert minimal_string(\"cadzb\") == \"aaabc\"\n    assert minimal_string(\"zzbca\") == \"aaabc\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

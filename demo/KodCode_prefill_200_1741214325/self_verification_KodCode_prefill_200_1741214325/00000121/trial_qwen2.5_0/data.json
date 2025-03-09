@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000121",
+    "row_id": 121,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the first unique character in a string. If no unique character is found, return an underscore (_) character.",
+  "solution_code": "def first_unique_char(s: str) -> str:\n    \"\"\"\n    Returns the first unique character in the string s.\n    If no unique character is found, returns '_'.\n    \"\"\"\n    char_count = {}\n    \n    # Count the occurrence of each character\n    for char in s:\n        if char in char_count:\n            char_count[char] += 1\n        else:\n            char_count[char] = 1\n    \n    # Find the first unique character\n    for char in s:\n        if char_count[char] == 1:\n            return char\n    \n    return '_'",
+  "test_code": "def test_first_unique_char():\n    assert first_unique_char(\"leetcode\") == \"l\"\n    assert first_unique_char(\"loveleetcode\") == \"v\"\n    assert first_unique_char(\"aabb\") == '_'\n    assert first_unique_char(\"preeeceeeeek\") == 'r'\n    assert first_unique_char(\"\") == '_'\n    assert first_unique_char(\"a\") == \"a\"\n    assert first_unique_char(\"aa\") == '_'",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

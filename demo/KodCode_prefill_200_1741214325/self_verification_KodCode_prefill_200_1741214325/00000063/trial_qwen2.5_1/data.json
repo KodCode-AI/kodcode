@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000063",
+    "row_id": 63,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a string into a list of words.",
+  "solution_code": "def string_to_list_of_words(input_string):\n    \"\"\"\n    Converts a given string into a list of words (separated by spaces).\n    \n    :param input_string: The string to convert.\n    :return: A list of words from the input string.\n    \"\"\"\n    return input_string.split()",
+  "test_code": "from solution import string_to_list_of_words\n\ndef test_string_to_list_of_words_single_word():\n    assert string_to_list_of_words(\"hello\") == [\"hello\"]\n\ndef test_string_to_list_of_words_multiple_words():\n    assert string_to_list_of_words(\"hello world\") == [\"hello\", \"world\"]\n\ndef test_string_to_list_of_words_with_punctuation():\n    assert string_to_list_of_words(\"hello, world!\") == [\"hello,\", \"world!\"]\n\ndef test_string_to_list_of_words_empty_string():\n    assert string_to_list_of_words(\"\") == []\n\ndef test_string_to_list_of_words_with_spaces():\n    assert string_to_list_of_words(\"  hello  world  \") == [\"hello\", \"world\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

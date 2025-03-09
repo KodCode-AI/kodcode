@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000101",
+    "row_id": 101,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to iterate over a list and print each number.",
+  "solution_code": "def print_numbers(numbers_list):\n    \"\"\"\n    Iterates over a list of numbers and prints each number.\n    \"\"\"\n    for number in numbers_list:\n        print(number)",
+  "test_code": "def test_print_numbers():\n    # Test with a simple list of numbers\n    with capture_stdout(print_numbers, [1, 2, 3]) as output:\n        assert output == \"1\\n2\\n3\\n\"\n\n    # Test with an empty list\n    with capture_stdout(print_numbers, []) as output:\n        assert output == \"\"\n\n    # Test with a list containing a single number\n    with capture_stdout(print_numbers, [42]) as output:\n        assert output == \"42\\n\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

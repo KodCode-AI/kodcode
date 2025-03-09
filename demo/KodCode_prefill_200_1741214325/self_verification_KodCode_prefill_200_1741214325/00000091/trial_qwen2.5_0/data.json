@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000091",
+    "row_id": 91,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find all prime numbers within a given range (inclusive). The function should return a list of all prime numbers within the range.",
+  "solution_code": "def is_prime(n):\n    \"\"\"Check if a number is a prime number.\"\"\"\n    if n <= 1:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    max_divisor = int(n**0.5) + 1\n    for d in range(3, max_divisor, 2):\n        if n % d == 0:\n            return False\n    return True\n\ndef find_primes_in_range(start, end):\n    \"\"\"\n    Returns a list of all prime numbers within the given range [start, end] inclusive.\n    \"\"\"\n    return [n for n in range(start, end + 1) if is_prime(n)]",
+  "test_code": "from solution import is_prime, find_primes_in_range\n\ndef test_is_prime():\n    assert is_prime(2) == True\n    assert is_prime(3) == True\n    assert is_prime(4) == False\n    assert is_prime(5) == True\n    assert is_prime(6) == False\n    assert is_prime(29) == True\n    assert is_prime(30) == False\n\ndef test_find_primes_in_range():\n    assert find_primes_in_range(5, 15) == [5, 7, 11, 13]\n    assert find_primes_in_range(1, 10) == [2, 3, 5, 7]\n    assert find_primes_in_range(20, 22) == []\n    assert find_primes_in_range(14, 14) == []\n    assert find_primes_in_range(11, 11) == [11]\n    assert find_primes_in_range(10, 20) == [11, 13, 17, 19]\n\ndef test_find_primes_in_range_edge_cases():\n    assert find_primes_in_range(0, 5) == [2, 3, 5]\n    assert find_primes_in_range(5, 0) == []\n    assert find_primes_in_range(0, 0) == []",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000031",
+    "row_id": 31,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the closest element in an almost sorted array. An almost sorted array is defined as an array where each element is no more than two positions away from its sorted position in the array. For example, an array `[3, 1, 2, 4]` is an almost sorted array since each element is within one position of its sorted position.",
+  "solution_code": "def find_closest_element(arr, target):\n    \"\"\"\n    Given an almost sorted array and a target value, finds the index of the element \n    in the array which is closest to the target value. An almost sorted array is \n    defined as an array where each element is no more than two positions away from \n    its sorted position.\n    \"\"\"\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = left + (right - left) // 2\n        if mid - 2 >= 0 and arr[mid - 2] == target:\n            return mid - 2\n        elif mid + 2 < len(arr) and arr[mid + 2] == target:\n            return mid + 2\n        elif arr[mid - 1] == target:\n            return mid - 1\n        elif arr[mid + 1] == target:\n            return mid + 1\n        elif mid - 1 >= 0 and mid + 2 < len(arr):\n            if abs(target - arr[mid - 1]) < abs(target - arr[mid + 1]):\n                right = mid - 1\n            else:\n                left = mid + 1\n        elif mid - 1 >= 0:\n            left = mid + 1\n        elif mid + 2 < len(arr):\n            right = mid - 1\n        else:\n            break\n    # If the target is not found, return the closest value (based on index distance to target)\n    closest_diff = min(abs(arr[left] - target), abs(arr[right] - target))\n    return left if closest_diff == abs(arr[left] - target) else right",
+  "test_code": "def test_find_closest_element():\n    assert find_closest_element([2, 1, 3, 4, 0], 1) == 1\n    assert find_closest_element([10, 2, 1, 20, 30, 40], 21) == 3\n    assert find_closest_element([7, 8, 9, 5, 6, 4, 3, 2, 1], 5) == 3\n    assert find_closest_element([1, 3, 5, 7, 9, 11], 6) == 3\n    assert find_closest_element([1, 3, 2], 2) == 2\n    assert find_closest_element([0, 1, 2, 6, 5, 4], 3) == 2",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

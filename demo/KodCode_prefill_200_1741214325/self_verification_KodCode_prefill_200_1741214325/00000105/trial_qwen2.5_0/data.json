@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000105",
+    "row_id": 105,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the shortest distance from a point to a line in a 2D plane.",
+  "solution_code": "import math\n\ndef shortest_distance_from_point_to_line(point, line):\n    \"\"\"\n    Calculates the shortest distance from a point to a line in a 2D plane.\n    \n    Args:\n    point: A tuple (x, y) representing the point.\n    line: A tuple ((x1, y1), (x2, y2)) representing two points that define the line.\n    \n    Returns:\n    The shortest distance from the point to the line.\n    \"\"\"\n    x, y = point\n    x1, y1 = line[0]\n    x2, y2 = line[1]\n    \n    # Line equation parameters\n    A = y2 - y1\n    B = x1 - x2\n    C = (y2 - y1) * x1 - (x2 - x1) * y1\n    \n    # Distance from point to line\n    distance = abs(A * x + B * y + C) / math.sqrt(A**2 + B**2)\n    return distance",
+  "test_code": "from solution import shortest_distance_from_point_to_line\n\ndef test_distance_same_point():\n    point = (1, 1)\n    line = ((1, 1), (3, 3))\n    assert shortest_distance_from_point_to_line(point, line) == 0\n\ndef test_distance_vertical_line():\n    point = (2, 2)\n    line = ((1, 1), (1, 4))\n    assert shortest_distance_from_point_to_line(point, line) == 1\n\ndef test_distance_horizontal_line():\n    point = (2, 2)\n    line = ((1, 1), (4, 1))\n    assert shortest_distance_from_point_to_line(point, line) == 1\n\ndef test_distance_diagonal_line():\n    point = (1, 1)\n    line = ((0, 0), (4, 4))\n    assert shortest_distance_from_point_to_line(point, line) == 0\n\ndef test_distance_oblique_line():\n    point = (3, 0)\n    line = ((0, 0), (4, 3))\n    expected = 3 / math.sqrt(2)\n    assert math.isclose(shortest_distance_from_point_to_line(point, line), expected)\n\ndef test_distance_oblique_line2():\n    point = (3, 1)\n    line = ((0, 0), (4, 3))\n    expected = 1 / math.sqrt(2)\n    assert math.isclose(shortest_distance_from_point_to_line(point, line), expected)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

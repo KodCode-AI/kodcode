@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000081",
+    "row_id": 81,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the number of unique elements in a given list. thoughts to solve: First, recognize that unique elements are those that appear only once in the list. One could iterate through the list and for each element, count how many times it appears. If it appears exactly once, it's a unique element. Another approach could be to use a data structure that inherently prevents duplicates, such as a set. A set only stores unique elements, so if a list is converted to a set, the length of the set will be the number of unique elements.",
+  "solution_code": "def count_unique_elements(lst):\n    \"\"\"\n    Returns the number of unique elements in a given list.\n    \n    Parameters:\n    lst (list): The input list containing elements.\n    \n    Returns:\n    int: The number of unique elements.\n    \"\"\"\n    unique_elements = set(lst)\n    return len(unique_elements)",
+  "test_code": "from solution import count_unique_elements\n\ndef test_count_unique_elements_empty_list():\n    assert count_unique_elements([]) == 0\n\ndef test_count_unique_elements_single_element():\n    assert count_unique_elements([1]) == 1\n\ndef test_count_unique_elements_duplicate_elements():\n    assert count_unique_elements([1, 2, 3, 4, 5]) == 5\n\ndef test_count_unique_elements_with_duplicates():\n    assert count_unique_elements([1, 2, 2, 3, 4, 4, 5]) == 5\n\ndef test_count_unique_elements_same_elements():\n    assert count_unique_elements([1, 1, 1, 1, 1]) == 1",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

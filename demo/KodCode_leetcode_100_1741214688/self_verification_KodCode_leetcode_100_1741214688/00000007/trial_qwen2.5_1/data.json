@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000007",
+    "row_id": 7,
+    "seed_ids": [
+      "1847",
+      "1865",
+      "898"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an integer array `nums`, you are tasked with designing a data structure that supports two types of queries efficiently:\n\n1. **Add** a positive integer to an element of a given index in the array `nums`.\n2. **Find** the maximum value in a given range of the array `nums`.\n\nImplement the `DynamicArray` class:\n\n*   `DynamicArray(int[] nums)` Initializes the `DynamicArray` object with the integer array `nums`.\n*   `void add(int index, int val)` Adds `val` to `nums[index]`, i.e., applies `nums[index] += val`.\n*   `int find(int left, int right)` Returns the maximum value in the subarray `nums[left...right]`.\n\nEnsure that the `find` operation is as efficient as possible, given the updates to the array.",
+  "solution_code": "from typing import List\n\nclass DynamicArray:\n    def __init__(self, nums: List[int]):\n        self.nums = nums\n    \n    def add(self, index: int, val: int) -> None:\n        self.nums[index] += val\n    \n    def find(self, left: int, right: int) -> int:\n        return max(self.nums[left:right+1])",
+  "test_code": "import pytest\nfrom solution import DynamicArray\n\ndef test_add_and_find():\n    array = DynamicArray([1, 2, 3, 4, 5])\n    array.add(2, 3)  # Modify nums[2] to 6\n    assert array.find(1, 4) == 6  # The maximum value in the range [1, 4] is 6\n\ndef test_add_to_end():\n    array = DynamicArray([1, 2, 3])\n    array.add(3, 5)  # Extend nums to [1, 2, 3, 5]\n    assert array.find(2, 3) == 5  # The maximum value in the range [2, 3] is 5\n\ndef test_no_change():\n    array = DynamicArray([10, 20, 30, 40, 50])\n    assert array.find(1, 3) == 40  # The maximum value in the range [1, 3] is 40\n\ndef test_large_range():\n    array = DynamicArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])\n    array.add(5, 10)  # Modify nums[5] to 15\n    assert array.find(0, 9) == 15  # The maximum value from index 0 to 9 is 15\n\ndef test_negative_values():\n    array = DynamicArray([-10, -20, -30, -5, -40, -50])\n    array.add(2, 25)  # Modify nums[2] to -5\n    assert array.find(2, 5) == -5  # The maximum value in the range [2, 5] is -5",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000178",
+    "row_id": 178,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to generate a Fibonacci sequence up to a given number `n`.",
+  "solution_code": "def generate_fibonacci(n):\n    \"\"\"\n    Generates a Fibonacci sequence up to a given number n.\n    \n    Args:\n    n (int): The upper limit for the Fibonacci sequence.\n    \n    Returns:\n    list: A list containing the Fibonacci sequence up to n.\n    \"\"\"\n    sequence = []\n    a, b = 0, 1\n    while a <= n:\n        sequence.append(a)\n        a, b = b, a + b\n    return sequence",
+  "test_code": "def test_generate_fibonacci_positive():\n    assert generate_fibonacci(10) == [0, 1, 1, 2, 3, 5, 8]\n\ndef test_generate_fibonacci_with_zero():\n    assert generate_fibonacci(0) == [0]\n\ndef test_generate_fibonacci_with_negative():\n    assert generate_fibonacci(-1) == [0]\n\ndef test_generate_fibonacci_large_number():\n    assert generate_fibonacci(100) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]\n\ndef test_generate_fibonacci_single_element():\n    assert generate_fibonacci(1) == [0, 1]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

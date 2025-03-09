@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000113",
+    "row_id": 113,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the largest rectangle in a histogram.",
+  "solution_code": "def largest_rectangle_in_histogram(histogram):\n    \"\"\"\n    Finds the largest rectangle that can be formed in a histogram with the given heights.\n    :param histogram: A list of non-negative integers representing the heights of the bars.\n    :return: The area of the largest rectangle.\n    \"\"\"\n    stack = []\n    max_area = 0\n    index = 0\n    while index < len(histogram):\n        if not stack or histogram[stack[-1]] <= histogram[index]:\n            stack.append(index)\n            index += 1\n        else:\n            top_of_stack = stack.pop()\n            height = histogram[top_of_stack]\n            width = index if not stack else index - stack[-1] - 1\n            max_area = max(max_area, height * width)\n    while stack:\n        top_of_stack = stack.pop()\n        height = histogram[top_of_stack]\n        width = index if not stack else len(histogram) - stack[-1] - 1\n        max_area = max(max_area, height * width)\n    return max_area",
+  "test_code": "from solution import largest_rectangle_in_histogram\n\n# Test cases to verify the solution\ndef test_case1():\n    assert largest_rectangle_in_histogram([2, 1, 5, 6, 2, 3]) == 10\n\ndef test_case2():\n    assert largest_rectangle_in_histogram([2, 4]) == 4\n\ndef test_case3():\n    assert largest_rectangle_in_histogram([3, 1, 3]) == 6\n\ndef test_case4():\n    assert largest_rectangle_in_histogram([1, 2, 3, 4, 5]) == 9\n\ndef test_case5():\n    assert largest_rectangle_in_histogram([0, 0, 0, 0]) == 0\n\ndef test_case6():\n    assert largest_rectangle_in_histogram([1]) == 1\n\ndef test_case7():\n    assert largest_rectangle_in_histogram([6, 2, 5, 4, 5, 1, 6]) == 12",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

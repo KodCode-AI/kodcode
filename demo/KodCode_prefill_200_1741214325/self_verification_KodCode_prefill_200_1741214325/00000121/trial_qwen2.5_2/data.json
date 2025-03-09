@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000121",
+    "row_id": 121,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the first unique character in a string. If no unique character is found, return an underscore (_) character.",
+  "solution_code": "def first_uniq_char(s: str) -> str:\n    \"\"\"\n    Finds the first non-repeating character in a string and returns it.\n    If there is no such character, returns an underscore ('_').\n    \"\"\"\n    char_count = {}\n    \n    # Counting character occurrences\n    for char in s:\n        if char in char_count:\n            char_count[char] += 1\n        else:\n            char_count[char] = 1\n    \n    # Finding the first unique character\n    for char in s:\n        if char_count[char] == 1:\n            return char\n    \n    return '_'",
+  "test_code": "from solution import first_uniq_char\n\ndef test_first_uniq_char_with_unique():\n    assert first_uniq_char(\"leetcode\") == 'l'\n\ndef test_first_uniq_char_with_no_uniques():\n    assert first_uniq_char(\"aabbcc\") == '_'\n\ndef test_first_uniq_char_with_multiple_uniques_returns_first():\n    assert first_uniq_char(\"loveleetcode\") == 'l'\n\ndef test_first_uniq_char_empty_string():\n    assert first_uniq_char(\"\") == '_'\n\ndef test_first_uniq_char_single_character():\n    assert first_uniq_char(\"a\") == 'a'",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

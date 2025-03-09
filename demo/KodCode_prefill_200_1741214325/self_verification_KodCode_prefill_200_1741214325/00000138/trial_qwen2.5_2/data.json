@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000138",
+    "row_id": 138,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the length of the longest continuous subarray with equal number of 0s and 1s.",
+  "solution_code": "def findMaxLength(nums):\n    \"\"\"\n    Find the length of the longest continuous subarray with an equal number of 0 and 1.\n    :param nums: List[int] -- List of 0s and 1s\n    :return: int -- Length of the longest continuous subarray\n    \"\"\"\n    count_map = {}\n    count = 0\n    max_length = 0\n    count_map[0] = -1\n\n    for i, num in enumerate(nums):\n        if num == 1:\n            count += 1\n        else:\n            count -= 1\n\n        if count in count_map:\n            max_length = max(max_length, i - count_map[count])\n        else:\n            count_map[count] = i\n\n    return max_length",
+  "test_code": "from solution import findMaxLength\n\ndef test_findMaxLength():\n    assert findMaxLength([0, 1]) == 2\n    assert findMaxLength([0, 1, 0]) == 2\n    assert findMaxLength([0, 1, 0, 1]) == 4\n    assert findMaxLength([0, 0, 1, 0, 1, 1, 0, 1]) == 7\n    assert findMaxLength([1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1]) == 10\n\ndef test_empty_input():\n    assert findMaxLength([]) == 0\n\ndef test_single_element():\n    assert findMaxLength([0]) == 0\n    assert findMaxLength([1]) == 0\n\ndef test_all_zeros():\n    assert findMaxLength([0, 0, 0, 0]) == 0\n\ndef test_all_ones():\n    assert findMaxLength([1, 1, 1, 1]) == 0\n\ndef test_mismatched_lengths():\n    assert findMaxLength([0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1]) == 8",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

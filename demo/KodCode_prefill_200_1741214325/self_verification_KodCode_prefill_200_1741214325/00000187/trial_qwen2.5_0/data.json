@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000187",
+    "row_id": 187,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the Floyd Warshall shortest path algorithm from a given directed graph. The graph is represented using an adjacency matrix.",
+  "solution_code": "def floyd_warshall(graph):\n    \"\"\"\n    Finds and returns the shortest paths between all pairs of vertices using Floyd-Warshall algorithm.\n    :param graph: List[List[int]], where graph[i][j] is the weight of the edge from vertex i to vertex j.\n                  If there is no direct edge, graph[i][j] should be None.\n    :return: List[List[int]], where res[i][j] is the length of the shortest path from vertex i to vertex j.\n    \"\"\"\n    V = len(graph)\n    res = [[graph[i][j] if graph[i][j] is not None else float('inf') for j in range(V)] for i in range(V)]\n    \n    for via in range(V):\n        for start in range(V):\n            for end in range(V):\n                if res[start][end] > res[start][via] + res[via][end]:\n                    res[start][end] = res[start][via] + res[via][end]\n    return res",
+  "test_code": "def test_floyd_warshall():\n    graph = [\n        [0, 3, float('inf'), 7],\n        [8, 0, 2, float('inf')],\n        [5, float('inf'), 0, 1],\n        [2, float('inf'), float('inf'), 0]\n    ]\n    expected_result = [\n        [0, 3, 5, 7],\n        [8, 0, 2, 4],\n        [5, 7, 0, 1],\n        [2, 7, 6, 0]\n    ]\n    result = floyd_warshall(graph)\n    assert result == expected_result\n\ndef test_floyd_warshall_with_suboptimal_paths():\n    graph = [\n        [0, 2, 1],\n        [float('inf'), 0, 4],\n        [float('inf'), float('inf'), 0]\n    ]\n    expected_result = [\n        [0, 2, 1],\n        [3, 0, 3],\n        [4, 5, 0]\n    ]\n    result = floyd_warshall(graph)\n    assert result == expected_result\n\ndef test_floyd_warshall_all_positive_edges():\n    graph = [\n        [0, 3, 1],\n        [1, 0, 1],\n        [2, 2, 0]\n    ]\n    expected_result = [\n        [0, 3, 2],\n        [2, 0, 1],\n        [2, 2, 0]\n    ]\n    result = floyd_warshall(graph)\n    assert result == expected_result\n\ndef test_floyd_warshall_empty_graph():\n    graph = [[]]\n    expected_result = [[0]]\n    result = floyd_warshall(graph)\n    assert result == expected_result\n\ndef test_floyd_warshall_single_vertex():\n    graph = [[0]]\n    expected_result = [[0]]\n    result = floyd_warshall(graph)\n    assert result == expected_result",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

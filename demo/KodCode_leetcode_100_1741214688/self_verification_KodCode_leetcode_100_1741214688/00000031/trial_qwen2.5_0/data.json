@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000031",
+    "row_id": 31,
+    "seed_ids": [
+      "1361",
+      "485",
+      "1629"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with finding the lexicographically largest substring that is a palindrome. A palindrome is a string that reads the same backward as forward. If there are multiple palindromic substrings of the same length, return the one that is lexicographically largest. A substring is any contiguous sequence of characters within a string.",
+  "solution_code": "def find_lexicographically_largest_palindrome(s):\n    \"\"\"\n    Given a string s, find the lexicographically largest palindromic substring.\n    \"\"\"\n    n = len(s)\n    if n == 0:\n        return \"\"\n    \n    # Initialize variables to store the result\n    start, end = 0, 0\n    \n    for i in range(n):\n        # Check for odd length palindromes\n        left, right = expand_around_center(s, i, i)\n        if right - left + 1 > end - start + 1:\n            start, end = left, right\n        \n        # Check for even length palindromes\n        left, right = expand_around_center(s, i, i + 1)\n        if right - left + 1 > end - start + 1:\n            start, end = left, right\n    \n    return s[start:end+1]\n\ndef expand_around_center(s, left, right):\n    \"\"\"\n    Helper function to expand around the center and find the longest palindrome.\n    \"\"\"\n    while left >= 0 and right < len(s) and s[left] == s[right]:\n        left -= 1\n        right += 1\n    return left + 1, right - 1",
+  "test_code": "import pytest\n\ndef test_find_lexicographically_largest_palindrome():\n    assert find_lexicographically_largest_palindrome(\"babad\") == \"bab\"\n    assert find_lexicographically_largest_palindrome(\"cbbd\") == \"bb\"\n    assert find_lexicographically_largest_palindrome(\"a\") == \"a\"\n    assert find_lexicographically_largest_palindrome(\"ac\") == \"a\"\n    assert find_lexicographically_largest_palindrome(\"racecar\") == \"racecar\"\n    assert find_lexicographically_largest_palindrome(\"banana\") == \"anana\"\n    assert find_lexicographically_largest_palindrome(\"abba\") == \"abba\"\n    assert find_lexicographically_largest_palindrome(\"abcde\") == \"e\"\n\ndef test_edge_cases():\n    assert find_lexicographically_largest_palindrome(\"\") == \"\"\n    assert find_lexicographically_largest_palindrome(\"a\") == \"a\"\n    assert find_lexicographically_largest_palindrome(\"aa\") == \"aa\"\n    assert find_lexicographically_largest_palindrome(\"aaa\") == \"aaa\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000012",
+    "row_id": 12,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert the first and last characters of a string to uppercase and return the modified string.",
+  "solution_code": "def capitalize_first_last_char(s):\n    \"\"\"\n    Converts the first and last characters of the string to uppercase and returns the modified string.\n    If the string has less than 2 characters, it returns the string as is.\n    \"\"\"\n    if len(s) < 2:\n        return s\n    return s[0].upper() + s[1:-1] + s[-1].upper()",
+  "test_code": "from solution import capitalize_first_last_char\n\ndef test_capitalize_first_last_char():\n    assert capitalize_first_last_char(\"hello\") == \"HeLlo\"\n    assert capitalize_first_last_char(\"a\") == \"A\"\n    assert capitalize_first_last_char(\"ab\") == \"Ab\"\n\ndef test_special_characters():\n    assert capitalize_first_last_char(\"!@#\") == \"!@#\"\n    assert capitalize_first_last_char(\"$\") == \"$\"\n\ndef test_empty_string():\n    assert capitalize_first_last_char(\"\") == \"\"\n\ndef test_single_space_string():\n    assert capitalize_first_last_char(\" \") == \"  \"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

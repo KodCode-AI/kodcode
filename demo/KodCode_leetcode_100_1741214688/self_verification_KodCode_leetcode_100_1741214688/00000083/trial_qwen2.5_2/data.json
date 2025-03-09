@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000083",
+    "row_id": 83,
+    "seed_ids": [
+      "29",
+      "2133",
+      "1172"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of `n` unique integers `nums` and an integer `k`, return the `k` smallest **absolute differences** between any two distinct elements in the list. More formally, you need to find the `k` smallest values of `|a - b|` for all pairs `(a, b)` where `a` and `b` are distinct elements in `nums`. Ensure that the elements in the output are unique and sorted in ascending order. If there are fewer than `k` unique differences, return all of them. Note that the absolute difference between two integers `a` and `b` is defined as `|a - b|`.",
+  "solution_code": "def find_k_smallest_diff(nums, k):\n    \"\"\"\n    Returns the k smallest absolute differences between any two distinct elements in the list.\n    \"\"\"\n    nums.sort()\n    differences = set()\n    \n    for i in range(len(nums) - 1):\n        for j in range(i + 1, len(nums)):\n            differences.add(abs(nums[i] - nums[j]))\n    \n    return sorted(list(differences)[:k])",
+  "test_code": "def test_find_k_smallest_diff():\n    assert find_k_smallest_diff([1, 3, 1], 1) == [2]\n    assert find_k_smallest_diff([1, 1, 1, 1], 1) == [0]\n    assert find_k_smallest_diff([1, 2, 3, 4, 5], 4) == [1, 2, 3, 4]\n    assert find_k_smallest_diff([4, 6, 1, 2, 3, 5], 3) == [1, 1, 2]\n\n# Testing with randomness to ensure the solution is robust\nimport random\nrandom_nums = random.sample(range(100), 10)\nk = 5\nassert find_k_smallest_diff(random_nums, k) == sorted(set([abs(a - b) for a in random_nums for b in random_nums if a != b]))[:k]\n\n# Testing with negative numbers\nassert find_k_smallest_diff([-1, -2, -3, -4, -5], 4) == [1, 2, 3, 4]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

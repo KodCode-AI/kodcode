@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000092",
+    "row_id": 92,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort a list of tuples by the second item in each tuple. The function should take a list of tuples as input and return the sorted list in ascending order based on the second item of each tuple. If the second item is the same for multiple tuples, the tuples should be sorted by their first item in ascending order.",
+  "solution_code": "def sort_tuples_by_second_item(tuples_list):\n    \"\"\"\n    Sorts a list of tuples based on the second item in each tuple in ascending order.\n    If two tuples have the same second item, it sorts them by the first item in ascending order.\n    \n    :param tuples_list: List of tuples to be sorted\n    :return: Sorted list of tuples\n    \"\"\"\n    return sorted(tuples_list, key=lambda x: (x[1], x[0]))",
+  "test_code": "from solution import sort_tuples_by_second_item\n\ndef test_sort_tuples_by_second_item():\n    assert sort_tuples_by_second_item([(1, 3), (4, 1), (5, 2), (3, 2)]) == [(4, 1), (5, 2), (3, 2), (1, 3)]\n    assert sort_tuples_by_second_item([(2, 2), (3, 1), (1, 1)]) == [(3, 1), (1, 1), (2, 2)]\n    assert sort_tuples_by_second_item([(1, 1), (2, 1), (3, 1)]) == [(1, 1), (2, 1), (3, 1)]\n    assert sort_tuples_by_second_item([(4, 2), (5, 2), (2, 1)]) == [(2, 1), (4, 2), (5, 2)]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

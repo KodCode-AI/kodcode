@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000037",
+    "row_id": 37,
+    "seed_ids": [
+      "1284",
+      "2165",
+      "1413"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of `n` intervals `intervals`, where each interval is represented as `[start, end]`, find the minimum number of intervals you need to remove so that the remaining intervals do not overlap. An interval `A` overlaps with another interval `B` if `A` and `B` have at least one common point. Return the minimum number of intervals to remove.",
+  "solution_code": "def min_intervals_to_remove(intervals):\n    \"\"\"\n    Given a list of intervals, find the minimum number of intervals to remove\n    so that the remaining intervals do not overlap.\n    \"\"\"\n    if len(intervals) <= 1:\n        return 0\n    \n    # Sort intervals based on the end point. If two intervals have the same end point, sort by start point\n    intervals.sort(key=lambda x: (x[1], x[0]))\n    \n    last_end = intervals[0][1]\n    count = 0\n    \n    for i in range(1, len(intervals)):\n        if intervals[i][0] < last_end:\n            count += 1\n        else:\n            last_end = intervals[i][1]\n    \n    return count",
+  "test_code": "from typing import List\n\ndef test_min_intervals_to_remove():\n    assert min_intervals_to_remove([[1,2],[2,3],[3,4],[1,3]]) == 1\n    assert min_intervals_to_remove([[1,2],[1,2],[1,2]]) == 2\n    assert min_intervals_to_remove([[1,2],[2,3]]) == 0\n    assert min_intervals_to_remove([[5,10],[10,15],[15,20]]) == 0\n    assert min_intervals_to_remove([[1,5],[1,5],[1,5]]) == 2\n    assert min_intervals_to_remove([[1,2],[2,3],[2,4],[3,5],[4,6],[4,7]]) == 2\n    assert min_intervals_to_remove([[0,30],[5,10],[15,20]]) == 1\n    assert min_intervals_to_remove([[1,10],[2,21],[3,22],[4,30]]) == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000006",
+    "row_id": 6,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to search for a specific word in a text file. The function should take two parameters: the file path and the word to search for. The function should return a list of line numbers where the word is found. If the word is not found, return an empty list. The function should ignore case sensitivity.",
+  "solution_code": "def search_word_in_file(file_path, word):\n    \"\"\"\n    Searches for a specific word in a text file and returns a list of line numbers\n    where the word is found. The search is case-insensitive.\n    \n    :param file_path: Path to the text file.\n    :param word: The word to search for.\n    :return: A list of line numbers where the word is found.\n    \"\"\"\n    word = word.lower()\n    found_lines = []\n    with open(file_path, 'r', encoding='utf-8') as file:\n        for line_number, line in enumerate(file, start=1):\n            if word in line.lower():\n                found_lines.append(line_number)\n    return found_lines",
+  "test_code": "import os\nfrom solution import search_word_in_file\n\n# Assuming there is a test file named 'test.txt' with the following content:\n# This is a test file.\n# The word test is present in this file.\n# Another test line. This is to check for multiple occurrences.\n\ndef setup_test_file():\n    with open('test.txt', 'w', encoding='utf-8') as file:\n        file.write(\"This is a test file.\\n\")\n        file.write(\"The word test is present in this file.\\n\")\n        file.write(\"Another test line. This is to check for multiple occurrences.\\n\")\n\ndef teardown_test_file():\n    try:\n        os.remove('test.txt')\n    except FileNotFoundError:\n        pass\n\ndef test_search_word_in_file():\n    setup_test_file()\n    result = search_word_in_file('test.txt', 'test')\n    assert result == [2, 3]\n    result = search_word_in_file('test.txt', 'file')\n    assert result == [1, 2]\n    result = search_word_in_file('test.txt', 'notfound')\n    assert result == []\n    teardown_test_file()\n\ndef test_search_word_case_insensitive():\n    setup_test_file()\n    result = search_word_in_file('test.txt', 'TEST')\n    assert result == [2, 3]\n    teardown_test_file()",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

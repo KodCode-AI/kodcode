@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000013",
+    "row_id": 13,
+    "seed_ids": [
+      "82",
+      "2008",
+      "1690"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary tree, return the sum of all left leaves. A leaf is a node with no children, and a left leaf is a leaf that is the left child of its parent. If there are no left leaves, return 0.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef sum_of_left_leaves(root: TreeNode) -> int:\n    \"\"\"\n    Returns the sum of all left leaves in the binary tree.\n    \"\"\"\n    if not root:\n        return 0\n\n    def dfs(node, is_left):\n        if not node.left and not node.right:\n            return node.val if is_left else 0\n        left_sum = 0\n        if node.left:\n            left_sum += dfs(node.left, True)\n        if node.right:\n            left_sum += dfs(node.right, False)\n        return left_sum\n\n    return dfs(root, False)",
+  "test_code": "def create_tree(*values):\n    def build_tree(nodes, index=1):\n        if not nodes or index > len(nodes) or not nodes[index-1]:\n            return None\n        root = TreeNode(nodes[index-1])\n        root.left = build_tree(nodes, 2*index)\n        root.right = build_tree(nodes, 2*index+1)\n        return root\n    return build_tree(values)\n\nfrom solution import sum_of_left_leaves\n\ndef test_sum_of_left_leaves():\n    assert sum_of_left_leaves(create_tree(3, 9, 20, None, None, 15, 7)) == 24\n\ndef test_sum_of_left_leaves_with_no_left_leaf():\n    assert sum_of_left_leaves(create_tree(1, 2, 3, 4, 5)) == 0\n\ndef test_sum_of_left_leaves_single_node():\n    assert sum_of_left_leaves(create_tree(1)) == 0\n\ndef test_sum_of_left_leaves_complex_tree():\n    assert sum_of_left_leaves(create_tree(1, 2, 3, 4, 5, 6, 7, None, None, 8)) == 22\n\ndef test_sum_of_left_leaves_empty_tree():\n    assert sum_of_left_leaves(None) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

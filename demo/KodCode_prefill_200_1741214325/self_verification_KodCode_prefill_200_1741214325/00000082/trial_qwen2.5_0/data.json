@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000082",
+    "row_id": 82,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find disjunctive normal form (DNF) of a 2-variable boolean formula using the sympy library. Provide a simple explanation of the function and its inputs/output.",
+  "solution_code": "from sympy import symbols, And, Or, Not, simplify\n\ndef to_dnf(boolean_formula):\n    \"\"\"\n    Converts a 2-variable boolean formula to Disjunctive Normal Form (DNF).\n\n    Parameters:\n    boolean_formula (str): A string representing a 2-variable boolean formula, e.g., \"A and not B or B\"\n\n    Returns:\n    dnf (str): The DNF equivalent of the provided boolean formula\n    \"\"\"\n    # Define symbols\n    A, B = symbols('A B')\n    \n    # Parse the boolean formula using sympy\n    parsed_formula = eval(boolean_formula)\n    \n    # Simplify the formula\n    simplified_formula = simplify(parsed_formula)\n    \n    # Convert to DNF\n    dnf = simplify(simplified_formula, basic=True, force=True, deep=True)\n    \n    return str(dnf)",
+  "test_code": "from solution import to_dnf\n\ndef test_to_dnf():\n    assert to_dnf(\"A and not B\") == \"A & ~B\"\n    assert to_dnf(\"A or B\") == \"(A | B)\"\n    assert to_dnf(\"not A and B\") == \"~A & B\"\n    assert to_dnf(\"A and B\") == \"(A & B)\"\n    assert to_dnf(\"not A or not B\") == \"(~A | ~B)\"\n    assert to_dnf(\"(A and not B) or (not A and B)\") == \"((A & ~B) | (~A & B))\"\n    assert to_dnf(\"(A or B) and (not A or B)\") == \"((A | B) & (~A | B))\"\n    assert to_dnf(\"(A and B) or (A and not B) or (not A and B)\") == \"((A & B) | (A & ~B) | (~A & B))\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

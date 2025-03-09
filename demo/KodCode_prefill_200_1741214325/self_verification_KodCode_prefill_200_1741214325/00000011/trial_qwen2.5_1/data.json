@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000011",
+    "row_id": 11,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum product of a subarray within a given array of integers. The function should work for both positive and negative numbers.",
+  "solution_code": "def max_product_subarray(nums):\n    \"\"\"\n    Returns the maximum product of a subarray within the given array of integers.\n    \"\"\"\n    if not nums:\n        return 0\n    \n    max_product = min_product = result = nums[0]\n    \n    for num in nums[1:]:\n        temp_max = max(num, max_product * num, min_product * num)\n        min_product = min(num, max_product * num, min_product * num)\n        max_product = temp_max\n        \n        result = max(result, max_product)\n        \n    return result",
+  "test_code": "from solution import max_product_subarray\n\ndef test_max_product_subarray_positive_numbers():\n    assert max_product_subarray([2, 3, -2, 4]) == 6\n\ndef test_max_product_subarray_mixed_sign_numbers():\n    assert max_product_subarray([-2, 0, -1]) == 0\n\ndef test_max_product_subarray_large_numbers():\n    assert max_product_subarray([0, 2]) == 2\n    assert max_product_subarray([-1, -2, -3, 0]) == 6\n\ndef test_max_product_subarray_single_element():\n    assert max_product_subarray([1]) == 1\n\ndef test_max_product_subarray_all_negative():\n    assert max_product_subarray([-1, -2, -3, -4]) == 24\n\ndef test_max_product_subarray_all_positive():\n    assert max_product_subarray([1, 2, 3, 4]) == 24\n\ndef test_max_product_subarray_with_zero():\n    assert max_product_subarray([0, 2, 3, -5]) == 6",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

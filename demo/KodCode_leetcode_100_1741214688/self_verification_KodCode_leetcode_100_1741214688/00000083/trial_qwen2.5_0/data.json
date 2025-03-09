@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000083",
+    "row_id": 83,
+    "seed_ids": [
+      "29",
+      "2133",
+      "1172"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of `n` unique integers `nums` and an integer `k`, return the `k` smallest **absolute differences** between any two distinct elements in the list. More formally, you need to find the `k` smallest values of `|a - b|` for all pairs `(a, b)` where `a` and `b` are distinct elements in `nums`. Ensure that the elements in the output are unique and sorted in ascending order. If there are fewer than `k` unique differences, return all of them. Note that the absolute difference between two integers `a` and `b` is defined as `|a - b|`.",
+  "solution_code": "def k_smallest_abs_diff(nums, k):\n    \"\"\"\n    Returns the k smallest absolute differences between any two distinct elements.\n    \"\"\"\n    # Sort the list to simplify finding the minimum absolute differences\n    nums.sort()\n    differences = set()\n    \n    # Initialize with the smallest absolute difference\n    for i in range(len(nums) - 1):\n        differences.add(abs(nums[i] - nums[i + 1]))\n    \n    # Find other k-1 smallest absolute differences\n    if k > 1:\n        for i in range(len(nums) - 1):\n            j = i + 1\n            while j < len(nums) - 1:\n                diff = abs(nums[i] - nums[j + 1])\n                if len(differences) < k and diff not in differences:\n                    differences.add(diff)\n                j += 1\n    \n    return sorted(list(differences))[:k]",
+  "test_code": "def test_k_smallest_abs_diff():\n    assert k_smallest_abs_diff([1, 3, -1], 2) == [0, 2]\n    assert k_smallest_abs_diff([1, -1], 1) == [0]\n    assert k_smallest_abs_diff([4, 2, 8, 3, 10, 4], 5) == [1, 2, 3, 4, 5]\n    assert k_smallest_abs_diff([2, 4, 8, 4, 2], 2) == [0, 2]\n    assert k_smallest_abs_diff([7, 5, 4, 3], 3) == [1, 2, 3]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

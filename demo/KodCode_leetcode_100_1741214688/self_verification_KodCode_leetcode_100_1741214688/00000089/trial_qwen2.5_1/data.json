@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000089",
+    "row_id": 89,
+    "seed_ids": [
+      "1202",
+      "982",
+      "2531"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given two strings `s` and `t`, both of length `n`, and an integer `k`, you can perform the following operation on `s` any number of times: choose `k` indices in `s` and rotate the substring of `s` starting at each of those indices by one position to the right (the last character moves to the front). A rotation is represented by a pair `[i, k]` where `i` is the starting index and `k` is the number of positions to rotate. Determine the lexicographically smallest string `s` that can be obtained after performing these operations, and also find the minimum number of operations required to achieve this.",
+  "solution_code": "def find_min_string(s: str, k: int) -> (str, int):\n    \"\"\"\n    Returns the lexicographically smallest string s that can be obtained after\n    performing the rotation operations and the minimum number of operations required.\n    \"\"\"\n    if k < len(s):\n        rotations = []\n        for i in range(len(s)):\n            s = s[-1] + s[:-1]  # Rotate the string by one position\n            rotations.append((i, 1))\n        return s, len(rotations)\n    else:\n        # If k is large enough, we can make all characters the same with one operation\n        # or use up to k-1 operations to make the string lexicographically smallest.\n        min_char = min(s)\n        for i in range(len(s)):\n            if s[i] == min_char:\n                return s[i:] + s[:i], 1\n        return s, 0  # In case the string is already lexicographically smallest\n\n# Example usage:\n# print(find_min_string(\"bbbaaa\", 3))  # Should return ('aaaaabbb', 3)\n# print(find_min_string(\"ccbb\", 2))    # Should return ('bbcc', 1)",
+  "test_code": "from solution import find_min_string\n\ndef test_find_min_string():\n    assert find_min_string(\"bbbaaa\", 3) == ('aaaaabbb', 3)\n    assert find_min_string(\"ccbb\", 2) == ('bbcc', 1)\n    assert find_min_string(\"abc\", 5) == ('abc', 0)  # Already smallest\n    assert find_min_string(\"ccc\", 3) == ('ccc', 0)  # Already smallest\n    assert find_min_string(\"zzzz\", 2) == ('zzzz', 1)  # Can be made smaller with 1 operation\n\nif __name__ == \"__main__\":\n    import pytest\n    pytest.main(['-v', '--tb=line', '-rN', __file__])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000031",
+    "row_id": 31,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the closest element in an almost sorted array. An almost sorted array is defined as an array where each element is no more than two positions away from its sorted position in the array. For example, an array `[3, 1, 2, 4]` is an almost sorted array since each element is within one position of its sorted position.",
+  "solution_code": "def find_closest_element(arr, target):\n    \"\"\"\n    Finds the closest element to the target in an almost sorted array.\n    An almost sorted array is one where each element is no more than two positions away\n    from its sorted position.\n    \n    Args:\n    arr : List[int]\n        The almost sorted array.\n    target : int\n        The target value to find the closest element to.\n        \n    Returns:\n    int\n        The closest element to the target in the array.\n    \"\"\"\n    left, right = 0, len(arr) - 1\n    closest_index = 0\n    min_diff = float('inf')\n\n    while left <= right:\n        mid = (left + right) // 2\n        # Check if the current element or its neighbors could be the closest\n        if abs(arr[mid] - target) < min_diff:\n            min_diff = abs(arr[mid] - target)\n            closest_index = mid\n\n        # Move the search towards the center\n        if arr[mid] == target:\n            break\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n\n    return arr[closest_index]",
+  "test_code": "from solution import find_closest_element\n\ndef test_closest_element_positive():\n    assert find_closest_element([4, 3, 2, 5, 1], 3) == 3  # Array and target value\n\ndef test_closest_element_large_positive_number():\n    assert find_closest_element([10, 20, 30, 60, 40, 50], 45) == 40  # Large positive numbers\n\ndef test_closest_element_zero():\n    assert find_closest_element([0, -1, 2, 1, -1], -2) == -1  # Including zero and negative values\n\ndef test_closest_element_negative():\n    assert find_closest_element([-2, -1, -5, -4, 0], -3) == -2  # Array and negative target value\n\ndef test_closest_element_one_element():\n    assert find_closest_element([5], 5) == 5  # Single element array\n\ndef test_closest_element_sorted_array():\n    assert find_closest_element([1, 2, 3, 4, 5], 3) == 3  # Sorted array\n\ndef test_closest_element_unsorted_array():\n    assert find_closest_element([5, 3, 1, 2, 4], 3) == 3  # Unsorted array with target 3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

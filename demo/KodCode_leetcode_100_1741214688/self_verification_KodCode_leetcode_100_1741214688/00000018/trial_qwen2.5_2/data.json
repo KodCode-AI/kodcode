@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000018",
+    "row_id": 18,
+    "seed_ids": [
+      "2482",
+      "2440",
+      "1887"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a **0-indexed** integer array `nums` of length `n`. You are allowed to perform the following operation on the array any number of times:\n\n- Choose an index `i` such that `0 <= i < n` and set `nums[i]` to `0`.\n\nYou are also given a **0-indexed** array `costs` of the same length, where `costs[i]` represents the cost of setting `nums[i]` to `0`. \n\nYour goal is to make all elements in `nums` equal to `0` with the minimum possible cost. \n\nReturn _the minimum cost to achieve this_.",
+  "solution_code": "def minimum_cost(nums, costs):\n    \"\"\"\n    Returns the minimum cost to set all elements in nums to 0.\n    \"\"\"\n    total_cost = 0\n    min_cost = min(costs)  # Find the minimum cost in the costs list\n    \n    for i in range(len(nums)):\n        if nums[i] != 0:\n            total_cost += min_cost  # Use the minimum cost to set nums[i] to 0\n    \n    return total_cost",
+  "test_code": "def test_minimum_cost():\n    assert minimum_cost([1,2,3], [10,15,20]) == 10\n    assert minimum_cost([3,1,1,1], [10,1,1,1]) == 12\n    assert minimum_cost([3,1,2], [4,2,1]) == 4\n\ndef test_minimum_cost_with_zeros():\n    assert minimum_cost([0,0,0], [1,2,3]) == 0\n    assert minimum_cost([0,0,0], [100,100,100]) == 0\n\ndef test_minimum_cost_all_elements():\n    assert minimum_cost([1,1,1,1], [2,2,2,2]) == 8\n    assert minimum_cost([1,1,1,1,1], [1,2,3,4,5]) == 5\n\ndef test_minimum_cost_example():\n    assert minimum_cost([2,2,3,1,1,0], [10,10,10,10,10,10]) == 20\n    assert minimum_cost([1,2,3], [0,0,0]) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

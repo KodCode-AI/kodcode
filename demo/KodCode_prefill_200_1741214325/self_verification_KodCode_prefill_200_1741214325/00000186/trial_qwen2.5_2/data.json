@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000186",
+    "row_id": 186,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a linked list using a stack data structure.",
+  "solution_code": "class ListNode:\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef reverse_linked_list_with_stack(head):\n    \"\"\"\n    Reverses the given linked list using a stack data structure.\n    \"\"\"\n    if head is None:\n        return None\n    \n    stack = []\n    current = head\n    while current:\n        stack.append(current)\n        current = current.next\n    \n    if not stack:\n        return None\n    \n    new_head = stack.pop()\n    current = new_head\n    while stack:\n        current.next = stack.pop()\n        current = current.next\n    current.next = None\n    \n    return new_head",
+  "test_code": "from solution import ListNode, reverse_linked_list_with_stack\nfrom typing import Optional\n\ndef create_linked_list(values):\n    if not values:\n        return None\n    head = ListNode(values[0])\n    current = head\n    for value in values[1:]:\n        current.next = ListNode(value)\n        current = current.next\n    return head\n\ndef to_list(head: Optional[ListNode]) -> list:\n    result = []\n    current = head\n    while current:\n        result.append(current.value)\n        current = current.next\n    return result\n\ndef test_reverse_linked_list_with_stack():\n    # Single element list\n    head = ListNode(1)\n    assert to_list(reverse_linked_list_with_stack(head)) == [1]\n    \n    # Empty list\n    head = None\n    assert reverse_linked_list_with_stack(head) is None\n    \n    # Multiple elements\n    head = create_linked_list([1, 2, 3, 4, 5])\n    assert to_list(reverse_linked_list_with_stack(head)) == [5, 4, 3, 2, 1]\n    \n    # Reversing a linked list with nodes having the same value\n    head = create_linked_list([1, 1, 1])\n    assert to_list(reverse_linked_list_with_stack(head)) == [1, 1, 1]\n    \n    # Reversing a linked list formed in a zigzag pattern\n    head = create_linked_list([1, 3, 2, 4, 5])\n    assert to_list(reverse_linked_list_with_stack(head)) == [5, 4, 2, 3, 1]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

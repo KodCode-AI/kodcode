@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000037",
+    "row_id": 37,
+    "seed_ids": [
+      "1284",
+      "2165",
+      "1413"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of `n` intervals `intervals`, where each interval is represented as `[start, end]`, find the minimum number of intervals you need to remove so that the remaining intervals do not overlap. An interval `A` overlaps with another interval `B` if `A` and `B` have at least one common point. Return the minimum number of intervals to remove.",
+  "solution_code": "def min_intervals_to_remove(intervals):\n    \"\"\"\n    Finds the minimum number of intervals to remove in order for the remaining\n    intervals not to overlap.\n    \"\"\"\n    if not intervals:\n        return 0\n    \n    # Sort intervals based on the end time\n    intervals.sort(key=lambda x: x[1])\n    end = intervals[0][1]\n    count = 1   # Count of non-overlapping intervals\n    \n    for interval in intervals[1:]:\n        if interval[0] >= end:\n            count += 1\n            end = interval[1]\n    \n    # The number of intervals to remove is the total number of intervals\n    # minus the number of non-overlapping intervals\n    return len(intervals) - count",
+  "test_code": "from solution import min_intervals_to_remove\n\ndef test_no_intervals():\n    assert min_intervals_to_remove([]) == 0\n\ndef test_one_interval():\n    assert min_intervals_to_remove([[1, 2]]) == 0\n\ndef test_separate_intervals():\n    assert min_intervals_to_remove([[1, 3], [6, 9], [2, 5]]) == 0\n\ndef test_overlapping_intervals_by_end():\n    assert min_intervals_to_remove([[1, 2], [2, 3], [3, 4]]) == 0\n\ndef test_several_overlapping_intervals():\n    assert min_intervals_to_remove([[1, 100], [11, 22], [1, 11], [2, 12]]) == 2\n\ndef test_single_overlapping_with_one():\n    assert min_intervals_to_remove([[1, 3], [2, 4]]) == 1\n\ndef test_multiple_overlaps():\n    assert min_intervals_to_remove([[1, 2], [2, 3], [3, 4], [4, 5]]) == 2",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

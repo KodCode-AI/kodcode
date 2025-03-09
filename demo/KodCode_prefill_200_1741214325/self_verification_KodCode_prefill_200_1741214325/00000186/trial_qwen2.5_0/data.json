@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000186",
+    "row_id": 186,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a linked list using a stack data structure.",
+  "solution_code": "class ListNode:\n    \"\"\"Simple linked list node class.\"\"\"\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef reverse_linked_list(head):\n    \"\"\"\n    Reverses a linked list in-place using a stack to temporarily store nodes.\n    \n    :param head: ListNode, the head of the linked list to be reversed\n    :return: ListNode, the new head of the reversed linked list\n    \"\"\"\n    stack = []\n    current = head\n    while current:\n        stack.append(current)\n        current = current.next\n    \n    # If the list was empty, return None or the last node.\n    if not stack:\n        return None\n    \n    new_head = stack.pop()\n    current = new_head\n    while stack:\n        current.next = stack.pop()\n        current = current.next\n    current.next = None\n    \n    return new_head",
+  "test_code": "from solution import ListNode, reverse_linked_list\n\ndef construct_linked_list(values):\n    \"\"\"Constructs a linked list from a list of values.\"\"\"\n    if not values:\n        return None\n    head = ListNode(values[0])\n    current = head\n    for value in values[1:]:\n        current.next = ListNode(value)\n        current = current.next\n    return head\n\ndef to_list(node):\n    \"\"\"Converts a linked list to a list of values.\"\"\"\n    values = []\n    while node:\n        values.append(node.value)\n        node = node.next\n    return values\n\ndef test_reverse_linked_list():\n    # Test with a non-empty list\n    assert to_list(reverse_linked_list(construct_linked_list([1, 2, 3, 4]))) == [4, 3, 2, 1]\n\n    # Test with a single element\n    assert to_list(reverse_linked_list(construct_linked_list([5]))) == [5]\n\n    # Test with an empty list\n    assert to_list(reverse_linked_list(construct_linked_list([]))) == []\n\n    # Test with a negative number\n    assert to_list(reverse_linked_list(construct_linked_list([-5, 6, -7, 8]))) == [8, -7, 6, -5]\n\n    # Test with all negative numbers\n    assert to_list(reverse_linked_list(construct_linked_list([-1, -2, -3, -4]))) == [-4, -3, -2, -1]\n\n    # Test with repeated numbers\n    assert to_list(reverse_linked_list(construct_linked_list([1, 1, 1, 1]))) == [1, 1, 1, 1]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

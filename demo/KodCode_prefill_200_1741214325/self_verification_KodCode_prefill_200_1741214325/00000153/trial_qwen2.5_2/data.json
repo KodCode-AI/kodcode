@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000153",
+    "row_id": 153,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to determine the number of vowels in a string. The vowels are 'a', 'e', 'i', 'o', and 'u' (both lowercase and uppercase).",
+  "solution_code": "def count_vowels(s: str) -> int:\n    \"\"\"\n    Returns the number of vowels in the string s.\n    \"\"\"\n    vowels = 'aeiouAEIOU'\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count",
+  "test_code": "from solution import count_vowels\n\ndef test_count_vowels_empty_string():\n    assert count_vowels(\"\") == 0\n\ndef test_count_vowels_all_vowels():\n    assert count_vowels(\"aeiouAEIOU\") == 10\n\ndef test_count_vowels_no_vowels():\n    assert count_vowels(\"bcdfg\") == 0\n\ndef test_count_vowels_mixed_string():\n    assert count_vowels(\"Hello World!\") == 3\n\ndef test_count_vowels_with_spaces():\n    assert count_vowels(\"Quick Brown Fox Jumps Over The Lazy Dog\") == 11",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

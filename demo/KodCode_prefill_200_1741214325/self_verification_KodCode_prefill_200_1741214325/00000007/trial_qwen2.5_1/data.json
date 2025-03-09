@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000007",
+    "row_id": 7,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given set of cevablar can win a greedy game played with blueblocks, greenblocks, and redblocks).",
+  "solution_code": "def can_win_game(cevablar):\n    \"\"\"\n    Checks if a given set of cevablar can win the game.\n    \n    Parameters:\n    cevablar (list): A list containing the number of blueblocks, greenblocks, and redblocks.\n    \n    Returns:\n    bool: True if the given set can win the game, False otherwise.\n    \"\"\"\n    blueblocks, greenblocks, redblocks = cevablar\n    # A player can win if they can form a sequence of blocks such that each block is of a different color\n    # This means there should be at least one block of each color\n    return blueblocks > 0 and greenblocks > 0 and redblocks > 0",
+  "test_code": "from solution import can_win_game\n\ndef test_can_win_game_with_all_nonzero_blocks():\n    assert can_win_game([1, 1, 1]) == True\n\ndef test_can_win_game_with_one_zero_block():\n    assert can_win_game([0, 1, 1]) == False\n    assert can_win_game([1, 0, 1]) == False\n    assert can_win_game([1, 1, 0]) == False\n\ndef test_can_win_game_with_two_zero_blocks():\n    assert can_win_game([0, 0, 1]) == False\n    assert can_win_game([1, 0, 0]) == False\n\ndef test_can_win_game_with_zero_blocks():\n    assert can_win_game([0, 0, 0]) == False",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

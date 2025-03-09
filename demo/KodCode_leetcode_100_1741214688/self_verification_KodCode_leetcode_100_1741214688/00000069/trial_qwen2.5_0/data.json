@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000069",
+    "row_id": 69,
+    "seed_ids": [
+      "306",
+      "202",
+      "1024"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are tasked with determining whether the string can be rearranged such that every even-indexed character is a vowel and every odd-indexed character is a consonant. Return `true` if such an arrangement is possible, otherwise return `false`. Note that the string length is at least 2 and at most 100.",
+  "solution_code": "def can_rearrange_string(s: str) -> bool:\n    \"\"\"\n    Determines if the string can be rearranged such that every even-indexed\n    character is a vowel and every odd-indexed character is a consonant.\n    \"\"\"\n    vowels = set('aeiou')\n    # Count number of vowels and consonants in the even and odd positions\n    even_vowels = sum(1 for i in range(0, len(s), 2) if s[i] in vowels)\n    odd_consonants = sum(1 for i in range(1, len(s), 2) if s[i] not in vowels)\n    return even_vowels == (len(s) + 1) // 2 and odd_consonants == len(s) // 2",
+  "test_code": "import pytest\n\ndef test_can_rearrange_string():\n    assert can_rearrange_string(\"aaabbe\") == False\n    assert can_rearrange_string(\"aebdec\") == True\n    assert can_rearrange_string(\" Portions \") == False\n    assert can_rearrange_string(\"aAi\") == True\n    assert can_rearrange_string(\"aAiAe\") == True\n    assert can_rearrange_string(\" aAe\") == False\n    assert can_rearrange_string(\" aA\") == False\n    assert can_rearrange_string(\"a\") == False\n    assert can_rearrange_string(\"aa\") == False\n\n# The test for \"aAi\" is replaceable as \"aAiAe\" already covers the case where there are more vowels than consonants in odd/even positions.",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

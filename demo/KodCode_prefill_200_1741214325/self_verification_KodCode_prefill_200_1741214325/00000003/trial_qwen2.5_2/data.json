@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000003",
+    "row_id": 3,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to merge two sorted lists into one sorted list using the merge function from the heapq module. Since heapq's merge function can be used to merge multiple iterables directly, your function should accept two lists, sort each individually if they are not already sorted, and then merge them using heapq.merge(). Ensure the output is a list, not a heapq.merge object.",
+  "solution_code": "import heapq\n\ndef merge_sorted_lists(lst1, lst2):\n    \"\"\"\n    Given two sorted lists, it merges them into a single sorted list\n    using the heapq.merge function.\n    \"\"\"\n    # Ensure both lists are sorted\n    sorted_lst1 = sorted(lst1)\n    sorted_lst2 = sorted(lst2)\n    \n    # Use heapq.merge to merge the two sorted lists\n    result = list(heapq.merge(sorted_lst1, sorted_lst2))\n    \n    return result",
+  "test_code": "import pytest\nfrom heapq import merge as test_merge\nfrom solution import merge_sorted_lists\n\ndef test_merge_sorted_lists_positive():\n    assert merge_sorted_lists([1, 3, 5], [2, 4, 6]) == [1, 2, 3, 4, 5, 6]\n\ndef test_merge_empty_lists():\n    assert merge_sorted_lists([], []) == []\n\ndef test_merge_with_duplicates():\n    assert merge_sorted_lists([1, 3, 3], [2, 3, 4]) == [1, 2, 3, 3, 3, 4]\n\ndef test_merge_mixed_signs():\n    assert merge_sorted_lists([-2, 0, 2], [-3, 1, 3]) == [-3, -2, 0, 1, 2, 3]\n\ndef test_merge_with_same_elements():\n    assert merge_sorted_lists([1, 2, 3], [1, 2, 3]) == [1, 1, 2, 2, 3, 3]\n\ndef test_merge_with_different_lengths():\n    assert merge_sorted_lists([1, 3, 5, 7], [2, 4, 6]) == [1, 2, 3, 4, 5, 6, 7]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

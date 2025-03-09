@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000097",
+    "row_id": 97,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to remove the duplicates from a list while preserving the original order of elements.",
+  "solution_code": "def remove_duplicates_preserve_order(items):\n    \"\"\"\n    Removes duplicates from a list while preserving the original order of elements.\n    Args:\n    items (list): The list from which to remove duplicates.\n    \n    Returns:\n    list: A new list with duplicates removed and original order preserved.\n    \"\"\"\n    seen = set()\n    unique_items = []\n    for item in items:\n        if item not in seen:\n            seen.add(item)\n            unique_items.append(item)\n    return unique_items",
+  "test_code": "from solution import remove_duplicates_preserve_order\n\ndef test_remove_duplicates_preserve_order_with_duplicates():\n    assert remove_duplicates_preserve_order([1, 2, 3, 2, 1]) == [1, 2, 3]\n\ndef test_remove_duplicates_preserve_order_empty_list():\n    assert remove_duplicates_preserve_order([]) == []\n\ndef test_remove_duplicates_preserve_order_single_element():\n    assert remove_duplicates_preserve_order([5]) == [5]\n\ndef test_remove_duplicates_preserve_order_no_duplicates():\n    assert remove_duplicates_preserve_order([1, 2, 3, 4]) == [1, 2, 3, 4]\n\ndef test_remove_duplicates_preserve_order_with_negative_numbers():\n    assert remove_duplicates_preserve_order([-1, -2, -3, -2, -1, 0]) == [-1, -2, -3, 0]\n\ndef test_remove_duplicates_preserve_order_with_duplicates_and_zeros():\n    assert remove_duplicates_preserve_order([1, 2, 3, 2, 1, 0, 0, 3, 4]) == [1, 2, 3, 0, 4]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000144",
+    "row_id": 144,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum product of a triplet in an array. The array can contain both positive and negative numbers. The function should return the maximum product of any three numbers in the array.",
+  "solution_code": "def max_triplet_product(arr):\n    \"\"\"\n    Finds and returns the maximum product that can be obtained from any three elements in the array.\n    \"\"\"\n    if len(arr) < 3:\n        raise ValueError(\"The input array must contain at least three elements.\")\n\n    # Sort the array to make it easier to find the maximum product\n    arr.sort()\n\n    # The maximum product can be either:\n    # 1. The product of the three largest numbers\n    # 2. The product of the two smallest (potentially negative) numbers and the largest number\n    n = len(arr)\n    return max(arr[0] * arr[1] * arr[n-1], arr[n-3] * arr[n-2] * arr[n-1])",
+  "test_code": "import pytest\nfrom solution import max_triplet_product\n\ndef test_max_triplet_product_with_positive_numbers():\n    assert max_triplet_product([1, 2, 3]) == 6\n\ndef test_max_triplet_product_with_mixed_numbers():\n    assert max_triplet_product([1, 10, -5, 1, -100]) == 5000  # -5 * -100 * 10\n\ndef test_max_triplet_product_with_negative_numbers():\n    assert max_triplet_product([-1, -2, -3, -4]) == -6\n\ndef test_max_triplet_product_with_zero():\n    assert max_triplet_product([0, 0, 0]) == 0\n\ndef test_max_triplet_product_with_small_array():\n    with pytest.raises(ValueError):\n        max_triplet_product([1, 2])\n\ndef test_max_triplet_product_with_larger_numbers():\n    assert max_triplet_product([0, -2, -8, -7, 0]) == 0  # 0 * 0 * -7\n    assert max_triplet_product([-5, -4, 2, 2]) == 40  # -5 * -4 * 2",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

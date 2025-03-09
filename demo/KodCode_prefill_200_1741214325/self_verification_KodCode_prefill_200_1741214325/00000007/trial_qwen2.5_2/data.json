@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000007",
+    "row_id": 7,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a given set of cevablar can win a greedy game played with blueblocks, greenblocks, and redblocks).",
+  "solution_code": "def can_win_greedy_game(blueblocks, greenblocks, redblocks):\n    \"\"\"\n    Returns True if the given set of blocks can win the greedy game, \n    otherwise returns False. A player can win the game if they can \n    make a strictly increasing sequence of blocks, where each block's \n    value is greater than the previous block's value.\n    \"\"\"\n    total_blocks = blueblocks + greenblocks + redblocks\n    if total_blocks < 3:\n        return False\n    if blueblocks > 0 and greenblocks > 0 and redblocks > 0:\n        return True\n    if blueblocks > 0 and redblocks > 0:\n        return True\n    if greenblocks > 0 and redblocks > 0:\n        return True\n    return False",
+  "test_code": "from solution import can_win_greedy_game\n\ndef test_can_win_greedy_game_all_blocks():\n    assert can_win_greedy_game(1, 1, 1) == True\n\ndef test_can_win_greedy_game_two_blocks():\n    assert can_win_greedy_game(1, 0, 1) == True\n    assert can_win_greedy_game(0, 1, 1) == True\n    assert can_win_greedy_game(1, 1, 0) == True\n\ndef test_cannot_win_greedy_game_less_than_three_blocks():\n    assert can_win_greedy_game(0, 0, 0) == False\n    assert can_win_greedy_game(1, 0, 0) == False\n    assert can_win_greedy_game(0, 1, 0) == False\n    assert can_win_greedy_game(0, 0, 1) == False\n\ndef test_cannot_win_greedy_game_no_common_blocks():\n    assert can_win_greedy_game(0, 0, 0) == False\n    assert can_win_greedy_game(0, 0, 1) == False\n    assert can_win_greedy_game(0, 1, 0) == False\n    assert can_win_greedy_game(1, 0, 0) == False\n\ndef test_can_win_greedy_game_single_block():\n    assert can_win_greedy_game(1, 0, 0) == True\n    assert can_win_greedy_game(0, 1, 0) == True\n    assert can_win_greedy_game(0, 0, 1) == True",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000014",
+    "row_id": 14,
+    "seed_ids": [
+      "2607",
+      "1880",
+      "1315"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given the root of a binary tree, return the sum of values of all nodes that have an odd-valued parent. If there are no such nodes, return 0. A parent node is considered odd if its value is an odd number.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef sum_odd_parent_nodes(root):\n    \"\"\"\n    Returns the sum of values of all nodes that have an odd-valued parent.\n    If there are no such nodes, returns 0.\n    \"\"\"\n    def dfs(node, is_odd):\n        if node is None:\n            return 0\n        if is_odd and node.left:\n            left_sum = node.left.val\n        else:\n            left_sum = dfs(node.left, node.val % 2 != 0)\n        if is_odd and node.right:\n            right_sum = node.right.val\n        else:\n            right_sum = dfs(node.right, node.val % 2 != 0)\n        return left_sum + right_sum\n    \n    return dfs(root, root.val % 2 != 0)",
+  "test_code": "from solution import TreeNode, sum_odd_parent_nodes\n\ndef test_sum_odd_parent_nodes():\n    # Creating a simple tree\n    #       5\n    #      / \\\n    #     3   7\n    node5 = TreeNode(5)\n    node3 = TreeNode(3)\n    node7 = TreeNode(7)\n    node5.left = node3\n    node5.right = node7\n    \n    assert sum_odd_parent_nodes(node5) == 3  # Only node3 has an odd parent (node5)\n\ndef test_sum_odd_parent_nodes_no_affected_nodes():\n    # Creating a simple tree\n    #       2\n    #      / \\\n    #     4   6\n    node2 = TreeNode(2)\n    node4 = TreeNode(4)\n    node6 = TreeNode(6)\n    node2.left = node4\n    node2.right = node6\n    \n    assert sum_odd_parent_nodes(node2) == 0  # No nodes have an odd parent\n\ndef test_sum_odd_parent_nodes Complex_case():\n    # Creating a tree\n    #       8\n    #      / \\\n    #     3   5\n    #    / \\ / \\\n    #   2  9 7  2\n    node8 = TreeNode(8)\n    node3 = TreeNode(3)\n    node5 = TreeNode(5)\n    node8.left = node3\n    node8.right = node5\n    node2 = TreeNode(2)\n    node9 = TreeNode(9)\n    node7 = TreeNode(7)\n    node22 = TreeNode(2)\n    node3.left = node2\n    node3.right = node9\n    node5.left = node7\n    node5.right = node22\n    \n    assert sum_odd_parent_nodes(node8) == 11  # Nodes 9 and 7 have odd parent (5) and (3) respectively\n\ndef test_sum_odd_parent_nodes_single_node():\n    # Creating a tree with a single node\n    node1 = TreeNode(1)\n    assert sum_odd_parent_nodes(node1) == 0  # No parent for the single node",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

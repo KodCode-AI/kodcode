@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000094",
+    "row_id": 94,
+    "seed_ids": [
+      "2166",
+      "1091",
+      "2357"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Implement the `CircularArray` class that supports the following operations:\n\n- `CircularArray(int size)` Initializes the `CircularArray` with `size` elements, all set to zero.\n- `void set(int index, int val)` Sets the value at the given `index` to `val`. If the index is out of bounds, it should wrap around to the beginning or end of the array.\n- `int get(int index)` Returns the value at the given `index`. If the index is out of bounds, it should wrap around to the beginning or end of the array.\n- `void increment(int index, int val)` Increments the value at the given `index` by `val`. If the index is out of bounds, it should wrap around to the beginning or end of the array.\n\nAdditionally, provide a method:\n\n- `String toString()` Returns a string representation of the `CircularArray`, where each element is separated by a comma and the entire array is enclosed in square brackets.",
+  "solution_code": "class CircularArray:\n    def __init__(self, size: int):\n        \"\"\"\n        Initializes the CircularArray with `size` elements, all set to zero.\n        \"\"\"\n        self.size = size\n        self.array = [0] * size\n\n    def set(self, index: int, val: int):\n        \"\"\"\n        Sets the value at the given `index` to `val`. If the index is out of bounds, it should wrap around.\n        \"\"\"\n        self.array[index % self.size] = val\n\n    def get(self, index: int) -> int:\n        \"\"\"\n        Returns the value at the given `index`. If the index is out of bounds, it should wrap around.\n        \"\"\"\n        return self.array[index % self.size]\n\n    def increment(self, index: int, val: int):\n        \"\"\"\n        Increments the value at the given `index` by `val`. If the index is out of bounds, it should wrap around.\n        \"\"\"\n        self.array[index % self.size] += val\n\n    def to_string(self) -> str:\n        \"\"\"\n        Returns a string representation of the CircularArray.\n        \"\"\"\n        return \"[\" + \",\".join(map(str, self.array)) + \"]\"",
+  "test_code": "import pytest\n\ndef test_circular_array_initialization():\n    ca = CircularArray(4)\n    assert ca.to_string() == '[0, 0, 0, 0]'\n\ndef test_set_and_get():\n    ca = CircularArray(4)\n    ca.set(1, 10)\n    ca.set(3, 20)\n    assert ca.get(1) == 10\n    assert ca.get(3) == 20\n\ndef test_wrap_around_set():\n    ca = CircularArray(4)\n    ca.set(3, 10)\n    ca.set(4, 20)\n    assert ca.to_string() == '[0, 0, 0, 20]'\n\ndef test_wrap_around_get():\n    ca = CircularArray(4)\n    ca.set(0, 10)\n    ca.set(3, 20)\n    assert ca.get(3) == 20\n    assert ca.get(4) == 10\n\ndef test_increment():\n    ca = CircularArray(4)\n    ca.set(1, 10)\n    ca.increment(1, 5)\n    assert ca.get(1) == 15\n\ndef test_to_string():\n    ca = CircularArray(4)\n    ca.set(1, 10)\n    ca.set(2, 20)\n    ca.set(3, 30)\n    assert ca.to_string() == '[0, 10, 20, 30]'",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

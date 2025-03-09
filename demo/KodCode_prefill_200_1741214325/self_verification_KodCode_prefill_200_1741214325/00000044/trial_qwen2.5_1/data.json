@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000044",
+    "row_id": 44,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the binomial coefficient for given number 'n' and 'k'. The binomial coefficient, often denoted as C(n, k), represents the number of ways to choose k items from a set of n distinct items. This function will be defined by the return statement: `return binomial_coefficient(n, k)`. The binomial coefficient can be calculated using the formula: C(n, k) = C(n-1, k-1) + C(n-1, k), with the base cases being C(n, 0) = C(n, n) = 1.",
+  "solution_code": "def binomial_coefficient(n, k):\n    \"\"\"\n    Calculate the binomial coefficient C(n, k) using a recursive approach.\n    \"\"\"\n    # Base cases\n    if k == 0 or k == n:\n        return 1\n    # Recursive case\n    return binomial_coefficient(n - 1, k - 1) + binomial_coefficient(n - 1, k)",
+  "test_code": "from solution import binomial_coefficient\n\ndef test_binomial_coefficient_small_values():\n    assert binomial_coefficient(5, 2) == 10\n    assert binomial_coefficient(6, 3) == 20\n\ndef test_binomial_coefficient_large_values():\n    assert binomial_coefficient(20, 10) == 184756\n    assert binomial_coefficient(25, 15) == 3268760\n\ndef test_binomial_coefficient_edge_cases():\n    assert binomial_coefficient(0, 0) == 1\n    assert binomial_coefficient(1, 0) == 1\n    assert binomial_coefficient(1, 1) == 1\n\ndef test_binomial_coefficient_mixed_sign_numbers():\n    # n and k should be non-negative integers\n    assert binomial_coefficient(5, -1) is None\n    assert binomial_coefficient(-5, 2) is None\n    assert binomial_coefficient(5, 6) == 0  # n < k, which is not allowed",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

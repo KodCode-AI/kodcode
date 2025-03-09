@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000174",
+    "row_id": 174,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the longest continuous substring that can be formed with at most two distinct characters in a given string. For example, for the input string \"aabacbebebe\", the function should return 7, as the longest substring that can be formed with at most two distinct characters is \"cbebebe\".",
+  "solution_code": "def length_of_longest_substring(s: str) -> int:\n    \"\"\"\n    Finds the length of the longest substring that contains at most two distinct characters.\n    \"\"\"\n    if not s:\n        return 0\n    \n    left, max_len = 0, 0\n    char_map = {}\n    \n    for right in range(len(s)):\n        char = s[right]\n        char_map[char] = char_map.get(char, 0) + 1\n        \n        while len(char_map) > 2:\n            left_char = s[left]\n            char_map[left_char] -= 1\n            if char_map[left_char] == 0:\n                del char_map[left_char]\n            left += 1\n        \n        max_len = max(max_len, right - left + 1)\n    \n    return max_len",
+  "test_code": "def test_length_of_longest_substring():\n    assert length_of_longest_substring(\"eceba\") == 3\n    assert length_of_longest_substring(\"ccaabbb\") == 5\n    assert length_of_longest_substring(\"aabacbebebe\") == 7\n    assert length_of_longest_substring(\"bbaa\") == 4\n    assert length_of_longest_substring(\"abcde\") == 3\n    assert length_of_longest_substring(\"a\") == 1\n    assert length_of_longest_substring(\"\") == 0\n\nif __name__ == \"__main__\":\n    import pytest\n    pytest.main([__file__])",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

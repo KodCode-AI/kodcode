@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000089",
+    "row_id": 89,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the factorial of a given number. The function should take an integer as input and return the factorial of that integer. Additionally, the function should handle edge cases such as negative numbers and zero.",
+  "solution_code": "def factorial(n):\n    \"\"\"\n    Returns the factorial of n. If n is a negative integer, the function returns None.\n    For n=0, the function returns 1 as the factorial of 0 is 1.\n    \"\"\"\n    if n < 0:\n        return None\n    elif n == 0:\n        return 1\n    else:\n        result = 1\n        for i in range(1, n + 1):\n            result *= i\n        return result",
+  "test_code": "from solution import factorial\n\ndef test_factorial_positive_numbers():\n    assert factorial(5) == 120\n    assert factorial(3) == 6\n    assert factorial(1) == 1\n\ndef test_factorial_zero():\n    assert factorial(0) == 1\n\ndef test_factorial_negative_numbers():\n    assert factorial(-1) is None\n    assert factorial(-5) is None\n\ndef test_factorial_large_number():\n    assert factorial(10) == 3628800",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

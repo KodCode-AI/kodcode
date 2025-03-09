@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000119",
+    "row_id": 119,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to replace all occurrences of a given substring in a string, but only for occurrences that are surrounded by spaces.",
+  "solution_code": "def replace_substring_with_spaces(text, old_substring, new_substring):\n    \"\"\"\n    Replace all occurrences of old_substring in text surrounded by spaces with new_substring.\n    \"\"\"\n    import re\n    pattern = r'\\s' + re.escape(old_substring) + r'\\s'\n    return re.sub(pattern, ' ' + new_substring + ' ', text)",
+  "test_code": "from solution import replace_substring_with_spaces\n\ndef test_replace_substring_with_spaces_single_occurrence():\n    assert replace_substring_with_spaces(\"hello world\", \"world\", \"Earth\") == \"hello Earth\"\n\ndef test_replace_substring_with_spaces_multiple_occurrences():\n    assert replace_substring_with_spaces(\"hello world world\", \"world\", \"Earth\") == \"hello Earth Earth\"\n\ndef test_replace_substring_with_spaces_edge_case():\n    assert replace_substring_with_spaces(\"world\", \"world\", \"Earth\") == \"Earth\"\n\ndef test_replace_substring_with_spaces_surrounded_by_punctuation():\n    assert replace_substring_with_spaces(\",hello ,world,\", \"world\", \"Earth\") == \",hello ,Earth,\"\n\ndef test_replace_substring_with_spaces_no_occurrences():\n    assert replace_substring_with_spaces(\"hello world\", \"universe\", \"Earth\") == \"hello world\"\n\ndef test_replace_substring_with_spaces_no_spaces_around_substring():\n    assert replace_substring_with_spaces(\"hello world\", \"world\", \"Earth\") == \"hello Earth\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000067",
+    "row_id": 67,
+    "seed_ids": [
+      "1814",
+      "2135",
+      "1330"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given an integer array `nums` and an integer `k`. The _value_ of this array is defined as the sum of `|nums[i] - nums[i + 1]|` for all `0 <= i < nums.length - 1`. You are allowed to select any subarray of the given array and shift its elements cyclically (i.e., rotate the subarray elements to the left or right) any number of times. You can perform this operation **only once**. Find the maximum possible value of the final array after performing the operation.",
+  "solution_code": "def max_value_after_shift(nums, k):\n    \"\"\"\n    Returns the maximum possible value of the final array after performing a single\n    shift operation on any subarray.\n    \"\"\"\n    n = len(nums)\n    prefix_sum = [0] * (n + 1)\n    for i in range(n):\n        prefix_sum[i + 1] = prefix_sum[i] + abs(nums[i] - nums[(i + 1) % n])\n    \n    min_diff = float('inf')\n    max_diff = float('-inf')\n    total_sum = 0\n    \n    for i in range(n):\n        left = prefix_sum[(i + 1) % n]\n        right = prefix_sum[(i + k + 1) % n] - prefix_sum[(i + 1) % n]\n        \n        current_diff = left + right\n        min_diff = min(min_diff, current_diff)\n        max_diff = max(max_diff, current_diff)\n        total_sum += abs(nums[i] - nums[(i + 1) % n])\n    \n    if k == n:\n        return total_sum\n    return total_sum - min_diff + max_diff",
+  "test_code": "def test_max_value_after_shift():\n    assert max_value_after_shift([2, 3, 1, 4, 0], 3) == 10\n    assert max_value_after_shift([10, 1], 0) == 18\n    assert max_value_after_shift([2, 2, 2], 1) == 2\n    assert max_value_after_shift([1, 10, 100], 2) == 207\n    assert max_value_after_shift([1], 10) == 0\n    assert max_value_after_shift([1, 1, 1], 1) == 2\n    assert max_value_after_shift([1, 1, 1], 2) == 2\n    assert max_value_after_shift([1, 1, 1, 1, 1, 1], 3) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

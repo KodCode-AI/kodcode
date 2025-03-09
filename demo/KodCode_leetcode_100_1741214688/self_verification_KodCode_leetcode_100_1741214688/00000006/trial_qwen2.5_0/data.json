@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000006",
+    "row_id": 6,
+    "seed_ids": [
+      "790",
+      "311",
+      "1320"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you are allowed to perform the following operation any number of times: pick any substring `s[i...j]` and replace it with the same substring in reverse order. For example, `s = \"abcde\"` can be transformed into `\"dcbae\"` by replacing the substring `s[1...4]` with `\"dcba\"`. \n\nDetermine the lexicographically smallest string that can be obtained by performing the above operation any number of times. Return the resulting string.",
+  "solution_code": "def smallest_string(s):\n    \"\"\"\n    Returns the lexicographically smallest string after performing the allowed operation any number of times.\n    \"\"\"\n    return ''.join(sorted(s))",
+  "test_code": "from solution import smallest_string\n\ndef test_smallest_string():\n    assert smallest_string(\"dcde\") == \"dcced\"\n    assert smallest_string(\"abc\") == \"abc\"\n    assert smallest_string(\"fedacx\") == \"afedcx\"\n    assert smallest_string(\"abcd\") == \"abcd\"\n    assert smallest_string(\"cba\") == \"abc\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

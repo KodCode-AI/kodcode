@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000105",
+    "row_id": 105,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the shortest distance from a point to a line in a 2D plane.",
+  "solution_code": "import math\n\ndef distance_point_to_line(point, line_point1, line_point2):\n    \"\"\"\n    Calculates the shortest distance from a point to a line in 2D.\n    :param point: A tuple (x, y) representing the point.\n    :param line_point1: A tuple (x, y) representing the first point on the line.\n    :param line_point2: A tuple (x, y) representing the second point on the line.\n    :return: The shortest distance from the point to the line.\n    \"\"\"\n    x1, y1 = point\n    x2, y2 = line_point1\n    x3, y3 = line_point2\n    numerator = abs((y3 - y2) * x1 - (x3 - x2) * y1 + x3 * y2 - y3 * x2)\n    denominator = math.sqrt((y3 - y2)**2 + (x3 - x2)**2)\n    return numerator / denominator",
+  "test_code": "import pytest\n\ndef test_distance_point_to_line_horizontal_line():\n    assert math.isclose(distance_point_to_line((5, 3), (1, 3), (4, 3)), 4)\n\ndef test_distance_point_to_line_vertical_line():\n    assert math.isclose(distance_point_to_line((3, 5), (3, 1), (3, 4)), 4)\n\ndef test_distance_point_to_line_45_degree_line():\n    assert math.isclose(distance_point_to_line((0, 0), (0, 2), (2, 0)), 2 * math.sqrt(2))\n\ndef test_distance_point_to_line_parallel_to_y_axis():\n    assert math.isclose(distance_point_to_line((4, 2), (4, 1), (4, 3)), 1)\n\ndef test_distance_point_to_line_parallel_to_x_axis():\n    assert math.isclose(distance_point_to_line((2, 5), (1, 5), (3, 5)), 1)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

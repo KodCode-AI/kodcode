@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000075",
+    "row_id": 75,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to check if a number is perfect or not.",
+  "solution_code": "def is_perfect_number(number):\n    \"\"\"\n    Returns True if the given number is a perfect number, False otherwise.\n    A perfect number is a positive integer that is equal to the sum of its proper divisors.\n    \"\"\"\n    if number <= 1:\n        return False\n    divisors_sum = sum([i for i in range(1, number) if number % i == 0])\n    return divisors_sum == number",
+  "test_code": "from solution import is_perfect_number\n\ndef test_is_perfect_number_small():\n    assert not is_perfect_number(1)\n    assert is_perfect_number(6)  # 1 + 2 + 3 = 6\n    assert is_perfect_number(28) # 1 + 2 + 4 + 7 + 14 = 28\n\ndef test_is_perfect_number_large():\n    assert not is_perfect_number(100)\n    assert is_perfect_number(496) # 1 + 2 + 4 + 8 + 16 + 31 + 62 + 124 + 248 = 496\n    assert not is_perfect_number(8128) # This is a known perfect number, but not in the range where we expect false negatives\n\ndef test_is_perfect_number_negative():\n    assert not is_perfect_number(-28)\n\ndef test_is_perfect_number_zero():\n    assert not is_perfect_number(0)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

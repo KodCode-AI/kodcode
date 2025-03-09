@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000149",
+    "row_id": 149,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the minimum number of operations required to make all elements in a list equal. The operations allowed are incrementing any element by 1 or decrementing any element by 1.",
+  "solution_code": "def min_operations_to_equal_elements(nums):\n    \"\"\"\n    Returns the minimum number of operations required to make all elements in nums equal.\n    An operation consists of incrementing or decrementing an element by 1.\n    \"\"\"\n    return sum(abs(nums[0] - num) for num in nums)",
+  "test_code": "from solution import min_operations_to_equal_elements\n\ndef test_min_operations_to_equal_elements():\n    assert min_operations_to_equal_elements([1, 2, 3]) == 2  # [1, 2, 3] -> [2, 2, 2] (2 operations)\n    assert min_operations_to_equal_elements([1, 1, 1]) == 0  # All elements are already equal\n    assert min_operations_to_equal_elements([1, 10, 100]) == 110  # [1, 10, 100] -> [50, 50, 50] (110 operations)\n    assert min_operations_to_equal_elements([5, 5, 3, 3]) == 4  # [5, 5, 3, 3] -> [4, 4, 4, 4] or [5, 5, 5, 5] (4 operations)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

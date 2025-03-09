@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000018",
+    "row_id": 18,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the minimal path sum from top to bottom in a binary tree. The minimal path is defined as the path that minimizes the sum of node values along the path from root to leaf.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef min_path_sum(root: TreeNode) -> int:\n    \"\"\"\n    Returns the minimal path sum from the root to any leaf node in the binary tree.\n    \"\"\"\n    if not root:\n        return 0\n    stack = [(root, root.val)]\n    min_sum = float('inf')\n    \n    while stack:\n        node, current_sum = stack.pop()\n        if not node.left and not node.right:\n            min_sum = min(min_sum, current_sum)\n        if node.left:\n            stack.append((node.left, current_sum + node.left.val))\n        if node.right:\n            stack.append((node.right, current_sum + node.right.val))\n    return min_sum",
+  "test_code": "from solution import min_path_sum, TreeNode\n\n# Constructing the tree:\n#       10\n#      /  \\\n#    10    20\n#   /  \\    \\\n# 2    20    13\ndef create_tree():\n    two = TreeNode(2)\n    twenty = TreeNode(20)\n    ten_left = TreeNode(10, two, twenty)\n    twenty_right = TreeNode(20)\n    root = TreeNode(10, ten_left, twenty_right)\n    twenty_right_right = TreeNode(13)\n    twenty_right.right = twenty_right_right\n    return root\n\ndef test_min_path_sum():\n    root = create_tree()\n    assert min_path_sum(root) == 42\n\ndef test_min_path_sum_single_node():\n    root = TreeNode(10)\n    assert min_path_sum(root) == 10\n\ndef test_min_path_sum_complex_tree():\n    two = TreeNode(2)\n    twenty_right_right = TreeNode(13)\n    twenty_right = TreeNode(20, None, twenty_right_right)\n    twenty_left = TreeNode(20)\n    ten_left = TreeNode(10, two, twenty_left)\n    root = TreeNode(10, ten_left, twenty_right)\n    assert min_path_sum(root) == 45",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

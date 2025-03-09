@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000008",
+    "row_id": 8,
+    "seed_ids": [
+      "1516",
+      "417",
+      "2266"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a list of strings `words` and a string `target`, you need to find the minimum number of adjacent swaps required to arrange the strings in `words` such that they form the `target` string. Each string in `words` can only be used once, and the order of the strings in `words` must match the order of the strings in `target`. A swap is defined as exchanging the positions of two adjacent strings in the list. Please return the minimum number of swaps required to achieve the `target` string. If it is not possible to arrange the strings in `words` to form the `target` string, return `-1`.\n\nFor example, given `words = [\"abc\",\"def\",\"ghi\"]` and `target = \"defabcghi\"`, the minimum number of swaps required is `2`. First, swap \"abc\" and \"def\", then swap \"def\" and \"ghi\". Therefore, the answer is `2`.",
+  "solution_code": "def min_swaps_to_target(words, target):\n    \"\"\"\n    Returns the minimum number of adjacent swaps required to arrange\n    the strings in `words` to form the `target` string. If it's not possible, returns -1.\n    \"\"\"\n    from collections import defaultdict\n    \n    # Record positions of each character in the target string\n    target_positions = defaultdict(list)\n    for idx, char in enumerate(target):\n        target_positions[char].append(idx)\n    \n    # Find positions of the words in the target string\n    word_positions = []\n    for word in words:\n        pos = [target_positions[char].pop(0) for char in word]\n        word_positions.append(pos)\n    \n    # Calculate the minimum swaps if the relative order matches the target\n    min_swaps = 0\n    for pos in word_positions:\n        required_pos = [target_positions[char].pop(0) for char in words[words.index(pos[0])]]\n        min_swaps += sum(b - a for a, b in zip(pos, required_pos))\n    \n    # Check if it's possible to achieve the target order\n    if all(len(target_positions[char]) == 0 for char in set(target)):\n        return min_swaps // len(word_positions[0])\n    else:\n        return -1",
+  "test_code": "import pytest\n\ndef test_min_swaps_to_target():\n    assert min_swaps_to_target([\"abc\", \"def\", \"ghi\"], \"defabcghi\") == 2\n    assert min_swaps_to_target([\"a\",\"b\",\"c\"], \"aaabbbb\") == -1\n    assert min_swaps_to_target([\"cde\",\"abc\"], \"ceabdccba\") == 6\n    assert min_swaps_to_target([\"a\",\"a\",\"a\",\"a\"], \"aaaa\") == 0\n    assert min_swaps_to_target([\"a\",\"a\",\"a\",\"a\"], \"bbaaaa\") == 2\n    assert min_swaps_to_target([\"abc\",\"def\",\"ghi\"], \"defabc\") == -1\n\npytest.main()",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

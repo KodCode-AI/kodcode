@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000079",
+    "row_id": 79,
+    "seed_ids": [
+      218
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "You are given an unsorted list of integers and are required to perform a wiggle sort on it. The goal is to reorder the list such that each element is either greater or smaller than its adjacent elements, following the wiggle pattern.\n\n**Problem Description**:\nImplement the `wiggle_sort` function to achieve the desired wiggle sorting. The function should take a list of integers as input and return the list after performing the wiggle sort.\n\n**Input**:\n- A list of integers `nums`.\n\n**Output**:\n- A list of integers representing the wiggle sorted array.\n\n**Constraints**:\n- The length of `nums` is between 1 and 5000.\n- Each element in `nums` is an integer in the range \\([-10^5, 10^5]\\).\n\n**Performance Requirements**:\n- The solution should have a time complexity of \\(O(n)\\) and a space complexity of \\(O(1)\\).\n\n**Example**:\n```python\n>>> wiggle_sort([3, 5, 2, 1, 6, 4])\n[3, 5, 1, 6, 2, 4]\n```\n\n**Note**:\n- Ensure that your implementation adheres to the provided constraints and performance requirements.",
+  "solution_code": "def wiggle_sort(nums):\n    \"\"\"\n    Perform wiggle sort on the input list.\n    \"\"\"\n    for i in range(1, len(nums)):\n        if (i % 2 == 1 and nums[i] < nums[i-1]) or (i % 2 == 0 and nums[i] > nums[i-1]):\n            nums[i], nums[i-1] = nums[i-1], nums[i]\n    return nums",
+  "test_code": "import pytest\n\ndef test_wiggle_sort():\n    assert wiggle_sort([3, 5, 2, 1, 6, 4]) in [[3, 5, 1, 6, 2, 4], [3, 6, 1, 5, 2, 4], [5, 6, 2, 3, 1, 4]]\n    assert wiggle_sort([4, 5, 5, 6]) in [[4, 5, 6, 5], [5, 6, 4, 5]]\n    assert wiggle_sort([10]) == [10]\n    assert wiggle_sort([1, 3, 2, 2, 3, 1]) in [[1, 3, 1, 2, 2, 3], [2, 3, 1, 3, 1, 2]]\n    assert wiggle_sort([-2, -5, -4, -7, -3, -6]) in [[-2, -5, -3, -7, -4, -6], [-2, -3, -7, -4, -5, -6]]\n\n@pytest.mark.parametrize(\"input, output\", [\n    ([3, 5, 2, 1, 6, 4], [3, 5, 1, 6, 2, 4]),\n    ([4, 5, 5, 6], [4, 5, 6, 5]),\n    ([10], [10]),\n    ([1, 3, 2, 2, 3, 1], [1, 3, 1, 2, 2, 3])\n])\ndef test_wiggle_sort_parametrized(input, output):\n    assert wiggle_sort(input) in [[output], [output[1], output[0], *output[2:]]]\n\ndef test_wiggle_sort_empty_list():\n    assert wiggle_sort([]) == []\n\ndef test_wiggle_sort_single_element_list():\n    assert wiggle_sort([1]) == [1]",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results0.jsonl"
+}

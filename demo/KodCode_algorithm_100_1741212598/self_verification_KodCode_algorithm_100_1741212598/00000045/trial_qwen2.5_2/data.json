@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000045",
+    "row_id": 45,
+    "seed_ids": [
+      75
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "**Scenario:** You are working on a cryptographic application that involves finding the modular inverse of a number. The application needs to handle large numbers efficiently without causing performance issues.\n\n**Task:** Implement a function `find_mod_inverse` that computes the modular inverse of a given integer \\(a\\) modulo \\(m\\). The function should use the Extended Euclidean Algorithm to find the modular inverse and raise a `ValueError` if the modular inverse does not exist.\n\n**Input:**\n- Two integers \\(a\\) and \\(m\\) where \\(1 \\leq a, m \\leq 10^9\\).\n\n**Output:**\n- The modular inverse of \\(a\\) modulo \\(m\\) if it exists. If it does not exist, raise a `ValueError` with an appropriate error message.\n\n**Constraints:**\n- \\(1 \\leq a, m \\leq 10^9\\)\n- \\(m > 0\\)\n\n**Example:**\n```python\n# Example 1\na = 3\nm = 11\nfind_mod_inverse(a, m)  # Output: 4\n\n# Example 2\na = 10\nm = 20\nfind_mod_inverse(a, m)  # Raises ValueError: mod inverse of 10 and 20 does not exist\n\n# Example 3\na = 17\nm = 3120\nfind_mod_inverse(a, m)  # Output: 2753\n```\n\n**Note:**\n- Use the provided `gcd_by_iterative` function to find the greatest common divisor.\n- Ensure that the function is efficient and handles large values of \\(a\\) and \\(m\\).",
+  "solution_code": "def gcd_by_iterative(a, b):\n    \"\"\"\n    Returns the greatest common divisor of a and b using an iterative approach.\n    \"\"\"\n    while b:\n        a, b = b, a % b\n    return a\n\ndef find_mod_inverse(a, m):\n    \"\"\"\n    Returns the modular inverse of a modulo m using the Extended Euclidean Algorithm.\n    Raises ValueError if the modular inverse does not exist.\n    \"\"\"\n    if gcd_by_iterative(a, m) != 1:\n        raise ValueError(f\"mod inverse of {a} and {m} does not exist\")\n    \n    m0, x0, x1 = m, 0, 1\n    while a > 1:\n        # q is quotient\n        q = a // m\n        m, a = a % m, m\n        x0, x1 = x1 - q * x0, x0\n    \n    # Make x1 positive\n    if x1 < 0:\n        x1 += m0\n    \n    return x1",
+  "test_code": "from solution import gcd_by_iterative, find_mod_inverse\n\ndef test_find_mod_inverse():\n    assert find_mod_inverse(3, 11) == 4\n    assert find_mod_inverse(17, 3120) == 2753\n    assert find_mod_inverse(25, 18) == 11\n    try:\n        find_mod_inverse(10, 20)\n    except ValueError as e:\n        assert str(e) == \"mod inverse of 10 and 20 does not exist\"\n    else:\n        assert False, \"ValueError not raised\"\n\ndef test_gcd_by_iterative():\n    assert gcd_by_iterative(3, 11) == 1\n    assert gcd_by_iterative(17, 3120) == 1\n    assert gcd_by_iterative(10, 20) == 10",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

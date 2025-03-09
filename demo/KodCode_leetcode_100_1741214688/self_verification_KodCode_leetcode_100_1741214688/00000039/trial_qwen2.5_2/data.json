@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000039",
+    "row_id": 39,
+    "seed_ids": [
+      "434",
+      "1061",
+      "141"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and a range `[low, high]`, return the sum of values of all nodes with a value in the given range. A binary search tree is a tree in which all nodes follow the property that the left subtree of a node contains only nodes with values less than the node's value, and the right subtree of a node contains only nodes with values greater than the node's value.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef rangeSumBST(root, low, high):\n    \"\"\"\n    Calculate the sum of values of all nodes with values within the range [low, high] in a BST.\n    \"\"\"\n    def dfs(node):\n        if not node:\n            return 0\n        if node.val < low:\n            return dfs(node.right)\n        elif node.val > high:\n            return dfs(node.left)\n        else:\n            return node.val + dfs(node.right) + dfs(node.left)\n    \n    return dfs(root)",
+  "test_code": "import pytest\nfrom typing import Optional\n\n# Sample binary search tree nodes setup\ndef setup_tree():\n    \"\"\"\n    Helper function to setup a simple binary search tree.\n    Structure:\n        10\n       /  \\\n      5    15\n     / \\   / \\\n    3   7 13  18\n    \"\"\"\n    root = TreeNode(10)\n    root.left = TreeNode(5, TreeNode(3), TreeNode(7))\n    root.right = TreeNode(15, TreeNode(13), TreeNode(18))\n    return root\n\ndef test_range_sum_bst_within_range():\n    root = setup_tree()\n    assert rangeSumBST(root, 7, 15) == 32  # Sum of 7, 10, 13, 15\n\ndef test_range_sum_bst_below_low():\n    root = setup_tree()\n    assert rangeSumBST(root, 16, 20) == 0  # No nodes within that range\n\ndef test_range_sum_bst_above_high():\n    root = setup_tree()\n    assert rangeSumBST(root, 2, 4) == 0  # No nodes within that range\n\ndef test_range_sum_bst_single_node_low_to_high():\n    root = TreeNode(10)\n    assert rangeSumBST(root, 10, 10) == 10  # Only the root node is in the range\n\ndef test_range_sum_bst_single_leaf():\n    root = TreeNode(10, TreeNode(5), None)\n    assert rangeSumBST(root, 5, 15) == 5  # Only the left child node is in the range",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

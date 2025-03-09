@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000138",
+    "row_id": 138,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the length of the longest continuous subarray with equal number of 0s and 1s.",
+  "solution_code": "def findMaxLength(nums):\n    \"\"\"\n    Returns the length of the longest continuous subarray with equal number of 0s and 1s.\n    \"\"\"\n    max_length = 0\n    count = 0\n    count_dict = {0: -1}  # Base case: subarray starting from index 0\n\n    for i, num in enumerate(nums):\n        if num == 1:\n            count += 1\n        else:\n            count -= 1\n\n        if count in count_dict:\n            max_length = max(max_length, i - count_dict[count])\n        else:\n            count_dict[count] = i\n\n    return max_length",
+  "test_code": "from solution import findMaxLength\n\ndef test_findMaxLength_with_single_element_subarray():\n    assert findMaxLength([0, 1]) == 2\n\ndef test_findMaxLength_with_mixed_sequence():\n    assert findMaxLength([0, 1, 0, 1, 0, 1, 0]) == 7\n\ndef test_findMaxLength_with_all_zeros():\n    assert findMaxLength([0, 0, 0, 0]) == 0\n\ndef test_findMaxLength_with_all_ones():\n    assert findMaxLength([1, 1, 1, 1]) == 0\n\ndef test_findMaxLength_with_alternating_sequence():\n    assert findMaxLength([1, 0, 1, 0, 1, 0, 1, 0, 1, 0]) == 10\n\ndef test_findMaxLength_with_reversed_alternating_sequence():\n    assert findMaxLength([0, 1, 0, 1, 0, 1, 0, 1, 0, 1]) == 10",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

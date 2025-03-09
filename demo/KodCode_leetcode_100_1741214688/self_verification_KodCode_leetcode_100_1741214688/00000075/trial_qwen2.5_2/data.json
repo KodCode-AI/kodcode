@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000075",
+    "row_id": 75,
+    "seed_ids": [
+      "1053",
+      "2375",
+      "2254"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times: choose a non-empty substring `s[i... j]` (i.e., `s[i]` is the first character and `s[j]` is the last character) and reverse it. The goal is to make the string `s` **lexicographically** **smallest** possible. Return the smallest string `s` you can obtain after performing this operation any number of times.",
+  "solution_code": "def make_smallest_string(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest string s after reversing some substrings.\n    \"\"\"\n    s = list(s)\n    for i in range(len(s)):\n        start = i\n        while start > 0 and s[start] < s[start - 1]:\n            s[start], s[start - 1] = s[start - 1], s[start]\n            start -= 1\n    return ''.join(s)",
+  "test_code": "def test_make_smallest_string():\n    assert make_smallest_string(\"cba\") == \"abc\"\n    assert make_smallest_string(\"a\") == \"a\"\n    assert make_smallest_string(\"baa\") == \"aab\"\n    assert make_smallest_string(\"bdda\") == \"abcd\"\n    assert make_smallest_string(\"abcd\") == \"abcd\"\n    assert make_smallest_string(\"dacb\") == \"abdc\"\n    assert make_smallest_string(\"bdcaba\") == \"abcdba\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

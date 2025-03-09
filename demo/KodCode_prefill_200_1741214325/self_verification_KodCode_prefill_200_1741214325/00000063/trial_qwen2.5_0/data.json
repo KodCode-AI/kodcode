@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000063",
+    "row_id": 63,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a string into a list of words.",
+  "solution_code": "def string_to_list_of_words(s):\n    \"\"\"\n    Converts a given string into a list of words separated by spaces.\n    Args:\n    s (str): The input string.\n    \n    Returns:\n    list: A list of words from the input string.\n    \"\"\"\n    return s.split()",
+  "test_code": "from solution import string_to_list_of_words\n\ndef test_string_to_list_of_words_basic():\n    assert string_to_list_of_words(\"hello world\") == [\"hello\", \"world\"]\n\ndef test_string_to_list_of_words_empty():\n    assert string_to_list_of_words(\"\") == []\n\ndef test_string_to_list_of_words_with_newline():\n    assert string_to_list_of_words(\"split\\nnextline\") == [\"split\", \"nextline\"]\n\ndef test_string_to_list_of_words_with_tabs():\n    assert string_to_list_of_words(\"one\\ttwo\\tthree\") == [\"one\", \"two\", \"three\"]\n\ndef test_string_to_list_of_words_with_punctuation():\n    assert string_to_list_of_words(\"end.of.sentences,are.detected.automatically\") == [\"end.of.sentences\", \"are.detected.automatically\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

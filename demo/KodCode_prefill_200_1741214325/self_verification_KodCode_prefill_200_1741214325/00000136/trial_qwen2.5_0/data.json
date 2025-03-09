@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000136",
+    "row_id": 136,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to create a queue using a list with two methods: enqueue and dequeue. The enqueue method adds an element to the end of the queue, and the dequeue method removes the element from the front of the queue.",
+  "solution_code": "class Queue:\n    \"\"\"\n    A basic queue implementation using a list.\n    Methods:\n        enqueue(item): Adds an item to the end of the queue.\n        dequeue(): Removes and returns the item from the front of the queue.\n    \"\"\"\n    def __init__(self):\n        self.items = []\n\n    def enqueue(self, item):\n        self.items.append(item)\n\n    def dequeue(self):\n        if not self.is_empty():\n            return self.items.pop(0)\n        raise IndexError(\"pop from empty queue\")\n\n    def is_empty(self):\n        return len(self.items) == 0\n\n    def size(self):\n        return len(self.items)",
+  "test_code": "def test_queue_operations():\n    q = Queue()\n    assert q.is_empty() == True\n    assert q.size() == 0\n\n    q.enqueue(1)\n    q.enqueue(2)\n    assert q.dequeue() == 1\n    assert q.dequeue() == 2\n    assert q.is_empty() == True\n    assert q.size() == 0\n\n    q.enqueue(3)\n    q.enqueue(4)\n    q.enqueue(5)\n    assert q.dequeue() == 3\n    assert q.dequeue() == 4\n    assert q.dequeue() == 5\n    assert q.is_empty() == True\n    assert q.size() == 0\n\n    try:\n        q.dequeue()\n        assert False, \"Expected an IndexError but did not raise\"\n    except IndexError:\n        assert True\n\n    try:\n        q.dequeue()\n        assert False, \"Expected an IndexError but did not raise\"\n    except IndexError:\n        assert True\n\n# The following tests are designed to ensure that enqueue and dequeue work with any type of item.\ndef test_enqueue_dequeue_with_different_types():\n    q = Queue()\n    q.enqueue(1)\n    q.enqueue(\"2\")\n    assert q.dequeue() == 1\n    assert q.dequeue() == \"2\"\n\n    q.enqueue({\"key\": \"value\"})\n    q.enqueue([1, 2, 3])\n    assert q.dequeue() == {\"key\": \"value\"}\n    assert q.dequeue() == [1, 2, 3]\n\n    try:\n        q.dequeue()\n        assert False, \"Expected an IndexError but did not raise\"\n    except IndexError:\n        assert True\n\n    try:\n        q.dequeue()\n        assert False, \"Expected an IndexError but did not raise\"\n    except IndexError:\n        assert True",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

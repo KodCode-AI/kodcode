@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000187",
+    "row_id": 187,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the Floyd Warshall shortest path algorithm from a given directed graph. The graph is represented using an adjacency matrix.",
+  "solution_code": "import numpy as np\n\ndef floyd_warshall(graph):\n    \"\"\"\n    Finds the shortest paths between all pairs of vertices in a given directed graph using the Floyd Warshall algorithm.\n    The graph is represented as an adjacency matrix where graph[i][j] is the weight of the edge from vertex i to vertex j.\n    If there is no direct edge, graph[i][j] is set to np.inf.\n    \"\"\"\n    # Copy the graph matrix as we will be modifying it\n    dist = np.copy(graph)\n    \n    # Apply Floyd Warshall algorithm\n    for k in range(len(graph)):\n        for i in range(len(graph)):\n            for j in range(len(graph)):\n                if dist[i][k] + dist[k][j] < dist[i][j]:\n                    dist[i][j] = dist[i][k] + dist[k][j]\n    \n    return dist",
+  "test_code": "import numpy as np\nfrom solution import floyd_warshall\n\ndef test_floyd_warshall_empty_graph():\n    graph = np.array([[np.inf, 2, np.inf], [np.inf, np.inf, 3], [4, np.inf, np.inf]])\n    expected = np.array([[np.inf, 2, 5], [np.inf, np.inf, 3], [4, np.inf, np.inf]])\n    assert np.array_equal(floyd_warshall(graph), expected)\n\ndef test_floyd_warshall_single_node_graph():\n    graph = np.array([[0]])\n    expected = np.array([[0]])\n    assert np.array_equal(floyd_warshall(graph), expected)\n\ndef test_floyd_warshall_no_negative_cycle():\n    graph = np.array([[0, 5, 10], [np.inf, 0, 3], [1, np.inf, 0]])\n    expected = np.array([[0, 5, 8], [4, 0, 3], [1, 6, 0]])\n    assert np.array_equal(floyd_warshall(graph), expected)\n\ndef test_floyd_warshall_with_negative_cycle():\n    graph = np.array([[0, -2, 1], [-1, 0, -1], [1, 1, 0]])\n    expected = np.array([[0, -2, -1], [-1, 0, -1], [1, 1, 0]])\n    assert np.array_equal(floyd_warshall(graph), expected)\n\ndef test_floyd_warshall_general_case():\n    graph = np.array([[0, -2, 1, np.inf], [np.inf, 0, -1, 4], [np.inf, np.inf, 0, -1], [2, np.inf, np.inf, 0]])\n    expected = np.array([[0, -2, -1, 1], [2, 0, -1, 3], [2, 1, 0, -1], [0, 2, 1, 0]])\n    assert np.array_equal(floyd_warshall(graph), expected)",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000154",
+    "row_id": 154,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a given string into a list of words. Splitting can be done based on multiple characters. For instance, splitting can be done using the characters ',', '.', and ' ' (space). How would you approach this problem?",
+  "solution_code": "import re\n\ndef split_string_into_words(input_string):\n    \"\"\"\n    Splits the input string based on ',', '.', and ' ' (space) and returns a list of words.\n    \"\"\"\n    return re.split(r'[ ,.]+', input_string)",
+  "test_code": "from solution import split_string_into_words\n\ndef test_split_string_into_words():\n    test_string = \"Hello, world. This is a test.\"\n    expected_output = [\"Hello\", \"world\", \"This\", \"is\", \"a\", \"test\"]\n    assert split_string_into_words(test_string) == expected_output\n\ndef test_split_string_with_multiple_delimiters():\n    test_string = \"One, two, three. Four five six\"\n    expected_output = [\"One\", \"two\", \"three\", \"Four\", \"five\", \"six\"]\n    assert split_string_into_words(test_string) == expected_output\n\ndef test_split_empty_string():\n    test_string = \"\"\n    expected_output = []\n    assert split_string_into_words(test_string) == expected_output\n\ndef test_split_string_with_no_delimiters():\n    test_string = \"OnetwothreeFourfivesix\"\n    expected_output = [\"OnetwothreeFourfivesix\"]\n    assert split_string_into_words(test_string) == expected_output\n\ndef test_split_string_with_only_delimiters():\n    test_string = \",,.   ...  \"\n    expected_output = []\n    assert split_string_into_words(test_string) == expected_output\n\ndef test_split_string_with_tab_and_newline():\n    test_string = \"Line1\\tLine2\\nLine3\"\n    expected_output = [\"Line1\", \"Line2\", \"Line3\"]\n    assert split_string_into_words(test_string) == expected_output",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

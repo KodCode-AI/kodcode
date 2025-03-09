@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000056",
+    "row_id": 56,
+    "seed_ids": [
+      1055
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "**Scenario**: You are working on a project that requires generating Gray code sequences for various bit counts. The sequences are used in a digital communication system to ensure that only one bit changes between consecutive states.\n\n**Task**: Implement a function `generate_gray_code` that takes an integer \\( n \\) as input and returns a list of integers representing the \\( n \\)-bit Gray code sequence. The function should handle edge cases such as non-positive inputs and non-integer inputs.\n\n**Function Signature**: `def generate_gray_code(bit_count: int) -> List[int]:`\n\n**Input**:\n- \\( n \\) (1 \u2264 \\( n \\) \u2264 32): An integer representing the number of bits in the Gray code sequence.\n\n**Output**:\n- A list of integers representing the \\( n \\)-bit Gray code sequence.\n\n**Constraints**:\n- The function should handle inputs within the specified range.\n- The function should raise appropriate exceptions for invalid inputs.\n\n**Performance Requirements**:\n- The function should be efficient for \\( n \\leq 32 \\).\n\n**Example**:\n```python\n>>> generate_gray_code(2)\n[0, 1, 3, 2]\n>>> generate_gray_code(1)\n[0, 1]\n>>> generate_gray_code(3)\n[0, 1, 3, 2, 6, 7, 5, 4]\n```\n\n**Note**: You should not directly use the provided `gray_code` and `gray_code_sequence_string` functions. Implement your solution from scratch.\n\n**Hints**:\n- Consider the recursive nature of the problem and how you can build the sequence iteratively.",
+  "solution_code": "from typing import List\n\ndef generate_gray_code(bit_count: int) -> List[int]:\n    \"\"\"\n    Generates an n-bit Gray code sequence.\n    \"\"\"\n    if not isinstance(bit_count, int) or bit_count <= 0:\n        raise ValueError(\"Input must be a positive integer\")\n    \n    gray_code = [0]\n    for i in range(bit_count):\n        gray_code += [x + 2**i for x in reversed(gray_code)]\n    \n    return gray_code",
+  "test_code": "import pytest\nfrom typing import List\n\ndef test_generate_gray_code():\n    assert generate_gray_code(2) == [0, 1, 3, 2]\n    assert generate_gray_code(1) == [0, 1]\n    assert generate_gray_code(3) == [0, 1, 3, 2, 6, 7, 5, 4]\n    assert generate_gray_code(4) == [0, 1, 3, 2, 6, 7, 5, 4, 12, 13, 15, 14, 10, 11, 9, 8]\n\ndef test_invalid_input():\n    with pytest.raises(ValueError):\n        generate_gray_code(0)\n    with pytest.raises(ValueError):\n        generate_gray_code(-1)\n    with pytest.raises(ValueError):\n        generate_gray_code(3.5)",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results2.jsonl"
+}

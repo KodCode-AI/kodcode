@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000029",
+    "row_id": 29,
+    "seed_ids": [
+      "813",
+      "1659",
+      "2012"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary string `s` and an integer `k`. A **substring** of `s` is considered **balanced** if the number of `0`s and `1`s in it are equal. You can perform the following operation any number of times: choose any index `i` in the string `s` and flip the character at `i` (i.e., change `'0'` to `'1'` and vice versa). Your task is to find the length of the **longest balanced substring** you can obtain by performing the above operation **at most** `k` times. Return the length of this longest balanced substring.\n\nFor example, if `s = \"1100011\"` and `k = 2`, you can flip the characters at indices `4` and `6` to get `\"1101111\"`, which contains a balanced substring of length `7`.",
+  "solution_code": "def longest_balanced_substring(s: str, k: int) -> int:\n    \"\"\"\n    Finds the longest balanced substring that can be obtained by flipping at most k characters.\n    A balanced substring is one with equal numbers of '0's and '1's.\n    \"\"\"\n    max_length = 0\n    zero_count = one_count = 0\n    left = 0\n    \n    for right in range(len(s)):\n        if s[right] == '0':\n            zero_count += 1\n        else:\n            one_count += 1\n        \n        # If the window is not balanced and more flips are needed\n        while zero_count > one_count + k and left <= right:\n            if s[left] == '0':\n                zero_count -= 1\n            else:\n                one_count -= 1\n            left += 1\n        \n        # Update the maximum length of balanced substring found so far\n        max_length = max(max_length, zero_count + one_count)\n    \n    return max_length * 2",
+  "test_code": "import pytest\n\ndef test_longest_balanced_substring():\n    assert longest_balanced_substring(\"1001\", 1) == 4  # All characters can be changed to make the whole string balanced\n    assert longest_balanced_substring(\"1001\", 2) == 4  # Can change both '0's to '1's\n    assert longest_balanced_substring(\"0011\", 0) == 2  # No flips, longest balanced substring is \"00\" or \"11\"\n    assert longest_balanced_substring(\"1100011\", 2) == 7  # Can flip '0' at index 4 and '0' at index 6 to get \"1101111\"\n    assert longest_balanced_substring(\"0001111\", 2) == 6  # Can flip '1' at indices 3 and 4 to get \"0000000\"\n    assert longest_balanced_substring(\"1110111000\", 3) == 8  # Can flip '1' at indices 3, 4, and 5 to get \"1100111000\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

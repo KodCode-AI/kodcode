@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000081",
+    "row_id": 81,
+    "seed_ids": [
+      611
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "Given the following code for checking and counting right triangles on a grid from the origin, you are to optimize the solution to compute the number of right triangles more efficiently.\n\n#### Function Description\n\nYou need to implement a function `optimized_solution` that returns the number of right triangles \\( \\Delta OPQ \\) that can be formed by points \\( P(x1, y1) \\) and \\( Q(x2, y2) \\) with coordinates between 0 and a given limit `limit` inclusive.\n\n#### Constraints\n\n- \\(0 \\leq x1, y1, x2, y2 \\leq \\text{limit}\\)\n- \\(0 \\leq \\text{limit} \\leq 50\\)\n\n#### Example\n\n```python\ndef optimized_solution(limit: int) -> int:\n    # Your implementation goes here\n```\n\n#### Expected Output\n\nThe function should return the number of right triangles that can be formed.\n\n#### Performance Requirements\n\nOptimize the solution to handle the maximum limit of 50 efficiently.",
+  "solution_code": "def optimized_solution(limit: int) -> int:\n    \"\"\"\n    Returns the number of right triangles OPQ that can be formed with\n    coordinates (x1, y1) and (x2, y2) in the range [0, limit].\n    \"\"\"\n    count = 0\n    for x in range(limit + 1):\n        for y in range(limit + 1):\n            # Count triangles with x-axis as the base\n            count += min(x, limit - x) * min(y, limit - y)\n            # Count triangles with y-axis as the base\n            count += min(y, limit - y) * min(x, limit - x)\n    return count * 2",
+  "test_code": "import pytest\n\ndef test_optimized_solution():\n    assert optimized_solution(0) == 0\n    assert optimized_solution(1) == 4\n    assert optimized_solution(2) == 32\n    assert optimized_solution(5) == 2000\n    assert optimized_solution(10) == 120000\n\ndef test_edge_cases():\n    assert optimized_solution(49) == 960400  # Based on the formula\n    assert optimized_solution(50) == 1000000  # Based on the formula\n\ndef test_zero_limit():\n    assert optimized_solution(0) == 0\n\ndef test_one_limit():\n    assert optimized_solution(1) == 4",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results0.jsonl"
+}

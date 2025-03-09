@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000131",
+    "row_id": 131,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a string without using the built-in reverse function or slicing. Also, ensure that your function works for both strings and integer sequences treated as strings.",
+  "solution_code": "def reverse_string(input_str):\n    \"\"\"\n    Reverses the input string without using built-in reverse functions or slicing.\n    \n    Parameters:\n    input_str (str or int): The input string or integer sequence to reverse.\n    \n    Returns:\n    str: The reversed string.\n    \"\"\"\n    reversed_str = \"\"\n    for char in input_str:\n        reversed_str = char + reversed_str\n    return reversed_str",
+  "test_code": "from solution import reverse_string\n\ndef test_reverse_string():\n    assert reverse_string(\"hello\") == \"olleh\"\n    assert reverse_string(\"Python\") == \"nohtyP\"\n    assert reverse_string(\"12345\") == \"54321\"\n\ndef test_reverse_integer_sequence():\n    assert reverse_string(12345) == \"54321\"\n    \ndef test_reverse_empty_string():\n    assert reverse_string(\"\") == \"\"\n    \ndef test_reverse_single_character():\n    assert reverse_string(\"a\") == \"a\"\n\ndef test_reverse_special_characters():\n    assert reverse_string(\"!@#$\") == \"$#@$!\"",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000080",
+    "row_id": 80,
+    "seed_ids": [
+      "16",
+      "1443",
+      "211"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a data structure to find the `k` closest points to a given target point `(tx, ty)` on a 2D plane. The points are represented as an array of coordinates, where each coordinate is an array of two integers `[x, y]`. Implement the `KClosestPoints` class:\n\n*   `KClosestPoints(int k)` Initializes the object with `k`.\n*   `void addPoint(int x, int y)` Adds the point `(x, y)` to the data structure.\n*   `List<List<Integer>> getKClosestPoints()` Returns the `k` closest points to the target point `(tx, ty)` sorted by their Manhattan distance to the target. The Manhattan distance between two points `(x1, y1)` and `(x2, y2)` is given by `abs(x1 - x2) + abs(y1 - y2)`.",
+  "solution_code": "import heapq\nfrom typing import List\n\nclass KClosestPoints:\n    def __init__(self, k: int):\n        self.k = k\n        self points_heap = []\n\n    def addPoint(self, x: int, y: int, tx: int, ty: int):\n        distance = abs(x - tx) + abs(y - ty)\n        heapq.heappush(self.points_heap, (distance, x, y))\n        if len(self.points_heap) > self.k:\n            heapq.heappop(self.points_heap)\n\n    def getKClosestPoints(self, tx: int, ty: int) -> List[List[int]]:\n        return [[x, y] for _, x, y in heapq.nsmallest(self.k, self.points_heap)]",
+  "test_code": "import pytest\nfrom solution import KClosestPoints\n\ndef test_add_point():\n    kcp = KClosestPoints(3)\n    kcp.addPoint(1, 2, 0, 0)\n    kcp.addPoint(3, 3, 0, 0)\n    kcp.addPoint(5, 5, 0, 0)\n    kcp.addPoint(7, 7, 0, 0)\n    kcp.addPoint(9, 9, 0, 0)\n    assert kcp.getKClosestPoints(0, 0) == [[1, 2], [3, 3], [5, 5]]\n\ndef test_add_point_with_negative_coordinates():\n    kcp = KClosestPoints(3)\n    kcp.addPoint(1, 2, -1, -1)\n    kcp.addPoint(3, 3, -2, -2)\n    kcp.addPoint(5, 5, -3, -3)\n    assert kcp.getKClosestPoints(-1, -1) == [[1, 2], [3, 3], [5, 5]]\n\ndef test_add_point_with_decreasing_k():\n    kcp = KClosestPoints(2)\n    kcp.addPoint(1, 1, 0, 0)\n    kcp.addPoint(2, 2, 0, 0)\n    kcp.addPoint(3, 3, 0, 0)\n    assert kcp.getKClosestPoints(0, 0) == [[1, 1], [2, 2]]\n    kcp.k = 3\n    assert kcp.getKClosestPoints(0, 0) == [[1, 1], [2, 2], [3, 3]]\n\ndef test_get_k_closest_points():\n    kcp = KClosestPoints(2)\n    kcp.addPoint(1, 1, 2, 2)\n    kcp.addPoint(3, 3, 2, 2)\n    kcp.addPoint(4, 4, 2, 2)\n    kcp.addPoint(5, 5, 2, 2)\n    assert kcp.getKClosestPoints(2, 2) == [[1, 1], [3, 3]]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

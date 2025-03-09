@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000195",
+    "row_id": 195,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a binary tree to its mirror. The function should take a single parameter, which is the root of the binary tree.",
+  "solution_code": "class TreeNode:\n    \"\"\"Simple Binary Tree Node class.\"\"\"\n    def __init__(self, value=0, left=None, right=None):\n        self.value = value\n        self.left = left\n        self.right = right\n\ndef mirror_tree(node):\n    \"\"\"\n    Converts a binary tree into its mirror tree.\n    :param node: TreeNode, the root of the binary tree.\n    :return: TreeNode, the root of the mirror tree.\n    \"\"\"\n    if node is None:\n        return None\n    # Swap the left and right children\n    node.left, node.right = node.right, node.left\n    # Recursively apply to the left and right children\n    mirror_tree(node.left)\n    mirror_tree(node.right)\n    return node",
+  "test_code": "from solution import TreeNode, mirror_tree\n\ndef test_mirror_tree():\n    # Construct a simple tree\n    #       1\n    #      / \\\n    #     2   3\n    #    / \\   \\\n    #   4   5   6\n    root = TreeNode(1)\n    root.left = TreeNode(2)\n    root.right = TreeNode(3)\n    root.left.left = TreeNode(4)\n    root.left.right = TreeNode(5)\n    root.right.right = TreeNode(6)\n    \n    # Expected output after mirroring\n    #       1\n    #      / \\\n    #     3   2\n    #        / \\\n    #       6   4\n    #          /\n    #         5\n    mirrored_root = mirror_tree(root)\n    \n    assert mirrored_root.left.value == 3\n    assert mirrored_root.right.left.value == 6\n    assert mirrored_root.right.right.value == 4\n    assert mirrored_root.right.right.right.value == 5",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000169",
+    "row_id": 169,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to evaluate a postfix expression (Reverse Polish Notation).",
+  "solution_code": "def evaluate_postfix(expression: str) -> int:\n    \"\"\"\n    Evaluates a postfix (Reverse Polish Notation) expression.\n    \n    Args:\n    expression (str): A string representing a postfix expression.\n    \n    Returns:\n    int: The result of the evaluation.\n    \"\"\"\n    stack = []\n    for term in expression.split():\n        if term.isdigit():  # if the term is a number, push it onto the stack\n            stack.append(int(term))\n        else:  # if the term is an operation\n            b = stack.pop()\n            a = stack.pop()\n            if term == '+':\n                stack.append(a + b)\n            elif term == '-':\n                stack.append(a - b)\n            elif term == '*':\n                stack.append(a * b)\n            elif term == '/':\n                stack.append(int(a / b))  # use int to truncate towards zero\n            else:\n                raise ValueError(f\"Unsupported operation: {term}\")\n    if len(stack) != 1:\n        raise ValueError(\"Invalid expression\")\n    return stack[0]",
+  "test_code": "from solution import evaluate_postfix\n\ndef test_evaluate_postfix_positive():\n    assert evaluate_postfix(\"3 4 +\") == 7\n    assert evaluate_postfix(\"5 1 2 + 4 * + 3 -\") == 14\n\ndef test_evaluate_postfix_with_negative():\n    assert evaluate_postfix(\"10 2 / 3 - 5 +\") == 2\n    assert evaluate_postfix(\"-1 2 *\") == -2\n\ndef test_evaluate_postfix_zero():\n    assert evaluate_postfix(\"4 -4 -\") == 0\n    assert evaluate_postfix(\"0 0 +\") == 0\n    assert evaluate_postfix(\"0 -0 +\") == 0\n\ndef test_evaluate_postfix_single_number():\n    assert evaluate_postfix(\"7\") == 7\n\ndef test_evaluate_postfix_division_behavior():\n    assert evaluate_postfix(\"10 5 /\") == 2\n    assert evaluate_postfix(\"10 5 / 2 -\") == 0\n\ndef test_evaluate_postfix_invalid_expression():\n    with pytest.raises(ValueError):\n        evaluate_postfix(\"4 2 + x\")\n    with pytest.raises(ValueError):\n        evaluate_postfix(\"10 / 0\")\n    with pytest.raises(ValueError):\n        evaluate_postfix(\"10 2 3 +\")",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

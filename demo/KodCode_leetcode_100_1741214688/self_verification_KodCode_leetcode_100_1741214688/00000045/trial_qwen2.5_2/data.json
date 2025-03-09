@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000045",
+    "row_id": 45,
+    "seed_ids": [
+      "223",
+      "1228",
+      "1528"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary tree, return the vertical order traversal of its nodes' values. Vertical order traversal means starting from the root, traverse the tree column by column from left to right. If two nodes are in the same row and column, order them from left to right based on their values. The tree is represented using a list of `TreeNode` objects, where each `TreeNode` has an integer value, and left and right pointers to its children. If a node is `null`, it should be represented as `None` in the list. For example, the tree\n\n```\n    3\n   / \\\n  9  20\n    /  \\\n   15   7\n```\n\ncan be represented as `[3, [9], [20, 15, 7]]`. Return the vertical order traversal as a list of lists, where each sublist represents a vertical level.",
+  "solution_code": "from collections import defaultdict, deque\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef vertical_order(root):\n    \"\"\"\n    Returns the vertical order traversal of the tree nodes' values.\n    \"\"\"\n    if not root:\n        return []\n    \n    column_table = defaultdict(list)\n    queue = deque([(root, 0)])  # (node, column_index)\n    \n    while queue:\n        node, column_index = queue.popleft()\n        column_table[column_index].append(node.val)\n        \n        if node.left:\n            queue.append((node.left, column_index - 1))\n        if node.right:\n            queue.append((node.right, column_index + 1))\n    \n    # Sort column keys and then return the nodes in the order of columns\n    return [column_table[k] for k in sorted(column_table)]",
+  "test_code": "from solution import TreeNode, vertical_order\n\ndef test_vertical_order_example():\n    root = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))\n    expected = [[9], [3, 15], [20], [7]]\n    assert vertical_order(root) == expected\n\ndef test_vertical_order_single_node():\n    root = TreeNode(1)\n    expected = [[1]]\n    assert vertical_order(root) == expected\n\ndef test_vertical_order_empty_tree():\n    assert vertical_order(None) == []\n\ndef test_vertical_order.empty_space_in_tree():\n    root = TreeNode(1, TreeNode(2, None, TreeNode(4)), TreeNode(3))\n    expected = [[2], [1, 3], [4]]\n    assert vertical_order(root) == expected\n\ndef test_vertical_order_multiple_levels():\n    root = TreeNode(1, TreeNode(2, TreeNode(4)), TreeNode(3, None, TreeNode(5)))\n    expected = [[4], [2], [1, 3, 5]]\n    assert vertical_order(root) == expected",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

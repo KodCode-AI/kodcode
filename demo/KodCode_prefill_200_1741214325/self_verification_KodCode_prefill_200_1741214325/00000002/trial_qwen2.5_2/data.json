@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000002",
+    "row_id": 2,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find the maximum depth of a binary search tree (BST).",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef max_depth_bst(root: TreeNode) -> int:\n    \"\"\"\n    Returns the maximum depth of a binary search tree.\n    \"\"\"\n    if root is None:\n        return 0\n    else:\n        left_depth = max_depth_bst(root.left)\n        right_depth = max_depth_bst(root.right)\n        return max(left_depth, right_depth) + 1",
+  "test_code": "``\nfrom solution import TreeNode, max_depth_bst\n\ndef test_max_depth_bst_empty_tree():\n    assert max_depth_bst(None) == 0\n\ndef test_max_depth_bst_single_node():\n    root = TreeNode(5)\n    assert max_depth_bst(root) == 1\n\ndef test_max_depth_bst_balanced_tree():\n    root = TreeNode(5)\n    root.left = TreeNode(3)\n    root.right = TreeNode(8)\n    root.left.left = TreeNode(2)\n    root.left.right = TreeNode(4)\n    root.right.left = TreeNode(7)\n    root.right.right = TreeNode(9)\n    assert max_depth_bst(root) == 3\n\ndef test_max_depth_bst_skewed_right():\n    root = TreeNode(1)\n    root.right = TreeNode(2)\n    root.right.right = TreeNode(3)\n    assert max_depth_bst(root) == 3\n\ndef test_max_depth_bst_skewed_left():\n    root = TreeNode(1)\n    root.left = TreeNode(2)\n    root.left.left = TreeNode(3)\n    assert max_depth_bst(root) == 3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

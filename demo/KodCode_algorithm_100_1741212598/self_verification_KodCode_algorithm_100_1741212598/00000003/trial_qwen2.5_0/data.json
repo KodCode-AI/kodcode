@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000003",
+    "row_id": 3,
+    "seed_ids": [
+      289
+    ],
+    "mode": "algorithm"
+  },
+  "instruction": "Design a function `interleave_strings` that takes two strings `first_str` and `second_str` and returns a new string where the characters from `first_str` and `second_str` are interleaved. If one string is longer, the extra characters should be appended to the end of the result string.\n\n**Function Signature**: `def interleave_strings(first_str: str, second_str: str) -> str:`\n\n**Input**:\n- `first_str` (1 <= len(first_str) <= 10^5): A string consisting of lowercase English letters.\n- `second_str` (1 <= len(second_str) <= 10^5): A string consisting of lowercase English letters.\n\n**Output**:\n- Return a single string that is the result of interleaving `first_str` and `second_str`.\n\n**Examples**:\n```python\n>>> interleave_strings(\"ABCD\", \"XY\")\n'AXBYCD'\n>>> interleave_strings(\"XY\", \"ABCD\")\n'XAYBCD'\n>>> interleave_strings(\"AB\", \"XYZ\")\n'AXBYZ'\n>>> interleave_strings(\"ABC\", \"\")\n'ABC'\n```\n\n**Constraints**:\n- The input strings contain only lowercase English letters.\n- The lengths of the input strings are between 1 and 10^5.\n\n**Performance Requirement**:\n- The function should handle the largest input size (10^5 characters) within 1 second.",
+  "solution_code": "def interleave_strings(first_str: str, second_str: str) -> str:\n    \"\"\"\n    Interleave the characters from two strings and return the result.\n    \"\"\"\n    result = []\n    i, j = 0, 0\n    while i < len(first_str) and j < len(second_str):\n        result.append(first_str[i])\n        result.append(second_str[j])\n        i += 1\n        j += 1\n    # Append remaining characters from first_str if any\n    result.extend(first_str[i:])\n    # Append remaining characters from second_str if any\n    result.extend(second_str[j:])\n    return ''.join(result)",
+  "test_code": "from solution import interleave_strings\n\ndef test_interleave_strings():\n    assert interleave_strings(\"ABCD\", \"XY\") == \"AXBYCD\"\n    assert interleave_strings(\"XY\", \"ABCD\") == \"XAYBCD\"\n    assert interleave_strings(\"AB\", \"XYZ\") == \"AXBYZ\"\n    assert interleave_strings(\"ABC\", \"\") == \"ABC\"\n    assert interleave_strings(\"\", \"XYZ\") == \"XYZ\"\n    assert interleave_strings(\"a\" * 100000, \"b\" * 100000) == \"ab\" * 100000\n    assert interleave_strings(\"a\" * 100000, \"\") == \"a\" * 100000\n    assert interleave_strings(\"\", \"b\" * 100000) == \"b\" * 100000\n\ndef test_performance():\n    from timeit import timeit\n    # Check if the function can handle large input within 1 second\n    large_input = \"a\" * 100000\n    assert timeit(lambda: interleave_strings(large_input, large_input), number=1) < 1",
+  "file_source": "KodCode_questions2sv_algorithm_100_1741212598_sanitized_prepared_results0.jsonl"
+}

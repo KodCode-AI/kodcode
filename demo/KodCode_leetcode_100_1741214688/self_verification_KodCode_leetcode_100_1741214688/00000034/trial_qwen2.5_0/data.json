@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000034",
+    "row_id": 34,
+    "seed_ids": [
+      "2484",
+      "291",
+      "249"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s`, return the number of distinct **subsequences** of `s` that are palindromic. Since the answer may be very large, return it **modulo** `10^9 + 7`. Note: A string is considered a **subsequence** of another string if it can be derived by deleting some or no characters from the other string without changing the order of the remaining characters.",
+  "solution_code": "def count_distinct_palindromic_subsequences(s: str) -> int:\n    \"\"\"\n    Returns the number of distinct palindromic subsequences of the string `s`.\n    The result is returned modulo 10^9 + 7.\n    \"\"\"\n    MOD = 10**9 + 7\n    n = len(s)\n    dp = [[0 for _ in range(n)] for _ in range(n)]\n    \n    for i in range(n-1, -1, -1):\n        dp[i][i] = 1  # Single character is always a palindrome\n        for j in range(i+1, n):\n            if s[i] == s[j]:\n                dp[i][j] = (2 * dp[i+1][j-1]) % MOD\n                k = j - 1\n                while k > i:\n                    if s[i] == s[k]:\n                        dp[i][j] += (dp[i+1][k-1] - dp[i+1][j-1] + MOD) % MOD\n                        break\n                    k -= 1\n            else:\n                dp[i][j] = (dp[i+1][j] + dp[i][j-1] - dp[i+1][j-1] + MOD) % MOD\n\n    return (dp[0][n-1] - 1 + MOD) % MOD  # Subtract 1 to exclude the empty subsequence",
+  "test_code": "from solution import count_distinct_palindromic_subsequences\n\ndef test_count_distinct_palindromic_subsequences():\n    assert count_distinct_palindromic_subsequences(\"abc\") == 3  # \"a\", \"b\", \"c\"\n    assert count_distinct_palindromic_subsequences(\"aaa\") == 3  # \"a\", \"a\", \"aaa\"\n    assert count_distinct_palindromic_subsequences(\"baa\") == 3  # \"a\", \"b\", \"aa\"\n    assert count_distinct_palindromic_subsequences(\"aabca\") == 6  # \"a\", \"b\", \"c\", \"aa\", \"aba\", \"aaca\"\n    assert count_distinct_palindromic_subsequences(\"aaaacaab\") == 10\n    assert count_distinct_palindromic_subsequences(\"aaaaa\") == 5  # \"a\", \"a\", \"aa\", \"aaa\", \"aaaa\"\n    assert count_distinct_palindromic_subsequences(\"abccba\") == 11  # \"a\", \"b\", \"c\", \"b\", \"c\", \"a\", \"bb\", \"cc\", \"bca\", \"bac\", \"abccba\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

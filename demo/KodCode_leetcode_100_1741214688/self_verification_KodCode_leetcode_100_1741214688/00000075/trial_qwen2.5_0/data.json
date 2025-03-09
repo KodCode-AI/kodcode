@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000075",
+    "row_id": 75,
+    "seed_ids": [
+      "1053",
+      "2375",
+      "2254"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, you can perform the following operation any number of times: choose a non-empty substring `s[i... j]` (i.e., `s[i]` is the first character and `s[j]` is the last character) and reverse it. The goal is to make the string `s` **lexicographically** **smallest** possible. Return the smallest string `s` you can obtain after performing this operation any number of times.",
+  "solution_code": "def make_smallest_lexicographical_string(s: str) -> str:\n    \"\"\"\n    Returns the lexicographically smallest string that can be obtained by \n    reversing any number of substrings in the given string `s`.\n    \"\"\"\n    stack = []\n    for char in s:\n        # While the last character in the stack is greater than the current character and we can pop,\n        # pop from the stack\n        while stack and char < stack[-1]:\n            stack.pop()\n        stack.append(char)\n    \n    # Join the characters in the stack to form the smallest lexicographical string\n    result = ''.join(stack)\n    \n    # Fill the remaining positions with the original characters that are not in the stack\n    result += s[len(result):]\n    \n    return result",
+  "test_code": "from solution import make_smallest_lexicographical_string\n\ndef test_make_smallest_lexicographical_string():\n    assert make_smallest_lexicographical_string(\"cba\") == \"abc\"\n    assert make_smallest_lexicographical_string(\"abcd\") == \"abcd\"\n    assert make_smallest_lexicographical_string(\"aabc\") == \"aaab\"\n    assert make_smallest_lexicographical_string(\"cbaabc\") == \"abcabc\"\n    assert make_smallest_lexicographical_string(\"cbabadcbbabbcbaba\") == \"aababacbbabc\"",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

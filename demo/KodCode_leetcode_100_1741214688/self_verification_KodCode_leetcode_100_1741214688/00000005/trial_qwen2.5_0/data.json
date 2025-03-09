@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000005",
+    "row_id": 5,
+    "seed_ids": [
+      "2338",
+      "1653",
+      "129"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a binary tree where each node contains a single digit from `0` to `9`. A **path** in the tree is defined as any sequence of nodes from some starting node to any leaf node. Each root-to-leaf path in the tree represents a number. For example, the path `1 -> 2 -> 3` represents the number `123`.\n\nYou need to find the sum of all root-to-leaf numbers in the tree. A **leaf** node is a node with no children. The result should be returned as an integer, and test cases are generated so that the answer will fit in a **32-bit** integer.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef sumNumbers(root: TreeNode) -> int:\n    \"\"\"\n    Returns the sum of all root-to-leaf numbers in the tree.\n    \"\"\"\n    def dfs(node, current_number):\n        if not node:\n            return 0\n        current_number = current_number * 10 + node.val\n        if not node.left and not node.right:  # it's a leaf\n            return current_number\n        return dfs(node.left, current_number) + dfs(node.right, current_number)\n    \n    return dfs(root, 0)",
+  "test_code": "from solution import sumNumbers, TreeNode\n\ndef setup_tree(lvl, idx):\n    if idx >= 2**lvl:  # Stop when reached impossible index\n        return None\n    node = TreeNode(idx % 10)\n    node.left = setup_tree(lvl, 2*idx + 1)\n    node.right = setup_tree(lvl, 2*idx + 2)\n    return node\n\ndef test_sumNumbers():\n    assert sumNumbers(None) == 0  # Empty tree\n    assert sumNumbers(TreeNode(1)) == 1  # Single node tree\n    assert sumNumbers(TreeNode(1, TreeNode(2), TreeNode(3))) == 25  # Binary tree: 12 + 13 = 25\n    assert sumNumbers(TreeNode(4, TreeNode(9, TreeNode(5), TreeNode(1)), TreeNode(0))) == 1026  # More complex binary tree: 495 + 491 + 40 = 1026\n    tree = setup_tree(4, 0)  # Full binary tree of level 4, replacing all leafs with their values\n    expected_sum = 0\n    for i in range(2**4):\n        expected_sum += int(str(i), 4) * 4**4  # Convert i to base 4 and shift left by 4 places\n    assert sumNumbers(tree) == expected_sum  # Check the sum of all root-to-leaf numbers in a full binary tree",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

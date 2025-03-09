@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000047",
+    "row_id": 47,
+    "seed_ids": [
+      "952",
+      "222",
+      "232"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Design a class `MyStack` to implement a last in first out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (`push`, `pop`, `top`, and `empty`). Implement the `MyStack` class:\n\n*   `void push(int x)` Pushes element x to the top of the stack.\n*   `int pop()` Removes the element from the top of the stack and returns it.\n*   `int top()` Returns the element at the top of the stack.\n*   `boolean empty()` Returns `true` if the stack is empty, `false` otherwise.\n\n**Notes:** \n\n*   You must use **only** standard operations of a queue, which means only `enqueue`, `deque`, `size`, and `is empty` operations are valid.\n*   Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.",
+  "solution_code": "from collections import deque\n\nclass MyStack:\n    def __init__(self):\n        self.q1 = deque()\n        self.q2 = deque()\n        \n    def push(self, x: int) -> None:\n        # Move all elements from q1 to q2\n        while self.q1:\n            self.q2.append(self.q1.popleft())\n        # Push the new element to q1\n        self.q1.append(x)\n        # Move all elements back from q2 to q1\n        while self.q2:\n            self.q1.append(self.q2.popleft())\n\n    def pop(self) -> int:\n        if self.q1:  # If stack is not empty\n            return self.q1.popleft()\n        return None\n\n    def top(self) -> int:\n        if self.q1:  # If stack is not empty\n            x = self.q1.popleft()\n            self.push(x)  # Push it back to the stack\n            return x\n        return None\n\n    def empty(self) -> bool:\n        return not self.q1",
+  "test_code": "import pytest\nfrom solution import MyStack\n\ndef test_push_and_pop():\n    stack = MyStack()\n    stack.push(1)\n    stack.push(2)\n    assert stack.pop() == 2\n    assert stack.pop() == 1\n    assert stack.pop() is None\n\ndef test_top():\n    stack = MyStack()\n    stack.push(1)\n    stack.push(2)\n    assert stack.top() == 2\n    assert stack.top() == 2  # did not pop, should still be 2\n    assert stack.pop() == 2\n    assert stack.top() == 1\n    assert stack.pop() == 1\n    assert stack.top() is None\n\ndef test_empty():\n    stack = MyStack()\n    assert stack.empty() == True\n    stack.push(1)\n    assert stack.empty() == False\n    stack.pop()\n    assert stack.empty() == True\n\ndef test_multiple_pushes():\n    stack = MyStack()\n    for i in range(5):\n        stack.push(i)\n    for i in range(4, -1, -1):\n        assert stack.pop() == i\n    assert stack.empty() == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000073",
+    "row_id": 73,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to perform a binary search on a sorted list of integers. The function should return the index of the target value if it is found, or -1 if it is not found. The list may not be empty.",
+  "solution_code": "def binary_search(arr, target):\n    \"\"\"\n    Perform a binary search on a sorted list of integers.\n    Returns the index of the target value if found, otherwise -1.\n    \"\"\"\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+  "test_code": "from solution import binary_search\n\ndef test_binary_search_positive():\n    assert binary_search([1, 2, 3, 4, 5], 3) == 2\n    assert binary_search([10, 20, 30, 40, 50], 40) == 3\n\ndef test_binary_search_not_found():\n    assert binary_search([1, 2, 3, 4, 5], 6) == -1\n    assert binary_search([10, 20, 30, 40, 50], 7) == -1\n\ndef test_binary_search_single_element():\n    assert binary_search([5], 5) == 0\n    assert binary_search([5], 4) == -1\n\ndef test_binary_search_empty_list():\n    assert binary_search([], 1) == -1\n    assert binary_search([], 2) == -1\n\ndef test_binary_search_edge_cases():\n    assert binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1) == 0\n    assert binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10) == 9",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

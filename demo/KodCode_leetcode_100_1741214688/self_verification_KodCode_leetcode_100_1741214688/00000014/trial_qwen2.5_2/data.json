@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000014",
+    "row_id": 14,
+    "seed_ids": [
+      "2607",
+      "1880",
+      "1315"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given the root of a binary tree, return the sum of values of all nodes that have an odd-valued parent. If there are no such nodes, return 0. A parent node is considered odd if its value is an odd number.",
+  "solution_code": "from collections import deque\n\n# Definition for a binary tree node.\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef sum_of_odd_parent_nodes(root):\n    \"\"\"\n    Returns the sum of values of all nodes that have an odd-valued parent.\n    \"\"\"\n    if not root:\n        return 0\n    \n    queue = deque([(root, None)])  # (node, parent)\n    total_sum = 0\n    \n    while queue:\n        node, parent = queue.popleft()\n        \n        if parent and parent.val % 2 != 0:\n            total_sum += node.val\n        \n        if node.left:\n            queue.append((node.left, node))\n        if node.right:\n            queue.append((node.right, node))\n    \n    return total_sum",
+  "test_code": "from solution import sum_of_odd_parent_nodes, TreeNode\n\ndef create_tree(*vals):\n    if not vals:\n        return None\n    nodes = [TreeNode(val) if val is not None else None for val in vals]\n    for i, node in enumerate(nodes):\n        if node:\n            parent_idx = (i - 1) // 2\n            if 2 * parent_idx + 1 <= i:\n                node.left = nodes[2 * parent_idx + 1]\n            if 2 * parent_idx + 2 <= i:\n                node.right = nodes[2 * parent_idx + 2]\n    return nodes[0]\n\ndef test_sum_of_odd_parent_nodes():\n    # Example 1\n    root = create_tree(6, 7, 8, 2, 7, 1, 3, None, None, None, 5, 4)\n    assert sum_of_odd_parent_nodes(root) == 18\n    \n    # Example 2\n    root = create_tree(15, 7)\n    assert sum_of_odd_parent_nodes(root) == 0\n    \n    # Example 3\n    root = create_tree(8, None, 10, None, 2, None, 1, None, None, None, 6)\n    assert sum_of_odd_parent_nodes(root) == 12\n\n    # Additional test case with no odd parent nodes\n    root = create_tree(2, 3, 4)\n    assert sum_of_odd_parent_nodes(root) == 0",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

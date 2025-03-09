@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000036",
+    "row_id": 36,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to print all the prime numbers in a given range. What are the factors to consider while implementing this function?",
+  "solution_code": "def print_primes(start: int, end: int) -> None:\n    \"\"\"\n    This function prints all prime numbers in a given range from 'start' (inclusive) to 'end' (inclusive).\n\n    Parameters:\n    start (int): Start of the range (inclusive).\n    end (int): End of the range (inclusive).\n\n    Returns:\n    None\n    \"\"\"\n\n    def is_prime(num: int) -> bool:\n        \"\"\"Check if a given number is prime.\"\"\"\n        if num <= 1:\n            return False\n        for i in range(2, int(num**0.5) + 1):\n            if num % i == 0:\n                return False\n        return True\n\n    for num in range(start, end + 1):\n        if is_prime(num):\n            print(num)",
+  "test_code": "def test_is_prime():\n    assert is_prime(2) == True\n    assert is_prime(3) == True\n    assert is_prime(5) == True\n    assert is_prime(7) == True\n    assert is_prime(11) == True\n    assert is_prime(13) == True\n    assert is_prime(121) == False  # 121 is not a prime\n    assert is_prime(15485863) == True  # 15485863 is a large prime number\n\ndef test_print_primes():\n    # Using a non-printing output method to simulate the print behavior\n    output = []\n    original_print = print\n\n    def log(msg):\n        output.append(msg)\n\n    print = log\n\n    start = 1\n    end = 10\n    print_primes(start, end)\n    print = original_print\n\n    expected_output = [2, 3, 5, 7]\n    assert output == [2, 3, 5, 7]\n\n    # Testing with a larger range\n    start = 10\n    end = 20\n    print_primes(start, end)\n    expected_output = [11, 13, 17, 19]\n    assert output == [11, 13, 17, 19]\n\n    # Test with no primes in the range\n    start = 23\n    end = 29\n    print_primes(start, end)\n    expected_output = []\n    assert output == []",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000177",
+    "row_id": 177,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to sort an array using the Quick Sort algorithm.",
+  "solution_code": "def quick_sort(arr):\n    \"\"\"\n    Sorts an array using the Quick Sort algorithm.\n    \n    Parameters:\n    arr (list): The list of elements to be sorted.\n    \n    Returns:\n    list: The sorted list.\n    \"\"\"\n    if len(arr) <= 1:\n        return arr\n    else:\n        pivot = arr[0]\n        less_than_pivot = [x for x in arr[1:] if x <= pivot]\n        greater_than_pivot = [x for x in arr[1:] if x > pivot]\n        return quick_sort(less_than_pivot) + [pivot] + quick_sort(greater_than_pivot)",
+  "test_code": "from solution import quick_sort\n\ndef test_quick_sort_empty_list():\n    assert quick_sort([]) == []\n\ndef test_quick_sort_single_element():\n    assert quick_sort([5]) == [5]\n\ndef test_quick_sort_positive_numbers():\n    arr = [3, 6, 8, 10, 1, 2, 1]\n    assert quick_sort(arr) == [1, 1, 2, 3, 6, 8, 10]\n\ndef test_quick_sort_negative_numbers():\n    arr = [-3, -6, -8, -10, -1, -2, -1]\n    assert quick_sort(arr) == [-10, -8, -6, -3, -2, -1, -1]\n\ndef test_quick_sort_mixed_sign_numbers():\n    arr = [3, -6, 8, -10, 1, -2, 1]\n    assert quick_sort(arr) == [-10, -6, -2, 1, 1, 3, 8]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

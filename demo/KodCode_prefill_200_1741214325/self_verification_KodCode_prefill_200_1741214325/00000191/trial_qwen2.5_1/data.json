@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000191",
+    "row_id": 191,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to reverse a linked list in place.",
+  "solution_code": "class ListNode:\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef reverse_linked_list(head):\n    \"\"\"\n    Reverses a linked list in place.\n    \n    Args:\n    head (ListNode): The head node of the linked list.\n    \n    Returns:\n    ListNode: The new head of the reversed linked list.\n    \"\"\"\n    prev = None\n    current = head\n    while current:\n        next_node = current.next  # Store the next node\n        current.next = prev       # Reverse the link\n        prev = current            # Move prev and current one step forward\n        current = next_node\n    return prev",
+  "test_code": "from solution import ListNode, reverse_linked_list\n\ndef create_linked_list(values):\n    if not values:\n        return None\n    head = ListNode(values[0])\n    current = head\n    for value in values[1:]:\n        current.next = ListNode(value)\n        current = current.next\n    return head\n\ndef linked_list_to_list(head):\n    values = []\n    current = head\n    while current:\n        values.append(current.value)\n        current = current.next\n    return values\n\ndef test_reverse_linked_list():\n    assert linked_list_to_list(reverse_linked_list(None)) == []\n    assert linked_list_to_list(reverse_linked_list(create_linked_list([1]))) == [1]\n    assert linked_list_to_list(reverse_linked_list(create_linked_list([1, 2, 3, 4, 5]))) == [5, 4, 3, 2, 1]\n    assert linked_list_to_list(reverse_linked_list(create_linked_list([1, 3, 5, 7, 9]))) == [9, 7, 5, 3, 1]\n\nimport pytest\n@pytest.mark.parametrize(\"values, expected\", [\n    ([], []),\n    ([1], [1]),\n    ([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]),\n    ([1, 3, 5, 7, 9], [9, 7, 5, 3, 1])\n])\ndef test_reverse_linked_list_parametrized(values, expected):\n    head = create_linked_list(values)\n    reversed_head = reverse_linked_list(head)\n    assert linked_list_to_list(reversed_head) == expected",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results1.jsonl"
+}

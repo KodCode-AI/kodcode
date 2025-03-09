@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000060",
+    "row_id": 60,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to filter out all the strings from a given list that contain a specific substring.",
+  "solution_code": "def filter_strings(list_of_strings, substring):\n    \"\"\"\n    Returns a new list containing only the strings from the input list that include the specified substring.\n    \"\"\"\n    return [s for s in list_of_strings if substring in s]",
+  "test_code": "from solution import filter_strings\n\ndef test_filter_strings_empty_list():\n    assert filter_strings([], \"test\") == []\n\ndef test_filter_strings_no_matches():\n    assert filter_strings([\"apple\", \"banana\", \"cherry\"], \"date\") == []\n\ndef test_filter_strings_with_matches_at_beginning():\n    assert filter_strings([\"apple\", \"date\", \"cherry\"], \"a\") == [\"apple\", \"date\"]\n\ndef test_filter_strings_with_matches_at_end():\n    assert filter_strings([\"apple\", \"date\", \"cherry\"], \"ry\") == [\"cherry\"]\n\ndef test_filter_strings_with_matches_in_middle():\n    assert filter_strings([\"apple\", \"banana\", \"cherry\"], \"na\") == [\"banana\"]\n\ndef test_filter_strings_with_substring_case_insensitive():\n    assert filter_strings([\"Apple\", \"Banana\", \"cherry\"], \"a\") == [\"Apple\", \"Banana\"]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

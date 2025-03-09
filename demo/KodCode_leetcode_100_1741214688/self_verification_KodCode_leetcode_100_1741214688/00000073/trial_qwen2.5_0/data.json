@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000073",
+    "row_id": 73,
+    "seed_ids": [
+      "1197",
+      "1025",
+      "1161"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given an **infinite** 2D grid representing a map, where each cell can either be land (`1`) or water (`0`), a **snake** is defined as a sequence of adjacent land cells. The length of a snake is the number of cells it spans. You start at the top-left corner of the grid at cell `[0, 0]`. On each move, you can travel to an adjacent cell (up, down, left, or right) but you cannot revisit any cell. The goal is to find the maximum length of a snake starting from `[0, 0]` and moving to the **right**most possible cell in the grid, which is beyond the current boundary. You are given the grid as a 2D array where `1` represents land and `0` represents water. Return the length of the longest snake.",
+  "solution_code": "def longest_snake(grid):\n    \"\"\"\n    Returns the length of the longest snake starting from the top-left corner\n    and moving rightmost.\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    visited = set()\n    max_snake_length = 0\n    \n    def explore(x, y, direction):\n        nonlocal max_snake_length\n        if x < 0 or y < 0 or x >= m or y >= n or grid[x][y] == 0 or (x, y) in visited:\n            return 0\n        visited.add((x, y))\n        max_snake_length = max(max_snake_length, 1 + explore(x + 1 * (direction[0] > 0 or direction[1] == 0), y + 1 * (direction[0] == 0 or direction[1] > 0), direction))\n        visited.remove((x, y))\n        return 1 + explore(x + direction[0], y + direction[1], direction)\n    \n    explore(0, 0, (1, 0))\n    return max_snake_length",
+  "test_code": "import pytest\n\ndef test_longest_snake():\n    grid1 = [[0,1,1,1,0,0,0,1,0,1], [0,0,1,0,0,0,0,1,0,1], [1,1,0,0,1,0,0,1,0,1], [0,1,1,0,0,0,1,0,0,1], [0,1,1,0,0,0,1,0,1,0], [0,0,0,1,1,1,0,0,1,1], [0,1,0,0,1,1,1,0,1,0], [1,0,1,1,1,0,0,1,0,0], [0,1,1,0,0,0,0,1,1,0], [0,1,1,1,0,0,1,0,0,1]]\n    assert longest_snake(grid1) == 4\n    grid2 = [[0,1,1,1,0,0,0,1,0,1], [0,0,1,0,0,0,0,1,0,1], [1,1,0,0,1,0,0,1,0,1], [0,1,1,0,0,0,1,0,0,1], [0,1,1,0,0,0,1,0,1,0], [0,0,0,1,1,1,0,0,1,1], [0,1,0,0,1,1,1,0,1,0], [1,0,1,1,1,0,0,1,0,0], [0,1,1,0,0,0,0,1,1,0], [0,1,1,1,0,0,1,0,0,1]]\n    assert longest_snake(grid2) == 4\n    grid3 = [[1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1]]\n    assert longest_snake(grid3) == 10\n    grid4 = [[0]]\n    assert longest_snake(grid4) == 0\n    grid5 = [[1,1], [1,1]]\n    assert longest_snake(grid5) == 2",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

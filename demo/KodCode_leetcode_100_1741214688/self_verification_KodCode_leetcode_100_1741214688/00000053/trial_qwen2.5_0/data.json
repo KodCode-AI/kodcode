@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000053",
+    "row_id": 53,
+    "seed_ids": [
+      "866",
+      "2194",
+      "2503"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a rectangular grid of size `m x n`, you are initially positioned at the top-left cell `(0, 0)`. You are allowed to move either down or right at any point in time. Each cell in the grid contains a unique integer. Design a function that returns the lexicographically smallest path of length `k` from the starting cell to the bottom-right cell `(m-1, n-1)`. A path is defined as a sequence of `k` cells from the grid, starting from `(0, 0)` and ending at `(m-1, n-1)`. The path must follow the movement rules (only down or right) and the cells must be distinct. The cells in the path are considered in the order they are visited. The lexicographically smallest path is the one where the sequence of cell values, when concatenated, forms the smallest possible number. For example, if the path is `[5, 7, 8]`, the value is `578`. If the path is `[1, 3, 2]`, the value is `132`. If two paths have the same sequence of cell values, the lexicographically smaller one is the one with the smaller first element.",
+  "solution_code": "def find_smallest_path(grid, k):\n    \"\"\"\n    Returns the lexicographically smallest path of length k from (0, 0) to (m-1, n-1).\n    \"\"\"\n    m, n = len(grid), len(grid[0])\n    \n    def dfs(x, y, k, path):\n        if k == 0 or x == m-1 and y == n-1:\n            return [path]\n        smallest_paths = []\n        if x < m-1:\n            smallest_paths += dfs(x+1, y, k-1, path + [grid[x+1][y]])\n        if y < n-1:\n            smallest_paths += dfs(x, y+1, k-1, path + [grid[x][y+1]])\n        return sorted(smallest_paths, key=lambda p: int(''.join(map(str, p))))[:1]\n    \n    return dfs(0, 0, k, [grid[0][0]])[0]",
+  "test_code": "def test_find_smallest_path():\n    grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n    k = 3\n    assert find_smallest_path(grid, k) == [1, 2, 4]\n    \n    grid = [[5, 9, 3], [4, 1, 6], [7, 8, 2]]\n    k = 2\n    assert find_smallest_path(grid, k) == [1, 2]\n\n    grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n    k = 4\n    assert find_smallest_path(grid, k) == [1, 2, 4, 7]\n\n    grid = [[10, 11, 12], [13, 14, 15], [16, 17, 18]]\n    k = 3\n    assert find_smallest_path(grid, k) == [10, 11, 12]\n\n    grid = [[1, 1, 3], [4, 5, 6], [7, 8, 2]]\n    k = 2\n    assert find_smallest_path(grid, k) == [1, 1]\n\n    grid = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]\n    k = 2\n    assert find_smallest_path(grid, k) == [1, 1]\n\n    grid = [[9, 8, 7], [6, 5, 4], [3, 2, 1]]\n    k = 3\n    assert find_smallest_path(grid, k) == [1, 2, 3]\n\n    grid = [[9, 8, 7], [4, 5, 6], [3, 2, 1]]\n    k = 3\n    assert find_smallest_path(grid, k) == [1, 2, 1]",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

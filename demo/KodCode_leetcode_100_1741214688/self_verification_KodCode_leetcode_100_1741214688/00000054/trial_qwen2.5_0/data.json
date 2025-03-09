@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000054",
+    "row_id": 54,
+    "seed_ids": [
+      "1519",
+      "2137",
+      "1638"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given two strings `s` and `t` of equal length. Each string consists of lowercase English letters. A **swap** is defined as exchanging the positions of two characters within a string. Your task is to determine the minimum number of swaps required to make the string `s` an anagram of string `t`. An anagram of a string is another string that contains the same characters, only the order of characters can be different.\n\nFor example, if `s = \"abc\"` and `t = \"bca\"`, you can make `s` an anagram of `t` by swapping `s[0]` and `s[1]`, resulting in `s = \"bca\"`. Return the minimum number of swaps needed to achieve this.\n\nConstraints:\n- `1 <= s.length == t.length <= 100`\n- `s` and `t` consist of lowercase English letters.",
+  "solution_code": "def min_swaps_to_anagram(s, t):\n    \"\"\"\n    Returns the minimum number of swaps required to make string s an anagram of string t.\n    \"\"\"\n    if len(s) != len(t):\n        return -1  # Return -1 if lengths are not equal\n    \n    # Count the frequency of each character in both strings\n    from collections import Counter\n    s_count = Counter(s)\n    t_count = Counter(t)\n    \n    # Find characters that are not balanced between the two strings\n    imbalance = (s_count - t_count) + (t_count - s_count)\n    \n    # The minimum number of swaps is half the number of imbalance counts\n    return sum(imbalance.values()) // 2",
+  "test_code": "import pytest\nfrom solution import min_swaps_to_anagram\n\ndef test_min_swaps_to_anagram_equal_strings():\n    assert min_swaps_to_anagram(\"abc\", \"abc\") == 0\n\ndef test_min_swaps_to_anagram_swap_needed():\n    assert min_swaps_to_anagram(\"abc\", \"bca\") == 1\n\ndef test_min_swaps_to_anagram_multiple_swaps_needed():\n    assert min_swaps_to_anagram(\"abcc\", \"ccba\") == 2\n\ndef test_min_swaps_to_anagram_case_insensitivity():\n    assert min_swaps_to_anagram(\"aBc\", \"Cba\") == 3\n\ndef test_min_swaps_to_anagram_fail_length_mismatch():\n    assert min_swaps_to_anagram(\"a\", \"ab\") == -1\n\ndef test_min_swaps_to_anagram_empty_strings():\n    assert min_swaps_to_anagram(\"\", \"\") == 0\n\ndef test_min_swaps_to_anagram_multiple_characters():\n    assert min_swaps_to_anagram(\"aabbcc\", \"ccbbaa\") == 3",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000086",
+    "row_id": 86,
+    "seed_ids": [
+      "670",
+      "36",
+      "1039"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "You are given a string `s` consisting of lowercase English letters. You can perform the following operation at most once: choose two distinct indices `i` and `j` where `s[i]` is a vowel ('a', 'e', 'i', 'o', 'u'), and replace `s[i]` with `s[j]` and vice versa. A string is considered **beautiful** if it meets the following criteria:\n1. The string is a palindrome.\n2. The string contains exactly three distinct characters.\n\nReturn `true` if you can make the string `s` beautiful, and `false` otherwise.",
+  "solution_code": "def can_make_beautiful(s: str) -> bool:\n    \"\"\"\n    Returns true if the string s can be made beautiful by performing the specified operation at most once.\n    \"\"\"\n    vowels = {'a', 'e', 'i', 'o', 'u'}\n    char_count = {}\n    for char in s:\n        if char in char_count:\n            char_count[char] += 1\n        else:\n            char_count[char] = 1\n    \n    if len(char_count) > 3:\n        return False\n    \n    palindromic = s == s[::-1]\n    \n    if len(char_count) == 2:\n        for char in s:\n            char_count[char] -= 1\n            if all(v == 0 for v in char_count.values()):\n                return True\n            char_count[char] += 1\n        return palindromic\n    \n    if len(char_count) == 1:\n        return False\n    \n    # Case where there are exactly 3 characters\n    for vowel in vowels:\n        if vowel in char_count:\n            char_count[vowel] = 0\n            if not all(v == 0 for v in char_count.values()):\n                return True\n            char_count[vowel] = 1\n    return palindromic",
+  "test_code": "def test_can_make_beautiful():\n    assert can_make_beautiful(\"\u0430\u0432\u0432\u0430\u0432\u0430\") == True\n    assert can_make_beautiful(\"\u0430\u0438\u0432\u0432\u0430\u0432\u0430\") == False\n    assert can_make_beautiful(\"\u0430\u0438\u0432\u0430\u0432\u0430\") == False\n    assert can_make_beautiful(\"aabbcc\") == False\n    assert can_make_beautiful(\"abcabc\") == True\n    assert can_make_beautiful(\"aa\") == True\n    assert can_make_beautiful(\"abcdefg\") == False\n    assert can_make_beautiful(\"aee\") == True\n    assert can_make_beautiful(\"eae\") == True\n    assert can_make_beautiful(\"ea\") == True\n    assert can_make_beautiful(\"aaee\") == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results1.jsonl"
+}

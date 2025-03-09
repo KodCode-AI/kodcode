@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000098",
+    "row_id": 98,
+    "seed_ids": [
+      "318",
+      "1265",
+      "919"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a complete binary tree represented by an array `tree`, where `tree[i]` represents the value of the node at index `i`, and each parent node's value is the bitwise OR of its two children. You are given the root index `0` and a target value `target`. Your task is to insert a new node with value `target` into the array representation of the tree while maintaining the complete binary tree property, and return the new root index of the modified array.\n\nImplement the `CBTArrayInserter` class with the following methods:\n*   `CBTArrayInserter(int[] tree)`: Initializes the data structure with the given array `tree` representing the complete binary tree.\n*   `int insert(int target)`: Inserts a new node with value `target` into the tree and returns the new root index of the modified array.\n*   `int get_root()`: Returns the root index of the current state of the tree.",
+  "solution_code": "class CBTArrayInserter:\n    def __init__(self, tree):\n        self.tree = tree\n        self.n = len(tree)\n\n    def insert(self, target):\n        self.n += 1\n        index = self.n - 1\n        self.tree.append(target)\n        while index > 0:\n            parent = (index - 1) // 2\n            if self.tree[index] == self.tree[parent] or self.tree[index] != self.tree[parent]:\n                self.tree[parent] = self.tree[index] | self.tree[2 * parent + 1] | self.tree[2 * parent + 2]\n            index = parent\n        return 0\n\n    def get_root(self):\n        return self.n",
+  "test_code": "import pytest\n\ndef test_cbt_array_inserter():\n    def check_tree(root, expected_tree):\n        tree = [None] * (len(expected_tree) + 1)\n        inserter = CBTArrayInserter(tree)\n        for val in expected_tree:\n            assert inserter.insert(val) == root\n            assert inserter.get_root() == root\n            root += 1\n            expected_tree.append(val)\n\n    # Example 1: Basic insertion and get_root checks\n    check_tree(0, [1, 2, 3, 4, 5])\n\n    # Example 2: Insertion with larger values and get_root checks\n    check_tree(0, [23, 14, 21, 13, 4, 6, 7, 9, 22])\n\n    # Example 3: Insertion with negative values and get_root checks\n    check_tree(0, [0, -1, -2, -3, -4])\n\n    # Example 4: Insertion with mixed values and get_root checks\n    check_tree(0, [15, 10, 21, 22, 45, 19, 27, 28, 39, 40])\n\n# This test runs multiple test cases\nif __name__ == \"__main__\":\n    pytest.main([__file__])",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results0.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000107",
+    "row_id": 107,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to find all the pairs of numbers in a list that sum to a given target.",
+  "solution_code": "def find_pairs(numbers, target):\n    \"\"\"\n    Returns a list of tuples, each containing a pair of numbers from 'numbers' that sum to 'target'.\n    \"\"\"\n    pairs = []\n    seen = set()\n    for num in numbers:\n        complement = target - num\n        if complement in seen:\n            pairs.append((complement, num))\n        seen.add(num)\n    return pairs",
+  "test_code": "from solution import find_pairs\n\ndef test_find_pairs_with_positive_numbers():\n    assert find_pairs([1, 2, 3, 4, 5], 7) == [(2, 5), (3, 4)]\n\ndef test_find_pairs_with_negative_and_positive_numbers():\n    assert find_pairs([-1, 1, -2, 2, 3], 0) == [(-1, 1), (-2, 2)]\n\ndef test_find_pairs_with_no_pairs():\n    assert find_pairs([1, 3, 5, 7], 12) == []\n\ndef test_find_pairs_single_element():\n    assert find_pairs([5], 5) == []\n\ndef test_find_pairs_duplicate_pairs():\n    assert find_pairs([1, 2, 2, 4, 5], 7) == [(2, 5), (2, 5)]",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

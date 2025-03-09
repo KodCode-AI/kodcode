@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000017",
+    "row_id": 17,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to convert a Celsius temperature to Fahrenheit.",
+  "solution_code": "def celsius_to_fahrenheit(celsius):\n    \"\"\"\n    Converts a temperature from Celsius to Fahrenheit.\n    Formula used: F = (C * 9/5) + 32\n    \"\"\"\n    return (celsius * 9/5) + 32",
+  "test_code": "from solution import celsius_to_fahrenheit\n\ndef test_celsius_to_fahrenheit_freezing_point():\n    assert celsius_to_fahrenheit(0) == 32\n\ndef test_celsius_to_fahrenheit_boiling_point():\n    assert celsius_to_fahrenheit(100) == 212\n\ndef test_celsius_to_fahrenheit_room_temperature():\n    assert celsius_to_fahrenheit(25) == 77\n\ndef test_celsius_to_fahrenheit_negative_temperature():\n    assert celsius_to_fahrenheit(-40) == -40\n\ndef test_celsius_to_fahrenheit_float_temperature():\n    assert celsius_to_fahrenheit(23.5) == 74.3",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

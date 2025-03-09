@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000038",
+    "row_id": 38,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to count the frequency of each character in a given string.",
+  "solution_code": "def char_frequency(input_string):\n    \"\"\"\n    Returns a dictionary containing characters and their frequencies in the given string.\n    \"\"\"\n    frequency = {}\n    for char in input_string:\n        if char in frequency:\n            frequency[char] += 1\n        else:\n            frequency[char] = 1\n    return frequency",
+  "test_code": "from solution import char_frequency\n\ndef test_char_frequency_empty_string():\n    assert char_frequency(\"\") == {}\n\ndef test_char_frequency_single_character():\n    assert char_frequency(\"a\") == {'a': 1}\n\ndef test_char_frequency_multiple_characters():\n    assert char_frequency(\"aabbc\") == {'a': 2, 'b': 2, 'c': 1}\n\ndef test_char_frequency_with_spaces():\n    assert char_frequency(\"hello world\") == {'h': 1, 'e': 1, 'l': 3, 'o': 2, ' ': 1, 'w': 1, 'r': 1, 'd': 1}\n\ndef test_char_frequency_with_special_characters():\n    assert char_frequency(\"!!@#$%^&*()_+\") == {'!': 2, '@': 1, '#': 1, '$': 1, '%': 1, '^': 1, '&': 1, '*': 1, '(': 1, ')': 1, '_': 1, '+': 1}",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results0.jsonl"
+}

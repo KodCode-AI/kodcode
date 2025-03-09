@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000064",
+    "row_id": 64,
+    "seed_ids": [
+      "1470",
+      "1431",
+      "114"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a binary search tree (BST) and a node value `target`, return `true` if the `target` is found in the BST, and `false` otherwise. You may assume that each node in the BST has **uniquely** valued children. Additionally, provide a method to insert a new node with a given value into the BST while maintaining its properties.",
+  "solution_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef find_in_bst(root: TreeNode, target: int) -> bool:\n    \"\"\"\n    Searches for the target value in the BST and returns True if found, False otherwise.\n    \"\"\"\n    if root is None:\n        return False\n    if root.val == target:\n        return True\n    elif root.val < target:\n        return find_in_bst(root.right, target)\n    else:\n        return find_in_bst(root.left, target)\n\ndef insert_in_bst(root: TreeNode, val: int) -> TreeNode:\n    \"\"\"\n    Inserts a new node with given value into the BST.\n    \"\"\"\n    if root is None:\n        return TreeNode(val)\n    if val < root.val:\n        root.left = insert_in_bst(root.left, val)\n    else:\n        root.right = insert_in_bst(root.right, val)\n    return root",
+  "test_code": "from solution import TreeNode, find_in_bst, insert_in_bst\n\ndef test_find_in_bst():\n    # Create a simple BST\n    root = TreeNode(8, TreeNode(3, TreeNode(1), TreeNode(6, None, TreeNode(7))), TreeNode(10, None, TreeNode(14)))\n    assert find_in_bst(root, 3) == True\n    assert find_in_bst(root, 10) == True\n    assert find_in_bst(root, 5) == False\n\ndef test_insert_in_bst():\n    # Create a simple tree and insert nodes\n    root = TreeNode(8)\n    insert_in_bst(root, 3)\n    insert_in_bst(root, 10)\n    assert find_in_bst(root, 3) == True\n    assert find_in_bst(root, 10) == True\n\ndef test_insertion_multiple_nodes():\n    root = TreeNode(8)\n    insert_in_bst(root, 3)\n    insert_in_bst(root, 10)\n    insert_in_bst(root, 1)\n    assert find_in_bst(root, 3) == True\n    assert find_in_bst(root, 10) == True\n    assert find_in_bst(root, 1) == True\n    assert find_in_bst(root, 14) == False  # Before insertion\n    insert_in_bst(root, 14)\n    assert find_in_bst(root, 14) == True",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}

@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "prompt_id": "00000129",
+    "row_id": 129,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill"
+  },
+  "instruction": "Write a python function to calculate the gcd(greatest common divisor) of two numbers using Euclid's algorithm. Euclid's algorithm is based on the principle that the GCD of two numbers also divides their difference. It uses the simple formula: GCD(A, B) = GCD(B, A mod B) until the remainder is 0.",
+  "solution_code": "def gcd(a, b):\n    \"\"\"\n    Returns the greatest common divisor of two numbers using Euclid's algorithm.\n    \"\"\"\n    while b:\n        a, b = b, a % b\n    return a",
+  "test_code": "from solution import gcd\n\ndef test_gcd_positive_numbers():\n    assert gcd(12, 16) == 4\n\ndef test_gcd_when_one_number_is_multiple_of_other():\n    assert gcd(50, 20) == 10\n\ndef test_gcd_of_primes():\n    assert gcd(17, 23) == 1\n\ndef test_gcd_with_zero():\n    assert gcd(12, 0) == 12\n    assert gcd(0, 12) == 12\n    assert gcd(0, 0) == 0\n\ndef test_gcd_with_negative_numbers():\n    assert gcd(-48, 18) == 6\n    assert gcd(48, -18) == 6\n    assert gcd(-48, -18) == 6",
+  "file_source": "KodCode_prefill_200_1741214325_sanitized_prepared_results2.jsonl"
+}

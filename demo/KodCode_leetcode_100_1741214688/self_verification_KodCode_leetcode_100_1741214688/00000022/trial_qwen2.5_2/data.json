@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "prompt_id": "00000022",
+    "row_id": 22,
+    "seed_ids": [
+      "201",
+      "513",
+      "1941"
+    ],
+    "mode": "leetcode"
+  },
+  "instruction": "Given a string `s` consisting of lowercase English letters, return the **length** of the longest **palindromic** substring in `s`. A **palindromic** string is a string that reads the same backward as forward.",
+  "solution_code": "def longest_palindromic_substring(s: str) -> int:\n    \"\"\"\n    Returns the length of the longest palindromic substring in the given string s.\n    \"\"\"\n    if len(s) == 0:\n        return 0\n    \n    start, end = 0, 0\n    for i in range(len(s)):\n        len1 = expand_around_center(s, i, i)\n        len2 = expand_around_center(s, i, i + 1)\n        max_len = max(len1, len2)\n        if max_len > end - start:\n            start = i - (max_len - 1) // 2\n            end = i + max_len // 2\n    \n    return end - start + 1\n\ndef expand_around_center(s: str, left: int, right: int) -> int:\n    while left >= 0 and right < len(s) and s[left] == s[right]:\n        left -= 1\n        right += 1\n    return right - left - 1",
+  "test_code": "from solution import longest_palindromic_substring, expand_around_center\n\ndef test_longest_palindromic_substring():\n    assert longest_palindromic_substring(\"babad\") == 3\n    assert longest_palindromic_substring(\"cbbd\") == 2\n    assert longest_palindromic_substring(\"a\") == 1\n    assert longest_palindromic_substring(\"\") == 0\n    assert longest_palindromic_substring(\"racecar\") == 7\n\ndef test_expand_around_center():\n    assert expand_around_center(\"babad\", 1, 1) == 3\n    assert expand_around_center(\"babad\", 0, 0) == 1\n    assert expand_around_center(\"babad\", 2, 2) == 3\n    assert expand_around_center(\"babad\", 3, 3) == 1\n    assert expand_around_center(\"babad\", 4, 4) == 1\n    assert expand_around_center(\"cbbd\", 1, 2) == 2\n    assert expand_around_center(\"cbbd\", 0, 1) == 1",
+  "file_source": "KodCode_questions2sv_leetcode_100_1741214688_sanitized_prepared_results2.jsonl"
+}
