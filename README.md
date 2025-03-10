@@ -20,13 +20,22 @@ KodCode is a comprehensive pipeline designed to generate diverse, challenging, a
 
 **Build environment**
 
-Conda Environment:
+Option 1: conda
 ```
 git clone https://github.com/KodCode-AI/kodcode.git
 cd kodcode
 conda create -n kodcode python=3.10 -y
 conda activate kodcode
 pip install -r requirements.txt
+```
+
+Option 2: [uv](https://github.com/astral-sh/uv)
+```
+git clone https://github.com/KodCode-AI/kodcode.git
+cd kodcode
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
 ```
 
 To run unit tests in parallel, you also need to install `parallel`. For example, if you are using Ubuntu, you can install `parallel` by:
@@ -36,7 +45,7 @@ sudo apt-get install parallel
 
 ## Generate KodCode
 
-Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/pipeline) for more details.
+Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/pipeline) for details.
 
 ##  TODO
 
