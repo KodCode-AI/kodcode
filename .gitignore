@@ -215,3 +215,4 @@ pipeline/step1.2_completion_genai.sh
 pipeline/step3.2_i2c_genai.sh
 pipeline/step2.1_completion_genai.sh
 pipeline/magpie_prefill/
+pipeline/docker-compose.yml

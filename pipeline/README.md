@@ -1,6 +1,6 @@
 # KodCode Pipeline
 
-Here, we provide our pipeline for generating KodCode dataset.
+Here, we provide our pipeline for generating KodCode dataset. Please ensure you are in the `pipeline` folder when running the commands.
 
 ## Step 1: Coding Question Synthesis
 
@@ -94,11 +94,24 @@ python step2.2_gen_unit_tests.py --input_folder ../demo/KodCode_leetcode_100_174
 
 This step will run all the tests and generate the results. By default, we use `parallel` to run the tests.
 
+Option 1: local environment
+
 ```bash
 bash step2.3_run_all_tests.sh [unit_test_folder_name]
 ```
 
-**Example:** We use the unit testfolder generated from Step 2.2.
+Option 2: docker environment (recommended)
+
+```bash
+docker run --gpus all -it --rm \
+  --entrypoint bash \
+  -v $(pwd)/..:/app \
+  -w /app/pipeline \
+  zcxu/kodcode-test-environment:python3.10-cuda12.4-v0.1 \
+  -c "bash step2.3_run_all_tests.sh [unit_test_folder_name]"
+```
+
+**Example:** We use the unit testfolder generated from Step 2.2 and run all tests using local environment.
 
 ```bash
 bash step2.3_run_all_tests.sh ../demo/KodCode_leetcode_100_1741214688/self_verification_KodCode_leetcode_100_1741214688

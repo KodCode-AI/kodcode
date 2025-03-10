@@ -18,7 +18,7 @@ KodCode is a comprehensive pipeline designed to generate diverse, challenging, a
 
 ## Installation
 
-**Build environment**
+**Build code generation environment**
 
 Option 1: conda
 ```
@@ -38,9 +38,19 @@ source .venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
+**Build code execution environment**
+
+Option 1: local
+
 To run unit tests in parallel, you also need to install `parallel`. For example, if you are using Ubuntu, you can install `parallel` by:
 ```
 sudo apt-get install parallel
+```
+
+Option 2: docker (please also install [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)). We provided a [off-the-shelf docker image](https://hub.docker.com/r/zcxu/kodcode-test-environment/tags) for running tests.
+
+```
+docker pull zcxu/kodcode-test-environment:python3.10-cuda12.4-v0.1
 ```
 
 ## Generate KodCode
@@ -52,7 +62,7 @@ Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/p
 ### Repo Update
 - [ ] One-line command to generate KodCode
 - [ ] Integrate the test pipeline (i.e., `pytest`) into [verl](https://github.com/volcengine/verl)
-- [ ] Implement sandbox execution for unit tests
+- [x] Implement dockerized execution for unit tests
 
 ### Data Update
 - [ ] `KodCode-Small` with 50K samples
