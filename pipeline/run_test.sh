@@ -15,8 +15,8 @@ cleanup() {
 # Ensure cleanup happens even if the script exits early
 trap cleanup EXIT
 
-# Run pytest with a timeout limit, redirecting output to the log file
-timeout $TIME_LIMIT pytest --cov=solution --cov-report term > $LOG_FILE 2>&1
+# Run pytest with explicit rootdir to avoid parent pyproject.toml issues
+timeout --kill-after=5s $TIME_LIMIT pytest --rootdir=. --cov=solution --cov-report term > $LOG_FILE 2>&1
 PYTEST_STATUS=$?
 
 # Check the exit status of pytest
@@ -40,7 +40,3 @@ COVERAGE=$(grep 'TOTAL' $LOG_FILE | awk '{print $4}')
 echo "Coverage: $COVERAGE" >> $RESULT_FILE
 
 exit $EXIT_CODE
-
-# Extract the coverage percentage from the log file and append it to the result file
-COVERAGE=$(grep 'TOTAL' $LOG_FILE | awk '{print $4}')
-echo "Coverage: $COVERAGE" >> $RESULT_FILE

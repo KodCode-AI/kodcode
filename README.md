@@ -18,9 +18,9 @@ KodCode is a comprehensive pipeline designed to generate diverse, challenging, a
 
 ## Installation
 
-**Build code generation environment**
+**1. Build code generation environment**
 
-Option 1: conda
+**Option 1**: conda
 ```
 git clone https://github.com/KodCode-AI/kodcode.git
 cd kodcode
@@ -29,7 +29,7 @@ conda activate kodcode
 pip install -r requirements.txt
 ```
 
-Option 2: [uv](https://github.com/astral-sh/uv)
+**Option 2**: [uv](https://github.com/astral-sh/uv)
 ```
 git clone https://github.com/KodCode-AI/kodcode.git
 cd kodcode
@@ -38,16 +38,20 @@ source .venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
-**Build code execution environment**
+**2. Build code execution environment**
 
-Option 1: local
+**Option 1**: Local
 
 To run unit tests in parallel, you also need to install `parallel`. For example, if you are using Ubuntu, you can install `parallel` by:
 ```
 sudo apt-get install parallel
 ```
 
-Option 2: docker (please also install [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)). We provided a [off-the-shelf docker image](https://hub.docker.com/r/zcxu/kodcode-test-environment/tags) for running tests.
+**Option 2**: Docker
+
+Please install [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)) first to support GPU. 
+
+We provided a [off-the-shelf docker image](https://hub.docker.com/r/zcxu/kodcode-test-environment/tags) for running tests:
 
 ```
 docker pull zcxu/kodcode-test-environment:python3.10-cuda12.4-v0.1
