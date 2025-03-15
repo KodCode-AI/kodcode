@@ -169,10 +169,10 @@ temp/
 # folder start with unit_test
 unit_test*/
 KodCode-SFT-R1/
-KodCode-SFT-R1_Backup/
+KodCode-SFT-QwQ/
+KodCode-SFT-4o/
 KodCode-V1/
 KodCode-V1.1/
-KodCode-SFT-4o/
 data_step1/
 data_step2/
 data_step3/
@@ -212,7 +212,7 @@ check.ipynb
 data_combine.ipynb
 
 pipeline/step1.2_completion_genai.sh
-pipeline/step3.2_i2c_genai.sh
+pipeline/step3.1.2_i2c_genai.sh
 pipeline/step2.1_completion_genai.sh
 pipeline/magpie_prefill/
 pipeline/docker-compose.yml
