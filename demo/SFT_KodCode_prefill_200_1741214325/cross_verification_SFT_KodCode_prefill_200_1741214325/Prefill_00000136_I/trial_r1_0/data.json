@@ -1,0 +1,42 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000136_I",
+  "question": "Write a python function to create a queue using a list with two methods: enqueue and dequeue. The enqueue method adds an element to the end of the queue, and the dequeue method removes the element from the front of the queue.",
+  "solution": "def enqueue(queue, item):\n    \"\"\"\n    Adds an item to the end of the queue.\n    \"\"\"\n    queue.append(item)\n\ndef dequeue(queue):\n    \"\"\"\n    Removes and returns the item from the front of the queue.\n    If the queue is empty, returns None.\n    \"\"\"\n    if len(queue) > 0:\n        return queue.pop(0)\n    else:\n        return None",
+  "test_code": "from solution import enqueue, dequeue\n\ndef test_enqueue_dequeue():\n    queue = []\n    enqueue(queue, 1)\n    enqueue(queue, 2)\n    assert dequeue(queue) == 1\n    assert dequeue(queue) == 2\n    assert dequeue(queue) is None\n\ndef test_enqueue():\n    queue = []\n    enqueue(queue, 1)\n    assert queue == [1]\n    enqueue(queue, 2)\n    assert queue == [1, 2]\n\ndef test_dequeue_empty_queue():\n    queue = []\n    assert dequeue(queue) is None",
+  "test_info": [
+    {
+      "function_name": "enqueue",
+      "parameter_list": "(queue, item)",
+      "function_declaration": "def enqueue(queue, item):",
+      "docstring": "Adds an item to the end of the queue."
+    },
+    {
+      "function_name": "dequeue",
+      "parameter_list": "(queue)",
+      "function_declaration": "def dequeue(queue):",
+      "docstring": "Removes and returns the item from the front of the queue.\nIf the queue is empty, returns None."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function that creates a queue using a list. The queue should have two methods: enqueue and dequeue. Enqueue adds elements to the end, and dequeue removes from the front.\n\nFirst, I'll start by defining a class called Queue. Inside this class, I'll initialize an empty list in the constructor. That list will hold the elements of the queue.\n\nNext, the enqueue method. This should take an element as an argument and append it to the end of the list. So I'll use the append() method for that. It's straightforward because adding to the end is efficient with a list.\n\nThen, the dequeue method. This needs to remove the first element from the list. I can use the pop() method, but I need to specify index 0 because by default pop() removes the last element. So, element = self.queue.pop(0). But wait, I should also handle the case where the queue is empty. If the queue is empty, popping will cause an error. So I need to check if the queue is empty before attempting to dequeue. If it's empty, I'll raise an IndexError with a message like \"Cannot dequeue from an empty queue.\"\n\nWait, maybe I should return None or handle it differently? But the standard behavior for queues is to have dequeue fail when empty, so raising an exception makes sense. Let me include that.\n\nI should test these methods. For example, create a Queue instance, enqueue a few elements, and then dequeue them to see the order. Also, test dequeuing from an empty queue to ensure the exception is raised correctly.\n\nWhat about the empty case when initializing? The constructor initializes an empty list, so that's handled.\n\nI think that's all. The methods are enqueue and dequeue, using a list as the underlying structure.\n</think>\n\nTo implement a queue using a list in Python with enqueue and dequeue methods, follow these steps:\n\n1. **Define a Class**: Create a `Queue` class to encapsulate the queue's data and methods.\n2. **Initialize the Queue**: Use an empty list in the class constructor to store queue elements.\n3. **Enqueue Method**: Implement the `enqueue` method to add elements to the end of the list using `list.append()`.\n4. **Dequeue Method**: Implement the `dequeue` method to remove elements from the front of the list using `list.pop(0)`. Handle the case where the queue is empty by raising an exception.\n\nHere is the implementation:\n\n```python\nclass Queue:\n    def __init__(self):\n        self.queue = []\n\n    def enqueue(self, element):\n        self.queue.append(element)\n\n    def dequeue(self):\n        if self.is_empty():\n            raise IndexError(\"Cannot dequeue from an empty queue.\")\n        return self.queue.pop(0)\n\n    def is_empty(self):\n        return len(self.queue) == 0\n\n# Example usage:\nif __name__ == \"__main__\":\n    q = Queue()\n    q.enqueue(1)\n    q.enqueue(2)\n    print(q.dequeue())  # Output: 1\n    print(q.dequeue())  # Output: 2\n    try:\n        print(q.dequeue())\n    except IndexError as e:\n        print(e)  # Output: Cannot dequeue from an empty queue.\n```\n\n**Explanation:**\n\n- **Class Initialization**: The `Queue` class initializes with an empty list `queue`.\n- **Enqueue**: The `enqueue` method adds an element to the end of the list.\n- **Dequeue**: The `dequeue` method removes and returns the first element. If the queue is empty, it raises an `IndexError`.\n- **Example Usage**: Demonstrates enqueuing elements, dequeuing them, and handling an empty queue scenario.",
+  "r1_solution": "class Queue:\n    def __init__(self):\n        self.queue = []\n\n    def enqueue(self, element):\n        self.queue.append(element)\n\n    def dequeue(self):\n        if self.is_empty():\n            raise IndexError(\"Cannot dequeue from an empty queue.\")\n        return self.queue.pop(0)\n\n    def is_empty(self):\n        return len(self.queue) == 0\n\n# Example usage:\nif __name__ == \"__main__\":\n    q = Queue()\n    q.enqueue(1)\n    q.enqueue(2)\n    print(q.dequeue())  # Output: 1\n    print(q.dequeue())  # Output: 2\n    try:\n        print(q.dequeue())\n    except IndexError as e:\n        print(e)  # Output: Cannot dequeue from an empty queue.",
+  "metadata": {
+    "prompt_id": "00000136",
+    "row_id": 136,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

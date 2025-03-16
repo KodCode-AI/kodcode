@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000069_C",
+  "question": "def count_trailing_zeros(number: int) -> int:\n    \"\"\"\n    Counts and returns the number of trailing zeros in the given integer.\n    \"\"\"\n    if number == 0:\n        return 1  # Special case where the number itself is 0\n    count = 0\n    while number % 10 == 0:\n        count += 1\n        number //= 10\n    return count",
+  "solution": "def count_trailing_zeros(number):\n    \"\"\"\n    Counts and returns the number of trailing zeros in the given integer.\n    \"\"\"\n    if number == 0:\n        return 1  # Special case where the number itself is 0\n    count = 0\n    while number % 10 == 0:\n        count += 1\n        number //= 10\n    return count",
+  "test_code": "def test_count_trailing_zeros():\n    assert count_trailing_zeros(1000) == 3\n    assert count_trailing_zeros(123000) == 3\n    assert count_trailing_zeros(123) == 0\n    assert count_trailing_zeros(0) == 1",
+  "test_info": [
+    {
+      "function_name": "count_trailing_zeros",
+      "parameter_list": "(number)",
+      "function_declaration": "def count_trailing_zeros(number):",
+      "docstring": "Counts and returns the number of trailing zeros in the given integer."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, let's see. I need to write a function called count_trailing_zeros that takes a number and returns how many zeros are at the end of it. Hmm. So like, if the number is 100, it should return 2, right?\n\nWait, but what if the number is zero? Because zero ends with, well, infinite zeros in a way, but in reality, the function should probably return 1. Because zero is just a single zero. So maybe the function should check if the input is zero first and return 1 in that case. Oh, that's already handled in the code.\n\nSo the function starts by checking if the number is zero, returns 1. Otherwise, it initializes a count to zero. Then it loops while the number is divisible by 10, which means the last digit is zero. Each time, it adds one to the count and divides the number by 10, effectively removing the last zero.\n\nWait, but what about negative numbers? Because the problem says it takes an integer, but it doesn't specify if it's negative. Hmm, well, trailing zeros are really about the number's magnitude, right? So maybe the function should work with negative numbers too. But in the code, when the number is negative, it's still divided by 10 and the modulus would be similar. Let me test in my mind: if the number is -100, the modulus 10 is 0, because 10 divides 100. The sign doesn't affect the modulus 10 for trailing zeros. So yes, it should handle negatives correctly.\n\nAnother thing: what if the number is not an integer? Well, the function says number is an int, so that's fine.\n\nSo the function seems correct. Let me think of test cases.\n\nTest case 1: Input 100 \u2192 expected output 2. The loop runs two times: 100 becomes 10 after first division (count 1), then 1 after second (count 2). Then 10 is not divisible by 10, so loop exits. Correct.\n\nTest case 2: Input 0 \u2192 returns 1. Correct.\n\nTest case 3: Input 5 \u2192 loop doesn't run, returns 0. Correct.\n\nTest case 4: Input 250 \u2192 number is 250, then 25, which is not divisible by 10. Wait, but 250 has 1 trailing zero. Hmm, because the count increases by 1 when 250 is divided by 10 to get 25. So 250 \u2192 count 1, then 25 is not divisible by 10. So the function returns 1, which is correct.\n\nWait, wait no. 250 ends with one zero, right? Because 250 \u2192 the last digit is zero, so 5 \u2192 but 25 ends with 5, yeah. So yes, the function works.\n\nAnother test case: number = 10 \u2192 count will increase once, so returns 1.\n\nWhat about 10000? It should return 4.\n\nI think the code seems to handle all cases properly.\n</think>\n\nTo solve this problem, we need to determine the number of trailing zeros in a given integer. Trailing zeros are zeros that appear at the end of a number. For example, the number 100 has two trailing zeros.\n\n### Approach\n1. **Special Case Handling**: If the input number is zero, the function should return 1 because zero itself is considered to have one trailing zero.\n2. **Loop and Count**: Initialize a counter to zero. Continuously check if the number is divisible by 10 (i.e., if the last digit is zero). If it is, increment the counter and remove the last zero by dividing the number by 10. Repeat this process until the number is no longer divisible by 10.\n\nThis approach efficiently counts the trailing zeros by repeatedly removing the last digit (zero) until there are no more trailing zeros left.\n\n### Solution Code\n```python\ndef count_trailing_zeros(number: int) -> int:\n    \"\"\"\n    Counts and returns the number of trailing zeros in the given integer.\n    \"\"\"\n    if number == 0:\n        return 1  # Special case where the number itself is 0\n    count = 0\n    while number % 10 == 0:\n        count += 1\n        number //= 10\n    return count\n```\n\n### Explanation\n1. **Special Case Handling**: The function first checks if the input number is zero. If it is, the function returns 1 immediately because zero has exactly one trailing zero.\n2. **Loop to Count Trailing Zeros**: The function initializes a counter to zero. It then enters a loop where it checks if the number is divisible by 10. Each time the loop runs, the counter is incremented, and the number is divided by 10 to remove the trailing zero. This continues until the number is no longer divisible by 10, at which point the loop exits and the counter (which now holds the number of trailing zeros) is returned.\n\nThis method efficiently handles both positive and negative integers, as the trailing zeros are determined by the absolute value of the number. The approach ensures that each digit is processed in constant time, resulting in an overall time complexity of O(log n), where n is the number of digits in the input number.",
+  "r1_solution": "def count_trailing_zeros(number: int) -> int:\n    \"\"\"\n    Counts and returns the number of trailing zeros in the given integer.\n    \"\"\"\n    if number == 0:\n        return 1  # Special case where the number itself is 0\n    count = 0\n    while number % 10 == 0:\n        count += 1\n        number //= 10\n    return count",
+  "metadata": {
+    "prompt_id": "00000069",
+    "row_id": 69,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to count the trailing zeros in a given number."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

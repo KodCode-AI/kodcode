@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000049_I",
+  "question": "Write a python function to calculate the sum of two numbers.",
+  "solution": "def sum_two_numbers(a, b):\n    \"\"\"\n    Returns the sum of a and b.\n    \"\"\"\n    return a + b",
+  "test_code": "from solution import sum_two_numbers\n\ndef test_sum_two_positive_numbers():\n    assert sum_two_numbers(2, 3) == 5\n\ndef test_sum_with_zero():\n    assert sum_two_numbers(0, 5) == 5\n    assert sum_two_numbers(5, 0) == 5\n\ndef test_sum_negative_numbers():\n    assert sum_two_numbers(-1, -1) == -2\n\ndef test_sum_mixed_sign_numbers():\n    assert sum_two_numbers(-1, 3) == 2\n    assert sum_two_numbers(4, -4) == 0",
+  "test_info": [
+    {
+      "function_name": "sum_two_numbers",
+      "parameter_list": "(a, b)",
+      "function_declaration": "def sum_two_numbers(a, b):",
+      "docstring": "Returns the sum of a and b."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function that calculates the sum of two numbers. Hmm, let's think about how to approach this. I remember that in Python, functions are defined using the 'def' keyword followed by the function name and parameters in parentheses. So I'll start by defining the function, probably called something like 'sum_two_numbers'.\n\nNow, the function needs to take two arguments. Let me call them 'a' and 'b'. These will be the numbers that the user wants to add together. So the function definition should be something like def sum_two_numbers(a, b):.\n\nNext, inside the function, I need to calculate the sum of 'a' and 'b'. That's straightforward\u2014just return a + b. So the function body will be a single line: return a + b.\n\nWait, should I include any error handling? The question doesn't specify, so maybe I don't need to. It's possible that the function will be used with non-integer inputs, but in Python, the '+' operator works for both integers and floats, so it should handle those cases.\n\nI should also consider if the function should handle other data types, like strings. If someone passes strings, adding them would concatenate instead of adding numerically. But the problem states that the function is for two numbers, so perhaps that's outside the scope, and I don't need to handle it.\n\nTesting the function would be a good idea. I can try calling sum_two_numbers(3,5) and expect 8. Another test with negative numbers, like sum_two_numbers(-2, 4), should return 2. For floats, sum_two_numbers(2.5, 3.5) should give 6.0. All these cases seem to work with the simple return statement.\n\nPutting it all together, the function is quite straightforward. It defines the function with two parameters and returns their sum. I think that's all that's needed here. No need for any additional lines or complex logic since the problem is simple.\n</think>\n\nTo calculate the sum of two numbers in Python, you can define a function that takes two parameters and returns their sum. Here's a step-by-step solution:\n\n1. **Define the function**: Use the `def` keyword to create a function named `sum_two_numbers`.\n2. **Parameters**: Include two parameters `a` and `b` in the function definition.\n3. **Return the sum**: Inside the function, use the `return` statement to send back the result of `a + b`.\n\nHere's the code:\n\n```python\ndef sum_two_numbers(a, b):\n    return a + b\n```\n\n**Example usage**:\n```python\nprint(sum_two_numbers(5, 3))  # Outputs: 8\nprint(sum_two_numbers(-2, 4)) # Outputs: 2\nprint(sum_two_numbers(2.5, 3.5)) # Outputs: 6.0\n```",
+  "r1_solution": "def sum_two_numbers(a, b):\n    return a + b",
+  "metadata": {
+    "prompt_id": "00000049",
+    "row_id": 49,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

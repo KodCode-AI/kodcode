@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000170_C",
+  "question": "def sum_of_n_natural_numbers(n: int) -> int:\n    \"\"\" Returns the sum of the first n natural numbers.\n    >>> sum_of_n_natural_numbers(1)\n    1\n    >>> sum_of_n_natural_numbers(2)\n    3\n    >>> sum_of_n_natural_numbers(3)\n    6\n    >>> sum_of_n_natural_numbers(10)\n    55\n    >>> sum_of_n_natural_numbers(100)\n    5050\n    >>> sum_of_n_natural_numbers(0)\n    0\n    \"\"\"",
+  "solution": "def sum_of_n_natural_numbers(n):\n    \"\"\"\n    Returns the sum of the first n natural numbers.\n    \"\"\"\n    return n * (n + 1) // 2",
+  "test_code": "def test_sum_of_n_natural_numbers():\n    assert sum_of_n_natural_numbers(1) == 1\n    assert sum_of_n_natural_numbers(2) == 3\n    assert sum_of_n_natural_numbers(3) == 6\n    assert sum_of_n_natural_numbers(10) == 55\n    assert sum_of_n_natural_numbers(100) == 5050\n    assert sum_of_n_natural_numbers(0) == 0",
+  "test_info": [
+    {
+      "function_name": "sum_of_n_natural_numbers",
+      "parameter_list": "(n)",
+      "function_declaration": "def sum_of_n_natural_numbers(n):",
+      "docstring": "Returns the sum of the first n natural numbers."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called sum_of_n_natural_numbers that takes an integer n and returns the sum of the first n natural numbers. Hmm, natural numbers usually start from 1, right? So if n is 1, the sum should be 1, and if n is 3, it's 1+2+3=6. What about n=0? Oh, looking at the examples, when n is 0, the sum is 0. So the function should handle that as a base case.\n\nWait, what's the formula for the sum of first n natural numbers? I remember there's a formula. Oh right, it's n*(n+1)/2. That's much more efficient than looping, especially for large n like 100 which gives 5050 quickly.\n\nSo, the function can just compute this formula directly. But I should make sure it handles n=0 correctly. Let me test the formula when n=0: 0*(0+1)/2 equals 0, which is correct. Good.\n\nSo the function just needs to return n*(n+1)//2. Using integer division with // to make sure it returns an integer.\n\nWait, what about negative numbers? Oh, the function's parameter is declared as int, but the examples only test for n>=0. So perhaps the function expects n to be a non-negative integer. We might not need to handle negative cases unless specified, but the docstring doesn't mention that. So the function assumes n is non-negative, as per the problem examples.\n\nTherefore, the code inside the function is straightforward: return n*(n+1) // 2.\n\nTesting against the examples:\nn=1: 1*(2)/2=1, correct.\nn=2: 2*3/2=3, correct.\nn=3: 3*4/2=6, yes.\nn=10: 10*11//2=55.\nn=100: 100*101//2=5050.\nn=0: 0.\n\nSo all the test cases pass with this formula. Seems perfect.\n\nSo the function is simple, just uses that formula and handles all the cases mentioned. No loops needed, which makes the function efficient even for very large n values.\n</think>\n\nTo solve this problem, we need to find the sum of the first `n` natural numbers. Natural numbers are positive integers starting from 1 (e.g., 1, 2, 3, ..., n). The problem also specifies the sum when `n` is 0, which should return 0.\n\n### Approach\nThe most efficient way to compute the sum of the first `n` natural numbers is by using the arithmetic series sum formula. The formula for the sum of the first `n` natural numbers is:\n\n\\[ \\text{Sum} = \\frac{n \\times (n + 1)}{2} \\]\n\nThis formula allows us to compute the sum in constant time \\(O(1)\\), making it highly efficient even for very large values of `n`. \n\n### Solution Code\n\n```python\ndef sum_of_n_natural_numbers(n: int) -> int:\n    \"\"\" Returns the sum of the first n natural numbers. \"\"\"\n    return n * (n + 1) // 2\n```\n\n### Explanation\nThe function `sum_of_n_natural_numbers` takes an integer `n` as input and returns the sum of the first `n` natural numbers using the formula \\( \\frac{n \\times (n + 1)}{2} \\). This approach ensures that the function runs efficiently in constant time, making it suitable for very large values of `n` as well.\n\n- **Time Complexity:** \\(O(1)\\), since the computation involves only a few arithmetic operations.\n- **Space Complexity:** \\(O(1)\\), as no additional space is used beyond the input and output.\n\nExample calculations:\n- For `n = 10`, the sum is \\(10 \\times 11 / 2 = 55\\).\n- For `n = 100`, the sum is \\(100 \\times 101 / 2 = 5050\\).\n- For `n = 0`, the sum is \\(0\\), which is handled correctly by the formula.\n\nThis approach is optimal and ensures quick computation regardless of the size of `n`.",
+  "r1_solution": "def sum_of_n_natural_numbers(n: int) -> int:\n    \"\"\" Returns the sum of the first n natural numbers. \"\"\"\n    return n * (n + 1) // 2",
+  "metadata": {
+    "prompt_id": "00000170",
+    "row_id": 170,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to find the sum of the first `n` natural numbers."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

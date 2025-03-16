@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000057_I",
+  "question": "Write a python function to count the number of uppercase letters in a given string. The function should also handle edge cases such as an empty string or a string with no uppercase letters.",
+  "solution": "def count_uppercase(s: str) -> int:\n    \"\"\"\n    Returns the number of uppercase letters in the string s.\n    \"\"\"\n    return sum(1 for c in s if c.isupper())",
+  "test_code": "from solution import count_uppercase\n\ndef test_count_uppercase_empty_string():\n    assert count_uppercase(\"\") == 0\n\ndef test_count_uppercase_no_uppercase():\n    assert count_uppercase(\"hello world\") == 0\n\ndef test_count_uppercase_all_uppercase():\n    assert count_uppercase(\"HELLO WORLD\") == 10\n\ndef test_count_uppercase_mixed_case():\n    assert count_uppercase(\"HeLlO WoRlD\") == 6",
+  "test_info": [
+    {
+      "function_name": "count_uppercase",
+      "parameter_list": "(s)",
+      "function_declaration": "def count_uppercase(s):",
+      "docstring": "Returns the number of uppercase letters in the string s."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function to count the number of uppercase letters in a given string. Let's think about how to approach this.\n\nFirst, I remember that in Python, each character in a string can be checked using the isupper() method. So, maybe I can loop through each character in the string and check if it's uppercase.\n\nWait, how do I loop through each character? Oh right, I can iterate using a for loop. I'll initialize a counter to zero before the loop. Then, for each character in the string, if it's uppercase, I'll increment the counter.\n\nBut what about edge cases? The user mentioned handling an empty string or a string with no uppercase letters. If the string is empty, the loop won't run, so the count remains zero, which is correct. If there are no uppercase letters, same result. So that's handled.\n\nAlternatively, maybe using a generator expression with sum() would be more concise. Because True is 1 and False is 0, summing the boolean results of isupper() for each character should give the count. Let me think: for example, sum(1 for c in s if c.isupper()) or even sum(c.isupper() for c in s). Either way, it should work.\n\nSo the function can be as simple as returning the sum of c.isupper() for each c in the string. That would make the code just a couple of lines.\n\nI should also consider non-ASCII characters. I think isupper() handles Unicode characters as per their definition, so it should be fine for most cases.\n\nTesting the function with different cases: empty string returns 0, a string with all lowercase returns 0, a string with all uppercase returns the length, and a mix should count correctly.\n\nLet me outline the steps:\n\n1. Define a function that takes one argument, the string.\n2. Initialize a counter variable to 0.\n3. Loop through each character in the string:\n   a. For each character, check if it's uppercase.\n   b. If yes, increment the counter.\n4. Return the counter.\n\nWait, but using the sum approach is more efficient and cleaner. So maybe the function can just be:\n\ndef count_uppercase(s):\n    return sum(1 for c in s if c.isupper())\n\nAlternatively, using the more concise version:\n\nreturn sum(c.isupper() for c in s)\n\nBecause each c.isupper() returns True (1) or False (0), summing them gives the count.\n\nI think that's a solid approach. Now, writing the function with this logic should handle all cases, including edge cases, as described.\n</think>\n\nTo solve this problem, we need to write a function that counts the number of uppercase letters in a given string. The function should handle edge cases such as an empty string or a string with no uppercase letters.\n\n### Approach\nThe approach to solve this problem involves the following steps:\n\n1. **Understand the Problem Requirements**: We need to count the uppercase letters in a string. The string can be empty or contain no uppercase letters, so our solution should handle these cases gracefully.\n\n2. **Use Built-in String Methods**: In Python, each character in a string has a method `isupper()` that returns `True` if the character is an uppercase letter and `False` otherwise. This method works for both ASCII and Unicode characters.\n\n3. **Iterate Through Each Character**: We can use a generator expression to iterate through each character in the string. For each character, we will check if it is uppercase using `isupper()`.\n\n4. **Sum the Results**: Since `True` evaluates to `1` and `False` evaluates to `0` in a numeric context, summing the results of `isupper()` for each character will give us the count of uppercase letters.\n\n### Solution Code\n```python\ndef count_uppercase(s):\n    return sum(1 for c in s if c.isupper())\n```\n\n### Explanation\n- **Function Definition**: The function `count_uppercase` takes one parameter `s`, which is the string to be evaluated.\n- **Generator Expression**: The generator expression `(1 for c in s if c.isupper())` iterates over each character `c` in the string `s`. For each character, it checks if `c.isupper()` is `True` (i.e., the character is uppercase). If this condition is met, it yields `1`.\n- **Summing the Results**: The `sum` function adds up all the `1`s generated by the generator expression, effectively counting the number of uppercase letters in the string.\n\nThis approach efficiently handles all specified cases, including empty strings and strings with no uppercase letters, by returning `0` in such cases. The use of a generator expression ensures that the solution is both concise and efficient.",
+  "r1_solution": "def count_uppercase(s):\n    return sum(1 for c in s if c.isupper())",
+  "metadata": {
+    "prompt_id": "00000057",
+    "row_id": 57,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

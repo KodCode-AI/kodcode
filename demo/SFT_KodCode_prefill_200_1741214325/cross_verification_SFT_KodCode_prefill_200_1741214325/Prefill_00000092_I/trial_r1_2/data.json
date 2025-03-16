@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000092_I",
+  "question": "Write a python function to sort a list of tuples by the second item in each tuple. The function should take a list of tuples as input and return the sorted list in ascending order based on the second item of each tuple. If the second item is the same for multiple tuples, the tuples should be sorted by their first item in ascending order.",
+  "solution": "def sort_tuples(lst):\n    \"\"\"\n    Sorts a list of tuples by the second item, then by the first item if the second items are equal.\n    \"\"\"\n    return sorted(lst, key=lambda x: (x[1], x[0]))",
+  "test_code": "def test_sort_tuples():\n    assert sort_tuples([(1, 3), (4, 1), (5, 2), (3, 2)]) == [(4, 1), (3, 2), (5, 2), (1, 3)]\n    assert sort_tuples([(2, 2), (3, 1), (1, 2), (4, 1)]) == [(3, 1), (4, 1), (1, 2), (2, 2)]\n    assert sort_tuples([(1, 5), (2, 4), (3, 4)]) == [(2, 4), (3, 4), (1, 5)]\n    assert sort_tuples([(1, 1), (2, 2), (3, 1)]) == [(1, 1), (3, 1), (2, 2)]\n    assert sort_tuples([(10, 10), (5, 5), (7, 8)]) == [(5, 5), (7, 8), (10, 10)]",
+  "test_info": [
+    {
+      "function_name": "sort_tuples",
+      "parameter_list": "(lst)",
+      "function_declaration": "def sort_tuples(lst):",
+      "docstring": "Sorts a list of tuples by the second item, then by the first item if the second items are equal."
+    }
+  ],
+  "gpt_pass_sequence": [
+    0,
+    0,
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, so I need to write a Python function that sorts a list of tuples. The sorting should be based on the second item in each tuple, and if those are the same, then it should sort by the first item. Alright, let's think about how to approach this.\n\nFirst, I remember that tuples are immutable and can be compared element-wise. So when you compare two tuples, Python looks at the first elements; if they're equal, it moves to the second, and so on. But in this case, the primary key for sorting is the second item, not the first. So the default sort won't work directly.\n\nI think the key here is to use the `sorted()` function with a custom key. The key function should return a value based on which the sorting will be done. In this case, for each tuple, I want to sort by the second element first and then the first element as a tiebreaker.\n\nSo, the key function could be a tuple where the first element is the second item of the tuple and the second element is the first item. That way, when we sort, it first sorts by the second item, and if those are equal, it sorts by the first item.\n\nLet me outline the steps:\n\n1. Define a function that takes a list of tuples as input.\n2. Use the `sorted()` function on this list.\n3. Provide a key function to `sorted()` that for each tuple returns (second_item, first_item).\n4. Since we want ascending order, the default behavior of `sorted()` is fine; no need to specify `reverse=True`.\n5. Return the sorted list.\n\nWait, but when we construct the key, since we're sorting by the second item first, the key should prioritize that. So the key for a tuple (a, b) would be (b, a). Then, when sorted, tuples with smaller b come first. If two tuples have the same b, the one with smaller a comes first, which is correct.\n\nLet me test this logic with an example. Suppose the input list is [(3, 1), (2, 2), (4, 1), (1, 3)]. Sorting by the second item first:\n\nThe second items are 1, 2, 1, 3. So the order based on second items would be:\n- Tuples with second item 1: (3,1) and (4,1)\n- Then the tuple with second item 2: (2,2)\n- Then the tuple with second item 3: (1,3)\n\nBut within the tuples where the second item is 1, we sort by the first item, so (3,1) comes before (4,1) if 3 < 4, but wait, 3 is not less than 4. Wait, actually, 3 is less than 4? No, 3 is less than 4. So (3,1) should come before (4,1) because 3 <4. So in the sorted list, it should be [(3,1), (4,1), (2,2), (1,3)].\n\nWait, but when the second items are the same, we sort by the first item. So in this case, 3 and 4, since 3 <4, (3,1) comes before (4,1).\n\nSo the key function (b, a) works because when two tuples have the same b, the a is used, and since we're sorting in ascending order, it's correct.\n\nSo the function can be written as:\n\ndef sort_tuples(tuples_list):\n    return sorted(tuples_list, key=lambda x: (x[1], x[0]))\n\nI think that should do it. Let me test another example. Suppose the list is [(2,5), (1,5), (3,4)]. The second items are 5,5,4. So the tuple with second item 4 comes first: (3,4). Then the tuples with second item 5, sorted by their first items: (1,5) and (2,5). So the sorted list should be [(3,4), (1,5), (2,5)].\n\nUsing the key, when the function is called, the sorted function should arrange them correctly.\n\nAnother test case: an empty list should return empty. A single tuple remains as is.\n\nSo I think the function is correct.\n</think>\n\nTo solve this problem, we need to write a function that sorts a list of tuples based on the second item in each tuple. If two tuples have the same second item, the tuples should then be sorted by their first item in ascending order.\n\n### Approach\nThe approach to solve this problem involves using Python's built-in `sorted()` function with a custom key. The key function will determine the sort order. Specifically, we will use a tuple as the key where the first element is the second item of the tuple and the second element is the first item of the tuple. This ensures that the tuples are sorted primarily by the second item and secondarily by the first item, both in ascending order.\n\n### Solution Code\n```python\ndef sort_tuples(tuples_list):\n    return sorted(tuples_list, key=lambda x: (x[1], x[0]))\n```\n\n### Explanation\n- **Function Definition**: The function `sort_tuples` takes a list of tuples as input.\n- **sorted() Function**: The `sorted()` function is used to sort the list. It returns a new sorted list and leaves the original list unchanged.\n- **Key Function**: The key parameter of the `sorted()` function is a lambda function that returns a tuple `(x[1], x[0])` for each tuple `x` in the list. This tuple ensures that the sorting is done first by the second item (`x[1]`) and then by the first item (`x[0]`).\n- **Ascending Order**: The default sorting behavior of `sorted()` is ascending, so it will sort the tuples from smallest to largest based on the specified key.\n\nThis approach efficiently sorts the list of tuples according to the specified criteria using Python's built-in sorting capabilities, ensuring clarity and optimal performance.",
+  "r1_solution": "def sort_tuples(tuples_list):\n    return sorted(tuples_list, key=lambda x: (x[1], x[0]))",
+  "metadata": {
+    "prompt_id": "00000092",
+    "row_id": 92,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

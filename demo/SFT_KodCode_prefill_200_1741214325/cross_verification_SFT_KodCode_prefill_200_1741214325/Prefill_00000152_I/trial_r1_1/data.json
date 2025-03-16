@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000152_I",
+  "question": "Write a python function to determine whether a number is even or odd without using if else statements. You can use bitwise operators only.",
+  "solution": "def is_even(number):\n    \"\"\"\n    Returns True if the number is even, False otherwise, using bitwise operations only.\n    \"\"\"\n    return (number & 1) == 0",
+  "test_code": "def test_is_even():\n    assert is_even(2) == True\n    assert is_even(3) == False\n    assert is_even(0) == True\n    assert is_even(-4) == True\n    assert is_even(-3) == False\n\ndef test_is_odd():\n    assert is_even(1) == False\n    assert is_even(-1) == False\n    assert is_even(-5) == False",
+  "test_info": [
+    {
+      "function_name": "is_even",
+      "parameter_list": "(number)",
+      "function_declaration": "def is_even(number):",
+      "docstring": "Returns True if the number is even, False otherwise, using bitwise operations only."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function that determines if a number is even or odd, but I can't use any if-else statements. The hint is to use bitwise operators only. Hmm, let's think about how to approach this.\n\nFirst, I remember that even numbers have their last binary digit as 0, while odd numbers have it as 1. So maybe I can check the last bit somehow. Bitwise operations can help with that.\n\nIn Python, the modulo operator gives the remainder, but using it with 2 is another way to check even or odd. But wait, that involves a mathematical operation. The challenge is to use only bitwise operators.\n\nOh right, using the AND operator (&) with 1. If the result is 1, the number is odd; if it's 0, it's even. So for example, 5 is 101 in binary. 5 & 1 is 1, so odd. 4 is 100, 4 & 1 is 0, so even.\n\nSo the plan is: take the number, perform a bitwise AND with 1, and then check if the result is 0 or 1. But since I can't use if-else, I need another way to return 'Even' or 'Odd' based on that result.\n\nWait, in Python, 0 is considered False and any non-zero is True. But how can I use that to return the strings. Maybe using multiplication or another method to map 0 and 1 to 'Even' and 'Odd'.\n\nAlternatively, I can create a tuple or list where index 0 corresponds to even and index 1 corresponds to odd, then index using the result of (number & 1). Let me see.\n\nWait, (number & 1) will be 0 for even and 1 for odd. So I can have a list like ['Even', 'Odd'], then the index will pick 'Even' for 0 and 'Odd' for 1.\n\nSo putting it all together, the function would be something like:\n\ndef is_even_odd(num):\n    return ['Even', 'Odd'][num & 1]\n\nYes, that should work. Let me test this logic with a few examples.\n\nTest case 1: num = 2. 2 in binary is 10. 2 & 1 is 0, so the result is 'Even'. Correct.\n\nTest case 2: num = 3. 3 in binary is 11. 3 & 1 is 1, so 'Odd'. Correct.\n\nWhat about zero? 0 is even. 0 & 1 is 0, returns 'Even'. Good.\n\nNegative numbers? Let's see, -1 in binary (assuming two's complement) ends with 1. -1 & 1 is 1, so 'Odd'. Correct, since -1 is odd.\n\nWhat about a larger number, like 10. 10 & 1 is 0, so 'Even'. Correct.\n\nWait, but what about numbers like 1, -3, etc. 1 & 1 is 1 \u2192 'Odd'; -3 in binary is ...11, so &1 is 1 \u2192 'Odd'. Yup.\n\nSo the function seems to handle all cases correctly without using any if-else statements, just bitwise operations. I think this should solve the problem.\n</think>\n\nTo determine whether a number is even or odd using only bitwise operators, we can leverage the properties of binary numbers. Specifically, the least significant bit (LSB) of even numbers is 0, while for odd numbers, it is 1. By using the bitwise AND operator (`&`) with 1, we can check the value of the LSB. Then, we use this result to index into a list that contains the strings 'Even' and 'Odd'.\n\n**Step-by-Step Explanation:**\n\n1. **Bitwise AND Operation:** Perform `num & 1` to extract the least significant bit of the number. This will result in 0 for even numbers and 1 for odd numbers.\n2. **Indexing:** Use the result from the bitwise operation as an index to access the corresponding string from a predefined list `['Even', 'Odd']`.\n\n**Code Implementation:**\n\n```python\ndef is_even_odd(num):\n    return ['Even', 'Odd'][num & 1]\n```\n\n**Example Use Cases:**\n\n- `is_even_odd(4)` returns `'Even'` because the LSB of 4 (100 in binary) is 0.\n- `is_even_odd(5)` returns `'Odd'` because the LSB of 5 (101 in binary) is 1.\n- `is_even_odd(0)` returns `'Even'` since 0 is even.\n- `is_even_odd(-3)` returns `'Odd'` as -3 is odd, and its binary representation's LSB is 1.\n\nThis approach efficiently determines if a number is even or odd using bitwise operations without relying on conditional statements.",
+  "r1_solution": "def is_even(num):\n    return ['Even', 'Odd'][num & 1]",
+  "metadata": {
+    "prompt_id": "00000152",
+    "row_id": 152,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

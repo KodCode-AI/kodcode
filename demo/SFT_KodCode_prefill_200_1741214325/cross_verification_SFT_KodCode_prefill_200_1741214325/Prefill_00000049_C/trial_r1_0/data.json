@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000049_C",
+  "question": "def sum_two_numbers(a, b) -> int:\n    \"\"\" Returns the sum of a and b.\n    >>> sum_two_numbers(2, 3)\n    5\n    >>> sum_two_numbers(0, 5)\n    5\n    >>> sum_two_numbers(-1, -1)\n    -2\n    >>> sum_two_numbers(-1, 3)\n    2\n    >>> sum_two_numbers(4, -4)\n    0\n    \"\"\"",
+  "solution": "def sum_two_numbers(a, b):\n    \"\"\"\n    Returns the sum of a and b.\n    \"\"\"\n    return a + b",
+  "test_code": "from solution import sum_two_numbers\n\ndef test_sum_two_positive_numbers():\n    assert sum_two_numbers(2, 3) == 5\n\ndef test_sum_with_zero():\n    assert sum_two_numbers(0, 5) == 5\n    assert sum_two_numbers(5, 0) == 5\n\ndef test_sum_negative_numbers():\n    assert sum_two_numbers(-1, -1) == -2\n\ndef test_sum_mixed_sign_numbers():\n    assert sum_two_numbers(-1, 3) == 2\n    assert sum_two_numbers(4, -4) == 0",
+  "test_info": [
+    {
+      "function_name": "sum_two_numbers",
+      "parameter_list": "(a, b)",
+      "function_declaration": "def sum_two_numbers(a, b):",
+      "docstring": "Returns the sum of a and b."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called sum_two_numbers that takes two arguments, a and b, and returns their sum. Hmm, how do I approach this?\n\nWait, looking at the examples, when sum_two_numbers(2,3) is called, it returns 5. And same with other cases. So it looks like the function just needs to add a and b together.\n\nSo the function should be simple, right? Like return a + b.\n\nBut wait, are there any edge cases I should consider? Testing the examples: negative numbers, zero, positive numbers. But addition covers all those, so no problem.\n\nWhat about if someone passes non-integer values? The docstring examples use integers, but the function is annotated to return an int. So maybe type checking isn't necessary unless specified. The problem might assume that a and b are integers.\n\nSo the code structure would be:\n\ndef sum_two_numbers(a, b) -> int:\n    return a + b\n\nThat's all? Yeah, the examples provided all align with that simple function. Let's see each example:\n\nsum_two_numbers(2,3) should return 5. 2+3=5. Correct.\nsum_two_numbers(0,5) is 5. Yep.\nsum_two_numbers(-1,-1) is -2. Yes.\nsum_two_numbers(-1,3) is 2. Correct.\nsum_two_numbers(4,-4) is 0. Also right.\n\nI think that's all that's needed. No loops or conditionals required. Just a straightforward addition.\n</think>\n\nTo solve this problem, we need to create a function that takes two integers as input and returns their sum. The function should handle various cases, including positive numbers, negative numbers, and zero. The solution should be straightforward as it involves a basic arithmetic operation.\n\n### Approach\nThe approach to solve this problem is quite simple. We need to write a function that takes two parameters, adds them together, and returns the result. The function will handle both positive and negative integers, as well as zero. The addition operation inherently takes care of all these cases, so no additional checks or complex logic are required.\n\n### Solution Code\n```python\ndef sum_two_numbers(a, b) -> int:\n    \"\"\" Returns the sum of a and b.\n    >>> sum_two_numbers(2, 3)\n    5\n    >>> sum_two_numbers(0, 5)\n    5\n    >>> sum_two_numbers(-1, -1)\n    -2\n    >>> sum_two_numbers(-1, 3)\n    2\n    >>> sum_two_numbers(4, -4)\n    0\n    \"\"\"\n    return a + b\n```\n\n### Explanation\nThe function `sum_two_numbers` takes two parameters, `a` and `b`, both of which are integers. The function returns the result of adding these two integers together. The addition operation handles all edge cases, including negative numbers and zero, as demonstrated in the provided examples. By simply returning `a + b`, we ensure that the function is concise and efficient, performing its task in constant time O(1). This solution is optimal for the given problem constraints.",
+  "r1_solution": "def sum_two_numbers(a, b) -> int:\n    \"\"\" Returns the sum of a and b.\n    >>> sum_two_numbers(2, 3)\n    5\n    >>> sum_two_numbers(0, 5)\n    5\n    >>> sum_two_numbers(-1, -1)\n    -2\n    >>> sum_two_numbers(-1, 3)\n    2\n    >>> sum_two_numbers(4, -4)\n    0\n    \"\"\"\n    return a + b",
+  "metadata": {
+    "prompt_id": "00000049",
+    "row_id": 49,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to calculate the sum of two numbers."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

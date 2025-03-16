@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000194_I",
+  "question": "Write a python function to convert a given string to a list of integers, where each integer is the ASCII value of each character in the string.",
+  "solution": "def string_to_ascii_list(input_string):\n    \"\"\"\n    Converts a given string to a list of integers, where each integer is the ASCII value of each character in the string.\n    \"\"\"\n    return [ord(char) for char in input_string]",
+  "test_code": "def test_string_to_ascii_list():\n    assert string_to_ascii_list(\"AB\") == [65, 66]\n    assert string_to_ascii_list(\"Hello\") == [72, 101, 108, 108, 111]\n    assert string_to_ascii_list(\"\") == []\n    assert string_to_ascii_list(\"123\") == [49, 50, 51]\n\ndef test_empty_string():\n    assert string_to_ascii_list(\"\") == []\n\ndef test_string_with_spaces():\n    assert string_to_ascii_list(\"Hello World!\") == [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]",
+  "test_info": [
+    {
+      "function_name": "string_to_ascii_list",
+      "parameter_list": "(input_string)",
+      "function_declaration": "def string_to_ascii_list(input_string):",
+      "docstring": "Converts a given string to a list of integers, where each integer is the ASCII value of each character in the string."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.5,
+  "r1_response": "<think>\nOkay, so I have to write a Python function that converts a given string into a list of integers. Each integer should be the ASCII value of the corresponding character in the string. Hmm, right. Let me think about how to approach this.\n\nFirst, I remember that in Python, each character can be converted to its ASCII value using the ord() function. So for example, ord('a') gives 97, ord('b') gives 98, and so on. So my task is to apply this ord() function to every character in the input string and collect the results into a list.\n\nWait, so the function will take a string as input and return a list. Let me outline the steps:\n\n1. Define the function, let's say it's called string_to_ascii, which takes a parameter s.\n2. Initialize an empty list to store the ASCII values.\n3. Loop through each character in the input string s.\n4. For each character, calculate its ASCII value using ord(char) and append it to the list.\n5. After processing all characters, return the list.\n\nAlternatively, I could use a list comprehension to make it more concise. That might be more efficient. So instead of initializing an empty list and appending, I can create the list in one line.\n\nSo another approach is:\n\n- Use a list comprehension where each element is ord(char) for char in s.\n\nThat sounds simpler. Then the function would just return [ord(char) for char in s].\n\nLet me test this logic in my mind. Suppose the input string is 'abc'. Then the function should return [97, 98, 99], right? Using the list comprehension would generate exactly that.\n\nWhat about edge cases? Like an empty string. The list comprehension would return an empty list, which is correct. What if the string has special characters, like spaces or punctuation? ord() still works on them, so the function should handle that without any issues.\n\nWait, can I think of any cases where this might not work? Well, if for some reason the string is not properly formed, but in Python the for loop will iterate through each character regardless. So I don't think there's an issue there.\n\nSo putting it all together, the function can be written concisely. I think the code would be something like:\n\ndef string_to_ascii(s):\n    return [ord(char) for char in s]\n\nYes, that should work. Let me see if there's another way, perhaps using a for loop and appending. But the list comprehension is more Pythonic and efficient.\n\nAnother thing to consider is handling very long strings, but since the list comprehension is handled in C under the hood, it's more efficient than an explicit loop in Python.\n\nSo I think that's the best solution.\n</think>\n\nTo write a function that converts a string into a list of integers representing the ASCII values of each character, you can use the `ord()` function combined with a list comprehension. Here's the solution:\n\n**Solution Code:**\n\n```python\ndef string_to_ascii(s):\n    return [ord(char) for char in s]\n```\n\n**Explanation:**\n\n1. **Function Definition**: The function `string_to_ascii` takes one parameter `s`, which is the input string.\n2. **List Comprehension**: The list comprehension iterates over each character `char` in the string `s`.\n3. **ORD Function**: For each character, `ord(char)` is called to get its ASCII value. These values are collected into a new list.\n4. **Return Value**: The resulting list of ASCII values is returned.\n\nThis approach efficiently converts each character to its ASCII value using a concise and readable method.",
+  "r1_solution": "def string_to_ascii_list(s):\n    return [ord(char) for char in s]",
+  "metadata": {
+    "prompt_id": "00000194",
+    "row_id": 194,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

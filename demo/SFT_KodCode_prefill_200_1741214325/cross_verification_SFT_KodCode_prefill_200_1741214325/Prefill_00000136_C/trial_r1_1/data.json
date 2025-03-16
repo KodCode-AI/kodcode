@@ -1,0 +1,42 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000136_C",
+  "question": "def enqueue(queue, item) -> None:\n    \"\"\"\n    Adds an item to the end of the queue.\n    \"\"\"\ndef dequeue(queue) -> Optional[int]:\n    \"\"\"\n    Removes and returns the item from the front of the queue.\n    If the queue is empty, returns None.\n    \"\"\"",
+  "solution": "def enqueue(queue, item):\n    \"\"\"\n    Adds an item to the end of the queue.\n    \"\"\"\n    queue.append(item)\n\ndef dequeue(queue):\n    \"\"\"\n    Removes and returns the item from the front of the queue.\n    If the queue is empty, returns None.\n    \"\"\"\n    if len(queue) > 0:\n        return queue.pop(0)\n    else:\n        return None",
+  "test_code": "from solution import enqueue, dequeue\n\ndef test_enqueue_dequeue():\n    queue = []\n    enqueue(queue, 1)\n    enqueue(queue, 2)\n    assert dequeue(queue) == 1\n    assert dequeue(queue) == 2\n    assert dequeue(queue) is None\n\ndef test_enqueue():\n    queue = []\n    enqueue(queue, 1)\n    assert queue == [1]\n    enqueue(queue, 2)\n    assert queue == [1, 2]\n\ndef test_dequeue_empty_queue():\n    queue = []\n    assert dequeue(queue) is None",
+  "test_info": [
+    {
+      "function_name": "enqueue",
+      "parameter_list": "(queue, item)",
+      "function_declaration": "def enqueue(queue, item):",
+      "docstring": "Adds an item to the end of the queue."
+    },
+    {
+      "function_name": "dequeue",
+      "parameter_list": "(queue)",
+      "function_declaration": "def dequeue(queue):",
+      "docstring": "Removes and returns the item from the front of the queue.\nIf the queue is empty, returns None."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, so I need to implement these two functions, enqueue and dequeue, right? Let me think about how queues work. Oh right, queues are FIFO, so the first item that comes in is the first to go out. Enqueue adds to the end, dequeue removes from the front.\n\nSo for the enqueue function, the goal is to add an item to the end of the queue. The function signature shows it's taking a queue and an item, and it doesn't return anything. Wait, but in Python, lists are mutable, so if we pass a list as the queue, adding to it will modify it in place. So maybe the queue is maintained as a list.\n\nThen for dequeue, it should remove and return the front item. But if the queue is empty, it returns None. So we need to check if the queue is not empty before popping the first element.\n\nHmm, how do I handle the queue? Should I represent it as a list where the front is at index 0? So when we enqueue, we append the item. When we dequeue, we pop(0), but that's O(n) time. Wait, but for a simple implementation, maybe that's acceptable.\n\nWait, but maybe using a deque from collections would be more efficient because append and popleft are O(1). But the functions here take a queue as an argument, so perhaps they're expecting the queue to be a list. So the functions would modify the list in place.\n\nSo for enqueue, we can do queue.append(item). That adds the item to the end. Simple enough.\n\nFor dequeue, we check if the queue is not empty. So if len(queue) > 0, then we return queue.pop(0). Else, return None.\n\nLet me also think about possible edge cases. For enqueue, adding None as an item? Well, that's allowed because the function accepts any item, including None. For dequeue, when the queue is empty, it should return None.\n\nWait, but what if the queue contains None as a valid item? For example, if someone enqueues None, then dequeuing would remove it correctly. But if the queue was empty, then it also returns None. So in that case, there's no way to distinguish between an enqueued None and an empty queue. But that's how the function is defined, so we have to proceed that way.\n\nSo writing the functions:\n\nFor enqueue:\ndef enqueue(queue, item) -> None:\n    queue.append(item)\n\nFor dequeue:\ndef dequeue(queue) -> Optional[int]:\n    if not queue:\n        return None\n    else:\n        return queue.pop(0)\n\nWait, but the type comment says Optional[int]. So for the item to be enqueued, it should be an int. Or wait, the function parameters can take any item, but the dequeue is typed as returning Optional[int]. So maybe the items added are integers. But looking at the original code, the item is any type, I suppose, but the dequeue expects to return an int or None.\n\nWait, the enqueue function's parameter is 'item', and the dequeue's return is Optional[int]. Hmm, so perhaps all items in the queue are integers. But I'm not sure if that's an assumption we should make. But the code is written to handle any item, but the dequeue function is typed to return an int. So maybe in the problem, the items are integers.\n\nBut regardless, the functions will handle any type because the enqueue function can take any item. But the dequeue function will return that item, or None if the queue is empty, typed as Optional[int]. So perhaps in this problem, the items are treated as integers, even if not enforced by the code.\n\nSo putting it all together, the code should be as follows:\n\nImplement enqueue by appending to the queue, and dequeue by popping the first element or returning None.\n\nI should also test these functions with some examples to make sure.\n\nLet's see:\n\nExample 1:\n\nq = []\nenqueue(q, 5)\nenqueue(q, 3)\ndequeue(q) should return 5\ndequeue(q) should return 3\ndequeue(q) returns None.\n\nYes, that works.\n\nWhat about with None values:\n\nq = []\nenqueue(q, None)\ndequeue(q) returns None, which is correct but ambiguous whether it's an enqueued None or empty.\n\nSo that's acceptable.\n\nWhat about adding multiple items and dequeuing one by one:\n\nq = []\nenqueue(q,1)\nenqueue(q,2)\nenqueue(q,3)\ndequeue(q) \u2192 1\ndequeue(q) \u2192 2\nqueue becomes [3], dequeue again, gets 3.\n\nYes, that works.\n\nSo the code should handle these cases correctly.\n</think>\n\nTo implement the queue functions `enqueue` and `dequeue`, we can use a list to represent the queue, where `enqueue` adds items to the end of the list and `dequeue` removes items from the front. \n\nHere is the code:\n\n```python\ndef enqueue(queue, item) -> None:\n    \"\"\"\n    Adds an item to the end of the queue.\n    \"\"\"\n    queue.append(item)\n\ndef dequeue(queue) -> Optional[int]:\n    \"\"\"\n    Removes and returns the item from the front of the queue.\n    If the queue is empty, returns None.\n    \"\"\"\n    if not queue:\n        return None\n    return queue.pop(0)\n```\n\n**Step-by-step Explanation:**\n\n1. **Enqueue Function:**\n   - **Purpose:** Adds an item to the end of the queue.\n   - **Implementation:** Using `queue.append(item)`, we add the item to the end of the list, which follows the FIFO principle.\n\n2. **Dequeue Function:**\n   - **Purpose:** Removes and returns the item from the front of the queue. If the queue is empty, returns `None`.\n   - **Implementation:** \n     - Check if the queue is empty: `if not queue`.\n     - If empty, return `None`.\n     - If not empty, remove and return the first element using `queue.pop(0)`.\n\nThese functions efficiently manage the queue operations using basic list operations. The `enqueue` runs in O(1) time complexity, while `dequeue` runs in O(n) due to popping from the front of the list, which requires shifting all elements. For a more efficient `dequeue` operation, consider using a `deque` from the `collections` module, but this implementation uses a standard list for simplicity.",
+  "r1_solution": "def enqueue(queue, item) -> None:\n    \"\"\"\n    Adds an item to the end of the queue.\n    \"\"\"\n    queue.append(item)\n\ndef dequeue(queue) -> Optional[int]:\n    \"\"\"\n    Removes and returns the item from the front of the queue.\n    If the queue is empty, returns None.\n    \"\"\"\n    if not queue:\n        return None\n    return queue.pop(0)",
+  "metadata": {
+    "prompt_id": "00000136",
+    "row_id": 136,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to create a queue using a list with two methods: enqueue and dequeue. The enqueue method adds an element to the end of the queue, and the dequeue method removes the element from the front of the queue."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

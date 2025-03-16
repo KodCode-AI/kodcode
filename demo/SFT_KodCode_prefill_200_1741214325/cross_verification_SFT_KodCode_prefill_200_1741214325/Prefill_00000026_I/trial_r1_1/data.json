@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000026_I",
+  "question": "Write a python function to calculate the factorial of a number using recursion. The function should take an integer as an argument and return the factorial of that number.",
+  "solution": "def factorial(n):\n    \"\"\"\n    Calculate the factorial of a number using recursion.\n    \n    Args:\n    n (int): The input number whose factorial is to be calculated.\n    \n    Returns:\n    int: The factorial of the input number.\n    \n    Raises:\n    ValueError: If the input is a negative integer.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Factorial is not defined for negative numbers\")\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)",
+  "test_code": "from solution import factorial\n\ndef test_factorial_positive_numbers():\n    assert factorial(5) == 120\n    assert factorial(3) == 6\n    assert factorial(1) == 1\n\ndef test_factorial_zero():\n    assert factorial(0) == 1\n\ndef test_factorial_negative_numbers():\n    try:\n        factorial(-1)\n        assert False, \"Expected ValueError for negative input\"\n    except ValueError as e:\n        assert str(e) == \"Factorial is not defined for negative numbers\"\n\ndef test_factorial_large_numbers():\n    assert factorial(10) == 3628800",
+  "test_info": [
+    {
+      "function_name": "factorial",
+      "parameter_list": "(n)",
+      "function_declaration": "def factorial(n):",
+      "docstring": "Calculate the factorial of a number using recursion.\n\nArgs:\nn (int): The input number whose factorial is to be calculated.\n\nReturns:\nint: The factorial of the input number.\n\nRaises:\nValueError: If the input is a negative integer."
+    }
+  ],
+  "gpt_pass_sequence": [
+    0,
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, I need to write a Python function that calculates the factorial of a number using recursion. Hmm, let's think about what a factorial is. Oh! The factorial of a number n, written as n!, is the product of all positive integers from 1 to n. Like, for example, 5! is 5*4*3*2*1, which equals 120.\n\nSo the function should take an integer as an argument. Wait, but I should make sure it's a non-negative integer. Because factorial of negative numbers isn't defined, right? Maybe I should include a check for that. But the problem says the function should take an integer, so I guess it's up to me whether to handle negatives or not. Well, maybe for now, I'll assume the input is a non-negative integer.\n\nNow, using recursion. The base case for factorial is when n is 0 or 1, because 0! is 1 and 1! is also 1. So if n is 0 or 1, the function should return 1.\n\nFor other values of n, the function should call itself with n-1 and multiply the result by n. So the recursive step is something like return n * factorial(n-1).\n\nLet me outline how the function will look:\n\ndef factorial(n):\n    if n == 0 or n == 1:\n        return 1\n    else:\n        return n * factorial(n-1)\n\nBut wait, what if someone calls the function with a negative number? Maybe I should handle that case. Let me think. Should I raise an error? Because, mathematically, factorial isn't defined for negatives. So in the function, I can add a condition that if n is less than 0, raise a ValueError.\n\nSo updating the function:\n\ndef factorial(n):\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    elif n == 0 or n == 1:\n        return 1\n    else:\n        return n * factorial(n-1)\n\nThat makes sense. Now, what about data types? The function argument is supposed to be an integer, but in Python, if someone passes a float that's whole number, like 5.0, it might cause issues. But since the problem says it should take an integer as an argument, perhaps it's okay. Or maybe inside the function, I can convert it to an integer. Hmm, not sure. Maybe it's better not to handle that unless specified.\n\nSo the final function should have base cases, check for negative numbers, and recursively call itself.\n\nWait, let me test some cases. For n=5, it should calculate 5*4*3*2*1=120. Let me see:\n\nfactorial(5) would call 5*factorial(4), which is 5*(4*factorial(3)), and so on until factorial(1) returns 1. So yes.\n\nWhat about n=0, it returns 1. Correct.\n\nIf n is -1, it raises an error. Good.\n\nI think this should cover the necessary cases. So I'll write the function with these conditions.\n</think>\n\nTo calculate the factorial of a number using recursion in Python, we can define a function that handles the base cases when the number is 0 or 1, and uses recursive calls for other positive integers. Here's how you can implement it:\n\n1. **Check for Negative Input**: Factorial is defined only for non-negative integers. If a negative number is provided, the function raises a ValueError.\n2. **Base Case**: If the number is 0 or 1, the factorial is 1.\n3. **Recursive Step**: For any number greater than 1, the function calls itself with the number decremented by 1, and multiplies the result by the current number.\n\nHere\u2019s the Python code implementing this approach:\n\n```python\ndef factorial(n):\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    elif n == 0 or n == 1:\n        return 1\n    else:\n        return n * factorial(n-1)\n```\n\nYou can use this function by calling it with a non-negative integer argument. Example usage:\n\n```python\nprint(factorial(5))  # Outputs 120\nprint(factorial(0))  # Outputs 1\nprint(factorial(1))  # Outputs 1\n```",
+  "r1_solution": "def factorial(n):\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    elif n == 0 or n == 1:\n        return 1\n    else:\n        return n * factorial(n-1)",
+  "metadata": {
+    "prompt_id": "00000026",
+    "row_id": 26,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

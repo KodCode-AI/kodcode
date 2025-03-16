@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000049_C",
+  "question": "def sum_two_numbers(a, b) -> int:\n    \"\"\" Returns the sum of a and b.\n    >>> sum_two_numbers(2, 3)\n    5\n    >>> sum_two_numbers(0, 5)\n    5\n    >>> sum_two_numbers(-1, -1)\n    -2\n    >>> sum_two_numbers(-1, 3)\n    2\n    >>> sum_two_numbers(4, -4)\n    0\n    \"\"\"",
+  "solution": "def sum_two_numbers(a, b):\n    \"\"\"\n    Returns the sum of a and b.\n    \"\"\"\n    return a + b",
+  "test_code": "from solution import sum_two_numbers\n\ndef test_sum_two_positive_numbers():\n    assert sum_two_numbers(2, 3) == 5\n\ndef test_sum_with_zero():\n    assert sum_two_numbers(0, 5) == 5\n    assert sum_two_numbers(5, 0) == 5\n\ndef test_sum_negative_numbers():\n    assert sum_two_numbers(-1, -1) == -2\n\ndef test_sum_mixed_sign_numbers():\n    assert sum_two_numbers(-1, 3) == 2\n    assert sum_two_numbers(4, -4) == 0",
+  "test_info": [
+    {
+      "function_name": "sum_two_numbers",
+      "parameter_list": "(a, b)",
+      "function_declaration": "def sum_two_numbers(a, b):",
+      "docstring": "Returns the sum of a and b."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called sum_two_numbers that takes two arguments, a and b, and returns their sum as an integer. Hmm, let's see how to approach this.\n\nSo, the function is straightforward\u2014it's supposed to add a and b. But since the examples include positive, negative, and zero values, I don't need to worry about handling different cases beyond just adding them normally.\n\nWait, how do I write a function in Python? Oh right, I use the def keyword. So I'll start with def sum_two_numbers(a, b): and then a colon. On the next line, I'll have the return statement. That return should give the sum of a and b.\n\nLet me think about the parameters. The function arguments can be any integer, so that's fine. Return type is int, which makes sense. So the function body is just return a + b.\n\nNow, looking at the examples:\nWhen a is 2 and b is 3, the function should return 5. That's correct because 2+3 is 5.\nWhen a is 0 and b is5, it returns 5. Yes, 0+5 is 5.\nNegative numbers like -1 and -1 sum to -2. That's handled.\n-1 and 3 give 2. No problem.\n4 and -4 give 0. That's right.\n\nSo all the test cases should pass with this simple implementation. Oh, and the function is annotated with -> int, so that declares the return type, but it's optional, I think.\n\nPutting it all together. The code will be:\n\ndef sum_two_numbers(a, b) -> int:\n    return a + b\n\nIs there anything else to consider? Like error handling if a and b aren't integers? But the problem statement doesn't mention handling such cases, so I assume that a and b are valid integers.\n\nSo that's the code. It seems simple enough, and the tests should pass.\n</think>\n\nTo solve this problem, we need to create a function that takes two integer arguments and returns their sum. This function should handle all cases, including positive numbers, negative numbers, and zero.\n\n### Approach\nThe approach to solve this problem is straightforward. We will define a function named `sum_two_numbers` which takes two parameters, `a` and `b`. The function will simply return the sum of these two parameters. \n\nGiven the simplicity of this task, the solution does not require any complex logic or error handling beyond what is provided by default in Python. The function will return the correct sum for any integer values of `a` and `b`, including handling negative numbers and zero appropriately.\n\n### Solution Code\n\n```python\ndef sum_two_numbers(a, b) -> int:\n    return a + b\n```\n\n### Explanation\nThe function `sum_two_numbers` is defined with two parameters, `a` and `b`, both expected to be integers. The function uses the built-in addition operator to compute the sum of `a` and `b` and returns this result. \n\nThis solution efficiently handles all cases of integer inputs because:\n1. The addition of two positive numbers, negative numbers, or zero is inherently supported by the integer type in Python.\n2. The function's simplicity ensures it runs in constant time, O(1), making it highly efficient for any input size.\n\nWith this approach, the function will correctly return the sum for any valid integer inputs, as demonstrated by the provided test cases.",
+  "r1_solution": "def sum_two_numbers(a, b) -> int:\n    return a + b",
+  "metadata": {
+    "prompt_id": "00000049",
+    "row_id": 49,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to calculate the sum of two numbers."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

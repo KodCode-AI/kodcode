@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000126_I",
+  "question": "Write a python function to check if a list of numbers is sorted in ascending order.",
+  "solution": "def is_sorted_ascending(numbers):\n    \"\"\"\n    Returns True if the list of numbers is sorted in ascending order, else False.\n    \"\"\"\n    return all(numbers[i] <= numbers[i + 1] for i in range(len(numbers) - 1))",
+  "test_code": "from solution import is_sorted_ascending\n\ndef test_is_sorted_ascending_positive():\n    assert is_sorted_ascending([1, 2, 3, 4, 5]) == True\n\ndef test_is_sorted_ascending_with_equal_elements():\n    assert is_sorted_ascending([1, 1, 2, 3, 4]) == True\n\ndef test_is_sorted_ascending_negative():\n    assert is_sorted_ascending([5, 3, 2, 1]) == False\n\ndef test_is_sorted_ascending_single_element():\n    assert is_sorted_ascending([5]) == True\n\ndef test_is_sorted_ascending_empty_list():\n    assert is_sorted_ascending([]) == True\n\ndef test_is_sorted_ascending_mixed():\n    assert is_sorted_ascending([1, 2, 3, 2, 5]) == False",
+  "test_info": [
+    {
+      "function_name": "is_sorted_ascending",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def is_sorted_ascending(numbers):",
+      "docstring": "Returns True if the list of numbers is sorted in ascending order, else False."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function to check if a list of numbers is sorted in ascending order. Hmm, how do I approach this?\n\nWell, I remember that a list is sorted in ascending order if each element is less than or equal to the next one. So maybe I can loop through the list and compare each pair of consecutive elements.\n\nWait, how do I do that? I can start from the first element and go up to the second last one. For each index i, I compare the element at i with the element at i+1. If any of them are greater than the next, then the list isn't sorted.\n\nAnother thought: what about using a built-in function or a more Pythonic way? Like maybe using the 'all()' function with a generator expression. That could make the code cleaner.\n\nSo the generator expression would generate True or False for each comparison of adjacent elements. If all of them are True, then the list is sorted. Otherwise, it's not.\n\nLet me outline the steps:\n1. Iterate through the list from the first to the second last element.\n2. For each element, check if it's less than or equal to the next element.\n3. If all these checks pass, return True. Otherwise, return False.\n\nWhat about edge cases? What if the list is empty or has only one element? Well, an empty list is trivially sorted, and a single element list is also sorted. So in those cases, return True.\n\nWait, but in the original problem, the assistant mentioned considering an empty list and a single-element list. So I should include a condition that if the length is 0 or 1, return True.\n\nPutting this together, the function will first check the length. If it's less than 2, return True. Otherwise, loop through each pair and check the condition.\n\nAlternatively, with the all() method, I can do something like all(list[i] <= list[i+1] for i in range(len(list)-1)). That would return True if all are True, else False.\n\nSo the function can be written concisely. Let me think about potential issues: what if the list has non-numeric elements? But the problem states it's a list of numbers, so no problem there.\n\nTesting a few cases:\n- [1,2,3,4] should return True.\n- [3,2,1] should return False.\n- [1,2,2,3] should return True since equal elements are allowed.\n- [5,6,7,6] should return False because 7 >6 at the last pair.\n- [] returns True, [10] returns True.\n\nAlright, I think I have a solid approach.\n</think>\n\nTo determine if a list of numbers is sorted in ascending order, we need to check if each element is less than or equal to the next element in the list. This can be efficiently implemented in Python using a generator expression within the `all()` function to ensure all consecutive elements meet this condition, including handling edge cases where the list is empty or contains a single element.\n\n**Solution Code:**\n\n```python\ndef is_sorted_ascending(nums):\n    return len(nums) <= 1 or all(nums[i] <= nums[i+1] for i in range(len(nums)-1))\n```\n\n**Step-by-Step Explanation:**\n\n1. **Check for Edge Cases:** The function first checks if the list is empty (`len(nums) == 0`) or has a single element (`len(nums) == 1`). In both cases, the list is trivially sorted, so the function returns `True`.\n\n2. **Use `all()` Function:** Utilizes the `all()` function which returns `True` if all elements in the given iterable are true. \n   - The generator expression iterates from the first element to the second last element (`range(len(nums)-1)`).\n   - For each index `i`, it compares `nums[i]` with `nums[i+1]`. If any comparison returns `False` (i.e., an element is greater than the next), the `all()` function will immediately return `False`.\n\n3. **Return Result:** The function returns `True` if all consecutive elements are in ascending order, otherwise `False`.\n\nThis approach efficiently checks each pair of consecutive elements, ensuring the solution is both concise and optimal.",
+  "r1_solution": "def is_sorted_ascending(nums):\n    return len(nums) <= 1 or all(nums[i] <= nums[i+1] for i in range(len(nums)-1))",
+  "metadata": {
+    "prompt_id": "00000126",
+    "row_id": 126,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000021_I",
+  "question": "Write a python function to find the sum of all even numbers in a list.",
+  "solution": "def sum_of_even_numbers(numbers_list):\n    \"\"\"\n    Returns the sum of all even numbers in the given list.\n    \"\"\"\n    return sum(num for num in numbers_list if num % 2 == 0)",
+  "test_code": "from solution import sum_of_even_numbers\n\ndef test_sum_of_even_numbers_empty_list():\n    assert sum_of_even_numbers([]) == 0\n\ndef test_sum_of_even_numbers_no_even_numbers():\n    assert sum_of_even_numbers([1, 3, 5, 7]) == 0\n\ndef test_sum_of_even_numbers_single_even_number():\n    assert sum_of_even_numbers([2]) == 2\n\ndef test_sum_of_even_numbers_multiple_even_numbers():\n    assert sum_of_even_numbers([2, 4, 6, 8]) == 20\n\ndef test_sum_of_even_numbers_mixed_numbers():\n    assert sum_of_even_numbers([1, 2, 3, 4, 5, 6]) == 12",
+  "test_info": [
+    {
+      "function_name": "sum_of_even_numbers",
+      "parameter_list": "(numbers_list)",
+      "function_declaration": "def sum_of_even_numbers(numbers_list):",
+      "docstring": "Returns the sum of all even numbers in the given list."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.5,
+  "r1_response": "<think>\nOkay, I need to write a Python function that finds the sum of all even numbers in a list. Let me think about how to approach this.\n\nFirst, I'll start by defining a function. Let's call it sum_even_numbers. It should take one parameter, which is the list of numbers. So, something like def sum_even_numbers(numbers):.\n\nNow, I need to initialize a variable to keep track of the sum. Let's call it total_sum and set it to 0. That way, every even number we find will add to this total.\n\nNext, I should loop through each number in the input list. Using a for loop makes sense here. So, for number in numbers:.\n\nFor each number, I need to check if it's even. How do I do that? Well, I remember that even numbers are divisible by 2 with no remainder, so number % 2 should equal 0. So, the condition is if number % 2 == 0:.\n\nInside this if statement, I'll add the current number to total_sum. So, total_sum += number.\n\nAfter processing all numbers, I should return the total_sum. So, return total_sum.\n\nWait, what if the list is empty or has no even numbers? Well, the function will return 0 in those cases, which makes sense because the sum of zero numbers is zero.\n\nLet me put this all together step by step to make sure I didn't miss anything. Define the function, loop through numbers, check for even, add to sum, return sum. Seems solid.\n\nI think that's it. Let me write this as the final function.\n</think>\n\nTo find the sum of all even numbers in a list, you can create a function that iterates through each number, checks if it's even, and accumulates the sum of these even numbers. Here's a step-by-step solution:\n\n1. **Define the Function**: Create a function named `sum_even_numbers` that takes one parameter, a list of numbers.\n2. **Initialize Sum Variable**: Set up a variable `total_sum` to 0 to hold the cumulative sum of even numbers.\n3. **Iterate Through the List**: Use a `for` loop to go through each number in the list.\n4. **Check for Even Numbers**: For each number, use an `if` statement to check if it's even (i.e., `number % 2 == 0`).\n5. **Accumulate the Sum**: Add each even number to `total_sum`.\n6. **Return the Result**: After processing all numbers, return `total_sum`.\n\nHere's the code:\n\n```python\ndef sum_even_numbers(numbers):\n    total_sum = 0\n    for number in numbers:\n        if number % 2 == 0:\n            total_sum += number\n    return total_sum\n```\n\n**Example usage**:\n\n```python\n# Example 1:\nnumbers = [1, 2, 3, 4, 5, 6]\nprint(sum_even_numbers(numbers))  # Output: 12\n\n# Example 2:\nnumbers = []\nprint(sum_even_numbers(numbers))  # Output: 0\n\n# Example 3:\nnumbers = [2, 4, 6, 8]\nprint(sum_even_numbers(numbers))  # Output: 20\n```\n\n**Explanation**:\n\n- The function `sum_even_numbers` starts by initializing `total_sum` to 0.\n- It then iterates through each `number` in the input list `numbers`.\n- For each number, it checks if the number is even using the modulus operator (`%`).\n- If the number is even, it's added to `total_sum`.\n- Finally, after processing all numbers, the function returns `total_sum`.\n\nThis function efficiently computes the desired sum with a time complexity of O(n), where n is the number of elements in the list.",
+  "r1_solution": "def sum_of_even_numbers(numbers):\n    total_sum = 0\n    for number in numbers:\n        if number % 2 == 0:\n            total_sum += number\n    return total_sum",
+  "metadata": {
+    "prompt_id": "00000021",
+    "row_id": 21,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

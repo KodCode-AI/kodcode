@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000158_I",
+  "question": "Write a python function to to count the number of times a character appears in a string",
+  "solution": "def char_count(text, character):\n    \"\"\"\n    Returns the number of times a character appears in a string.\n    \"\"\"\n    return text.count(character)",
+  "test_code": "from solution import char_count\n\ndef test_char_count_single_character():\n    assert char_count(\"hello\", \"l\") == 2\n\ndef test_char_count_multiple_characters():\n    assert char_count(\"banana\", \"a\") == 3\n\ndef test_char_count_empty_string():\n    assert char_count(\"\", \"a\") == 0\n\ndef test_char_count_with_whitespace():\n    assert char_count(\"hello world\", \" \") == 1\n\ndef test_char_count_case_sensitive():\n    assert char_count(\"Hello\", \"h\") == 0\n    assert char_count(\"Hello\", \"H\") == 1\n\ndef test_char_count_special_characters():\n    assert char_count(\"hello@world\", \"@\") == 1",
+  "test_info": [
+    {
+      "function_name": "char_count",
+      "parameter_list": "(text, character)",
+      "function_declaration": "def char_count(text, character):",
+      "docstring": "Returns the number of times a character appears in a string."
+    }
+  ],
+  "gpt_pass_sequence": [
+    0,
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, I need to write a Python function that counts how many times a specific character appears in a string. Let me think about how to approach this.\n\nFirst, I remember that in Python, strings have a method called count(). So if I have a string, say s, and I want to count the occurrences of a character 'c', I can just do s.count(c). That seems straightforward, but maybe the user wants a function that does this manually without using the built-in method.\n\nAlright, so maybe I should write a function that loops through each character in the string and counts each occurrence. Let me outline the steps.\n\nThe function should take two parameters: the string and the character. Let's name them s and char. I'll initialize a counter to 0. Then, for each character in the string s, I'll check if it's equal to char. If it is, I'll increment the counter by 1. Finally, I'll return the counter.\n\nWait, what if the character is a string longer than one character? Oh right, I should probably make sure that char is a single character. Maybe I should add a check at the beginning. If len(char) is not 1, raise a ValueError. That way, the function is robust.\n\nLet me put this together. The function will be called count_char. It starts by checking the length of char. Then initializes count to 0. Loops through each char_in_s in s, if equal to char, increment count. At the end, return count.\n\nAlternatively, could I write this in a more concise way? Maybe using a generator expression inside sum(). Like sum(1 for c in s if c == char). That could make the function even shorter. But it's essentially doing the same thing.\n\nWait, which approach is more efficient? I think both are similar, but using sum might be slightly more efficient because it's a built-in function. But for the sake of clarity, maybe writing it out step by step is better, especially for someone learning.\n\nSo the function could be as simple as:\n\ndef count_char(s, char):\n    return sum(1 for c in s if c == char)\n\nAlternatively, I could write it with a loop for better understanding.\n\nI think both methods are acceptable, but perhaps using sum is more Pythonic and efficient. I'll include both versions in my explanation so the user can choose which one they prefer.\n\nAnother thought: what about case sensitivity? For example, if the string is 'Aa' and I'm counting 'a's, it would count 1. If that's the intended behavior, then the function is correct as is. But if the user wants a case-insensitive count, they'd need to adjust the function, perhaps by converting the string and character to lower or upper case. But since the question didn't specify, I'll assume case-sensitive.\n\nSo, to summarize, the function can be written either by iterating through each character and counting manually or using the sum approach. Both should work.\n</think>\n\nTo count the number of times a specific character appears in a string, you can write a Python function that iterates through each character in the string and keeps a tally of the occurrences. Here are two methods to achieve this:\n\n### Method 1: Using a Loop\n\n**Code:**\n```python\ndef count_char(s, char):\n    count = 0\n    for c in s:\n        if c == char:\n            count += 1\n    return count\n```\n\n**Explanation:**\n- The function `count_char` initializes a counter `count` to 0.\n- It then loops through each character `c` in the string `s`.\n- For each character, it checks if `c` is equal to the target character `char`. If true, it increments the counter by 1.\n- Finally, it returns the total count.\n\n### Method 2: Using the `sum()` Function\n\n**Code:**\n```python\ndef count_char(s, char):\n    return sum(1 for c in s if c == char)\n```\n\n**Explanation:**\n- This function uses a generator expression within the built-in `sum()` function for a concise solution.\n- The generator expression `(1 for c in s if c == char)` produces a `1` for each character in `s` that matches `char`.\n- `sum()` then adds up all the `1`s, effectively counting the occurrences of `char` in `s`.\n\n**Tips:**\n- Both methods are case-sensitive. For a case-insensitive count, convert both the string and the character to the same case.\n- If you want to use the built-in string method, `s.count(char)` provides a quick solution.",
+  "r1_solution": "def char_count(s, char):\n    count = 0\n    for c in s:\n        if c == char:\n            count += 1\n    return count",
+  "metadata": {
+    "prompt_id": "00000158",
+    "row_id": 158,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

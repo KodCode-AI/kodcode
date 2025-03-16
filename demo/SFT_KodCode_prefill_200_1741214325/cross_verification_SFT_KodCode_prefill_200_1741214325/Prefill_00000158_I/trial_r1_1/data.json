@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000158_I",
+  "question": "Write a python function to to count the number of times a character appears in a string",
+  "solution": "def char_count(text, character):\n    \"\"\"\n    Returns the number of times a character appears in a string.\n    \"\"\"\n    return text.count(character)",
+  "test_code": "from solution import char_count\n\ndef test_char_count_single_character():\n    assert char_count(\"hello\", \"l\") == 2\n\ndef test_char_count_multiple_characters():\n    assert char_count(\"banana\", \"a\") == 3\n\ndef test_char_count_empty_string():\n    assert char_count(\"\", \"a\") == 0\n\ndef test_char_count_with_whitespace():\n    assert char_count(\"hello world\", \" \") == 1\n\ndef test_char_count_case_sensitive():\n    assert char_count(\"Hello\", \"h\") == 0\n    assert char_count(\"Hello\", \"H\") == 1\n\ndef test_char_count_special_characters():\n    assert char_count(\"hello@world\", \"@\") == 1",
+  "test_info": [
+    {
+      "function_name": "char_count",
+      "parameter_list": "(text, character)",
+      "function_declaration": "def char_count(text, character):",
+      "docstring": "Returns the number of times a character appears in a string."
+    }
+  ],
+  "gpt_pass_sequence": [
+    0,
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nAlright, I need to write a Python function that counts how many times a specific character appears in a string. Let me think about how to approach this.\n\nFirst, I'll consider the inputs: the function should take two parameters, the string and the character. I'll name them something like input_string and char. The function name could be count_char_appearances for clarity.\n\nNow, I should think about possible edge cases. What if the character is more than one character long? Since the problem specifies a single character, I'll make sure to handle that by checking the length of char and returning 0 if it's not exactly 1. That way, invalid inputs don't cause issues.\n\nNext, the main logic. I can iterate over each character in the input string and compare it to the given character. Each time they match, I'll increment a counter. Alternatively, I could convert the string into a list and use the count method, which is more efficient and simpler.\n\nSo the steps are: initialize a counter at 0, check if char is valid, then loop through each character in the string, incrementing the counter when matches occur. Or, just use the count method directly, which is cleaner.\n\nPutting it all together, the function will start by validating the char's length. If it's valid, it counts and returns the number; otherwise, it returns 0.\n\nTesting is important too. I should test cases where the character appears multiple times, not at all, or the string is empty. Also, check if the function handles the invalid char case correctly.\n\nAlright, I think I have a solid plan. Now I'll write the code, make sure to handle edge cases, and include docstrings for clarity.\n</think>\n\nTo count the number of times a specific character appears in a given string, follow these steps:\n\n1. **Function Definition**: Define a function `count_char_appearances` that takes two parameters: `input_string` (the string to search) and `char` (the character to count).\n\n2. **Input Validation**: Check if `char` is exactly one character long. If not, return 0.\n\n3. **Counting Occurrences**: Use the `count` method of the string class to count how many times `char` appears in `input_string`.\n\n4. **Return the Count**: Return the count as an integer.\n\nHere is the Python function implementing these steps:\n\n```python\ndef count_char_appearances(input_string, char):\n    \"\"\"\n    Count the number of times a specific character appears in a string.\n\n    Args:\n        input_string (str): The string to search in.\n        char (str): The character to count. Must be a single character.\n\n    Returns:\n        int: The number of times 'char' appears in 'input_string'.\n    \"\"\"\n    if len(char) != 1:\n        return 0\n    return input_string.count(char)\n```\n\n**Example Usage:**\n\n```python\nprint(count_char_appearances(\"hello world\", \"l\"))  # Output: 3\nprint(count_char_appearances(\"hello world\", \"z\"))  # Output: 0\nprint(count_char_appearances(\"\", \"a\"))          # Output: 0\nprint(count_char_appearances(\"a\", \"a\"))          # Output: 1\nprint(count_char_appearances(\"aaaa\", \"a\"))       # Output: 4\nprint(count_char_appearances(\"hello\", \"\"))        # Output: 0\n```",
+  "r1_solution": "def char_count(input_string, char):\n    \"\"\"\n    Count the number of times a specific character appears in a string.\n\n    Args:\n        input_string (str): The string to search in.\n        char (str): The character to count. Must be a single character.\n\n    Returns:\n        int: The number of times 'char' appears in 'input_string'.\n    \"\"\"\n    if len(char) != 1:\n        return 0\n    return input_string.count(char)",
+  "metadata": {
+    "prompt_id": "00000158",
+    "row_id": 158,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000083_I",
+  "question": "Write a python function to calculate the area of a circle given its radius.",
+  "solution": "import math\n\ndef area_of_circle(radius):\n    \"\"\"\n    Returns the area of a circle given its radius.\n    \"\"\"\n    return math.pi * (radius ** 2)",
+  "test_code": "from solution import area_of_circle\n\ndef test_area_of_circle_positive_radius():\n    assert abs(area_of_circle(1) - math.pi) < 1e-9\n    assert abs(area_of_circle(2) - (4 * math.pi)) < 1e-9\n\ndef test_area_of_circle_zero_radius():\n    assert area_of_circle(0) == 0.0\n\ndef test_area_of_circle_negative_radius():\n    assert abs(area_of_circle(-1) - math.pi) < 1e-9\n\ndef test_area_of_circle_large_radius():\n    assert abs(area_of_circle(10) - (100 * math.pi)) < 1e-9",
+  "test_info": [
+    {
+      "function_name": "area_of_circle",
+      "parameter_list": "(radius)",
+      "function_declaration": "def area_of_circle(radius):",
+      "docstring": "Returns the area of a circle given its radius."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nFirst, I need to recall the formula for calculating the area of a circle. The area is equal to pi multiplied by the radius squared.\n\nNext, I should decide on the value of pi to use. It's common to use 3.14159 for an approximation.\n\nThen, I'll create a function called calculate_circle_area that takes the radius as an argument.\n\nInside the function, I'll square the radius and multiply it by pi to get the area.\n\nFinally, I'll return the calculated area so that it can be used or printed outside the function.\n</think>\n\n**Solution:**\n\nTo calculate the area of a circle, we use the formula:\n\\[ \\text{Area} = \\pi \\times \\text{radius}^2 \\]\n\nHere's a Python function that implements this calculation:\n\n```python\ndef calculate_circle_area(radius):\n    pi = 3.14159  # Using pi as an approximation\n    area = pi * radius ** 2\n    return area\n\n# Example usage:\nradius = 5\nprint(f\"The area of the circle with radius {radius} is {calculate_circle_area(radius)}\")\n```\n\n*Explanation:*\n- **Function Definition:** We define a function `calculate_circle_area` that takes one parameter, `radius`.\n- **Pi Approximation:** We use `3.14159` as an approximation for pi.\n- **Area Calculation:** Inside the function, we calculate the area using the formula \\( \\pi \\times r^2 \\).\n- **Return Statement:** The calculated area is returned by the function.\n- **Example Usage:** We demonstrate how to use the function by providing a radius value and printing the result.\n\nWhen you run this code with a radius of 5, it will output:\n```\nThe area of the circle with radius 5 is 78.53975\n```",
+  "r1_solution": "def area_of_circle(radius):\n    pi = 3.14159  # Using pi as an approximation\n    area = pi * radius ** 2\n    return area\n\n# Example usage:\nradius = 5\nprint(f\"The area of the circle with radius {radius} is {calculate_circle_area(radius)}\")",
+  "metadata": {
+    "prompt_id": "00000083",
+    "row_id": 83,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

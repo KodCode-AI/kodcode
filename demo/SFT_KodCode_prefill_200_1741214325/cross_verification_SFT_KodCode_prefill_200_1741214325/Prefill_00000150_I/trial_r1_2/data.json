@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000150_I",
+  "question": "Write a python function to determine if a given number is a power of two. A number is a power of two if it can be represented as 2^k where k is a non-negative integer. Assume the input is always a valid integer, both positive and negative, but negative numbers should be immediately determined as not powers of two.",
+  "solution": "def is_power_of_two(n):\n    \"\"\"\n    Returns True if n is a power of two, otherwise False.\n    \"\"\"\n    if n <= 0:\n        return False\n    return (n & (n - 1)) == 0",
+  "test_code": "def test_is_power_of_two():\n    assert not is_power_of_two(-4)\n    assert not is_power_of_two(0)\n    assert is_power_of_two(1)\n    assert is_power_of_two(2)\n    assert is_power_of_two(4)\n    assert not is_power_of_two(3)\n    assert is_power_of_two(8)\n    assert not is_power_of_two(15)\n    assert is_power_of_two(16)\n    assert is_power_of_two(32)",
+  "test_info": [
+    {
+      "function_name": "is_power_of_two",
+      "parameter_list": "(n)",
+      "function_declaration": "def is_power_of_two(n):",
+      "docstring": "Returns True if n is a power of two, otherwise False."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 0.667,
+  "r1_response": "<think>\nOkay, I need to write a Python function to determine if a given number is a power of two. Hmm, let's see. So a power of two is a number that can be expressed as 2^k, where k is a non-negative integer. That includes numbers like 1 (which is 2^0), 2, 4, 8, etc.\n\nFirst, the input can be a positive or negative integer. Oh right, but negative numbers should be immediately considered not powers of two. So my first step is to check if the number is negative. If it's negative, return False right away.\n\nWait, but what about zero? Because 2^k is always positive, so zero couldn't be a power of two either. So if the number is less than or equal to zero, I should return False.\n\nBut wait, the input is a valid integer, but could be positive or negative. So the function should return False for n <= 0.\n\nSo, let's outline the steps:\n\n1. If n is less than or equal to zero, return False.\n2. If n is positive, check if it's a power of two.\n\nHow do I check if a positive integer is a power of two? Hmm, I remember that powers of two have exactly one bit set in their binary representation. For example, 2 is 10, 4 is 100, 8 is 1000, etc. So if a number n is a power of two, then n & (n - 1) should be zero because subtracting one would flip all the bits after the set bit, making the bitwise AND zero.\n\nWait, let me think about that again. Let's take n = 2 (10 in binary). n-1 is 1 (01 in binary). AND gives 00, which is zero. Similarly, n = 4 (100), n-1 is 011, AND gives 000. Oh right, that works. So the condition is that n & (n - 1) == 0, but wait, that's only after ensuring that n is positive. But n = 1, (n - 1) is 0, and 1 & 0 is 0. So that works too.\n\nBut wait, another condition. Because if n is zero, that formula wouldn't apply, but we already handled n <=0 earlier. So for n > 0, if (n & (n -1)) == 0, then it's a power of two.\n\nSo putting it all together:\n\nFunction is_power_of_two(n):\n    if n <= 0:\n        return False\n    return (n & (n -1)) == 0\n\nWait, but let me test this with some examples.\n\nn=1: 1&0=0 \u2192 True. Correct.\nn=2: 2&1=0 \u2192 True. Correct.\nn=3: 3&2= 2 \u2192 not zero \u2192 False. Correct since 3 isn't a power of two.\nn=4: 4&3=0 \u2192 True. Correct.\nn=5:5&4=4 \u2192 False. Right.\n\nSo this seems to work.\n\nLet me also check edge cases. What about n=0? The function correctly returns False. n=-5? Also False. What about n=6? 6&5 is 4 \u2192 not zero, so returns False, which is correct.\n\nBut wait, what's about n=0. Is that handled properly? Since the input is a positive or negative integer, and 0 is non-positive, it's correctly handled.\n\nWait a second, but what if n is 1? 1 is 2^0, which is allowed, so it returns True. That's correct.\n\nSo the function seems to handle all cases.\n\nAnother way to think about it is using logarithms, but that's more complicated and could involve floating point inaccuracies, so bitwise operations are more efficient and precise.\n\nSo in the code, the function would be:\n\ndef is_power_of_two(n):\n    if n <= 0:\n        return False\n    return (n & (n - 1)) == 0\n\nYes, that should work.\n</think>\n\nTo determine if a given number is a power of two, we can leverage the properties of binary numbers. A power of two has exactly one bit set in its binary representation. Thus, the bitwise operation \\( n \\& (n - 1) \\) will be zero for such numbers. Here is the Python function:\n\n```python\ndef is_power_of_two(n):\n    if n <= 0:\n        return False\n    return (n & (n - 1)) == 0\n```\n\n**Step-by-step Explanation:**\n\n1. **Check for Non-positive Numbers**: If the input \\( n \\) is less than or equal to zero, it cannot be a power of two, so return False.\n2. **Bitwise Operation**: For positive \\( n \\), compute \\( n \\& (n - 1) \\). If the result is zero, then \\( n \\) is a power of two.\n\nThis approach efficiently determines the result using bitwise operations, which are both fast and straightforward.",
+  "r1_solution": "def is_power_of_two(n):\n    if n <= 0:\n        return False\n    return (n & (n - 1)) == 0",
+  "metadata": {
+    "prompt_id": "00000150",
+    "row_id": 150,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

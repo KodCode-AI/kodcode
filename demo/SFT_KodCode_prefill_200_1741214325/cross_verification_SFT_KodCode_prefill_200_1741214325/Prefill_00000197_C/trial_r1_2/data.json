@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000197_C",
+  "question": "def fibonacci(n: int) -> int:\n    \"\"\" Returns the nth Fibonacci number using recursion.\n    >>> fibonacci(0) \n    0\n    >>> fibonacci(1) \n    1\n    >>> fibonacci(2) \n    1\n    >>> fibonacci(5) \n    5\n    >>> fibonacci(9) \n    34\n    >>> fibonacci(-5) \n    0\n    \"\"\"",
+  "solution": "def fibonacci(n):\n    \"\"\"\n    Returns the nth Fibonacci number using recursion.\n    \"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fibonacci(n-1) + fibonacci(n-2)",
+  "test_code": "from solution import fibonacci\n\ndef test_fibonacci_zero():\n    assert fibonacci(0) == 0\n\ndef test_fibonacci_one():\n    assert fibonacci(1) == 1\n\ndef test_fibonacci_two():\n    assert fibonacci(2) == 1\n\ndef test_fibonacci_five():\n    assert fibonacci(5) == 5\n\ndef test_fibonacci_nine():\n    assert fibonacci(9) == 34\n\ndef test_fibonacci_negative():\n    assert fibonacci(-5) == 0",
+  "test_info": [
+    {
+      "function_name": "fibonacci",
+      "parameter_list": "(n)",
+      "function_declaration": "def fibonacci(n):",
+      "docstring": "Returns the nth Fibonacci number using recursion."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a recursive Fibonacci function in Python. So the function is called fibonacci and takes an integer n. The docstring says that for negative n, it returns 0. For positive numbers, it should return the nth Fibonacci number.\n\nWait, wait. Wait, what's the indexing here? Let's look at the examples. Fibonacci(0) returns 0, fibonacci(1) returns 1, fibonacci(2) returns 1, fibonacci(5) returns 5. Oh right, so it's the standard Fibonacci sequence where F(0) is 0, F(1) is 1, F(2)=1, F(3)=2, etc. So for n=9, it's 34, which makes sense because the 9th index (if starting from 0) is 34: F(0) =0, F(1)=1, F(2)=1, F(3)=2, F(4)=3, F(5)=5, F(6)=8, F(7)=13, F(8)=21, F(9)=34. Yep, that checks out.\n\nSo, for n negative, just return 0. Okay.\n\nNow, to write a recursive function. So, the base cases are when n is 0 or 1. If n is 0, return 0; if n is 1, return 1. But wait, wait. For n=2, the output is 1. Which is fib(2) = fib(1) + fib(0) =1+0=1, which makes sense.\n\nBut wait, for n==0, return 0. For n==1, return 1. For n==2, it's return fib(1)+fib(0)=1. So for the base cases, that's straightforward.\n\nBut what about negative numbers? So, if n is less than 0, return 0. So, the first condition in the function is, if n is less than 0, return 0. Otherwise, proceed normally.\n\nWait, but when n is zero, it's allowed. So, the function starts by checking if n <0: return 0.\n\nElse, if n is 0 or 1, return n.\n\nElse, return fibonacci(n-1) + fibonacci(n-2).\n\nWait, but for example, when n is 1, return 1, which is correct.\n\nThis should work. But wait, what's the time complexity? For n=5, this would do okay, but for larger n, the recursion is exponential. But since the problem only shows examples up to 9 and probably expects a recursive solution regardless of efficiency, I'll proceed.\n\nSo, putting it all together.\n\nSo the function definition starts with checking if n < 0: return 0.\n\nThen, if n is 0: return 0; if n is 1: return 1.\n\nElse, return fib(n-1) + fib(n-2).\n\nLet me test this logic with the examples.\n\nTest case 1: n=0, should return 0.\n\nTest case 2: n=1, returns 1.\n\nTest case 3: n=2, returns fib(1) + fib(0) =1 +0=1.\n\nYes.\n\nn=5: fib(5) is calculated as fib(4)+fib(3).\n\nfib(4) is fib(3) + fib(2) = 2 +1=3.\n\nfib(3) is fib(2)+fib(1)=1+1=2.\n\nSo, 3+2=5, which is correct.\n\nn=9: this is up to 34, as expected.\n\nn=-5: returns 0.\n\nYes.\n\nSo, seems correct.\n\nBut wait, when n is negative, it returns 0, but what about when n is a positive number beyond the base cases?\n\nRecursive calls: for example, if someone calls fibonacci(3), it becomes fib(2)+fib(1) which is 1+1=2, which is correct.\n\nSo, the code structure would be:\n\ndef fibonacci(n: int) -> int:\n    if n <0:\n        return 0\n    elif n ==0:\n        return 0\n    elif n ==1:\n        return 1\n    else:\n        return fibonacci(n-1) + fibonacci(n-2)\n\nWait, but maybe we can optimize it, but the problem doesn't require optimization since it's a recursive solution.\n\nSo, yeah, that's the plan.\n</think>\n\nTo solve this problem, we need to compute the nth Fibonacci number using a recursive approach. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, usually starting with 0 and 1. \n\n### Approach\nThe problem can be approached using recursion, which is a method where the function calls itself with a modified argument until it reaches a base case. The key steps involved are:\n\n1. **Base Cases**:\n   - If the input `n` is negative, the function should return 0.\n   - If `n` is 0, the function returns 0.\n   - If `n` is 1, the function returns 1.\n\n2. **Recursive Case**:\n   - For any other value of `n`, the function computes the Fibonacci number recursively by calling itself with `n-1` and `n-2`, then summing the results.\n\nThis approach ensures that we correctly handle both positive and non-positive values of `n` and compute the Fibonacci sequence accurately using recursion.\n\n### Solution Code\n\n```python\ndef fibonacci(n: int) -> int:\n    if n < 0:\n        return 0\n    elif n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fibonacci(n - 1) + fibonacci(n - 2)\n```\n\n### Explanation\nThe provided solution uses recursion to compute the nth Fibonacci number. Here's a breakdown of how it works:\n\n1. **Handling Non-positive Inputs**: If `n` is negative, the function immediately returns 0, as there are no negative indices in the standard Fibonacci sequence.\n2. **Base Cases**: The function checks if `n` is 0 or 1 and returns the respective Fibonacci numbers (0 and 1) directly.\n3. **Recursive Calculation**: For values of `n` greater than 1, the function calls itself with the arguments `n-1` and `n-2`. This breaks down the problem into smaller subproblems until it reaches the base cases. The results of these subproblems are then summed to give the final Fibonacci number.\n\nThis approach ensures that the function correctly computes the Fibonacci number for any non-negative integer input, leveraging the recursive nature of the problem to maintain simplicity and clarity.",
+  "r1_solution": "def fibonacci(n: int) -> int:\n    if n < 0:\n        return 0\n    elif n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fibonacci(n - 1) + fibonacci(n - 2)",
+  "metadata": {
+    "prompt_id": "00000197",
+    "row_id": 197,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to calculate the nth Fibonacci number. The function should recursively call itself to find the result."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000101_I",
+  "question": "Write a python function to iterate over a list and print each number.",
+  "solution": "def print_numbers(numbers):\n    \"\"\"\n    Iterates over a list and prints each number.\n    \"\"\"\n    for num in numbers:\n        print(num)",
+  "test_code": "from solution import print_numbers\n\ndef test_print_numbers():\n    # Create a temporary file to capture print output\n    import io\n    import contextlib\n\n    captured_output = io.StringIO()  # Create StringIO object\n    with contextlib.redirect_stdout(captured_output):  # Redirect stdout to StringIO object\n        print_numbers([1, 2, 3, 4, 5])\n    output = captured_output.getvalue().strip().split('\\n')\n    assert output == ['1', '2', '3', '4', '5']\n\ndef test_print_numbers_with_empty_list():\n    import io\n    import contextlib\n    captured_output = io.StringIO()\n    with contextlib.redirect_stdout(captured_output):\n        print_numbers([])\n    output = captured_output.getvalue().strip()\n    assert output == ''",
+  "test_info": [
+    {
+      "function_name": "print_numbers",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def print_numbers(numbers):",
+      "docstring": "Iterates over a list and prints each number."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, I need to write a Python function that iterates over a list and prints each number. Let me think about how to approach this.\n\nFirst, I should define a function. Let's name it something clear, like print_numbers. The function should take one argument, which is the list of numbers. So the function definition would be def print_numbers(number_list):\n\nNext, I need to loop through each element in the list. I can use a for loop for this. So inside the function, I'll write for number in number_list:\n\nNow, within the loop, I need to print each number. Using the print() function should do it. So the line inside the loop will be print(number).\n\nWait, should I add any spaces or formatting to the print statement? The question just says to print each number, so the default print behavior of printing each on a new line should be fine.\n\nPutting it all together, the function will loop through each number in the list and print it. I should also test this function. Maybe create a sample list, like [1, 2, 3, 4, 5], call print_numbers with this list, and see if it prints each number correctly.\n\nI don't think there are any error checks needed here unless the list could contain non-integer types, but the question specifies numbers, so it should handle integers and floats.\n\nSo the final code is straightforward. Define the function with the list parameter, loop through each element, and print it.\n</think>\n\n**Step-by-Step Explanation:**\n\n1. **Define the Function:** Create a function named `print_numbers` that takes one parameter `number_list`.\n2. **Iterate Over the List:** Use a `for` loop to go through each element in `number_list`.\n3. **Print Each Element:** Inside the loop, use the `print()` function to output each number.\n\n**Code:**\n\n```python\ndef print_numbers(number_list):\n    for number in number_list:\n        print(number)\n\n# Example usage:\nnumbers = [1, 2, 3, 4, 5]\nprint_numbers(numbers)\n```\n\n**Output:**\n\n```\n1\n2\n3\n4\n5\n```",
+  "r1_solution": "def print_numbers(number_list):\n    for number in number_list:\n        print(number)\n\n# Example usage:\nnumbers = [1, 2, 3, 4, 5]\nprint_numbers(numbers)",
+  "metadata": {
+    "prompt_id": "00000101",
+    "row_id": 101,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

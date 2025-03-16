@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000124_I",
+  "question": "Write a python function to find the single number in a list where every other number appears exactly twice. The function should have a linear time complexity and use constant space.",
+  "solution": "def single_number(nums):\n    \"\"\"\n    Find the single number in a list where every other number appears exactly twice.\n    Assumes one and only one number appears once and all others appear twice.\n    Returns the number that appears exactly once.\n\n    Args:\n    nums (List[int]): A list of integers.\n\n    Returns:\n    int: The integer that appears exactly once.\n    \"\"\"\n    unique = 0\n    for num in nums:\n        unique ^= num\n    return unique",
+  "test_code": "from solution import single_number\n\ndef test_single_number():\n    assert single_number([2, 2, 1]) == 1\n    assert single_number([4, 1, 2, 1, 2]) == 4\n    assert single_number([8]) == 8\n    assert single_number([7, 3, 5, 3, 7, 5, 6]) == 6",
+  "test_info": [
+    {
+      "function_name": "single_number",
+      "parameter_list": "(nums)",
+      "function_declaration": "def single_number(nums):",
+      "docstring": "Find the single number in a list where every other number appears exactly twice.\nAssumes one and only one number appears once and all others appear twice.\nReturns the number that appears exactly once.\n\nArgs:\nnums (List[int]): A list of integers.\n\nReturns:\nint: The integer that appears exactly once."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.5,
+  "r1_response": "<think>\nOkay, I need to write a Python function called find_single_number that takes a list of integers and returns the single number that appears exactly once while every other number appears exactly twice. The constraints are that the function should run in linear time and use constant space.\n\nHmm, so I remember that for such problems, using bitwise operations might be helpful. Especially, the XOR operation has properties that could be useful here.\n\nWait, how does XOR work in this scenario? Oh right, if you XOR a number with itself, it gives 0, and XOR with 0 leaves the number unchanged. So maybe if I XOR all the numbers together, the result would be the single number since all others would cancel out in pairs.\n\nLet me think through an example. Suppose the list is [2,3,2,4,3]. Each number except 4 appears twice. If I XOR all together: 2 XOR 3 XOR 2 XOR 4 XOR 3. The 2s and 3s cancel each other out, leaving 4, which is the single number. That works!\n\nSo the plan is to initialize a result variable to 0, then iterate over each number in the list, XORing each with the result. After processing all numbers, the result should be the single number.\n\nWait, what about the order of XOR? It shouldn't matter because XOR is associative and commutative, so the order doesn't affect the final result.\n\nNow, about the time and space. Iterating through the list is O(n) time, which is linear. Space-wise, we're only using a single variable, so O(1) space. This meets the constraints.\n\nSo the function should be straightforward. Initialize result as 0, loop through each num in nums, do result ^= num. Then return result.\n\nI should test this logic. Let me take another example. Suppose the list is [1,1,2]. The expected output is 2. XORing 1,1,2 gives 0 then 0 XOR 2 is 2. Correct.\n\nWhat if the single number is 0? Let's say list is [0,0,1,1,2]. The XOR would be 0 XOR 0 is 0, then 1 XOR 1 is 0, then 2. So result is 2. Correct.\n\nWait, what if the single number is the first element? Like [5,1,1,5,2,2]. The function should return 5. Let's see: 5 XOR 1 is 4, 4 XOR 1 is 5, 5 XOR 5 is 0, XOR 2 is 2, XOR 2 is 0. Wait, that doesn't seem right. Oh no, I must have messed up the example.\n\nWait, let's recompute. The example list [5,1,1,5,2,2]. The single number is supposed to be 5? No, wait, no, 5 appears twice as well because 5 and 5 are present. Wait, so actually all appear twice, which is impossible because the function expects one single number. So that example is invalid.\n\nLet's correct the example. Suppose the list is [5,1,1,2,2]. The single number is 5. XORing them: 5 XOR 1 is 4, 4 XOR 1 is 5, 5 XOR 2 is 7, 7 XOR 2 is 5. So the result is 5, which matches the expected single number.\n\nOkay, this seems to work. So I can proceed.\n\nSo in code:\n\ndef find_single_number(nums):\n    result = 0\n    for num in nums:\n        result ^= num\n    return result\n\nThis should handle all cases, including when the single number is 0 or appears anywhere in the list.\n\nI think that's the solution. Let me just think if there's any edge case I'm missing. What if the list has only one element? Like [7]. Then the result would correctly return 7.\n\nYes, I think this should work.\n</think>\n\nTo solve this problem, we need to identify the single number in a list where every other number appears exactly twice. The solution must run in linear time and use constant space.\n\n### Approach\nThe key insight to solving this problem efficiently is using the properties of the XOR bitwise operation. The XOR operation has the following properties:\n- XORing a number with itself results in 0.\n- XORing a number with 0 results in the number itself.\n- XOR is associative and commutative, meaning the order of operations does not affect the result.\n\nBy XORing all numbers in the list together, the numbers that appear twice will cancel each other out (since any number XORed with itself is 0), leaving only the single number that appears once.\n\n### Solution Code\n```python\ndef find_single_number(nums):\n    result = 0\n    for num in nums:\n        result ^= num\n    return result\n```\n\n### Explanation\n1. **Initialization**: Start with a result variable initialized to 0.\n2. **Iteration**: Loop through each number in the list and XOR the result with the current number.\n3. **Cancellation**: Due to the properties of XOR, each number that appears twice will be XORed twice, resulting in 0, thus canceling each other out.\n4. **Result**: The remaining value in the result variable after processing all numbers is the single number that appears exactly once.\n\nThis approach ensures that we traverse the list in linear time (O(n)) and use constant space (O(1)), making it both time and space efficient.",
+  "r1_solution": "def single_number(nums):\n    result = 0\n    for num in nums:\n        result ^= num\n    return result",
+  "metadata": {
+    "prompt_id": "00000124",
+    "row_id": 124,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

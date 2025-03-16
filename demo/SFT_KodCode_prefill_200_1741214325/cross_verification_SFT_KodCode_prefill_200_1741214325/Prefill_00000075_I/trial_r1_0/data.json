@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000075_I",
+  "question": "Write a python function to check if a number is perfect or not.",
+  "solution": "def is_perfect_number(num: int) -> bool:\n    \"\"\"\n    Checks if the given number is a perfect number.\n    A perfect number is a positive integer that is equal to the sum of its proper divisors,\n    excluding the number itself.\n    \"\"\"\n    if num < 1:\n        return False\n    divisors_sum = 1  # 1 is a divisor for all positive integers\n    for i in range(2, int(num ** 0.5) + 1):\n        if num % i == 0:\n            divisors_sum += i\n            if i != num // i:  # add the quotient only if it's different from i\n                divisors_sum += num // i\n    return divisors_sum == num",
+  "test_code": "import pytest\n\ndef test_is_perfect_number():\n    assert is_perfect_number(6) == True  # 1+2+3 = 6\n    assert is_perfect_number(28) == True  # 1+2+4+7+14 = 28\n    assert is_perfect_number(496) == True  # 1+2+4+8+16+31+62+124+248 = 496\n    assert is_perfect_number(8128) == True  # 1+2+4+8+16+32+64+127+254+508+1016+2032+4064 = 8128\n    assert is_perfect_number(12) == False  # 1+2+3+4+6 = 16\n    assert is_perfect_number(10) == False  # 1+2+5 = 8\n    assert is_perfect_number(0) == False  # 0 is not a perfect number\n    assert is_perfect_number(-28) == False  # Negative numbers are not considered perfect",
+  "test_info": [
+    {
+      "function_name": "is_perfect_number",
+      "parameter_list": "(num)",
+      "function_declaration": "def is_perfect_number(num):",
+      "docstring": "Checks if the given number is a perfect number.\nA perfect number is a positive integer that is equal to the sum of its proper divisors,\nexcluding the number itself."
+    }
+  ],
+  "gpt_pass_sequence": [
+    0,
+    0,
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nFirst, I need to understand what a perfect number is. I recall that a perfect number is a positive integer that is equal to the sum of its proper divisors, excluding itself.\n\nI should start by identifying the steps to determine if a number is perfect:\n1. Check if the number is positive, as perfect numbers are positive integers.\n2. If the number is less than 2, it cannot be perfect since the smallest perfect number is 6.\n3. Calculate the sum of all divisors of the number excluding itself.\n4. Compare this sum to the original number. If they are equal, the number is perfect.\n\nNext, I'll think about how to find the divisors efficiently. A simple approach is to loop from 1 to the square root of the number. For each divisor i found, both i and the quotient (number divided by i) should be included in the sum, ensuring not to count the number itself.\n\nNow, considering potential issues:\n- The loop should stop at sqrt(n) to avoid redundant calculations and improve efficiency.\n- I need to handle even numbers correctly and be cautious about including the square root only once if it's a perfect square.\n- Properly handle the case where n is even, as all known perfect numbers are even, but the function should still check odd numbers for completeness.\n\nFinally, I'll structure the function:\n- Include a docstring explaining the function's purpose, parameters, and return value.\n- Use a variable to accumulate the sum of divisors.\n- Start checking from 1 up to sqrt(n), adding each pair of divisors.\n- Ensure the number itself is not added by checking i != n//i.\n\nAfter implementing, I'll test the function with known perfect numbers like 6 and 28 to verify correctness.\n</think>\n\nTo determine if a number is perfect, we'll create a function that checks if the number is equal to the sum of its proper divisors (excluding itself). Here's how you can do it:\n\n### Approach\n1. **Check for Positive Numbers:** Since perfect numbers are positive, any non-positive input should immediately return `False`.\n2. **Sum Proper Divisors:** Iterate through numbers from 1 to the square root of the input number to find its proper divisors. For each divisor `i` found, add both `i` and `n // i` to the sum, ensuring not to include the number itself.\n3. **Compare Sum with Number:** After calculating the sum of proper divisors, check if this sum is equal to the original number.\n\n### Solution Code\n\n```python\ndef is_perfect(n):\n    \"\"\"\n    This function checks if a given number is a perfect number.\n    \n    A perfect number is a positive integer that is equal to the sum of its proper divisors, \n    which are all positive divisors excluding itself.\n\n    Args:\n        n (int): The number to check.\n\n    Returns:\n        bool: True if the number is perfect, False otherwise.\n    \"\"\"\n    if n <= 1:\n        return False  # perfect numbers are positive integers greater than 1\n\n    sum_divisor = 1  # 1 is a proper divisor for all numbers except 1\n    sqrt_n = int(n ** 0.5)\n\n    for i in range(2, sqrt_n + 1):\n        if n % i == 0:\n            sum_divisor += i\n            other_divisor = n // i\n            if other_divisor != i:  # avoid adding square root twice\n                sum_divisor += other_divisor\n\n    return sum_divisor == n\n\n# Example usage:\nprint(is_perfect(6))   # Output: True\nprint(is_perfect(28))  # Output: True\nprint(is_perfect(12))  # Output: False\n```\n\n### Explanation\n- **Initial Checks:** The function starts by checking if the input number is less than or equal to 1, returning `False` immediately since perfect numbers must be greater than 1.\n- **Summing Divisors:** It initializes the sum with 1 (since 1 is a proper divisor for all numbers except 1). It then iterates from 2 to the square root of the number. For each divisor found, both the divisor and its complement are added to the sum, ensuring not to count the square root twice.\n- **Comparison:** Finally, the function checks if the sum of proper divisors equals the original number and returns the result accordingly.",
+  "r1_solution": "def is_perfect_number(n):\n    \"\"\"\n    This function checks if a given number is a perfect number.\n    \n    A perfect number is a positive integer that is equal to the sum of its proper divisors, \n    which are all positive divisors excluding itself.\n\n    Args:\n        n (int): The number to check.\n\n    Returns:\n        bool: True if the number is perfect, False otherwise.\n    \"\"\"\n    if n <= 1:\n        return False  # perfect numbers are positive integers greater than 1\n\n    sum_divisor = 1  # 1 is a proper divisor for all numbers except 1\n    sqrt_n = int(n ** 0.5)\n\n    for i in range(2, sqrt_n + 1):\n        if n % i == 0:\n            sum_divisor += i\n            other_divisor = n // i\n            if other_divisor != i:  # avoid adding square root twice\n                sum_divisor += other_divisor\n\n    return sum_divisor == n\n\n# Example usage:\nprint(is_perfect(6))   # Output: True\nprint(is_perfect(28))  # Output: True\nprint(is_perfect(12))  # Output: False",
+  "metadata": {
+    "prompt_id": "00000075",
+    "row_id": 75,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

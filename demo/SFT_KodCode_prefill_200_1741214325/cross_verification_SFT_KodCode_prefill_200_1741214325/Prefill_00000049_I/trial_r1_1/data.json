@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000049_I",
+  "question": "Write a python function to calculate the sum of two numbers.",
+  "solution": "def sum_two_numbers(a, b):\n    \"\"\"\n    Returns the sum of a and b.\n    \"\"\"\n    return a + b",
+  "test_code": "from solution import sum_two_numbers\n\ndef test_sum_two_positive_numbers():\n    assert sum_two_numbers(2, 3) == 5\n\ndef test_sum_with_zero():\n    assert sum_two_numbers(0, 5) == 5\n    assert sum_two_numbers(5, 0) == 5\n\ndef test_sum_negative_numbers():\n    assert sum_two_numbers(-1, -1) == -2\n\ndef test_sum_mixed_sign_numbers():\n    assert sum_two_numbers(-1, 3) == 2\n    assert sum_two_numbers(4, -4) == 0",
+  "test_info": [
+    {
+      "function_name": "sum_two_numbers",
+      "parameter_list": "(a, b)",
+      "function_declaration": "def sum_two_numbers(a, b):",
+      "docstring": "Returns the sum of a and b."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function to calculate the sum of two numbers. Hmm, let's think about how to approach this. \n\nFirst, I should define a function. The function should take two parameters, probably called a and b. Then, inside the function, I'll add these two numbers together. So I can use the + operator for that.\n\nWait, but what data types are the inputs? Well, the function should work whether the inputs are integers or floats. Since Python handles both with the + operator, I don't need to worry about converting types.\n\nSo the function will look something like this: def add_numbers(a, b): and then return a + b. That's pretty straightforward.\n\nI should also consider what happens if someone passes strings or other data types. But I guess the function expects numbers, so maybe it's better to assume the inputs are correct unless specified otherwise.\n\nTesting the function is important. I can try adding 5 and 7, which should give 12. Or 3.5 and 2.5, resulting in 6.0. That seems to cover different cases.\n\nI think that's all. The function doesn't need error handling unless required, so I'll keep it simple.\n</think>\n\nTo add two numbers in Python, you can use the `+` operator or create a function to perform the addition. Below is a simple function that takes two parameters and returns their sum.\n\n### Solution Code\n\n```python\ndef add_numbers(a, b):\n    return a + b\n```\n\n### Explanation\n\n1. **Function Definition**: The function `add_numbers` is defined with two parameters, `a` and `b`.\n2. **Addition Operation**: Inside the function, the two parameters are added together using the `+` operator.\n3. **Return Statement**: The result of the addition is returned.\n\nThis function works for both integers and floating-point numbers. For example, `add_numbers(5, 7)` will return `12`, and `add_numbers(3.5, 2.5)` will return `6.0`.\n\n### Step-by-Step Usage\n\n1. **Define the Function**: Copy and paste the function into your Python script or environment.\n2. **Call the Function**: Use the function by passing two numerical arguments.\n3. **Receive the Result**: The function will return the sum of the two numbers.\n\nThis provides a clear and concise way to add two numbers using a function in Python.",
+  "r1_solution": "def sum_two_numbers(a, b):\n    return a + b",
+  "metadata": {
+    "prompt_id": "00000049",
+    "row_id": 49,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

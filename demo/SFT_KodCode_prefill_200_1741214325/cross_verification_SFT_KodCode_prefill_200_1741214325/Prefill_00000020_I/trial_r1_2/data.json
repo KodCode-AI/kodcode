@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000020_I",
+  "question": "Write a python function to calculate and return the area of a triangle given its base and height.",
+  "solution": "def triangle_area(base, height):\n    \"\"\"\n    Returns the area of a triangle given its base and height.\n    \"\"\"\n    return 0.5 * base * height",
+  "test_code": "from solution import triangle_area\n\ndef test_triangle_area_positive_numbers():\n    assert triangle_area(2, 3) == 3.0\n\ndef test_triangle_area_with_zero():\n    assert triangle_area(0, 5) == 0.0\n    assert triangle_area(5, 0) == 0.0\n\ndef test_triangle_area_negative_numbers():\n    assert triangle_area(-1, -1) == 0.5\n\ndef test_triangle_area_mixed_sign_numbers():\n    assert triangle_area(-1, 3) == -1.5",
+  "test_info": [
+    {
+      "function_name": "triangle_area",
+      "parameter_list": "(base, height)",
+      "function_declaration": "def triangle_area(base, height):",
+      "docstring": "Returns the area of a triangle given its base and height."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, so I need to write a Python function that calculates the area of a triangle given its base and height. Hmm, how do I approach this?\n\nFirst, I remember that the formula for the area of a triangle is (base * height) / 2. Right, that's the basic formula. So the function will take two parameters, base and height. \n\nWait, how do I structure the function in Python? Oh, right, using the def keyword. So something like def calculate_area(base, height):.\n\nNext, I need to compute the area using the formula. So inside the function, area = (base * height) / 2. But should I handle any potential errors, like negative numbers? Well, maybe in a more advanced version, but for now, the function can just calculate it as is.\n\nThen, the function should return the computed area. So after calculating, I'll write return area.\n\nWait, but what if someone passes non-numeric values? Like strings or something else. Oh, but I guess in Python, if you pass a string, it will throw an error when trying to multiply. So unless the function is intended to handle such cases, it's up to the user to provide the correct input type.\n\nSo putting it all together, the function should look like this:\n\ndef calculate_area(base, height):\n    area = (base * height) / 2\n    return area\n\nIs that all? Hmm, that seems straightforward. Let me test this logic. If base is 10 and height is 5, then area should be (10*5)/2 = 25. Yes, that makes sense.\n\nWait, perhaps I should include some parameter validation to ensure base and height are positive. Oh, but the problem statement doesn't specify handling that. So I think, for now, it's acceptable to leave it as is.\n\nAlternatively, maybe add a docstring to explain the function. But again, the problem doesn't ask for it. So the function should meet the requirements as written.\n</think>\n\nTo calculate the area of a triangle when provided with its base and height, you can use the formula:\n\n**Area = (base \u00d7 height) / 2**\n\nHere's how you can implement this in Python:\n\n```python\ndef calculate_area(base, height):\n    area = (base * height) / 2\n    return area\n```\n\n**Step-by-Step Explanation:**\n\n1. **Define the Function:**\n   - Use the `def` keyword to create a function named `calculate_area` with parameters `base` and `height`.\n\n2. **Calculate the Area:**\n   - Inside the function, compute the area using the formula `(base * height) / 2`.\n\n3. **Return the Result:**\n   - Use the `return` statement to output the calculated area.\n\n**Example Usage:**\n\n```python\nbase = 10\nheight = 5\nprint(calculate_area(base, height))  # Output: 25.0\n```\n\nThis function assumes that the inputs are valid numbers. If non-numeric values are provided, Python will raise an appropriate error during execution.",
+  "r1_solution": "def triangle_area(base, height):\n    area = (base * height) / 2\n    return area",
+  "metadata": {
+    "prompt_id": "00000020",
+    "row_id": 20,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

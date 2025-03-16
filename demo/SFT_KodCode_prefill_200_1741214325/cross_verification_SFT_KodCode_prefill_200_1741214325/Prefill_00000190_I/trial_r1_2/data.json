@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000190_I",
+  "question": "Write a python function to determine if a number is a \"perfect square\" number. A \"perfect square\" number is an integer that is the square of an integer. For example, 16 is a perfect square because it is 4 squared.",
+  "solution": "def is_perfect_square(num: int) -> bool:\n    \"\"\"\n    Checks if the given number is a perfect square.\n    \n    Args:\n    num (int): The number to check.\n    \n    Returns:\n    bool: True if num is a perfect square, False otherwise.\n    \"\"\"\n    if num < 0:\n        return False\n    root = int(num ** 0.5)\n    return root * root == num",
+  "test_code": "from solution import is_perfect_square\n\ndef test_perfect_squares():\n    assert is_perfect_square(1) is True  # 1 = 1^2\n    assert is_perfect_square(4) is True  # 4 = 2^2\n    assert is_perfect_square(9) is True  # 9 = 3^2\n    assert is_perfect_square(16) is True # 16 = 4^2\n    assert is_perfect_square(25) is True # 25 = 5^2\n\ndef test_non_perfect_squares():\n    assert is_perfect_square(2) is False  # No integer square root\n    assert is_perfect_square(3) is False  # No integer square root\n    assert is_perfect_square(5) is False  # No integer square root\n    assert is_perfect_square(7) is False  # No integer square root\n    assert is_perfect_square(8) is False  # No integer square root\n\ndef test_zero_and_negative_numbers():\n    assert is_perfect_square(0) is True  # 0 = 0^2\n    assert is_perfect_square(-4) is False # Negative numbers cannot be perfect squares",
+  "test_info": [
+    {
+      "function_name": "is_perfect_square",
+      "parameter_list": "(num)",
+      "function_declaration": "def is_perfect_square(num):",
+      "docstring": "Checks if the given number is a perfect square.\n\nArgs:\nnum (int): The number to check.\n\nReturns:\nbool: True if num is a perfect square, False otherwise."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    1
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 0.667,
+  "r1_response": "<think>\nFirst, I need to determine if a given number is a \"perfect square.\" A perfect square is an integer that is the square of another integer.\n\nI'll start by taking an integer as input.\n\nNext, I'll check if the number is negative since negative numbers cannot be perfect squares.\n\nIf the number is non-negative, I'll use the math library's sqrt function to find its square root.\n\nTo ensure accuracy, I'll convert the square root to an integer and then compare the square of this integer with the original number.\n\nIf both match, the number is a perfect square; otherwise, it's not.\n</think>\n\nTo determine if a given integer is a \"perfect square,\" we follow these steps:\n\n1. **Check for Negative Numbers**: Recognize that negative numbers cannot be perfect squares.\n2. **Calculate the Square Root**: Use the mathematical square root function to find the square root of the number.\n3. **Validate the Square**: Convert the square root to an integer and square it again to see if it matches the original number.\n\nHere's the Python function that implements these steps:\n\n```python\nimport math\n\ndef is_perfect_square(n):\n    if n < 0:\n        return False\n    sqrt_n = math.sqrt(n)\n    int_sqrt = int(sqrt_n)\n    return int_sqrt * int_sqrt == n\n```\n\n**Example Use Cases:**\n\n```python\nprint(is_perfect_square(16))  # Output: True\nprint(is_perfect_square(20))  # Output: False\n```\n\nThis function efficiently determines whether a number is a perfect square by leveraging the properties of square roots and integer conversion.",
+  "r1_solution": "import math\n\ndef is_perfect_square(n):\n    if n < 0:\n        return False\n    sqrt_n = math.sqrt(n)\n    int_sqrt = int(sqrt_n)\n    return int_sqrt * int_sqrt == n",
+  "metadata": {
+    "prompt_id": "00000190",
+    "row_id": 190,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

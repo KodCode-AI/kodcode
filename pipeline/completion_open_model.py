@@ -24,7 +24,7 @@ def get_args():
     parser.add_argument("--batch_size", type=int, default=128, help="Number of samples per batch")
     parser.add_argument("--checkpoint_every", type=int, default=20, help="Save checkpoint every n batches")
     parser.add_argument("--api_url", type=str, default="https://api.together.xyz/v1/chat/completions", help="API URL")
-    parser.add_argument("--api_key", type=str, default=None, help="Together API Key")
+    parser.add_argument("--api_key", type=str, default="", help="Together API Key (start without Bearer)")
     parser.add_argument("--offline", action="store_true", help="Use local engine")
 
     # Generation Parameters
@@ -78,10 +78,10 @@ if args.engine == "together":
     # Constants for the API
     API_ENDPOINT = args.api_url
     API_HEADERS = {
-        "Authorization": args.api_key,
+        "Authorization": f"Bearer {args.api_key}",
     }
     API_PARAMS = {
-        "model": api_model_name,
+        "model": args.model_path,
         "max_tokens": args.max_tokens,
         "temperature": args.temperature,
         "top_p": args.top_p,
@@ -105,21 +105,24 @@ def process_batch_with_api(batch):
 
         for future in concurrent.futures.as_completed(future_to_item):
             item = future_to_item[future]
+            message = item["messages"]
             try:
                 api_response = future.result()
-                item['response'] = api_response.strip()
-                item['gen_response_configs'] = {
-                    "temperature": args.temperature,
-                    "top_p": args.top_p,
-                    "repetition_penalty": args.repetition_penalty,
-                    "max_tokens": args.max_tokens,
-                    "stop_tokens": stop_tokens,
-                    "output_generator": MODEL_NAME,
-                    "engine": api_model_name,
+                response = api_response.strip()
+                item['messages'] = message + [
+                {
+                    "role": "assistant",
+                    "content": response
                 }
+            ]
             except Exception as e:
                 print(f"Failed to process item: {item} with error: {str(e)}")
-                item['response'] = ""
+                item['messages'] = message + [
+                {
+                    "role": "assistant",
+                    "content": ""
+                }
+            ]
                 
     return batch
 
@@ -262,7 +265,8 @@ def main():
         print("Final dataset saved. Checkpoint removed.")
     else:
         for i in range(args.num_trials):
-            params.seed = int(time() + i)
+            if args.engine != "together":
+                params.seed = int(time() + i)
             updated_dataset = generate_and_update(dataset, checkpoint_files[i], llm, params, tokenizer=tokenizer)
             save_dataset(updated_dataset, saved_files[i], convert_to_jsonl=True)
 

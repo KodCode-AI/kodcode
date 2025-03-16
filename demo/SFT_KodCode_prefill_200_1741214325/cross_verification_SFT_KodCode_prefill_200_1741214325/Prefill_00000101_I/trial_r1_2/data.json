@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000101_I",
+  "question": "Write a python function to iterate over a list and print each number.",
+  "solution": "def print_numbers(numbers):\n    \"\"\"\n    Iterates over a list and prints each number.\n    \"\"\"\n    for num in numbers:\n        print(num)",
+  "test_code": "from solution import print_numbers\n\ndef test_print_numbers():\n    # Create a temporary file to capture print output\n    import io\n    import contextlib\n\n    captured_output = io.StringIO()  # Create StringIO object\n    with contextlib.redirect_stdout(captured_output):  # Redirect stdout to StringIO object\n        print_numbers([1, 2, 3, 4, 5])\n    output = captured_output.getvalue().strip().split('\\n')\n    assert output == ['1', '2', '3', '4', '5']\n\ndef test_print_numbers_with_empty_list():\n    import io\n    import contextlib\n    captured_output = io.StringIO()\n    with contextlib.redirect_stdout(captured_output):\n        print_numbers([])\n    output = captured_output.getvalue().strip()\n    assert output == ''",
+  "test_info": [
+    {
+      "function_name": "print_numbers",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def print_numbers(numbers):",
+      "docstring": "Iterates over a list and prints each number."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, I need to write a Python function that iterates over a list and prints each number. Let me think about how to approach this.\n\nFirst, I'll start by defining a function. I should give it a name that's clear, maybe something like print_numbers. The function will take one parameter, which is the list of numbers. So the function definition would be def print_numbers(number_list):.\n\nNext, I need to loop through each element in the list. I can use a for loop for this. So inside the function, I'll write for number in number_list:.\n\nInside the loop, I want to print each number. Using print(number) should handle that.\n\nWait, should I add a newline after each number or print them all in one line? The problem just says to print each number, so I'll assume each should be on a new line. That's the default behavior of print(), so it should be fine.\n\nLet me put it all together. The function will look like:\n\ndef print_numbers(number_list):\n    for number in number_list:\n        print(number)\n\nTo test it, I'll create a list like [1, 2, 3, 4, 5] and call print_numbers with this list. It should print 1, 2, 3, 4, 5 each on a new line.\n\nI think that's all there is to it. The code seems straightforward and meets the requirements of iterating and printing each number.\n</think>\n\nTo create a function that iterates over a list and prints each number in Python, follow these steps:\n\n1. **Define the Function:** Start by defining a function named `print_numbers` that takes one parameter, `number_list`, which is expected to be a list of numbers.\n\n2. **Iterate Over the List:** Use a `for` loop to iterate over each element in the `number_list`.\n\n3. **Print Each Number:** Inside the loop, use the `print()` function to print each number.\n\nHere is the implementation of the function:\n\n```python\ndef print_numbers(number_list):\n    for number in number_list:\n        print(number)\n```\n\n**Example Usage:**\n\n```python\nnumbers = [1, 2, 3, 4, 5]\nprint_numbers(numbers)\n```\n\nThis will output:\n```\n1\n2\n3\n4\n5\n```\n\n**Explanation:**\n\n- The function `print_numbers` takes a list as input.\n- It iterates through each element in the list using a `for` loop.\n- Each element (number) is printed on a new line due to the default behavior of the `print()` function in Python.\n\nYou can test this function by providing any list of numbers, and it will print each number sequentially.",
+  "r1_solution": "def print_numbers(number_list):\n    for number in number_list:\n        print(number)",
+  "metadata": {
+    "prompt_id": "00000101",
+    "row_id": 101,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

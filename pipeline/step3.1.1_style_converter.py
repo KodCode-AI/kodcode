@@ -13,7 +13,7 @@ from utils import *
 ################
 def get_args():
     # Experiment Settings
-    parser = argparse.ArgumentParser(description="Unit Test Generation Manager.")
+    parser = argparse.ArgumentParser(description="Style Conversion Manager.")
     parser.add_argument("--input_file", type=str, default=None)
     parser.add_argument("--output_folder_prefix", type=str, default="../demo")
     

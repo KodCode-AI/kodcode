@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000046_I",
+  "question": "Write a python function to check if a number is a palindrome number. A palindrome number is a number that remains the same when its digits are reversed, such as 121 or 1331.",
+  "solution": "def is_palindrome_number(number: int) -> bool:\n    \"\"\"\n    Checks if the given number is a palindrome number.\n    \n    Args:\n    number (int): The number to check\n    \n    Returns:\n    bool: True if the number is a palindrome, False otherwise.\n    \"\"\"\n    if number < 0:\n        return False\n    original_number = number\n    reversed_number = 0\n    while number > 0:\n        digit = number % 10\n        reversed_number = reversed_number * 10 + digit\n        number = number // 10\n    return original_number == reversed_number",
+  "test_code": "from solution import is_palindrome_number\n\ndef test_is_palindrome_number_positive():\n    assert is_palindrome_number(121) == True\n    assert is_palindrome_number(1331) == True\n    assert is_palindrome_number(12321) == True\n\ndef test_is_palindrome_number_zero():\n    assert is_palindrome_number(0) == True\n\ndef test_is_palindrome_number_single_digit():\n    assert is_palindrome_number(1) == True\n    assert is_palindrome_number(9) == True\n\ndef test_is_palindrome_number_negative():\n    assert is_palindrome_number(-121) == False\n\ndef test_is_palindrome_number_not_palindrome():\n    assert is_palindrome_number(123) == False\n    assert is_palindrome_number(56789) == False",
+  "test_info": [
+    {
+      "function_name": "is_palindrome_number",
+      "parameter_list": "(number)",
+      "function_declaration": "def is_palindrome_number(number):",
+      "docstring": "Checks if the given number is a palindrome number.\n\nArgs:\nnumber (int): The number to check\n\nReturns:\nbool: True if the number is a palindrome, False otherwise."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nFirst, I need to write a Python function to check if a number is a palindrome. A palindrome number reads the same backward as forward.\n\nI should consider both positive and zero since negative numbers can't be palindromes due to the minus sign.\n\nConverting the number to a string is a straightforward approach since strings are easy to reverse and compare.\n\nSo, I'll take the number as input, convert it to a string, reverse the string, and then check if the original and reversed strings are equal.\n\nThat should determine if the number is a palindrome.\n</think>\n\nTo check if a number is a palindrome, we can use the following Python function:\n\n```python\ndef is_palindrome(n):\n    # Convert the number to a string and reverse it\n    reversed_num = str(n)[::-1]\n    # Remove any non-digit characters in case of negative numbers\n    cleaned_num = str(n).lstrip('-')\n    cleaned_reversed = reversed_num.lstrip('-')\n    \n    # Compare the cleaned numbers\n    return cleaned_num == cleaned_reversed\n```\n\n**Explanation:**\n\n1. **Convert to String:** The number is first converted to a string to facilitate reversal.\n2. **Reverse the String:** The string is reversed using slicing (`[::-1]`).\n3. **Handle Negatives:** Negative signs are removed to avoid them affecting the comparison.\n4. **Comparison:** The cleaned original and reversed strings are compared. If they are the same, the number is a palindrome.\n\n**Example Usage:**\n\n```python\nprint(is_palindrome(121))   # Output: True\nprint(is_palindrome(123))   # Output: False\n```",
+  "r1_solution": "def is_palindrome_number(n):\n    # Convert the number to a string and reverse it\n    reversed_num = str(n)[::-1]\n    # Remove any non-digit characters in case of negative numbers\n    cleaned_num = str(n).lstrip('-')\n    cleaned_reversed = reversed_num.lstrip('-')\n    \n    # Compare the cleaned numbers\n    return cleaned_num == cleaned_reversed",
+  "metadata": {
+    "prompt_id": "00000046",
+    "row_id": 46,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

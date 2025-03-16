@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000067_C",
+  "question": "def sum_of_evens(numbers: List[int]) -> int:\n    \"\"\" Returns the sum of all even numbers in the given list.\n    >>> sum_of_evens([1, 2, 3, 4, 5, 6])\n    12\n    >>> sum_of_evens([])\n    0\n    >>> sum_of_evens([1, 3, 5, 7])\n    0\n    >>> sum_of_evens([2, 4, 6, 8])\n    20\n    >>> sum_of_evens([0, 1, 2, 3, 4])\n    6\n    \"\"\"",
+  "solution": "def sum_of_evens(numbers):\n    \"\"\"\n    Returns the sum of all even numbers in the given list.\n    \n    Example:\n    - Given [1, 2, 3, 4, 5, 6], it should return 12 (2 + 4 + 6 = 12).\n    \"\"\"\n    return sum([num for num in numbers if num % 2 == 0])",
+  "test_code": "from solution import sum_of_evens\n\ndef test_sum_of_evens_empty_list():\n    assert sum_of_evens([]) == 0\n\ndef test_sum_of_evens_all_odd():\n    assert sum_of_evens([1, 3, 5, 7]) == 0\n\ndef test_sum_of_evens_all_even():\n    assert sum_of_evens([2, 4, 6, 8]) == 20\n\ndef test_sum_of_evens_mixed_numbers():\n    assert sum_of_evens([1, 2, 3, 4, 5, 6]) == 12\n\ndef test_sum_of_evens_with_zero():\n    assert sum_of_evens([0, 1, 2, 3, 4]) == 6",
+  "test_info": [
+    {
+      "function_name": "sum_of_evens",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def sum_of_evens(numbers):",
+      "docstring": "Returns the sum of all even numbers in the given list.\n\nExample:\n- Given [1, 2, 3, 4, 5, 6], it should return 12 (2 + 4 + 6 = 12)."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, I need to write a Python function called sum_of_evens that takes a list of integers and returns the sum of all the even numbers in that list. Hmm, let's think about how to approach this.\n\nFirst, what defines an even number? Oh right, it's a number that's divisible by 2 without any remainder. So for each number in the list, I need to check if it's even. If it is, I add it to the total sum; if not, I just ignore it.\n\nSo the steps I should take are:\n1. Initialize a variable to keep track of the sum. Let's call it total_sum and set it to 0.\n2. Loop through each number in the input list.\n3. For each number, check if it's even. That's done with number % 2 == 0.\n4. If it is even, add it to total_sum.\n5. After processing all numbers, return the total_sum.\n\nWait, how about edge cases? The examples include an empty list, which should return 0, and a list with all odds which also returns 0. That's covered because in the loop, nothing will be added. Oh, and zero is an even number, right? So if 0 is in the list, it should add 0 to the sum. Like in the test case where [0,1,2,3,4] gives 6 (0+2+4?), wait 0+2 is 2, 4 is 6 total. Yes, that's correct.\n\nNow, implementing this in Python.\n\nSo in code, it's something like:\n\ndef sum_of_evens(numbers: List[int]) -> int:\n    total = 0\n    for num in numbers:\n        if num % 2 == 0:\n            total += num\n    return total\n\nWait, wait. Wait a second. Does the modulo operator return correct results for negative numbers? Oh right, in Python, the result has the same sign as the divisor, so negative numbers mod 2 will be 0 if even. For example, -2 % 2 is 0, so it's correctly identified as even. So this code should handle negative numbers too.\n\nAnother thing: What if the list is very large? But the problem statement doesn't indicate any performance constraints, and for the scope of this function, a simple loop should suffice.\n\nLet me test this against the provided examples.\n\nTest 1: [1,2,3,4,5,6] \u2192 2+4+6=12 \u2192 Correct.\n\nTest 2: Empty list \u2192 returns 0 \u2192 Correct.\n\nTest 3: [1,3,5,7] \u2192 sum is 0 \u2192 Correct.\n\nTest 4: [2,4,6,8] \u2192 sum is 20. Let's see: 2+4 is 6, +6 is 12, +8 is 20 \u2192 Correct.\n\nTest 5: [0,1,2,3,4] \u2192 0+2+4=6 \u2192 Correct.\n\nAll examples pass. I think this should work.\n\nWait, another point: What about numbers that are 0? Like a list with [0], it should return 0. Because 0 is even. That's correctly handled.\n\nSo I think the code is solid. I don't see any issues now.\n</think>\n\nTo solve this problem, we need to write a function that sums all the even numbers in a given list of integers. An even number is defined as a number that is divisible by 2 without any remainder. \n\n### Approach\n1. **Initialize a Sum Variable**: Start by initializing a variable to keep track of the sum of even numbers. This variable, `total`, is initialized to 0.\n2. **Iterate Through the List**: Loop through each number in the given list.\n3. **Check for Even Numbers**: For each number, check if it is even using the condition `num % 2 == 0`.\n4. **Sum Even Numbers**: If a number is even, add it to the total sum.\n5. **Return the Result**: After processing all numbers, return the total sum.\n\nThis approach ensures that we efficiently check each number and sum only the even ones. The algorithm handles edge cases such as an empty list, a list with all odd numbers, and a list containing zero correctly.\n\n### Solution Code\n```python\nfrom typing import List\n\ndef sum_of_evens(numbers: List[int]) -> int:\n    total = 0\n    for num in numbers:\n        if num % 2 == 0:\n            total += num\n    return total\n```\n\n### Explanation\n- **Initialization**: The variable `total` is initialized to 0 to start accumulating the sum of even numbers.\n- **Loop Through List**: Each number in the input list is checked individually.\n- **Modulo Operation**: The modulo operation `num % 2 == 0` checks if a number is even. This operation correctly handles both positive and negative even numbers.\n- **Summing Evens**: If a number is identified as even, it is added to `total`.\n- **Return Sum**: After processing all elements, `total` is returned, giving the sum of all even numbers in the list.\n\nThis solution is efficient with a time complexity of O(n), where n is the number of elements in the list, as it processes each element exactly once.",
+  "r1_solution": "from typing import List\n\ndef sum_of_evens(numbers: List[int]) -> int:\n    total = 0\n    for num in numbers:\n        if num % 2 == 0:\n            total += num\n    return total",
+  "metadata": {
+    "prompt_id": "00000067",
+    "row_id": 67,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to calculate the sum of all even numbers in a list. You should use list comprehension along with the `sum()` function to achieve this."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

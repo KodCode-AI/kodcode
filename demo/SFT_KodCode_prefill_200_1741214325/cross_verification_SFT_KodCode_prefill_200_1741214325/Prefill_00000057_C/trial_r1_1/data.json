@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000057_C",
+  "question": "def count_uppercase(s: str) -> int:\n    \"\"\"\n    Returns the number of uppercase letters in the string s.\n    >>> count_uppercase(\"\") \n    0\n    >>> count_uppercase(\"hello world\") \n    0\n    >>> count_uppercase(\"HELLO WORLD\") \n    10\n    >>> count_uppercase(\"HeLlO WoRlD\") \n    6\n    \"\"\"",
+  "solution": "def count_uppercase(s: str) -> int:\n    \"\"\"\n    Returns the number of uppercase letters in the string s.\n    \"\"\"\n    return sum(1 for c in s if c.isupper())",
+  "test_code": "from solution import count_uppercase\n\ndef test_count_uppercase_empty_string():\n    assert count_uppercase(\"\") == 0\n\ndef test_count_uppercase_no_uppercase():\n    assert count_uppercase(\"hello world\") == 0\n\ndef test_count_uppercase_all_uppercase():\n    assert count_uppercase(\"HELLO WORLD\") == 10\n\ndef test_count_uppercase_mixed_case():\n    assert count_uppercase(\"HeLlO WoRlD\") == 6",
+  "test_info": [
+    {
+      "function_name": "count_uppercase",
+      "parameter_list": "(s)",
+      "function_declaration": "def count_uppercase(s):",
+      "docstring": "Returns the number of uppercase letters in the string s."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called count_uppercase that takes a string s and returns the number of uppercase letters in it. Hmm, so first, what's an uppercase letter? Oh right, those are letters from A to Z, so any character where the ASCII value is between 65 and 90 inclusive.\n\nWait, but how can I check each character in the string? Oh right, I can iterate over each character in the string using a loop. For each character, I need to see if it's uppercase. Oh wait, there's a string method called isupper() that returns True if the character is uppercase. That would be super helpful.\n\nSo the plan is: initialize a counter to zero. Then loop through each character in s, and for each character, if it is uppercase (using isupper()), increment the counter. At the end, return the counter.\n\nLet me think about potential edge cases. What if the string is empty? Then the function should return 0, which the counter is already set to, so that's handled.\n\nWhat about non-letters? Like numbers or symbols, they don't affect the count because isupper() returns False for them. For example, \"Hello!\" will only count 2 uppercase letters (the 'H'), but in the example given, \"HeLlO WoRlD\" returns 6. Let me check that: H, L, L, O, W, R. Wait wait no, let's see the string: H e L l O   W o R l D. Wait, no, the string given in the example is \"HeLlO WoRlD\". Breaking it down:\n\nH -> uppercase, e no, L uppercase, l no, O uppercase. Then space. W uppercase, o no, R uppercase, l no, D uppercase.\n\nSo that's H, L, O, W, R, D: 6 uppercase letters, which matches the test case. So the logic seems solid.\n\nSo, putting it all together, the function can be written as:\n\nInitialize a counter at 0.\n\nLoop over each character in s:\n\n   if char.isupper() is True, increment counter.\n\nAfter the loop, return counter.\n\nSo the code would be:\n\ndef count_uppercase(s: str) -> int:\n    count = 0\n    for char in s:\n        if char.isupper():\n            count +=1\n    return count\n\nTest it against the examples.\n\nTest 1: count_uppercase(\"\") should return 0. The loop won't run, so count is 0. Correct.\n\nTest 2: \"hello world\" has no uppercase letters, so returns 0. Correct.\n\nTest 3: \"HELLO WORLD\" has 10 uppercase letters (5 H-E-L-L-O and 5 W-O-R-L-D). So returns 10. Correct.\n\nTest 4: \"HeLlO WoRlD\" has H, L, O, W, R, D. That's 6 letters, which matches.\n\nLooks like this should work. I think that's it.\n</think>\n\nTo solve this problem, we need to count the number of uppercase letters in a given string. An uppercase letter is defined as any letter from 'A' to 'Z'. \n\n### Approach\nThe approach to solve this problem involves the following steps:\n1. **Initialize a counter**: Start with a counter set to zero to keep track of the number of uppercase letters.\n2. **Iterate through each character in the string**: Loop through each character in the input string.\n3. **Check if the character is uppercase**: For each character, use the `isupper()` method to check if it is an uppercase letter.\n4. **Increment the counter**: If a character is uppercase, increment the counter by one.\n5. **Return the counter**: After processing all characters, return the counter which now holds the number of uppercase letters in the string.\n\nThis approach efficiently checks each character exactly once, resulting in a time complexity of O(n), where n is the length of the string. This is optimal for this problem since each character needs to be checked individually.\n\n### Solution Code\n\n```python\ndef count_uppercase(s: str) -> int:\n    count = 0\n    for char in s:\n        if char.isupper():\n            count += 1\n    return count\n```\n\n### Explanation\n- **Initialization**: The variable `count` is initialized to zero to start counting from the beginning.\n- **Loop through each character**: Using a `for` loop, each character in the string `s` is processed individually.\n- **Check and count uppercase letters**: The method `char.isupper()` returns `True` if the character is uppercase, and the counter is incremented each time this condition is met.\n- **Return the result**: After the loop completes, the function returns the count of uppercase letters.\n\nThis method is straightforward and leverages Python's built-in string method to simplify the check for uppercase letters, ensuring clarity and efficiency.",
+  "r1_solution": "def count_uppercase(s: str) -> int:\n    count = 0\n    for char in s:\n        if char.isupper():\n            count += 1\n    return count",
+  "metadata": {
+    "prompt_id": "00000057",
+    "row_id": 57,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to count the number of uppercase letters in a given string. The function should also handle edge cases such as an empty string or a string with no uppercase letters."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

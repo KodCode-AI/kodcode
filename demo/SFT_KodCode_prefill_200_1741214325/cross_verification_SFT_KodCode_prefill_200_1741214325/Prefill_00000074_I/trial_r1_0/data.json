@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000074_I",
+  "question": "Write a python function to check if a given number is perfect square or not. The function should take an integer as input and return True if the number is a perfect square, False otherwise.",
+  "solution": "def is_perfect_square(num: int) -> bool:\n    \"\"\"\n    Checks if the given number is a perfect square.\n    \n    Args:\n    num (int): The number to check\n    \n    Returns:\n    bool: True if num is a perfect square, False otherwise.\n    \"\"\"\n    if num < 0:\n        return False\n    root = int(num ** 0.5)\n    return root * root == num",
+  "test_code": "import pytest\nfrom solution import is_perfect_square\n\ndef test_is_perfect_square_positive_perfect_square():\n    assert is_perfect_square(1) == True\n    assert is_perfect_square(4) == True\n    assert is_perfect_square(9) == True\n    assert is_perfect_square(16) == True\n    assert is_perfect_square(25) == True\n\ndef test_is_perfect_square_negative_number():\n    assert is_perfect_square(-4) == False\n\ndef test_is_perfect_square_non_perfect_square():\n    assert is_perfect_square(2) == False\n    assert is_perfect_square(3) == False\n    assert is_perfect_square(5) == False\n    assert is_perfect_square(6) == False\n    assert is_perfect_square(7) == False\n\ndef test_is_perfect_square_zero():\n    assert is_perfect_square(0) == True\n\ndef test_is_perfect_square_large_number():\n    assert is_perfect_square(15625) == True\n    assert is_perfect_square(15626) == False",
+  "test_info": [
+    {
+      "function_name": "is_perfect_square",
+      "parameter_list": "(num)",
+      "function_declaration": "def is_perfect_square(num):",
+      "docstring": "Checks if the given number is a perfect square.\n\nArgs:\nnum (int): The number to check\n\nReturns:\nbool: True if num is a perfect square, False otherwise."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function to check if a given number is a perfect square. Hmm, a perfect square is a number that can be expressed as the square of an integer. So, for example, 25 is a perfect square because it's 5 squared.\n\nFirst, I should think about how to determine this. One straightforward way is to take the square root of the number and see if it's an integer. But wait, calculating square roots might introduce some floating point inaccuracies. Oh right, so maybe I should find the integer closest to the square root and then square it to see if it matches the original number.\n\nLet me outline the steps:\n1. Check if the number is negative. If it is, immediately return False because squares are non-negative.\n2. For non-negative numbers, compute the square root and round it to the nearest integer.\n3. Square that integer and see if it equals the original number.\n4. If yes, return True; otherwise, False.\n\nWait, but calculating the square root might not be the most efficient method, especially for very large numbers. Another approach is to use binary search to find the integer whose square is equal to the number. That might be more efficient, but for the sake of simplicity, since the numbers might not be excessively large, the square root method could suffice.\n\nWait, but in Python, taking the square root and then rounding could have some edge cases. For example, due to floating point precision, the square root of a very large number might have some inaccuracies. So, perhaps a better approach is to take the integer part of the square root and then check both that and the next integer to see if squaring them gives the original number.\n\nAlternatively, maybe I can compute the integer square root using math.isqrt in Python 3.8 and above, which returns the floor value of the square root. Then, I can square that and see if it equals the original number.\n\nRight, so let me think about the steps in code.\n\nFirst, handle the case where the number is negative. If the input is less than 0, return False.\n\nFor zero or positive numbers:\n- Compute the integer square root using math.isqrt(n).\n- Then, square the result and check if it equals n.\n- If yes, return True; else, False.\n\nWait, but wait. What about n=0? math.isqrt(0) is 0. 0 squared is 0. So that works.\n\nLet me test some examples.\n\nTest case 1: n = 16\nisqrt(16) =4, 4^2=16 \u2192 True.\n\nTest case 2: n=17\nisqrt(17)=4, 4^2=16 !=17 \u2192 False.\n\nTest case3: n=25 \u2192 5, 25 \u2192 True.\n\nTest case4: n=0 \u2192 0\u2192 True.\n\nTest case5: n=2 \u2192 isqrt(2)=1, 1^2=1 \u22602\u2192 False.\n\nThis seems to handle all cases.\n\nSo the code steps:\n\nImport math.\n\nFunction is_perfect_square(n):\n\nif n is negative, return False.\n\nElse:\n\nroot = math.isqrt(n)\n\nreturn root * root ==n\n\nWait, but wait: math.isqrt returns the floor value. So for example, for n=17, it's 4, as before. But let's make sure that when we square it and check against n, it's correct.\n\nAlternatively, perhaps root * root could be equal to n, or (root +1) * (root +1) might be. But wait, no: isqrt gives the largest integer less than or equal to the square root. So if the square of the isqrt result is not equal to n, then it's definitely not a perfect square. So that part is correct.\n\nSo I think the code is solid.\n\nBut wait, what about very large numbers? Will math.isqrt handle them?\n\nIn Python, yes, isqrt is designed to handle arbitrarily large integers, unlike using sqrt which returns a float and may lose precision for very large integers.\n\nTherefore, using math.isqrt is preferable because it's accurate for integer square roots.\n\nSo putting it all together, the function would look like this.\n</think>\n\nTo determine if a given number is a perfect square, we can use the integer square root function to avoid floating point inaccuracies and efficiently check if squaring the integer part of the root returns the original number.\n\n**Step-by-Step Explanation:**\n\n1. **Check for Negative Numbers:** Since squares of integers are non-negative, any negative input immediately returns False.\n\n2. **Compute Integer Square Root:** For non-negative numbers, calculate the integer square root using `math.isqrt()`, which provides the floor value of the exact square root without floating point errors.\n\n3. **Square the Result:** Multiply the integer square root by itself and compare it to the original number. If they are equal, the number is a perfect square.\n\n**Python Function:**\n\n```python\nimport math\n\ndef is_perfect_square(n):\n    if n < 0:\n        return False\n    root = math.isqrt(n)\n    return root * root == n\n```",
+  "r1_solution": "import math\n\ndef is_perfect_square(n):\n    if n < 0:\n        return False\n    root = math.isqrt(n)\n    return root * root == n",
+  "metadata": {
+    "prompt_id": "00000074",
+    "row_id": 74,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

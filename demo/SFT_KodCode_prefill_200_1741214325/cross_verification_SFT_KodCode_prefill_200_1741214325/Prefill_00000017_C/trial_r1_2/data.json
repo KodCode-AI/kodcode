@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000017_C",
+  "question": "def celsius_to_fahrenheit(celsius: float) -> float:\n    \"\"\"Converts a temperature from Celsius to Fahrenheit.\n    \n    >>> celsius_to_fahrenheit(0)\n    32.0\n    >>> celsius_to_fahrenheit(100)\n    212.0\n    >>> celsius_to_fahrenheit(25)\n    77.0\n    >>> celsius_to_fahrenheit(-40)\n    -40.0\n    \"\"\"",
+  "solution": "def celsius_to_fahrenheit(celsius):\n    \"\"\"\n    Converts a temperature from Celsius to Fahrenheit.\n    \n    Parameters:\n    celsius (float): Temperature in Celsius.\n    \n    Returns:\n    float: Temperature in Fahrenheit.\n    \"\"\"\n    return (celsius * 9/5) + 32",
+  "test_code": "from solution import celsius_to_fahrenheit\n\ndef test_celsius_to_fahrenheit_freezing_point():\n    assert celsius_to_fahrenheit(0) == 32.0\n\ndef test_celsius_to_fahrenheit_boiling_point():\n    assert celsius_to_fahrenheit(100) == 212.0\n\ndef test_celsius_to_fahrenheit_room_temperature():\n    assert celsius_to_fahrenheit(25) == 77.0\n\ndef test_celsius_to_fahrenheit_negative_temperature():\n    assert celsius_to_fahrenheit(-40) == -40.0\n\ndef test_celsius_to_fahrenheit_freezing_point_reverse():\n    assert round(celsius_to_fahrenheit(0) - 32, 1) == 0  # Using round to allow for floating point precision issues",
+  "test_info": [
+    {
+      "function_name": "celsius_to_fahrenheit",
+      "parameter_list": "(celsius)",
+      "function_declaration": "def celsius_to_fahrenheit(celsius):",
+      "docstring": "Converts a temperature from Celsius to Fahrenheit.\n\nParameters:\ncelsius (float): Temperature in Celsius.\n\nReturns:\nfloat: Temperature in Fahrenheit."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called celsius_to_fahrenheit that takes a float as input and returns the converted temperature in Fahrenheit as a float. Hmm, I remember that the formula for converting Celsius to Fahrenheit is something like (C * 9/5) + 32. Let me double-check that. Yeah, I think that's right.\n\nWait, so for example, when Celsius is 0, Fahrenheit should be 32. So when I plug 0 into the formula, 0 * 9/5 is 0, plus 32 gives 32. That makes sense.\n\nWhat about 100 Celsius? 100 * 9 is 900, divided by 5 is 180, plus 32 is 212. Yep, that's correct. So the formula seems solid.\n\nThe function needs to take a parameter celsius, which is a float. So I'll define the function with def celsius_to_fahrenheit(celsius: float) -> float.\n\nNow, inside the function, I just apply the formula. So it would be (celsius * 9/5) + 32.\n\nBut wait, what about negative temperatures? Like -40 Celsius. That should convert to -40 Fahrenheit. So plugging in -40, -40 multiplied by 9 is -360, divided by 5 is -72, plus 32 is -40. Which matches the example given. So no issues there.\n\nLet me think about possible errors. Well, since the function is handling float inputs, it should work whether the input has a decimal or not. For example, 25.0 would multiply by 9/5 to 45, plus 32 is 77. Also, 25.5 would correctly give a higher value.\n\nI should write the return statement as return (celsius * 9/5) + 32. Or wait, in Python, I can write it as return celsius * 9/5 + 32, since multiplication and division have higher precedence than addition, so it's correctly calculated.\n\nLet's see the test cases:\n\ncelsius_to_fahrenheit(0) should return 32.0. Using the formula, yes.\n\n100 yields 212.0.\n\n25 gives 77.0.\n\n-40 gives -40.0.\n\nSo I think the function is straightforward. Maybe even one-liner. So the code should be:\n\ndef celsius_to_fahrenheit(celsius: float) -> float:\n    return celsius * 9/5 + 32\n\nWait, but in Python, division with / gives a float, which is fine because we return a float. So that should be okay.\n\nIs there any edge case I need to think about? For example, very large numbers? But since Python handles big floats, I don't think that's an issue. So the function should handle any valid float input correctly.\n\nI don't see any issues or corner cases I'm missing. So this should be the solution.\n</think>\n\nTo solve this problem, we need to create a function that converts a given temperature from Celsius to Fahrenheit. This conversion is a common task and involves a straightforward mathematical formula.\n\n### Approach\nThe approach to solve this problem is based on the mathematical formula for converting Celsius to Fahrenheit, which is:\n\n\\[ F = C \\times \\frac{9}{5} + 32 \\]\n\nHere, \\( C \\) represents the temperature in Celsius, and \\( F \\) is the converted temperature in Fahrenheit. \n\n1. **Formula Application**: We will apply this formula directly in our function. The function will take a single parameter, which is the temperature in Celsius.\n2. **Return the Result**: The function will compute the conversion using the formula and return the result as a float.\n\nThis approach is efficient and handles all possible input values within the range of floating-point numbers, including negative values and zero.\n\n### Solution Code\n```python\ndef celsius_to_fahrenheit(celsius: float) -> float:\n    return celsius * 9/5 + 32\n```\n\n### Explanation\n- **Function Definition**: The function `celsius_to_fahrenheit` is defined to take a single parameter `celsius` of type float and return a float.\n- **Conversion Formula**: Inside the function, the formula \\( C \\times \\frac{9}{5} + 32 \\) is applied to the input value. This formula first multiplies the Celsius temperature by 9/5 and then adds 32 to convert it to Fahrenheit.\n- **Return Statement**: The result of the formula is returned as the output of the function.\n\nThis solution efficiently handles the conversion with a time complexity of \\( O(1) \\) since it involves a constant number of arithmetic operations. The space complexity is also \\( O(1) \\) as no additional data structures are used.",
+  "r1_solution": "def celsius_to_fahrenheit(celsius: float) -> float:\n    return celsius * 9/5 + 32",
+  "metadata": {
+    "prompt_id": "00000017",
+    "row_id": 17,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to convert a Celsius temperature to Fahrenheit."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

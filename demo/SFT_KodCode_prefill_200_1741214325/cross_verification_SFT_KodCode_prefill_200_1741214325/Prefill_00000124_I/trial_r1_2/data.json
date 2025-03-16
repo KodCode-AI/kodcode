@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000124_I",
+  "question": "Write a python function to find the single number in a list where every other number appears exactly twice. The function should have a linear time complexity and use constant space.",
+  "solution": "def single_number(nums):\n    \"\"\"\n    Find the single number in a list where every other number appears exactly twice.\n    Assumes one and only one number appears once and all others appear twice.\n    Returns the number that appears exactly once.\n\n    Args:\n    nums (List[int]): A list of integers.\n\n    Returns:\n    int: The integer that appears exactly once.\n    \"\"\"\n    unique = 0\n    for num in nums:\n        unique ^= num\n    return unique",
+  "test_code": "from solution import single_number\n\ndef test_single_number():\n    assert single_number([2, 2, 1]) == 1\n    assert single_number([4, 1, 2, 1, 2]) == 4\n    assert single_number([8]) == 8\n    assert single_number([7, 3, 5, 3, 7, 5, 6]) == 6",
+  "test_info": [
+    {
+      "function_name": "single_number",
+      "parameter_list": "(nums)",
+      "function_declaration": "def single_number(nums):",
+      "docstring": "Find the single number in a list where every other number appears exactly twice.\nAssumes one and only one number appears once and all others appear twice.\nReturns the number that appears exactly once.\n\nArgs:\nnums (List[int]): A list of integers.\n\nReturns:\nint: The integer that appears exactly once."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.5,
+  "r1_response": "<think>\nOkay, so I need to write a Python function that finds the single number in a list where every other number appears exactly twice. Hmm, the constraints are that the function should have linear time complexity and use constant space. I remember hearing about this problem before, maybe a common interview question? Let me think about how to approach this.\n\nSo, the problem is to find the single number that occurs once in the list, while all others occur exactly twice. The naive approach might be to count the occurrences of each number, but that would require a dictionary or a hash map, which would use extra space. Since the constraint is to use constant space, that approach won't work.\n\nWait, there's another way without counting each occurrence explicitly. Oh right, there's the XOR operator which has some properties that might help here. I remember that XOR has a useful property where a number XORed with itself gives zero, and it's commutative as well.\n\nMaybe I can use that property. Let me think about how that would work. If I iterate through the list and XOR every number with a running total, the result should be the number that appears once. Because if a number appears twice, it's like XORing it twice, which cancels out. So let's test this logic with an example.\n\nSuppose the list is [2, 3, 2, 4, 3]. The single number should be 4. Let's compute step by step:\n\nStart with total = 0.\n0 XOR 2 = 2.\n2 XOR 3 = 1.\n1 XOR 2 = 3.\n3 XOR 4 = 7.\n7 XOR 3 = 4.\n\nThat works, so the result is 4. That seems correct. Let's try another example. If the list is [4, 4, 1, 1, 2]. The single number is 2.\n\nTotal starts at 0:\n0 XOR4=4.\n4 XOR4=0.\n0 XOR1=1.\n1 XOR1=0.\n0 XOR2=2.\n\nYes, that gives 2, which is correct. So, this approach seems to work.\n\nSo, the function can be written by iterating through the list and XORing each element with a running total. At the end, the total will be the number that appears once.\n\nWait, let me make sure about the properties again. So, for any number a, a XOR a is 0. And XOR is commutative, so the order doesn't matter. So when we have all numbers except one appearing twice, the XOR of all elements will be the single number.\n\nYes, that makes sense. So the function would be something like:\n\nInitialize result to 0, then for each num in nums: result ^= num. After processing all, return result.\n\nNow, let's think about the time and space complexity. Time is O(n), which is linear, and space is O(1), since we only use a single variable.\n\nGreat, so that's the solution. So I can write the function as follows.\n</think>\n\nTo solve this problem, we need to identify the single number in a list where every other number appears exactly twice. The solution must operate in linear time and use constant space.\n\n### Approach\nThe key insight to solve this problem efficiently is to use the properties of the XOR operator. XOR has a useful property where a number XORed with itself results in zero, and XOR is commutative. By iterating through the list and XORing every number with a running total, the result will be the number that appears once. This works because numbers that appear twice will cancel each other out, making their XOR zero, and the number that appears once will remain.\n\n### Solution Code\n```python\ndef find_single_number(nums):\n    result = 0\n    for num in nums:\n        result ^= num\n    return result\n```\n\n### Explanation\n1. **Initialization**: Start with a result variable initialized to 0.\n2. **Iterate through the list**: For each number in the list, XOR the number with the result.\n3. **Result**: After processing all numbers, the result will hold the value of the number that appears exactly once.\n\nThis approach ensures that we traverse the list once (linear time) and use a constant amount of space, meeting the problem constraints efficiently.",
+  "r1_solution": "def single_number(nums):\n    result = 0\n    for num in nums:\n        result ^= num\n    return result",
+  "metadata": {
+    "prompt_id": "00000124",
+    "row_id": 124,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

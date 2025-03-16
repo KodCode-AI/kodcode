@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Algorithm",
+  "question_id": "Algorithm_00000070_C",
+  "question": "def enhanced_lower(text: str) -> str:\n    \"\"\" Converts all uppercase letters in the input string to lowercase.\n    Handles both ASCII and non-ASCII characters.\n    \"\"\"",
+  "solution": "def enhanced_lower(text):\n    \"\"\"\n    Converts all uppercase letters in the input string to lowercase.\n    Handles both ASCII and non-ASCII characters.\n    \"\"\"\n    return text.lower()",
+  "test_code": "import pytest\n\ndef test_enhanced_lower_ascii():\n    assert enhanced_lower(\"Hello, World!\") == 'hello, world!'\n    assert enhanced_lower(\"\u00a1Hola, MUNDO!\") == '\u00a1hola, mundo!'\n    assert enhanced_lower(\"Python 3.8\") == 'python 3.8'\n    assert enhanced_lower(\"12345\") == '12345'\n    assert enhanced_lower(\" caf\u00e9\") == ' caf\u00e9'\n\ndef test_enhanced_lower_non_ascii():\n    assert enhanced_lower(\"\u039a\u03b1\u03bb\u03b7\u03bc\u03ad\u03c1\u03b1\") == '\u03ba\u03b1\u03bb\u03b7\u03bc\u03ad\u03c1\u03b1'\n    assert enhanced_lower(\"\ud83d\ude00.prop\") == '\ud83d\ude00.prop'\n    assert enhanced_lower(\" teasers\") == ' teasers'\n    assert enhanced_lower(\"Teasers\") == 'teasers'\n    assert enhanced_lower(\"Teasers\ud83d\ude00\") == 'teasers\ud83d\ude00'",
+  "test_info": [
+    {
+      "function_name": "enhanced_lower",
+      "parameter_list": "(text)",
+      "function_declaration": "def enhanced_lower(text):",
+      "docstring": "Converts all uppercase letters in the input string to lowercase.\nHandles both ASCII and non-ASCII characters."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    1
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 0.667,
+  "r1_response": "<think>\nOkay, I need to write a function called enhanced_lower that takes a string and converts all uppercase letters to lowercase. The function should handle both ASCII and non-ASCII characters. Hmm, how do I approach this?\n\nI remember that Python's string methods have a lower() function. Does that handle non-ASCII letters? Let me think. I think for basic ASCII, it works, but for other characters like accented letters or Cyrillic, maybe it does too, since Python's Unicode support is pretty good.\n\nWait, but wait. There could be some edge cases. Like, some characters might have different lowercase forms based on locale, but the problem says to handle them, so I guess using the default lower() method should suffice.\n\nSo maybe the function is as simple as returning text.lower(). But I should make sure that it's actually handling all cases. Let me test it in my mind. If the input has '\u00c4', which should become '\u00e4', does lower() handle that? I think so. What about Greek letters? '\u0391' should become '\u03b1'. I believe the lower() method covers these cases.\n\nSo, the function can be just a wrapper around the lower() method. So the code inside the function would be return text.lower(). That's simple.\n\nBut wait, are there any edge cases where text isn't a string? Well, the function signature says text is a str, so we don't need to handle that.\n\nSo putting it all together, the function is straightforward. I just define the function with the given signature and return text.lower().\n</think>\n\nTo solve this problem, we need to create a function that converts all uppercase letters in a given string to lowercase, ensuring that both ASCII and non-ASCII characters are handled appropriately. \n\n### Approach\nThe approach to solving this problem is straightforward. We will use Python's built-in string method `lower()`, which converts all uppercase characters in a string to lowercase. This method is efficient and handles both ASCII and non-ASCII characters, including accented letters and characters from other alphabets such as Cyrillic and Greek. By leveraging this built-in method, we can achieve the desired functionality with minimal code and ensure optimal performance.\n\n### Solution Code\n\n```python\ndef enhanced_lower(text: str) -> str:\n    \"\"\" Converts all uppercase letters in the input string to lowercase.\n    Handles both ASCII and non-ASCII characters.\n    \"\"\"\n    return text.lower()\n```\n\n### Explanation\n1. **Function Definition**: The function `enhanced_lower` is defined to take a single parameter `text` of type `str` and returns a string.\n2. **String Lowercase Conversion**: Inside the function, the built-in `lower()` method is called on the input string `text`. This method converts all uppercase letters to their corresponding lowercase letters. It handles both basic ASCII characters and more complex Unicode characters seamlessly.\n3. **Return Value**: The modified string with all uppercase letters converted to lowercase is returned.\n\nThis solution is efficient and concise, utilizing Python's robust string handling capabilities to ensure correct conversion for a wide range of characters.",
+  "r1_solution": "def enhanced_lower(text: str) -> str:\n    \"\"\" Converts all uppercase letters in the input string to lowercase.\n    Handles both ASCII and non-ASCII characters.\n    \"\"\"\n    return text.lower()",
+  "metadata": {
+    "prompt_id": "00000070",
+    "row_id": 70,
+    "seed_ids": [
+      286
+    ],
+    "mode": "algorithm",
+    "original_instruction": "**Scenario**: You are working on a project that involves processing text data in various languages, including those that use non-ASCII characters. You need a function to convert all uppercase letters to lowercase letters in a string, handling both ASCII and non-ASCII characters correctly.\n\n**Question**: Implement a function `enhanced_lower` that takes a string as input and returns a new string with all uppercase letters converted to lowercase. The function should handle both ASCII and non-ASCII characters and preserve the original order of characters in the string.\n\n**Input**: A string `text` (1 <= len(text) <= 10^5) consisting of alphanumeric characters, spaces, and punctuation marks. The string may contain non-ASCII characters.\n\n**Output**: A string where all uppercase letters in the input string are converted to lowercase.\n\n**Example**:\n```python\n>>> enhanced_lower(\"Hello, World!\")\n'hello, world!'\n>>> enhanced_lower(\"\u00a1Hola, MUNDO!\")\n'\u00a1hola, mundo!'\n>>> enhanced_lower(\"Python 3.8\")\n'python 3.8'\n>>> enhanced_lower(\"12345\")\n'12345'\n>>> enhanced_lower(\" caf\u00e9\")\n' caf\u00e9'\n```\n\n**Constraints**:\n- The input string will contain at least one character and at most 10^5 characters.\n- The string may contain non-ASCII characters.\n\n**Performance Requirement**: The function should handle large strings efficiently, aiming for a time complexity of O(n) and a space complexity of O(n)."
+  },
+  "file_source": "KodCode_algorithm_100_1741212598_prepared_results2.jsonl"
+}

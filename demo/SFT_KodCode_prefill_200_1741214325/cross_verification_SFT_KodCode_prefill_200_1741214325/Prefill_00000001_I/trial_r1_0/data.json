@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000001_I",
+  "question": "Write a python function to sort an array using the selection sort algorithm.",
+  "solution": "def selection_sort(arr):\n    \"\"\"\n    Sorts an array using the selection sort algorithm.\n    :param arr: List of integers to be sorted\n    :return: Sorted list of integers\n    \"\"\"\n    n = len(arr)\n    for i in range(n):\n        # Find the minimum element in remaining unsorted array\n        min_idx = i\n        for j in range(i+1, n):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n        \n        # Swap the found minimum element with the first element\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    return arr",
+  "test_code": "from solution import selection_sort\n\ndef test_selection_sort_with_positive_numbers():\n    assert selection_sort([64, 25, 12, 22, 11]) == [11, 12, 22, 25, 64]\n\ndef test_selection_sort_with_negative_numbers():\n    assert selection_sort([-64, -25, -12, -22, -11]) == [-64, -25, -22, -12, -11]\n\ndef test_selection_sort_with_mixed_numbers():\n    assert selection_sort([-1, 5, -7, 8, 0, 12, 10]) == [-7, -1, 0, 5, 8, 10, 12]\n\ndef test_selection_sort_with_single_element():\n    assert selection_sort([5]) == [5]\n\ndef test_selection_sort_with_empty_list():\n    assert selection_sort([]) == []",
+  "test_info": [
+    {
+      "function_name": "selection_sort",
+      "parameter_list": "(arr)",
+      "function_declaration": "def selection_sort(arr):",
+      "docstring": "Sorts an array using the selection sort algorithm.\n:param arr: List of integers to be sorted\n:return: Sorted list of integers"
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function to sort an array using the selection sort algorithm. Hmm, I remember that selection sort works by finding the minimum element and swapping it with the first element, then repeating the process for the remaining elements. Let me think about how to structure this.\n\nFirst, I should probably loop through each position in the array. For each position, I'll look for the smallest element in the unsorted part of the array. Once I find that smallest element, I swap it with the current position. \n\nWait, how does the loop work exactly? I think the outer loop runs from 0 to n-1, where n is the length of the array. So for i in range(len(array)), that's the outer loop.\n\nThen, for each i, the inner loop starts from i and goes to the end to find the minimum. Or maybe I can keep track of the minimum index. So inside the outer loop, I'll set min_index to i. Then, I'll loop from i+1 to len(array)-1 to find the smallest element.\n\nOnce I find a smaller element, I update min_index. After the inner loop finishes, I know the smallest element is at min_index, so I swap array[i] with array[min_index].\n\nWait, swapping elements can be done with a temporary variable or by using tuple unpacking in Python. Like, array[i], array[min_index] = array[min_index], array[i]. That's neat.\n\nLet me outline the steps:\n\n1. Iterate over each element in the array using an outer loop (i).\n2. For each i, initialize min_index to i.\n3. Use an inner loop to find the index of the smallest element in the array from i to the end.\n4. After finding the minimum index, swap the elements at positions i and min_index.\n5. Return the sorted array.\n\nI should test this logic with an example. Let's take [64, 25, 12, 22, 11]. \n\nLoop 1: i=0, min_index=0. Inner loop starts at 1. Compare 25, then 12, then 22, then 11. The smallest is 11 at index 4. Swap 64 and 11 \u2192 array becomes [11,25,12,22,64].\n\nWait, wait, no. The swap would actually place 11 at index 0, so the array becomes [11,25,12,22,64]? Wait, no, because 11 is at index 4, originally. So swapping 0 and 4 gives [11, 25, 12, 22, 64]. That's correct.\n\nLoop 2: i=1. Now, the subarray starts at 25. The minimum is 12 at index 2. Swap 25 and 12 \u2192 [11,12,25,22,64].\n\nLoop 3: i=2. The subarray starts at 25, next elements are 22. Minimum is 22 at index3. Swap 25 and 22 \u2192 [11,12,22,25,64].\n\nLoop4: i=3. The subarray is 25 and 64. 25 is the smallest. Swap 25 with itself. So no change.\n\nSo the array is sorted as [11,12,22,25,64], which is correct.\n\nNow, how to implement this in Python.\n\nFunction definition: def selection_sort(arr):\n\nThen, n = len(arr). Wait, no, the outer loop is already handling each i.\n\nWait, wait, in code:\n\ndef selection_sort(arr):\n    for i in range(len(arr)):\n        min_index = i\n        for j in range(i+1, len(arr)):\n            if arr[j] < arr[min_index]:\n                min_index = j\n        arr[i], arr[min_index] = arr[min_index], arr[i]\n    return arr\n\nThat seems right. But wait, should the function modify the array in place or return a new one? Since we are doing swaps, it's modifying the original array. So when we return arr, it's the sorted version.\n\nBut perhaps it's better to create a copy to avoid modifying the original. Because in Python, function parameters are mutable and can be changed. So if the user passes a list, it will be changed. Hmm, but in the question, it's asked to write a function to sort the array, so maybe it's acceptable.\n\nWait, testing with the example. Let's call selection_sort([64, 25, 12, 22, 11]).\n\nYes, it would return [11,12,22,25,64].\n\nWhat about edge cases? Empty list? If len(arr) is 0, the loops won't run, returns empty list. Good.\n\nSingle element, returns same. Duplicate elements?\n\nYes, that should work.\n\nSo I think this implementation is correct.\n</think>\n\nTo implement the selection sort algorithm in Python, follow these steps:\n\n1. **Loop through each element** in the array as the starting point for the sorted portion.\n2. **Find the minimum element** in the unsorted portion of the array.\n3. **Swap the found minimum element** with the current starting element.\n4. **Repeat the process** until the entire array is sorted.\n\nHere's the code:\n\n```python\ndef selection_sort(arr):\n    for i in range(len(arr)):\n        min_index = i\n        for j in range(i + 1, len(arr)):\n            if arr[j] < arr[min_index]:\n                min_index = j\n        arr[i], arr[min_index] = arr[min_index], arr[i]\n    return arr\n```\n\n**Example usage:**\n\n```python\n# Test the function\narr = [64, 25, 12, 22, 11]\nsorted_arr = selection_sort(arr)\nprint(sorted_arr)\n# Output: [11, 12, 22, 25, 64]\n```",
+  "r1_solution": "def selection_sort(arr):\n    for i in range(len(arr)):\n        min_index = i\n        for j in range(i + 1, len(arr)):\n            if arr[j] < arr[min_index]:\n                min_index = j\n        arr[i], arr[min_index] = arr[min_index], arr[i]\n    return arr",
+  "metadata": {
+    "prompt_id": "00000001",
+    "row_id": 1,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

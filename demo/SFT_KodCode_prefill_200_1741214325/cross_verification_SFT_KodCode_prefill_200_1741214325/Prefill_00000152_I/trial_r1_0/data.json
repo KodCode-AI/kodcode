@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000152_I",
+  "question": "Write a python function to determine whether a number is even or odd without using if else statements. You can use bitwise operators only.",
+  "solution": "def is_even(number):\n    \"\"\"\n    Returns True if the number is even, False otherwise, using bitwise operations only.\n    \"\"\"\n    return (number & 1) == 0",
+  "test_code": "def test_is_even():\n    assert is_even(2) == True\n    assert is_even(3) == False\n    assert is_even(0) == True\n    assert is_even(-4) == True\n    assert is_even(-3) == False\n\ndef test_is_odd():\n    assert is_even(1) == False\n    assert is_even(-1) == False\n    assert is_even(-5) == False",
+  "test_info": [
+    {
+      "function_name": "is_even",
+      "parameter_list": "(number)",
+      "function_declaration": "def is_even(number):",
+      "docstring": "Returns True if the number is even, False otherwise, using bitwise operations only."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nFirst, I recognize that the task is to determine if a number is even or odd without using if-else statements. Instead, I should rely solely on bitwise operations.\n\nI recall that in binary representation, the least significant bit determines if a number is even or odd. If the least significant bit is 0, the number is even; if it's 1, the number is odd.\n\nTo isolate the least significant bit, I can use the bitwise AND operator with 1. Performing num & 1 will result in 1 for odd numbers and 0 for even numbers.\n\nSince I can't use if-else statements, I'll multiply the result of the bitwise operation by a boolean indicator. In Python, True is equivalent to 1 and False to 0. Therefore, multiplying by True or False will convert the result to a boolean indicating whether the number is odd or even.\n\nPutting it all together, I create a function that uses bitwise AND and boolean multiplication to return the correct result without conditionals.\n</think>\n\nTo determine whether a number is even or odd using bitwise operators without conditional statements, we can leverage the properties of binary numbers. Specifically, the least significant bit determines if a number is even or odd. \n\n**Solution Code:**\n\n```python\ndef is_even_odd(num):\n    return (num & 1) * (num & 1)\n```\n\n**Step-by-Step Explanation:**\n\n1. **Understanding Binary Representation:**\n   - In binary, even numbers end with a `0` in the least significant bit (LSB).\n   - Odd numbers end with a `1` in the LSB.\n\n2. **Bitwise AND Operation:**\n   - The expression `num & 1` performs a bitwise AND operation between the number and `1`.\n     - If `num` is even, the LSB is `0`, so `num & 1` equals `0`.\n     - If `num` is odd, the LSB is `1`, so `num & 1` equals `1`.\n\n3. **Return Statement:**\n   - The result of `num & 1` is then multiplied by itself.\n     - For even numbers: `0 * 0 = 0` (False in a boolean context).\n     - For odd numbers: `1 * 1 = 1` (True in a boolean context).\n\n**Example Usage:**\n\n```python\nprint(is_even_odd(4))   # Output: 0 (False) \u2192 Even\nprint(is_even_odd(5))   # Output: 1 (True) \u2192 Odd\n```\n\nThis function effectively uses bitwise operations to determine the parity of the number without employing any conditional statements.",
+  "r1_solution": "def is_even(num):\n    return (num & 1) * (num & 1)",
+  "metadata": {
+    "prompt_id": "00000152",
+    "row_id": 152,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

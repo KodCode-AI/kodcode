@@ -13,18 +13,19 @@ from jinja2 import Environment, FileSystemLoader, exceptions
 ################
 def get_args():
     # Experiment Settings
-    parser = argparse.ArgumentParser(description="Unit Test Generation Manager.")
+    parser = argparse.ArgumentParser(description="Triplet Generation Manager.")
     parser.add_argument("--test_folder", type=str)
-    parser.add_argument("--output_folder", type=str, default="../demo")
     parser.add_argument("--save_to", type=str, default="json")
     
     return parser.parse_args()
 
-args = get_args() 
+args = get_args()
 print(f"Arguments: {args}") # For logging
 
 if args.test_folder is None:
     raise ValueError("test_folder is required.")
+
+args.output_folder = os.path.dirname(args.test_folder)
 
 def get_prompt(instruction):
     env = Environment(loader=FileSystemLoader('prompts'))

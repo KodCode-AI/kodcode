@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000017_I",
+  "question": "Write a python function to convert a Celsius temperature to Fahrenheit.",
+  "solution": "def celsius_to_fahrenheit(celsius):\n    \"\"\"\n    Converts a temperature from Celsius to Fahrenheit.\n    \n    Parameters:\n    celsius (float): Temperature in Celsius.\n    \n    Returns:\n    float: Temperature in Fahrenheit.\n    \"\"\"\n    return (celsius * 9/5) + 32",
+  "test_code": "from solution import celsius_to_fahrenheit\n\ndef test_celsius_to_fahrenheit_freezing_point():\n    assert celsius_to_fahrenheit(0) == 32.0\n\ndef test_celsius_to_fahrenheit_boiling_point():\n    assert celsius_to_fahrenheit(100) == 212.0\n\ndef test_celsius_to_fahrenheit_room_temperature():\n    assert celsius_to_fahrenheit(25) == 77.0\n\ndef test_celsius_to_fahrenheit_negative_temperature():\n    assert celsius_to_fahrenheit(-40) == -40.0\n\ndef test_celsius_to_fahrenheit_freezing_point_reverse():\n    assert round(celsius_to_fahrenheit(0) - 32, 1) == 0  # Using round to allow for floating point precision issues",
+  "test_info": [
+    {
+      "function_name": "celsius_to_fahrenheit",
+      "parameter_list": "(celsius)",
+      "function_declaration": "def celsius_to_fahrenheit(celsius):",
+      "docstring": "Converts a temperature from Celsius to Fahrenheit.\n\nParameters:\ncelsius (float): Temperature in Celsius.\n\nReturns:\nfloat: Temperature in Fahrenheit."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, so I need to write a Python function that converts Celsius to Fahrenheit. Hmm, I remember the formula for that. Let me think. Oh right, Fahrenheit is equal to Celsius multiplied by 9/5 plus 32. Yeah, something like F = C * 9/5 + 32.\n\nSo the function should take a parameter in Celsius. Let's call it celsius. Then, inside the function, I'll calculate the Fahrenheit value. I can return that value so that it can be used elsewhere.\n\nWait, how about handling different data types? Should I make sure the input is a number? Maybe, but perhaps that's beyond the scope right now. I'll assume the input is a valid number.\n\nLet me structure this. The function will be called something like celsius_to_fahrenheit, and it will take celsius as an argument. Then, inside, return (celsius * 9/5) + 32. That seems straightforward.\n\nDo I need to handle any specific cases, like negative temperatures? I don't think so because the formula works for all real numbers. So this function should work regardless of whether the Celsius temperature is positive or negative.\n\nLet me test this formula with an example. For instance, 0 degrees Celsius should be 32 Fahrenheit. Plugging in: (0 * 9/5) +32 = 32. That works. Another test: 100 Celsius. 100*9/5 is 180, plus 32 is 212. That's correct.\n\nSo the code would look like defining the function, calculating, and returning the result. I think that's all.\n</think>\n\nTo convert a temperature from Celsius to Fahrenheit in Python, you can use a function that applies the conversion formula \\( F = C \\times \\frac{9}{5} + 32 \\). Here's how you can implement it:\n\n```python\ndef celsius_to_fahrenheit(celsius):\n    return (celsius * 9/5) + 32\n```\n\n**Example usage:**\n\n```python\nprint(celsius_to_fahrenheit(0))   # Output: 32\nprint(celsius_to_fahrenheit(100)) # Output: 212\nprint(celsius_to_fahrenheit(-40)) # Output: -40\n```\n\nThis function takes a Celsius temperature as input and returns the equivalent Fahrenheit temperature.",
+  "r1_solution": "def celsius_to_fahrenheit(celsius):\n    return (celsius * 9/5) + 32",
+  "metadata": {
+    "prompt_id": "00000017",
+    "row_id": 17,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

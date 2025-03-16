@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000126_I",
+  "question": "Write a python function to check if a list of numbers is sorted in ascending order.",
+  "solution": "def is_sorted_ascending(numbers):\n    \"\"\"\n    Returns True if the list of numbers is sorted in ascending order, else False.\n    \"\"\"\n    return all(numbers[i] <= numbers[i + 1] for i in range(len(numbers) - 1))",
+  "test_code": "from solution import is_sorted_ascending\n\ndef test_is_sorted_ascending_positive():\n    assert is_sorted_ascending([1, 2, 3, 4, 5]) == True\n\ndef test_is_sorted_ascending_with_equal_elements():\n    assert is_sorted_ascending([1, 1, 2, 3, 4]) == True\n\ndef test_is_sorted_ascending_negative():\n    assert is_sorted_ascending([5, 3, 2, 1]) == False\n\ndef test_is_sorted_ascending_single_element():\n    assert is_sorted_ascending([5]) == True\n\ndef test_is_sorted_ascending_empty_list():\n    assert is_sorted_ascending([]) == True\n\ndef test_is_sorted_ascending_mixed():\n    assert is_sorted_ascending([1, 2, 3, 2, 5]) == False",
+  "test_info": [
+    {
+      "function_name": "is_sorted_ascending",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def is_sorted_ascending(numbers):",
+      "docstring": "Returns True if the list of numbers is sorted in ascending order, else False."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function to check if a list of numbers is sorted in ascending order. Hmm, how do I approach this? \n\nLet me think about what it means for a list to be sorted in ascending order. Each element should be less than or equal to the next one, right? So for every index i, list[i] should be <= list[i+1]. \n\nWait, does that cover all cases? I think so, as long as I check every consecutive pair. So the function can loop through each pair of adjacent elements and ensure this condition holds.\n\nI should start by considering the edge cases. What if the list is empty? Well, technically, an empty list is trivially sorted. What about a list with one element? That's also sorted. So I need to handle those cases.\n\nThe function can be named something like is_sorted. It will take a list as input and return a boolean. So def is_sorted(numbers):\n\nNow, for the loop. I can iterate from the first element to the second last element. For each index i, compare numbers[i] with numbers[i+1]. If any pair where numbers[i] > numbers[i+1], the list isn't sorted. So return False as soon as I find such a case.\n\nIf the loop completes without finding any such pairs, then return True.\n\nWait, another approach could be to compare the list with its sorted version. Like, if numbers == sorted(numbers), then it's sorted. That might be simpler. But what about the efficiency? For small lists, it's fine, but for very large lists, sorting them each time could be expensive. \n\nHmm, but the problem doesn't specify any constraints on the input size, so maybe the first approach is better for efficiency, especially since the first method stops early as soon as a problem is found.\n\nSo I'll go with the loop method.\n\nPutting it all together: The function will check each consecutive pair. If any are out of order, return False. Else, return True.\n\nTesting examples: For [1,2,3,4], it should return True. For [1,3,2], it should return False. Also, for [5], it returns True, and for an empty list, True.\n\nWait, the problem says a list of numbers. What if the list contains duplicate numbers? Like [2,2,2]. The condition allows for equal elements, so that's considered sorted in ascending order. So the function would return True for that case.\n\nSo I think the loop approach will handle all these cases.\n</think>\n\nTo determine if a list of numbers is sorted in ascending order, we can check each consecutive pair of elements. Each element should be less than or equal to the next element. If any pair is out of order, the list is not sorted.\n\n**Approach:**\n1. Handle edge cases: If the list is empty or has one element, it is considered sorted.\n2. Iterate through each pair of consecutive elements.\n3. If any element is greater than the next, return False.\n4. If all pairs are in order, return True.\n\nHere is the Python function implementing this approach:\n\n```python\ndef is_sorted(numbers):\n    for i in range(len(numbers) - 1):\n        if numbers[i] > numbers[i + 1]:\n            return False\n    return True\n```\n\n**Explanation:**\n- The function `is_sorted` takes a list of numbers as input.\n- It loops through the list, comparing each element with the next.\n- If any element is greater than the subsequent one, the function returns False immediately.\n- If the loop completes without finding any such case, the function returns True, confirming the list is sorted in ascending order.",
+  "r1_solution": "def is_sorted_ascending(numbers):\n    for i in range(len(numbers) - 1):\n        if numbers[i] > numbers[i + 1]:\n            return False\n    return True",
+  "metadata": {
+    "prompt_id": "00000126",
+    "row_id": 126,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

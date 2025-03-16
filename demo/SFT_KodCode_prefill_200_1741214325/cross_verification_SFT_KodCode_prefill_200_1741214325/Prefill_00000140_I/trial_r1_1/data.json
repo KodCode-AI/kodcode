@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000140_I",
+  "question": "Write a python function to check if a list of integers contains the number 5. If it does, return the index of the first occurrence of 5, otherwise, return -1.",
+  "solution": "def find_index_of_five(numbers):\n    \"\"\"\n    Returns the index of the first occurrence of the number 5 in the list.\n    If 5 is not found, returns -1.\n    \"\"\"\n    try:\n        return numbers.index(5)\n    except ValueError:\n        return -1",
+  "test_code": "def test_find_index_of_five():\n    assert find_index_of_five([1, 2, 3, 4, 5, 6]) == 4\n    assert find_index_of_five([1, 5, 2, 3, 4, 6]) == 1\n    assert find_index_of_five([1, 2, 3, 4, 6]) == -1\n    assert find_index_of_five([5, 1, 2, 3, 4, 6]) == 0\n    assert find_index_of_five([]) == -1",
+  "test_info": [
+    {
+      "function_name": "find_index_of_five",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def find_index_of_five(numbers):",
+      "docstring": "Returns the index of the first occurrence of the number 5 in the list.\nIf 5 is not found, returns -1."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function that checks if a list of integers contains the number 5. If it does, I should return the index of the first occurrence, otherwise return -1. Hmm, let's think about how to approach this.\n\nSo, first, the function will take a list as an argument. I'll name it something like nums. Then, I need to loop through each element in the list. For each element, I'll check if it's equal to 5. Once I find the first 5, I'll return its index right away to avoid unnecessary checks.\n\nWait, but what if the list is empty? Oh, the loop won't run, and after the loop, I'll return -1, which is correct because there's no 5.\n\nHow do I get both the index and the element when looping? Oh right, using the enumerate function. That way, for each iteration, I have the index and the value.\n\nSo the steps are:\n\n1. Iterate over the list using enumerate to get both index and value.\n2. For each value, check if it equals 5.\n3. If yes, return the current index.\n4. If the loop finishes without finding 5, return -1.\n\nLet me think of some test cases. For example, if the list is [5, 3, 7], it should return 0. If it's [1, 3, 5], return 2. And if 5 isn't present, like [2, 4, 6], return -1.\n\nAnother edge case: an empty list should return -1. A list with multiple 5s should give the first index.\n\nNow, writing the code. The function will be named check_for_five. It takes nums as a parameter.\n\nInside the function, loop with for index, value in enumerate(nums): and check if value is 5. If yes, return index. After the loop, return -1.\n\nI think that's all. Seems straightforward.\n</think>\n\nTo solve this problem, we need to write a function that checks if a list of integers contains the number 5. If it does, the function should return the index of the first occurrence of 5. If the number 5 is not found in the list, the function should return -1.\n\n### Approach\n1. **Loop Through the List**: We will iterate through each element of the list using a loop.\n2. **Check for the Number 5**: For each element, we will check if it is equal to 5.\n3. **Return Index on First Occurrence**: As soon as we find the number 5, we will return its index. This ensures that we get the index of the first occurrence.\n4. **Handle Absence of 5**: If the loop completes without finding the number 5, we will return -1.\n\nUsing `enumerate` allows us to loop through both the index and the value of each element in the list efficiently.\n\n### Solution Code\n\n```python\ndef check_for_five(nums):\n    for index, value in enumerate(nums):\n        if value == 5:\n            return index\n    return -1\n```\n\n### Explanation\n- **Loop with Enumerate**: The function uses `enumerate` to loop through the list. This provides both the index and the value of each element, which is efficient and clean.\n- **Check Each Value**: During each iteration, it checks if the current value is 5. If found, it immediately returns the current index.\n- **Return -1 if Not Found**: If the loop completes without finding the number 5, the function returns -1, indicating that 5 is not present in the list.\n\nThis approach ensures that we efficiently find the first occurrence of 5 and handle all edge cases, such as an empty list or a list without the number 5.",
+  "r1_solution": "def find_index_of_five(nums):\n    for index, value in enumerate(nums):\n        if value == 5:\n            return index\n    return -1",
+  "metadata": {
+    "prompt_id": "00000140",
+    "row_id": 140,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000083_C",
+  "question": "def area_of_circle(radius: float) -> float:\n    \"\"\"Returns the area of a circle given its radius.\n    >>> abs(area_of_circle(1) - math.pi) < 1e-9\n    True\n    >>> abs(area_of_circle(2) - (4 * math.pi)) < 1e-9\n    True\n    >>> area_of_circle(0) == 0.0\n    True\n    >>> abs(area_of_circle(-1) - math.pi) < 1e-9\n    True\n    \"\"\"",
+  "solution": "import math\n\ndef area_of_circle(radius):\n    \"\"\"\n    Returns the area of a circle given its radius.\n    \"\"\"\n    return math.pi * (radius ** 2)",
+  "test_code": "from solution import area_of_circle\n\ndef test_area_of_circle_positive_radius():\n    assert abs(area_of_circle(1) - math.pi) < 1e-9\n    assert abs(area_of_circle(2) - (4 * math.pi)) < 1e-9\n\ndef test_area_of_circle_zero_radius():\n    assert area_of_circle(0) == 0.0\n\ndef test_area_of_circle_negative_radius():\n    assert abs(area_of_circle(-1) - math.pi) < 1e-9\n\ndef test_area_of_circle_large_radius():\n    assert abs(area_of_circle(10) - (100 * math.pi)) < 1e-9",
+  "test_info": [
+    {
+      "function_name": "area_of_circle",
+      "parameter_list": "(radius)",
+      "function_declaration": "def area_of_circle(radius):",
+      "docstring": "Returns the area of a circle given its radius."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called area_of_circle that takes a radius as input and returns the area. Hmm, the area of a circle is calculated using the formula \u03c0 multiplied by the radius squared. So the basic idea is straightforward.\n\nWait, but what about negative radii? Oh right, the radius is a distance, so it can't be negative. But looking at the doctest examples, they have a test where the radius is -1, and the result is equal to pi. So it seems that the function should handle negative radii by taking their absolute value or just squaring them which would make it positive anyway.\n\nSo maybe I should square the radius regardless. Because even if the radius is negative, (radius)^2 is positive, so that works out.\n\nSo the steps are: take the radius, square it, multiply by math.pi.\n\nBut wait, have I imported math? Oh right, the function needs to return the correct value, so I should import the math module at the top of the code.\n\nWait, the function is supposed to return a float. So even if the radius is an integer, the function squares it, multiplies by pi, and returns as a float, which is correct.\n\nLet's think about the examples given:\n\nFor radius 1: area is \u03c0, which the test checks with abs difference less than 1e-9.\n\nFor radius 2: area is 4\u03c0, which is correct.\n\nRadius 0 returns 0.0, which is correct.\n\nRadius -1: same as radius 1, since squared, gives positive 1, so area is \u03c0.\n\nSo the function can simply calculate and return math.pi * radius squared. No need to handle the sign because squaring takes care of negative values.\n\nSo, in code: I can write something like import math, define the function, compute, return.\n\nWait, but is there a possibility of error, like radius not being a number? Probably the function expects a numeric type, since it's typed as float.\n\nSo putting it all together, the code would:\n\n- Import math.\n- Define area_of_circle(radius: float) which returns a float.\n- Return math.pi multiplied by radius squared.\n\nSo the function body is just one line.\n\nLet me check the examples again. The test cases are covered since for -1, (-1)^2 is 1, so returns \u03c0.\n\nYes, that should cover all cases. I think that's all that's needed.\n</think>\n\nTo solve this problem, we need to compute the area of a circle given its radius using the mathematical formula for the area of a circle. The goal is to ensure that the function handles both positive and negative radii correctly, returning the area as a floating-point number.\n\n### Approach\nThe area of a circle is calculated using the formula \\( \\pi \\times r^2 \\), where \\( r \\) is the radius of the circle. This formula is straightforward but requires handling the radius correctly. Specifically:\n1. The radius is squared, which inherently handles negative values by converting them to positive.\n2. The result is then multiplied by \\( \\pi \\) to get the area.\n\n### Solution Code\n```python\nimport math\n\ndef area_of_circle(radius: float) -> float:\n    return math.pi * radius ** 2\n```\n\n### Explanation\n1. **Importing Math Module**: The function uses the `math.pi` constant for the value of \\( \\pi \\), so we import the `math` module.\n2. **Function Definition**: The function `area_of_circle` takes a single parameter `radius` of type `float` and returns the area as a `float`.\n3. **Area Calculation**: Inside the function, the radius is squared using the exponentiation operator `**`, and then multiplied by `math.pi` to compute the area. This calculation correctly handles negative radii by squaring them, which results in a positive value.\n4. **Return Statement**: The computed area is returned.\n\nThis approach ensures that the function is efficient, straightforward, and handles all specified input cases correctly, including non-negative and negative radii.",
+  "r1_solution": "import math\n\ndef area_of_circle(radius: float) -> float:\n    return math.pi * radius ** 2",
+  "metadata": {
+    "prompt_id": "00000083",
+    "row_id": 83,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to calculate the area of a circle given its radius."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

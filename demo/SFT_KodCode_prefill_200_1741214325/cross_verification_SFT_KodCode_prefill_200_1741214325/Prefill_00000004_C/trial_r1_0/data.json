@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000004_C",
+  "question": "def sum_recursive(numbers):\n    \"\"\"Calculate the sum of all numbers in a list using recursion.\n    >>> sum_recursive([])\n    0\n    >>> sum_recursive([1, 2, 3, 4, 5])\n    15\n    >>> sum_recursive([0, 0, 0, 0])\n    0\n    >>> sum_recursive([-1, -2, -3, -4, -5])\n    -15\n    >>> sum_recursive([-1, 1, -2, 2, -3, 3])\n    0\n    >>> sum_recursive([42])\n    42\n    \"\"\"",
+  "solution": "def sum_recursive(numbers):\n    \"\"\"\n    Calculate the sum of all numbers in a list using recursion.\n    \n    Args:\n        numbers (list): A list of integers or floats.\n    \n    Returns:\n        int or float: The sum of all numbers in the list.\n    \"\"\"\n    if not numbers:\n        return 0\n    else:\n        return numbers[0] + sum_recursive(numbers[1:])",
+  "test_code": "def test_sum_recursive_empty_list():\n    assert sum_recursive([]) == 0\n\ndef test_sum_recursive_positive_numbers():\n    assert sum_recursive([1, 2, 3, 4, 5]) == 15\n\ndef test_sum_recursive_with_zeros():\n    assert sum_recursive([0, 0, 0, 0]) == 0\n\ndef test_sum_recursive_negative_numbers():\n    assert sum_recursive([-1, -2, -3, -4, -5]) == -15\n\ndef test_sum_recursive_mixed_numbers():\n    assert sum_recursive([-1, 1, -2, 2, -3, 3]) == 0\n\ndef test_sum_recursive_single_element():\n    assert sum_recursive([42]) == 42",
+  "test_info": [
+    {
+      "function_name": "sum_recursive",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def sum_recursive(numbers):",
+      "docstring": "Calculate the sum of all numbers in a list using recursion.\n\nArgs:\n    numbers (list): A list of integers or floats.\n\nReturns:\n    int or float: The sum of all numbers in the list."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nHmm, I need to write a recursive function called sum_recursive that adds up all the numbers in a list. Okay, recursion means the function will call itself with a smaller version of the problem each time, until it reaches a base case.\n\nFirst, I think about the base cases. What's the simplest case for this function? Well, if the list is empty, the sum should be 0. That's straightforward. Also, if the list has only one element, the sum is just that element itself. So my base cases are: when the list is empty, return 0; when it has one element, return that element.\n\nSo the function can start by checking if the list is empty. If it is, return 0. If not, maybe we take the first element and add it to the sum of the rest of the list.\n\nWait, but recursion works by breaking the problem down. So for a list like [1,2,3,4,5], the sum is 1 + sum([2,3,4,5]), right? Which is 1 + (2 + sum([3,4,5])) and so on, until you get to an empty list or a single element.\n\nWait, but how about the step where the list has one element? So I think, in code: if len(numbers) == 0, return 0. Else, return numbers[0] + sum_recursive(numbers[1:]).\n\nIs that sufficient? Let's test the examples given.\n\nFor example, sum\u9012\u5f52([]) should be 0, which the base case handles. For [1,2,3,4,5], it would be 1 + sum([2,3,4,5]), which breaks down each step correctly.\n\nWhat about a single element? sum\u9012\u5f52([42]) would return 42, which is correct.\n\nWhat about an empty list plus multiple calls? Like the case [0,0,0,0], it should add all zeros correctly, leading to 0. Similarly, if negative numbers are present, the function will handle them since addition is the same.\n\nSo the code structure would be:\n\ndef sum_recursive(numbers):\n    if not numbers:\n        return 0\n    else:\n        return numbers[0] + sum_recursive(numbers[1:])\n\nI think that's it. Let me see if that covers all cases. Oh wait, what if the list is None? Oh, the problem here says the input is a list, so perhaps the first condition is sufficient.\n\nYes, this should handle all the given examples correctly.\n</think>\n\nTo solve this problem, we need to calculate the sum of all elements in a given list using a recursive approach. The function should handle various cases, including an empty list, a list with a single element, and lists with positive or negative numbers.\n\n### Approach\n\nThe recursive approach to solve this problem involves breaking down the problem into smaller sub-problems. Here's the step-by-step approach:\n\n1. **Base Case**: If the list is empty, the sum is 0. This serves as our stopping condition for the recursion.\n2. **Recursive Case**: If the list is not empty, we take the first element of the list and add it to the sum of the rest of the list. This is achieved by calling the function recursively with the list excluding the first element.\n\nThis approach ensures that we keep breaking down the problem until we reach the simplest form, which is an empty list.\n\n### Solution Code\n\n```python\ndef sum_recursive(numbers):\n    if not numbers:\n        return 0\n    else:\n        return numbers[0] + sum_recursive(numbers[1:])\n```\n\n### Explanation\n\n- **Base Case Handling**: When the input list `numbers` is empty, the function returns 0 immediately. This is checked using the condition `if not numbers`.\n- **Recursive Sum Calculation**: If the list is not empty, the function adds the first element of the list (`numbers[0]`) to the result of the recursive call with the rest of the list (`numbers[1:]`). This effectively reduces the problem size with each recursive call.\n- **Termination**: The recursion continues until the base case is met, at which point the function starts returning the summed values back up the call stack, eventually resulting in the total sum of the original list.\n\nThis approach efficiently handles all specified cases, including lists with positive numbers, negative numbers, zeros, and single-element lists, ensuring correct sum calculation through recursion.",
+  "r1_solution": "def sum_recursive(numbers):\n    if not numbers:\n        return 0\n    else:\n        return numbers[0] + sum_recursive(numbers[1:])",
+  "metadata": {
+    "prompt_id": "00000004",
+    "row_id": 4,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to calculate the sum of all numbers in a list using recursion."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

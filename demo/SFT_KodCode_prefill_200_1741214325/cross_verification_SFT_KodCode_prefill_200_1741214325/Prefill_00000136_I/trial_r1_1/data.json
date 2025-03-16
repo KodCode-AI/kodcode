@@ -1,0 +1,42 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000136_I",
+  "question": "Write a python function to create a queue using a list with two methods: enqueue and dequeue. The enqueue method adds an element to the end of the queue, and the dequeue method removes the element from the front of the queue.",
+  "solution": "def enqueue(queue, item):\n    \"\"\"\n    Adds an item to the end of the queue.\n    \"\"\"\n    queue.append(item)\n\ndef dequeue(queue):\n    \"\"\"\n    Removes and returns the item from the front of the queue.\n    If the queue is empty, returns None.\n    \"\"\"\n    if len(queue) > 0:\n        return queue.pop(0)\n    else:\n        return None",
+  "test_code": "from solution import enqueue, dequeue\n\ndef test_enqueue_dequeue():\n    queue = []\n    enqueue(queue, 1)\n    enqueue(queue, 2)\n    assert dequeue(queue) == 1\n    assert dequeue(queue) == 2\n    assert dequeue(queue) is None\n\ndef test_enqueue():\n    queue = []\n    enqueue(queue, 1)\n    assert queue == [1]\n    enqueue(queue, 2)\n    assert queue == [1, 2]\n\ndef test_dequeue_empty_queue():\n    queue = []\n    assert dequeue(queue) is None",
+  "test_info": [
+    {
+      "function_name": "enqueue",
+      "parameter_list": "(queue, item)",
+      "function_declaration": "def enqueue(queue, item):",
+      "docstring": "Adds an item to the end of the queue."
+    },
+    {
+      "function_name": "dequeue",
+      "parameter_list": "(queue)",
+      "function_declaration": "def dequeue(queue):",
+      "docstring": "Removes and returns the item from the front of the queue.\nIf the queue is empty, returns None."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to create a Python function that implements a queue using a list. The queue should have two methods: enqueue and dequeue. Enqueue adds an element to the end, and dequeue removes from the front. \n\nHmm, I remember that in Python, lists can act like queues, but I should think about how to structure this. Maybe I'll create a class called Queue. Inside the class, I'll have an __init__ method that initializes an empty list.\n\nFor the enqueue method, I can use the append() method of the list. That makes sense because append adds to the end, which is exactly what enqueue does.\n\nDequeue is a bit trickier. To remove from the front of the list, I can use the pop() method. By default, pop() without an index removes the last element, so I need to specify index 0 to remove the first element. But wait, if the queue is empty, popping will cause an error. So I should handle that. Maybe raise an exception if someone tries to dequeue from an empty queue.\n\nLet me think about error handling. When the queue is empty, trying to dequeue should probably raise a ValueError or maybe an IndexError. I'll check what happens when popping from an empty list in Python. Oh right, it raises an IndexError. So perhaps I should catch that in the dequeue method and raise a more descriptive message.\n\nAlso, I should consider having a method to check if the queue is empty. That way, users can avoid trying to dequeue when it's empty. Alternatively, in the dequeue method, I can check if the list is empty before popping.\n\nPutting it all together, I outline the steps:\n1. Create a Queue class with an initializer that sets up an empty list.\n2. Enqueue method appends the item to the list.\n3. Dequeue method checks if the list is empty. If it is, raise an error. Otherwise, pop the first element and return it.\n\nWait, in the dequeue method, should I check the length first? For example, if len(self.items) == 0, then raise an error. Otherwise, return self.items.pop(0). Yes.\n\nAlternatively, another approach is to try to pop and catch the IndexError, but checking the length might be more efficient, especially if the list is large because popping from the front can be O(n) time.\n\nSo, for the code:\n- Define the class.\n- __init__ sets self.items = [].\n- enqueue takes an item and appends it.\n- dequeue checks if items is empty, if yes, raise ValueError('Queue is empty'). Else, return pop(0).\n\nWait, what error should I raise? Maybe ValueError is suitable, or perhaps create a custom exception. But for simplicity, using ValueError is probably enough.\n\nTesting this: Let's see, q = Queue(), q.enqueue(1), q.enqueue(2). Then dequeue should return 1. Then dequeue returns 2, and trying to dequeue again should raise an error.\n\nYes, that makes sense.\n\nI think that's a solid approach. Now, I'll write the code accordingly.\n</think>\n\nTo implement a queue using a list in Python, we can create a class with methods for enqueue and dequeue operations. The enqueue method adds elements to the end of the list, while the dequeue method removes elements from the front. Here's how you can do it:\n\n```python\nclass Queue:\n    def __init__(self):\n        self.items = []\n\n    def enqueue(self, item):\n        self.items.append(item)\n\n    def dequeue(self):\n        if not self.items:\n            raise ValueError(\"Queue is empty\")\n        return self.items.pop(0)\n```\n\n### Explanation\n\n1. **Class Initialization (`__init__` method):**\n   - The constructor initializes an empty list `items` to store the elements of the queue.\n\n2. **Enqueue Method:**\n   - The `enqueue` method takes an `item` as an argument and appends it to the end of the `items` list using the `append` method. This adds the item to the queue.\n\n3. **Dequeue Method:**\n   - The `dequeue` method checks if the queue is empty by verifying the length of `items`.\n   - If the queue is empty, it raises a `ValueError` with the message \"Queue is empty\".\n   - If the queue is not empty, it removes and returns the first element using `pop(0)`, which pops the item at index 0 (the front of the queue).\n\nThis implementation ensures that elements are added to the end and removed from the front, following the FIFO (First-In-First-Out) principle of queues.",
+  "r1_solution": "class Queue:\n    def __init__(self):\n        self.items = []\n\n    def enqueue(self, item):\n        self.items.append(item)\n\n    def dequeue(self):\n        if not self.items:\n            raise ValueError(\"Queue is empty\")\n        return self.items.pop(0)",
+  "metadata": {
+    "prompt_id": "00000136",
+    "row_id": 136,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

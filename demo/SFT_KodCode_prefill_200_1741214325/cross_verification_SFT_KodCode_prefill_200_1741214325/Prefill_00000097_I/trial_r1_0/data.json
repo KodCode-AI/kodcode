@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000097_I",
+  "question": "Write a python function to remove the duplicates from a list while preserving the original order of elements.",
+  "solution": "def remove_duplicates_preserve_order(lst):\n    \"\"\"\n    Removes duplicates from a list while preserving the original order of elements.\n    \n    :param lst: List from which duplicates are to be removed.\n    :return: A new list with duplicates removed.\n    \"\"\"\n    seen = set()\n    result = []\n    for item in lst:\n        if item not in seen:\n            seen.add(item)\n            result.append(item)\n    return result",
+  "test_code": "def test_remove_duplicates_preserve_order():\n    assert remove_duplicates_preserve_order([1, 2, 3, 1, 2, 5]) == [1, 2, 3, 5]\n    assert remove_duplicates_preserve_order(['a', 'b', 'a', 'c', 'b']) == ['a', 'b', 'c']\n    assert remove_duplicates_preserve_order([1, 1, 1, 1, 1]) == [1]\n    assert remove_duplicates_preserve_order([]) == []\n    assert remove_duplicates_preserve_order([5, 4, 3, 2, 1, 4, 3]) == [5, 4, 3, 2, 1]\n\ndef test_remove_duplicates_with_duplicates_inside_tuple():\n    # This tests for a potential pitfall with immutable types, where a mutable object might be stored in the list.\n    test_list = [1, (2, 3), 'a', (2, 3), 'b', 1]\n    expected_result = [1, (2, 3), 'a', 'b']\n    assert remove_duplicates_preserve_order(test_list) == expected_result\n\ndef test_remove_duplicates_with_tuple_elements_in_list():\n    # Test with a list that contains tuples\n    test_list = [(1,), (2,), (1,), (3,), (2,)]\n    expected_result = [(1,), (2,), (3,)]\n    assert remove_duplicates_preserve_order(test_list) == expected_result",
+  "test_info": [
+    {
+      "function_name": "remove_duplicates_preserve_order",
+      "parameter_list": "(lst)",
+      "function_declaration": "def remove_duplicates_preserve_order(lst):",
+      "docstring": "Removes duplicates from a list while preserving the original order of elements.\n\n:param lst: List from which duplicates are to be removed.\n:return: A new list with duplicates removed."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function that removes duplicates from a list while keeping the original order. Hmm, how do I approach this?\n\nWait, I remember that in Python, sets are used for unique elements, but they don't maintain order. So using a set might not help because the order will be lost. Plus, I need to preserve the original order as in the list.\n\nLet me think about iteration. Maybe I can loop through each element in the list and check if it's already been added to a new list. If it hasn't, add it; if it has, skip. That way, only the first occurrence stays, preserving order.\n\nSo, I'll create an empty list, say 'unique_list', and maybe a set to keep track of elements I've already added. The set will allow for O(1) lookups, which is efficient. For each element in the input list, I'll check if it's in the set. If not, add it to both the set and the unique_list. If it is, do nothing.\n\nWait, what about handling different data types? Well, as long as the elements are hashable, the set will work. So that's probably acceptable for most cases.\n\nAnother thing: in Python versions before 3.7, dictionaries didn't maintain insertion order, but the main approach here isn't using a dictionary, so that shouldn't matter. Using a list and a set seems solid.\n\nLet me draft the steps:\n\n1. Define a function that takes a list as input.\n2. Initialize an empty list to hold the unique elements.\n3. Initialize an empty set to track which elements have been added.\n4. Loop through each element in the input list.\n5. For each element, check if it's not in the set.\n   a. If it's not, append it to the unique_list and add it to the set.\n6. After processing all elements, return the unique_list.\n\nTesting this logic with a sample list. Let's say input is [1, 2, 3, 2, 1, 4, 5, 5]. After processing, the output should be [1,2,3,4,5].\n\nWait, does order matter correctly? Yes, because each element is added in the order they appear, only the first time they are encountered.\n\nWhat about if the list is empty? The function should return an empty list, which it does because the initial unique_list is empty.\n\nWhat if all elements are the same? Then the unique_list will have just one element.\n\nI think this approach covers all cases. Now, writing the code.\n\nSo the function will look like:\n\ndef remove_duplicates(input_list):\n    unique_list = []\n    seen = set()\n    for element in input_list:\n        if element not in seen:\n            unique_list.append(element)\n            seen.add(element)\n    return unique_list\n\nWait, that should work. Let me test it with an example.\n\nTesting with [1,2,3,2,1,4,5,5]. The function should produce [1,2,3,4,5]. Let's see: first element 1 is not in seen, add to both. 2 not in seen, add. 3 not in, add. Next 2 is in seen, skip. 1 also in seen, skip. 4 not in, add. 5 not in, add. Next 5 is in, skip. So the output is correct.\n\nAnother test case: empty list returns empty. All duplicates? For example, [a,a,a], returns [a], which is correct.\n\nYes, this should handle all cases.\n</think>\n\nTo remove duplicates from a list while preserving the original order, you can use a set to track seen elements and a list to maintain the order. Here's how you can do it:\n\n1. **Initialize an empty list** to store unique elements.\n2. **Use a set** to keep track of elements that have already been added to the unique list.\n3. **Iterate through each element** in the input list:\n   - If the element is not in the set, add it to both the set and the unique list.\n   - If the element is already in the set, skip it.\n4. **Return the unique list** which now contains the elements in their original order without duplicates.\n\nHere\u2019s the Python function implementing this logic:\n\n```python\ndef remove_duplicates(input_list):\n    unique_list = []\n    seen = set()\n    for element in input_list:\n        if element not in seen:\n            unique_list.append(element)\n            seen.add(element)\n    return unique_list\n```\n\n**Example Usage:**\n\n```python\nlst = [1, 2, 3, 2, 1, 4, 5, 5]\nresult = remove_duplicates(lst)\nprint(result)  # Output: [1, 2, 3, 4, 5]\n```\n\nThis function efficiently handles the removal of duplicates while preserving the order of elements as they first appear in the list.",
+  "r1_solution": "def remove_duplicates_preserve_order(input_list):\n    unique_list = []\n    seen = set()\n    for element in input_list:\n        if element not in seen:\n            unique_list.append(element)\n            seen.add(element)\n    return unique_list",
+  "metadata": {
+    "prompt_id": "00000097",
+    "row_id": 97,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

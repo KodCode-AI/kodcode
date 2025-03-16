@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000133_I",
+  "question": "Write a python function to multiply a number by 3 and return the result.",
+  "solution": "def multiply_by_three(number):\n    \"\"\"\n    Multiplies the given number by 3 and returns the result.\n    \"\"\"\n    return number * 3",
+  "test_code": "from solution import multiply_by_three\n\ndef test_multiply_by_three_positive_numbers():\n    assert multiply_by_three(2) == 6\n\ndef test_multiply_by_three_with_zero():\n    assert multiply_by_three(0) == 0\n\ndef test_multiply_by_three_negative_numbers():\n    assert multiply_by_three(-1) == -3\n\ndef test_multiply_by_three_large_number():\n    assert multiply_by_three(100) == 300",
+  "test_info": [
+    {
+      "function_name": "multiply_by_three",
+      "parameter_list": "(number)",
+      "function_declaration": "def multiply_by_three(number):",
+      "docstring": "Multiplies the given number by 3 and returns the result."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.5,
+  "r1_response": "<think>\nOkay, I need to write a Python function that multiplies a number by 3 and returns the result. Let me think about how to approach this.\n\nFirst, I should define a function. In Python, functions start with the 'def' keyword. So I'll name the function something like multiply_by_three.\n\nThe function needs to take a parameter, which is the number to be multiplied. So the parameter will be, say, 'number'.\n\nInside the function, I'll perform the multiplication. That's straightforward: number * 3.\n\nThen, I need to return the result using the 'return' statement. So putting it all together, the function will take the input, multiply by 3, and return it.\n\nI should test this function with different inputs to make sure it works, like positive numbers, negative numbers, and zero.\n\nWait, do I need to handle any exceptions? Probably not for this simple task, but it's something to keep in mind if the requirements change in the future.\n\nSo the function will be concise, just a couple of lines. That's it. I can write it now.\n</think>\n\nTo solve this problem, we need to write a Python function that takes a single number as input, multiplies it by 3, and returns the result. This problem is straightforward and involves basic function definition and arithmetic operations in Python.\n\n### Approach\nThe approach to solve this problem involves the following steps:\n1. **Define a function**: We will define a function named `multiply_by_three` that takes a single parameter, `number`.\n2. **Multiply the input by 3**: Inside the function, we will perform the multiplication operation by multiplying the input parameter `number` by 3.\n3. **Return the result**: Finally, we will use the `return` statement to return the result of the multiplication.\n\nThis approach ensures that the function is concise and efficient, performing the required operation in constant time, O(1), since it involves a single arithmetic operation.\n\n### Solution Code\n\n```python\ndef multiply_by_three(number):\n    return number * 3\n```\n\n### Explanation\n- **Function Definition**: The function `multiply_by_three` is defined to take one parameter, `number`.\n- **Multiplication Operation**: Inside the function, the parameter `number` is multiplied by 3.\n- **Return Statement**: The result of the multiplication is returned immediately.\n\nThis function can be used with any numeric input, including integers and floating-point numbers, and it handles edge cases such as zero and negative numbers correctly. For example:\n- `multiply_by_three(5)` will return `15`.\n- `multiply_by_three(-2)` will return `-6`.\n- `multiply_by_three(0)` will return `0`.\n\nThe function is efficient and meets the problem requirements with minimal code, ensuring simplicity and readability.",
+  "r1_solution": "def multiply_by_three(number):\n    return number * 3",
+  "metadata": {
+    "prompt_id": "00000133",
+    "row_id": 133,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

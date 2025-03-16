@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000004_I",
+  "question": "Write a python function to calculate the sum of all numbers in a list using recursion.",
+  "solution": "def sum_recursive(numbers):\n    \"\"\"\n    Calculate the sum of all numbers in a list using recursion.\n    \n    Args:\n        numbers (list): A list of integers or floats.\n    \n    Returns:\n        int or float: The sum of all numbers in the list.\n    \"\"\"\n    if not numbers:\n        return 0\n    else:\n        return numbers[0] + sum_recursive(numbers[1:])",
+  "test_code": "def test_sum_recursive_empty_list():\n    assert sum_recursive([]) == 0\n\ndef test_sum_recursive_positive_numbers():\n    assert sum_recursive([1, 2, 3, 4, 5]) == 15\n\ndef test_sum_recursive_with_zeros():\n    assert sum_recursive([0, 0, 0, 0]) == 0\n\ndef test_sum_recursive_negative_numbers():\n    assert sum_recursive([-1, -2, -3, -4, -5]) == -15\n\ndef test_sum_recursive_mixed_numbers():\n    assert sum_recursive([-1, 1, -2, 2, -3, 3]) == 0\n\ndef test_sum_recursive_single_element():\n    assert sum_recursive([42]) == 42",
+  "test_info": [
+    {
+      "function_name": "sum_recursive",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def sum_recursive(numbers):",
+      "docstring": "Calculate the sum of all numbers in a list using recursion.\n\nArgs:\n    numbers (list): A list of integers or floats.\n\nReturns:\n    int or float: The sum of all numbers in the list."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nFirst, I need to create a function that calculates the sum of numbers in a list using recursion. \n\nI'll start by defining the function with parameters for the list and an optional index. Setting the index default to 0 allows the function to be called without it.\n\nNext, I'll handle the base case. If the index is equal to the length of the list, it means I've processed all elements, so I'll return 0.\n\nFor the recursive case, I'll add the current element at the index to the result of the function called with the next index.\n\nFinally, I'll test the function with an example list to ensure it works correctly.\n</think>\n\nTo calculate the sum of all numbers in a list using recursion in Python, follow these steps:\n\n1. **Define a Recursive Function**:\n   - Create a function named `sum_list` that takes two parameters: the list (`lst`) and an optional index (`index`).\n   - Set the default value of `index` to 0 to start from the beginning of the list.\n\n2. **Base Case**:\n   - Check if the `index` is equal to the length of the list. If true, return 0 as there are no more elements to add.\n\n3. **Recursive Case**:\n   - Add the current element at the `index` position to the result of recursively calling `sum_list` with the next index (`index + 1`).\n\n4. **Call the Function**:\n   -.Invoke the function with the desired list and optionally an initial index.\n\nHere is the Python code implementing the above steps:\n\n```python\ndef sum_list(lst, index=0):\n    if index == len(lst):\n        return 0\n    else:\n        return lst[index] + sum_list(lst, index + 1)\n\n# Example usage:\nnumbers = [1, 2, 3, 4, 5]\nsum_result = sum_list(numbers)\nprint(\"Sum of the list:\", sum_result)\n```\n\n**Output**:\n```\nSum of the list: 15\n```\n\n**Explanation**:\n- The function `sum_list` recursively traverses each element of the list.\n- When the `index` reaches the length of the list, it stops recursion by returning 0.\n- Each recursive call processes the current element and moves to the next one, accumulating the sum.",
+  "r1_solution": "def sum_recursive(lst, index=0):\n    if index == len(lst):\n        return 0\n    else:\n        return lst[index] + sum_list(lst, index + 1)\n\n# Example usage:\nnumbers = [1, 2, 3, 4, 5]\nsum_result = sum_list(numbers)\nprint(\"Sum of the list:\", sum_result)",
+  "metadata": {
+    "prompt_id": "00000004",
+    "row_id": 4,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}

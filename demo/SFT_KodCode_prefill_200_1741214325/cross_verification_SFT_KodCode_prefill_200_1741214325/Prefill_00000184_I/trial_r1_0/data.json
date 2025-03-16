@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000184_I",
+  "question": "Write a python function to sort a list of integers in ascending order using the quicksort algorithm. Each integer is in the range of [0, 100000].",
+  "solution": "def quicksort(arr):\n    \"\"\"\n    Sorts an array of integers in ascending order using the quicksort algorithm.\n    \"\"\"\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quicksort(left) + middle + quicksort(right)",
+  "test_code": "from solution import quicksort\n\ndef test_quicksort_empty_list():\n    assert quicksort([]) == []\n\ndef test_quicksort_single_element():\n    assert quicksort([5]) == [5]\n\ndef test_quicksort_sorted_list():\n    assert quicksort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]\n\ndef test_quicksort_reverse_sorted_list():\n    assert quicksort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]\n\ndef test_quicksort_random_list():\n    assert quicksort([3, 6, 8, 10, 1, 2, 1]) == [1, 1, 2, 3, 6, 8, 10]\n\ndef test_quicksort_large_random_list():\n    import random\n    arr = [random.randint(0, 100000) for _ in range(1000)]\n    sorted_arr = sorted(arr)\n    assert quicksort(arr) == sorted_arr\n\ndef test_quicksort_with_duplicates():\n    assert quicksort([4, 2, 4, 8, 3, 2]) == [2, 2, 3, 4, 4, 8]",
+  "test_info": [
+    {
+      "function_name": "quicksort",
+      "parameter_list": "(arr)",
+      "function_declaration": "def quicksort(arr):",
+      "docstring": "Sorts an array of integers in ascending order using the quicksort algorithm."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function to sort a list of integers using the quicksort algorithm. Hmm, quicksort is a divide and conquer algorithm, right? So the idea is to pick a pivot element, partition the list into elements less than, equal to, and greater than the pivot, and then recursively sort the sublists.\n\nWait, first I should outline the steps. So, if the list is empty or has one element, it's already sorted. Otherwise, I pick a pivot, then divide the list into elements less than the pivot, equal, and greater. Then I recursively apply quicksort to the less and greater lists and combine everything.\n\nHow do I handle duplicates? Oh, because integers can be in the range 0 to 100000, there might be duplicates. So the base case is when the list has 0 or 1 element. Then, choosing a pivot\u2014what's the best way? Sometimes people pick the first element, but maybe picking the middle or a random one is better to avoid worst-case scenarios. But for simplicity, maybe I'll just pick the first element.\n\nWait, in Python, lists can be manipulated easily. So in my function, I'll have to implement the partition step. Let me think about the partition function. It takes the list and returns three parts: less than, equal, and greater than the pivot.\n\nSo, in code, I can have something like:\n\ndef quicksort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    less = []\n    equal = []\n    greater = []\n    for x in arr:\n        if x < pivot:\n            less.append(x)\n        elif x == pivot:\n            equal.append(x)\n        else:\n            greater.append(x)\n    return quicksort(less) + equal + quicksort(greater)\n\nYes, that makes sense. But wait, isn't this selection of pivot as the first element leading to O(n^2) time in the worst case, like if the list is already sorted? Oh, but the question doesn't specify any constraints on time complexity, just to implement quicksort. So I think it's acceptable for this task.\n\nI should test this function with some examples. For instance, sorting [3,1,4,2] should give [1,2,3,4]. What if there are duplicates, like [2,2,1,3,2,3,1]? The function should group all 2s together, so yes, the code handles that.\n\nBut wait, in the partitioning, I'm using if-elif-else. That should cover every element. Also, each time, the function creates new lists for less, equal, and greater, so it's not in-place sorting, which is fine.\n\nI think this should work. So the function is straightforward. I don't see any errors in the logic. I can write this code as the solution.\n</think>\n\nTo sort a list of integers in ascending order using the quicksort algorithm, follow these steps:\n\n1. **Base Case Handling**: If the list is empty or contains a single element, it is already sorted, so return the list as-is.\n2. **Pivot Selection**: Choose the first element of the list as the pivot.\n3. **Partitioning**: Divide the list into three sublists:\n   - Elements less than the pivot.\n   - Elements equal to the pivot.\n   - Elements greater than the pivot.\n4. **Recursive Sorting**: Recursively apply quicksort to the sublists of elements less than and greater than the pivot.\n5. **Combining Results**: Concatenate the sorted sublist of elements less than the pivot, the elements equal to the pivot, and the sorted sublist of elements greater than the pivot.\n\nHere's the Python function implementing the quicksort algorithm:\n\n```python\ndef quicksort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    less = []\n    equal = []\n    greater = []\n    for x in arr:\n        if x < pivot:\n            less.append(x)\n        elif x == pivot:\n            equal.append(x)\n        else:\n            greater.append(x)\n    return quicksort(less) + equal + quicksort(greater)\n```\n\n**Example Usage**:\n```python\nnumbers = [35, 2, 45, 3, 27, 1]\nsorted_numbers = quicksort(numbers)\nprint(sorted_numbers)\n```\n\n**Output**: `[1, 2, 3, 27, 35, 45]`",
+  "r1_solution": "def quicksort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    less = []\n    equal = []\n    greater = []\n    for x in arr:\n        if x < pivot:\n            less.append(x)\n        elif x == pivot:\n            equal.append(x)\n        else:\n            greater.append(x)\n    return quicksort(less) + equal + quicksort(greater)",
+  "metadata": {
+    "prompt_id": "00000184",
+    "row_id": 184,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000140_C",
+  "question": "def find_index_of_five(numbers: List[int]) -> int:\n    \"\"\" Write a python function to check if a list of integers contains the number 5. If it does, return the index of the first occurrence of 5, otherwise, return -1.\n    >>> find_index_of_five([1, 2, 3, 4, 5, 6])\n    4\n    >>> find_index_of_five([1, 5, 2, 3, 4, 6])\n    1\n    >>> find_index_of_five([1, 2, 3, 4, 6])\n    -1\n    >>> find_index_of_five([5, 1, 2, 3, 4, 6])\n    0\n    >>> find_index_of_five([])\n    -1\n    \"\"\"",
+  "solution": "def find_index_of_five(numbers):\n    \"\"\"\n    Returns the index of the first occurrence of the number 5 in the list.\n    If 5 is not found, returns -1.\n    \"\"\"\n    try:\n        return numbers.index(5)\n    except ValueError:\n        return -1",
+  "test_code": "def test_find_index_of_five():\n    assert find_index_of_five([1, 2, 3, 4, 5, 6]) == 4\n    assert find_index_of_five([1, 5, 2, 3, 4, 6]) == 1\n    assert find_index_of_five([1, 2, 3, 4, 6]) == -1\n    assert find_index_of_five([5, 1, 2, 3, 4, 6]) == 0\n    assert find_index_of_five([]) == -1",
+  "test_info": [
+    {
+      "function_name": "find_index_of_five",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def find_index_of_five(numbers):",
+      "docstring": "Returns the index of the first occurrence of the number 5 in the list.\nIf 5 is not found, returns -1."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called find_index_of_five that takes a list of integers and returns the index of the first occurrence of the number 5. If 5 isn't in the list, it should return -1. Hmm, how do I approach this.\n\nSo, the function is supposed to loop through each element in the list and check if it's equal to 5. Once it finds the first 5, it returns the current index. If it goes through the entire list and doesn't find any 5, then return -1.\n\nWait, how do I loop with indexes? Oh right, I can use a for loop with the index using enumerate. Yeah, enumerate gives me both the index and the value, so I can check each value.\n\nLet me think about the structure. I can start a for loop that goes through each index and number in the list. For each number, if it's equal to 5, return the current index. If after checking all numbers, I haven't found a 5, I return -1.\n\nLet me consider some test cases. Like, one where 5 is at the beginning, maybe index 0. Another where it's in the middle, say index 4. Then if there's no 5, return -1. Also, what about an empty list? That should return -1 as well.\n\nSo the steps are:\n1. Iterate through each element in the list using a loop.\n2. For each element, check if it is equal to 5.\n3. If it is, immediately return the index of that element.\n4. After checking all elements and not finding 5, return -1.\n\nHow do I write this in code? Well, something like this:\n\ndef find_index_of_five(numbers: List[int]) -> int:\n    for index, number in enumerate(numbers):\n        if number ==5:\n            return index\n    return -1\n\nWait, but what if the list is very long? Does this approach handle that efficiently? Because it will stop at the first occurrence, which is good.\n\nTesting the given examples:\n\nExample 1: [1,2,3,4,5,6] returns 4. Using the code, the loop will reach index 4 and find 5, so return 4. Correct.\n\nExample 2: [1,5,2,3,4,6] returns 1. Iterates, finds 5 at index 1, returns. Correct.\n\nExample 3: [1,2,3,4,6] returns -1. The loop doesn't find 5, so returns -1. Correct.\n\nExample 4: [5,1,2,3,4,6] returns 0. The first element is 5, so returns 0. Correct.\n\nEmpty list: returns -1. Enumerate will have nothing to loop over, so the function skips the loop and returns -1. Correct.\n\nI think that's all. So the code should work.\n</think>\n\nTo solve this problem, we need to write a function that checks if a list of integers contains the number 5. If it does, the function should return the index of the first occurrence of 5. Otherwise, it should return -1.\n\n### Approach\nThe approach involves iterating through each element of the list while keeping track of both the index and the value. We use a loop to go through each element and check if it is number 5. If the number 5 is found, we immediately return the corresponding index. If the loop completes without finding the number 5, we return -1.\n\nSteps:\n1. Iterate through each element in the list using enumeration to get both the index and the value.\n2. For each element, check if it is equal to 5.\n3. If it is, return the current index.\n4. If the loop completes without finding 5, return -1.\n\n### Solution Code\n\n```python\nfrom typing import List\n\ndef find_index_of_five(numbers: List[int]) -> int:\n    for index, number in enumerate(numbers):\n        if number == 5:\n            return index\n    return -1\n```\n\n### Explanation\nThe function `find_index_of_five` takes a list of integers as input. It uses a `for` loop with `enumerate` to iterate over both the index and the value of each element in the list. For each value, it checks if the value is 5. If it finds a 5, it returns the current index. If the loop completes without finding a 5, the function returns -1, indicating that 5 is not present in the list.\n\nThis approach efficiently handles both small and large lists by stopping as soon as the first occurrence of 5 is found, ensuring optimal performance.",
+  "r1_solution": "from typing import List\n\ndef find_index_of_five(numbers: List[int]) -> int:\n    for index, number in enumerate(numbers):\n        if number == 5:\n            return index\n    return -1",
+  "metadata": {
+    "prompt_id": "00000140",
+    "row_id": 140,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to check if a list of integers contains the number 5. If it does, return the index of the first occurrence of 5, otherwise, return -1."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

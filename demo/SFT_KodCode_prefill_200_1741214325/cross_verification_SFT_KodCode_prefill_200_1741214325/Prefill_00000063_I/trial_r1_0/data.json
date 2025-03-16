@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000063_I",
+  "question": "Write a python function to convert a string into a list of words.",
+  "solution": "def string_to_list_of_words(input_string):\n    \"\"\"\n    Converts a given string into a list of words (separated by spaces).\n    \n    :param input_string: The string to convert.\n    :return: A list of words from the input string.\n    \"\"\"\n    return input_string.split()",
+  "test_code": "from solution import string_to_list_of_words\n\ndef test_string_to_list_of_words_single_word():\n    assert string_to_list_of_words(\"hello\") == [\"hello\"]\n\ndef test_string_to_list_of_words_multiple_words():\n    assert string_to_list_of_words(\"hello world\") == [\"hello\", \"world\"]\n\ndef test_string_to_list_of_words_with_punctuation():\n    assert string_to_list_of_words(\"hello, world!\") == [\"hello,\", \"world!\"]\n\ndef test_string_to_list_of_words_empty_string():\n    assert string_to_list_of_words(\"\") == []\n\ndef test_string_to_list_of_words_with_spaces():\n    assert string_to_list_of_words(\"  hello  world  \") == [\"hello\", \"world\"]",
+  "test_info": [
+    {
+      "function_name": "string_to_list_of_words",
+      "parameter_list": "(input_string)",
+      "function_declaration": "def string_to_list_of_words(input_string):",
+      "docstring": "Converts a given string into a list of words (separated by spaces).\n\n:param input_string: The string to convert.\n:return: A list of words from the input string."
+    }
+  ],
+  "gpt_pass_sequence": [
+    0,
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, the user wants a Python function to convert a string into a list of words. Let me think about how to approach this.\n\nWell, in Python, converting a string into a list of words is pretty straightforward. The simplest way is to use the split() method. By default, split() separates the string at whitespace, which is exactly what we need.\n\nSo I can write a function called string_to_list that takes a string as input. Inside the function, I'll just return the string split by spaces. That should handle most cases, but maybe I should consider some edge cases too. Like, what if the input is an empty string? Then the function should return an empty list.\n\nWait, no, actually, if you split an empty string, it returns an empty list. But if the string is just spaces, like \"   \", it will return an empty list as well. Hmm, but maybe the user expects that.\n\nAnother thought: what if the user wants to split on other delimiters? The problem doesn't specify, so I think using the default split is acceptable here.\n\nSo putting it all together, the function is straightforward. Let me write it out. I'll also include a docstring explaining what it does and an example to make it clear.\n\nI should test it with a few examples. Like, passing \"Hello world\" should return [\"Hello\", \"world\"]. Passing an empty string should return [\"\",] or an empty list? Wait, let's see: \"hello   world  python\" would split into [\"hello\", \"world\", \"python\"], which is correct.\n\nYes, I think this covers the requirements.\n</think>\n\nTo convert a string into a list of words in Python, you can use the `split()` method, which divides a string into a list where each word is a list item. Here's a function that accomplishes this:\n\n```python\ndef string_to_list(s):\n    \"\"\"\n    Convert a string into a list of words.\n    \n    Args:\n        s (str): The input string.\n    \n    Returns:\n        list: A list of words from the input string.\n    \"\"\"\n    return s.split()\n\n# Example usage\nprint(string_to_list(\"Hello world\"))  # [\"Hello\", \"world\"]\n```\n\n### Explanation:\n\n- **Function Definition:** The function `string_to_list` takes one argument `s`, which is the string to be converted into a list.\n- **String Splitting:** The `split()` method is called on the string `s`. By default, this method splits the string at each whitespace and returns a list of words.\n- **Return Value:** The function returns the list of words.\n- **Example Usage:** The example demonstrates how to use the function. The string `\"Hello world\"` is split into the list `[\"Hello\", \"world\"]`.\n\nThis function handles standard cases where words are separated by spaces. If no spaces are present, the entire string will be returned as a single-item list.",
+  "r1_solution": "def string_to_list_of_words(s):\n    \"\"\"\n    Convert a string into a list of words.\n    \n    Args:\n        s (str): The input string.\n    \n    Returns:\n        list: A list of words from the input string.\n    \"\"\"\n    return s.split()\n\n# Example usage\nprint(string_to_list(\"Hello world\"))  # [\"Hello\", \"world\"]",
+  "metadata": {
+    "prompt_id": "00000063",
+    "row_id": 63,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

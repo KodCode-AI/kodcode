@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000067_C",
+  "question": "def sum_of_evens(numbers: List[int]) -> int:\n    \"\"\" Returns the sum of all even numbers in the given list.\n    >>> sum_of_evens([1, 2, 3, 4, 5, 6])\n    12\n    >>> sum_of_evens([])\n    0\n    >>> sum_of_evens([1, 3, 5, 7])\n    0\n    >>> sum_of_evens([2, 4, 6, 8])\n    20\n    >>> sum_of_evens([0, 1, 2, 3, 4])\n    6\n    \"\"\"",
+  "solution": "def sum_of_evens(numbers):\n    \"\"\"\n    Returns the sum of all even numbers in the given list.\n    \n    Example:\n    - Given [1, 2, 3, 4, 5, 6], it should return 12 (2 + 4 + 6 = 12).\n    \"\"\"\n    return sum([num for num in numbers if num % 2 == 0])",
+  "test_code": "from solution import sum_of_evens\n\ndef test_sum_of_evens_empty_list():\n    assert sum_of_evens([]) == 0\n\ndef test_sum_of_evens_all_odd():\n    assert sum_of_evens([1, 3, 5, 7]) == 0\n\ndef test_sum_of_evens_all_even():\n    assert sum_of_evens([2, 4, 6, 8]) == 20\n\ndef test_sum_of_evens_mixed_numbers():\n    assert sum_of_evens([1, 2, 3, 4, 5, 6]) == 12\n\ndef test_sum_of_evens_with_zero():\n    assert sum_of_evens([0, 1, 2, 3, 4]) == 6",
+  "test_info": [
+    {
+      "function_name": "sum_of_evens",
+      "parameter_list": "(numbers)",
+      "function_declaration": "def sum_of_evens(numbers):",
+      "docstring": "Returns the sum of all even numbers in the given list.\n\nExample:\n- Given [1, 2, 3, 4, 5, 6], it should return 12 (2 + 4 + 6 = 12)."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nOkay, I need to write a Python function called sum_of_evens that takes a list of integers and returns the sum of all the even numbers in that list. Hmm, let's think about how to approach this.\n\nSo first, what defines an even number? Oh right, a number that's divisible by 2 with no remainder. So I need to go through each number in the list and check if it's even.\n\nWait, so the steps could be: iterate through each number in the input list, check if the number is even, and if it is, add it to a running total.\n\nHow do I do that in Python? Oh right, I can initialize a variable, say total, to 0. Then loop through each number in the numbers list. For each number, I check if number % 2 equals 0. If yes, add it to total.\n\nWhat about the case when the list is empty? Well, in that case, the loop won't run, and total stays 0, which is correct. Same if there are no even numbers.\n\nLet me test this logic against the examples.\n\nFirst example: [1,2,3,4,5,6]. The even numbers are 2,4,6. Sum is 12. Correct.\n\nSecond example: empty list, returns 0. That's handled.\n\nThird example: [1,3,5,7], no even numbers, so sum is 0.\n\nFourth example: [2,4,6,8], sum is 20.\n\nFifth example: [0,1,2,3,4]. Oh wait, 0 is even, so 0 +2+4=6.\n\nYes, this logic should cover all these cases.\n\nSo putting this together in code.\n\nFunction definition is given: def sum_of_evens(numbers: List[int]) -> int:\n\nInside, initialize total to 0. Then for num in numbers: if num % 2 == 0, add to total.\n\nWait, wait! But what about negative numbers? Oh, because modulo works in Python for negatives too, and even numbers include negatives. For example, -2 is even. So the same logic applies.\n\nSo the code would be:\n\ndef sum_of_evens(numbers: List[int]) -> int:\n    total = 0\n    for num in numbers:\n        if num % 2 == 0:\n            total += num\n    return total\n\nI think that's it. Now let's see if any edge cases are handled. Like the fifth example, where 0 is included, which is even. And the empty list.\n\nAnother test case: [-2, -4], sum is -6. Yep, function will handle it.\n\nYes, this should do.\n</think>\n\nTo solve this problem, we need to write a function that calculates the sum of all even numbers in a given list of integers. The solution involves iterating through the list, checking each number for evenness, and summing up those that meet the criteria.\n\n### Approach\nThe approach involves the following steps:\n1. **Initialize a total sum**: Start with a variable `total` set to 0 to accumulate the sum of even numbers.\n2. **Iterate through each number**: Loop through each number in the input list.\n3. **Check for evenness**: For each number, check if it is even by using the modulo operation (`number % 2 == 0`).\n4. **Accumulate the sum**: If a number is even, add it to the running total.\n5. **Return the total sum**: After processing all numbers, return the accumulated sum.\n\nThis approach ensures that we handle all edge cases, including empty lists and lists with no even numbers, by naturally yielding a sum of 0 in such cases.\n\n### Solution Code\n\n```python\nfrom typing import List\n\ndef sum_of_evens(numbers: List[int]) -> int:\n    total = 0\n    for num in numbers:\n        if num % 2 == 0:\n            total += num\n    return total\n```\n\n### Explanation\nThe function `sum_of_evens` takes a list of integers as input and initializes a variable `total` to 0. It then iterates over each number in the list, checking if the number is even using the condition `num % 2 == 0`. If the condition is true, the number is added to `total`. After processing all numbers, the function returns the accumulated sum stored in `total`.\n\nThis approach efficiently processes each element exactly once, resulting in a time complexity of O(n), where n is the number of elements in the list. The space complexity is O(1) since only a single additional variable is used.",
+  "r1_solution": "from typing import List\n\ndef sum_of_evens(numbers: List[int]) -> int:\n    total = 0\n    for num in numbers:\n        if num % 2 == 0:\n            total += num\n    return total",
+  "metadata": {
+    "prompt_id": "00000067",
+    "row_id": 67,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to calculate the sum of all even numbers in a list. You should use list comprehension along with the `sum()` function to achieve this."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

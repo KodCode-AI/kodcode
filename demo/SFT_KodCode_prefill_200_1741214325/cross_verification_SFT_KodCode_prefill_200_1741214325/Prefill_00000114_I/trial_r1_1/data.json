@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000114_I",
+  "question": "Write a python function to determine if a given number is a prime number. If it is, return True; otherwise, return False.",
+  "solution": "def is_prime(n):\n    \"\"\"\n    Determines if a given number n is a prime number.\n    Returns True if n is a prime, False otherwise.\n    \"\"\"\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+  "test_code": "from solution import is_prime\n\ndef test_is_prime_with_prime_number():\n    assert is_prime(2) == True\n    assert is_prime(3) == True\n    assert is_prime(5) == True\n    assert is_prime(11) == True\n\ndef test_is_prime_with_non_prime_number():\n    assert is_prime(4) == False\n    assert is_prime(9) == False\n    assert is_prime(15) == False\n    assert is_prime(100) == False\n\ndef test_is_prime_with_edge_cases():\n    assert is_prime(1) == False\n    assert is_prime(0) == False\n    assert is_prime(-3) == False\n    assert is_prime(-1) == False",
+  "test_info": [
+    {
+      "function_name": "is_prime",
+      "parameter_list": "(n)",
+      "function_declaration": "def is_prime(n):",
+      "docstring": "Determines if a given number n is a prime number.\nReturns True if n is a prime, False otherwise."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.333,
+  "r1_response": "<think>\nFirst, I need to write a function to check if a given number is prime.\n\nI remember that a prime number is a number greater than 1 that has no positive divisors other than 1 and itself. So, the first thing I should do is handle the case where the input number is less than 2 and return False because those are not prime.\n\nNext, if the number is 2, which is the smallest and only even prime number, I should return True.\n\nFor other numbers, I should check if they are even. If they are, they can't be prime, so I return False.\n\nThen, I need to check for factors from 3 up to the square root of the number, incrementing by 2 each time to skip even numbers. This is because if a number has a factor larger than its square root, the corresponding factor would be smaller than the square root, so checking up to the square root is sufficient.\n\nIf I find any factor in this range, the number isn't prime, and I should return False. If no factors are found after checking up to the square root, the number is prime, and I return True.\n</think>\n\nTo determine if a given number is a prime number, follow these steps:\n\n### Approach\n1. **Check for Numbers Less Than 2**: Prime numbers are greater than 1. Therefore, any number less than 2 is not prime.\n2. **Check for the Number 2**: The number 2 is the smallest and only even prime number. If the input is 2, return `True`.\n3. **Check for Even Numbers**: All even numbers greater than 2 are not prime. If the input number is even and greater than 2, return `False`.\n4. **Check for Factors Oddly**: For numbers greater than 2 and odd, check divisibility starting from 3 up to the square root of the number, incrementing by 2. If any number in this range divides the input evenly, it is not a prime number.\n5. **Return Result**: If no divisors are found, the number is prime.\n\n### Solution Code\n\n```python\ndef is_prime(n):\n    if n < 2:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    max_divisor = int(n**0.5) + 1\n    for divisor in range(3, max_divisor, 2):\n        if n % divisor == 0:\n            return False\n    return True\n```\n\n### Explanation\n- **Numbers Less Than 2**: The function immediately returns `False` for numbers less than 2.\n- **Handling the Number 2**: Since 2 is the only even prime, the function returns `True` when the input is 2.\n- **Even Numbers Check**: Any even number greater than 2 is not prime, so the function returns `False`.\n- **Checking Divisors**: By checking potential divisors from 3 up to the square root of the input number (skipping even numbers), the function efficiently determines if the number can be divided without a remainder, which would indicate it's not prime.\n\nThis approach ensures that the function efficiently checks for primality with a time complexity of \\( O(\\sqrt{n}) \\), making it suitable for large numbers.",
+  "r1_solution": "def is_prime(n):\n    if n < 2:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    max_divisor = int(n**0.5) + 1\n    for divisor in range(3, max_divisor, 2):\n        if n % divisor == 0:\n            return False\n    return True",
+  "metadata": {
+    "prompt_id": "00000114",
+    "row_id": 114,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

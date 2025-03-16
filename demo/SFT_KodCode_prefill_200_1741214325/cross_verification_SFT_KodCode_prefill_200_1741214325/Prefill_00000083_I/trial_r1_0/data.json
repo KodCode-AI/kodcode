@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000083_I",
+  "question": "Write a python function to calculate the area of a circle given its radius.",
+  "solution": "import math\n\ndef area_of_circle(radius):\n    \"\"\"\n    Returns the area of a circle given its radius.\n    \"\"\"\n    return math.pi * (radius ** 2)",
+  "test_code": "from solution import area_of_circle\n\ndef test_area_of_circle_positive_radius():\n    assert abs(area_of_circle(1) - math.pi) < 1e-9\n    assert abs(area_of_circle(2) - (4 * math.pi)) < 1e-9\n\ndef test_area_of_circle_zero_radius():\n    assert area_of_circle(0) == 0.0\n\ndef test_area_of_circle_negative_radius():\n    assert abs(area_of_circle(-1) - math.pi) < 1e-9\n\ndef test_area_of_circle_large_radius():\n    assert abs(area_of_circle(10) - (100 * math.pi)) < 1e-9",
+  "test_info": [
+    {
+      "function_name": "area_of_circle",
+      "parameter_list": "(radius)",
+      "function_declaration": "def area_of_circle(radius):",
+      "docstring": "Returns the area of a circle given its radius."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    1,
+    1
+  ],
+  "gpt_pass_trial_num": 3,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nTo calculate the area of a circle using Python, I first need to decide on the function's name. I'll choose 'calculate_circle_area' to clearly indicate its purpose.\n\nNext, the function should accept the radius as a parameter. I'll include a docstring to explain the function's inputs and outputs for better understanding and usability.\n\nThe formula for the area of a circle is \u03c0 multiplied by the radius squared. I'll use the 'math' library's pi constant to get a precise value of \u03c0.\n\nI'll then compute the radius squared by raising the radius parameter to the power of 2.\n\nFinally, I'll return the product of \u03c0 and the squared radius as the area.\n\nIt's also a good idea to provide an example usage within the function's comments to demonstrate how to use the function and what to expect when it's called.\n</think>\n\nTo calculate the area of a circle given its radius, you can use the following Python function:\n\n```python\nimport math\n\ndef calculate_circle_area(radius):\n    \"\"\"\n    Calculate the area of a circle given its radius.\n    \n    Args:\n        radius (float): The radius of the circle.\n    \n    Returns:\n        float: The area of the circle.\n    \"\"\"\n    area = math.pi * (radius ** 2)\n    return area\n\n# Example usage:\nprint(calculate_circle_area(5))  # Output: 78.53981634...\n```\n\n### Step-by-Step Solution:\n1. **Import the Math Module:** Use `math.pi` for an accurate value of \u03c0.\n2. **Define the Function:** Name it `calculate_circle_area` and define the parameter. Add a docstring for clarity.\n3. **Calculate the Area:** Apply the formula \u03c0 * r\u00b2. Return the result.\n4. **Example Usage:** Show how to call the function and print the result.",
+  "r1_solution": "import math\n\ndef area_of_circle(radius):\n    \"\"\"\n    Calculate the area of a circle given its radius.\n    \n    Args:\n        radius (float): The radius of the circle.\n    \n    Returns:\n        float: The area of the circle.\n    \"\"\"\n    area = math.pi * (radius ** 2)\n    return area\n\n# Example usage:\nprint(calculate_circle_area(5))  # Output: 78.53981634...",
+  "metadata": {
+    "prompt_id": "00000083",
+    "row_id": 83,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

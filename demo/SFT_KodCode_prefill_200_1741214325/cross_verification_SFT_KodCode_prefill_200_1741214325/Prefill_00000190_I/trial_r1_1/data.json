@@ -1,0 +1,36 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000190_I",
+  "question": "Write a python function to determine if a number is a \"perfect square\" number. A \"perfect square\" number is an integer that is the square of an integer. For example, 16 is a perfect square because it is 4 squared.",
+  "solution": "def is_perfect_square(num: int) -> bool:\n    \"\"\"\n    Checks if the given number is a perfect square.\n    \n    Args:\n    num (int): The number to check.\n    \n    Returns:\n    bool: True if num is a perfect square, False otherwise.\n    \"\"\"\n    if num < 0:\n        return False\n    root = int(num ** 0.5)\n    return root * root == num",
+  "test_code": "from solution import is_perfect_square\n\ndef test_perfect_squares():\n    assert is_perfect_square(1) is True  # 1 = 1^2\n    assert is_perfect_square(4) is True  # 4 = 2^2\n    assert is_perfect_square(9) is True  # 9 = 3^2\n    assert is_perfect_square(16) is True # 16 = 4^2\n    assert is_perfect_square(25) is True # 25 = 5^2\n\ndef test_non_perfect_squares():\n    assert is_perfect_square(2) is False  # No integer square root\n    assert is_perfect_square(3) is False  # No integer square root\n    assert is_perfect_square(5) is False  # No integer square root\n    assert is_perfect_square(7) is False  # No integer square root\n    assert is_perfect_square(8) is False  # No integer square root\n\ndef test_zero_and_negative_numbers():\n    assert is_perfect_square(0) is True  # 0 = 0^2\n    assert is_perfect_square(-4) is False # Negative numbers cannot be perfect squares",
+  "test_info": [
+    {
+      "function_name": "is_perfect_square",
+      "parameter_list": "(num)",
+      "function_declaration": "def is_perfect_square(num):",
+      "docstring": "Checks if the given number is a perfect square.\n\nArgs:\nnum (int): The number to check.\n\nReturns:\nbool: True if num is a perfect square, False otherwise."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0,
+    1
+  ],
+  "gpt_pass_trial_num": 2,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 0.667,
+  "r1_response": "<think>\nFirst, I recognize that a perfect square is an integer which is the square of another integer.\n\nTo determine if a given number is a perfect square, I'll start by handling the edge case where the number is less than zero, as negative numbers cannot be perfect squares.\n\nNext, I'll calculate the integer square root of the number using the math.isqrt function for accurate results without floating-point errors.\n\nAfter obtaining the integer square root, I'll square it and check if the result equals the original number. If they are equal, the number is a perfect square.\n\nThis approach ensures efficiency and accuracy in determining perfect squares.\n</think>\n\nTo determine if a number is a \"perfect square,\" we can follow a straightforward mathematical approach. A number \\( n \\) is a perfect square if there exists an integer \\( m \\) such that \\( m^2 = n \\).\n\n**Solution Code:**\n\n```python\nimport math\n\ndef is_perfect_square(n):\n    if n < 0:\n        return False\n    root = math.isqrt(n)\n    return root * root == n\n```\n\n**Explanation:**\n\n1. **Handle Negative Numbers:**\n   - Since negative numbers cannot be perfect squares, we immediately return `False` if \\( n \\) is negative.\n\n2. **Calculate the Integer Square Root:**\n   - We use `math.isqrt(n)` to find the integer square root of \\( n \\). This function returns the largest integer \\( m \\) such that \\( m^2 \\leq n \\).\n\n3. **Check for Perfect Square:**\n   - Square the integer root and compare it to \\( n \\). If they are equal, \\( n \\) is a perfect square.\n\n**Example Use Cases:**\n\n- `is_perfect_square(16)` returns `True` because \\( 4^2 = 16 \\).\n- `is_perfect_square(20)` returns `False` because \\( \\sqrt{20} \\) is not an integer.\n- `is_perfect_square(25)` returns `True` because \\( 5^2 = 25 \\).\n- `is_perfect_square(-4)` returns `False` since negative numbers cannot be perfect squares.",
+  "r1_solution": "import math\n\ndef is_perfect_square(n):\n    if n < 0:\n        return False\n    root = math.isqrt(n)\n    return root * root == n",
+  "metadata": {
+    "prompt_id": "00000190",
+    "row_id": 190,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results1.jsonl"
+}

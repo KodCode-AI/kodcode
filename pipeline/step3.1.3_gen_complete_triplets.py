@@ -14,7 +14,7 @@ from utils import *
 ################
 def get_args():
     # Experiment Settings
-    parser = argparse.ArgumentParser(description="Unit Test Generation Manager.")
+    parser = argparse.ArgumentParser(description="Triplet Generation Manager.")
     parser.add_argument("--input_file", type=str, default=None)
     
     return parser.parse_args()

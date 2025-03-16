@@ -1,0 +1,35 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000124_C",
+  "question": "def single_number(nums: List[int]) -> int:\n    \"\"\" Find the single number in a list where every other number appears exactly twice.\n    Assumes one and only one number appears once and all others appear twice.\n    Returns the number that appears exactly once.\n\n    >>> single_number([2, 2, 1]) 1\n    >>> single_number([4, 1, 2, 1, 2]) 4\n    >>> single_number([8]) 8\n    >>> single_number([7, 3, 5, 3, 7, 5, 6]) 6\n    \"\"\"",
+  "solution": "def single_number(nums):\n    \"\"\"\n    Find the single number in a list where every other number appears exactly twice.\n    Assumes one and only one number appears once and all others appear twice.\n    Returns the number that appears exactly once.\n\n    Args:\n    nums (List[int]): A list of integers.\n\n    Returns:\n    int: The integer that appears exactly once.\n    \"\"\"\n    unique = 0\n    for num in nums:\n        unique ^= num\n    return unique",
+  "test_code": "from solution import single_number\n\ndef test_single_number():\n    assert single_number([2, 2, 1]) == 1\n    assert single_number([4, 1, 2, 1, 2]) == 4\n    assert single_number([8]) == 8\n    assert single_number([7, 3, 5, 3, 7, 5, 6]) == 6",
+  "test_info": [
+    {
+      "function_name": "single_number",
+      "parameter_list": "(nums)",
+      "function_declaration": "def single_number(nums):",
+      "docstring": "Find the single number in a list where every other number appears exactly twice.\nAssumes one and only one number appears once and all others appear twice.\nReturns the number that appears exactly once.\n\nArgs:\nnums (List[int]): A list of integers.\n\nReturns:\nint: The integer that appears exactly once."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1,
+    0
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "medium",
+  "gpt_pass_percentage": 0.5,
+  "r1_response": "<think>\nOkay, I need to find a function called single_number that takes a list of integers and returns the one that appears exactly once. All the others appear exactly twice. Hmm, I remember there's a clever way to do this with bitwise operations. Let me think.\n\nSo the XOR operation has a property where if you XOR a number with itself, you get zero. And if you XOR zero with a number, you get that number. Oh right! So if we XOR all the numbers together, the numbers that appear twice will cancel each other out because a ^ a is 0. What's left will be the single number since 0 ^ a is a.\n\nSo the plan is to initialize a result as 0. Then iterate through each number in the list, XOR the result with each number. At the end, the result will be the single number.\n\nLet me test this logic with the examples. \n\nFirst example: [2, 2, 1]. Let's see.\n\n0 ^ 2 = 2\n2 ^ 2 = 0\n0 ^ 1 = 1. Correct.\n\nSecond example: [4, 1, 2, 1, 2]. \n\nStart with 0:\n\n0 ^4=4\n4^1=5\n5^2=7\n7^1=6\n6^2=4. So result is 4. Correct.\n\nThird example: [8]. Just XOR 0 with 8 gives 8. Correct.\n\nFourth example: [7,3,5,3,7,5,6]. \n\nLet's compute step by step:\n0 ^7 =7\n7^3 =4\n4^5=1\n1^3=2\n2^7=5\n5^5=0\n0^6=6. Correct.\n\nYep, this seems to work for all cases. So now I just need to write this in Python.\n\nThe function will start with result = 0, loop through each num in nums, do result ^= num. Then return result.\n\nWait, but what if the list is empty? Oh, the problem states that it's assumed that there is exactly one single number, and for the case when the list has only one element, like [8], it works because only that element remains.\n\nSo coding is straightforward.\n</think>\n\nTo solve this problem, we need to identify the single number in a list where every other number appears exactly twice. The approach leverages the properties of the XOR bitwise operation to efficiently determine the unique number.\n\n### Approach\nThe XOR operation has a useful property: XORing a number with itself results in zero, and XORing zero with a number results in the number itself. By iterating through the list and XORing each number with a running result, all numbers that appear twice will cancel each other out, leaving the single number that appears once.\n\nSteps:\n1. Initialize a result variable to zero.\n2. Iterate through each number in the list, updating the result by XORing it with the current number.\n3. After processing all numbers, the result will be the number that appears exactly once.\n\nThis approach runs in linear time, O(n), where n is the number of elements in the list, making it both efficient and straightforward.\n\n### Solution Code\n\n```python\nfrom typing import List\n\ndef single_number(nums: List[int]) -> int:\n    result = 0\n    for num in nums:\n        result ^= num\n    return result\n```\n\n### Explanation\nThe solution works by using the XOR operation to cancel out numbers that appear twice. Here's a detailed breakdown:\n\n1. **Initialization**: Start with `result = 0`.\n2. **Iteration**: For each number in the input list, update `result` using `result ^= num`.\n3. **Cancellation**: Each number that appears twice will be XORed twice. The first XOR adds the number to the result, and the second XOR removes it, effectively canceling it out.\n4. **Result**: After processing all numbers, the only number remaining in `result` is the one that appeared exactly once.\n\nThis method is efficient and works in linear time with constant space complexity.",
+  "r1_solution": "from typing import List\n\ndef single_number(nums: List[int]) -> int:\n    result = 0\n    for num in nums:\n        result ^= num\n    return result",
+  "metadata": {
+    "prompt_id": "00000124",
+    "row_id": 124,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": "Write a python function to find the single number in a list where every other number appears exactly twice. The function should have a linear time complexity and use constant space."
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results0.jsonl"
+}

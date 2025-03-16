@@ -1,0 +1,34 @@
+{
+  "style": "instruct",
+  "subset": "Prefill",
+  "question_id": "Prefill_00000049_I",
+  "question": "Write a python function to calculate the sum of two numbers.",
+  "solution": "def sum_two_numbers(a, b):\n    \"\"\"\n    Returns the sum of a and b.\n    \"\"\"\n    return a + b",
+  "test_code": "from solution import sum_two_numbers\n\ndef test_sum_two_positive_numbers():\n    assert sum_two_numbers(2, 3) == 5\n\ndef test_sum_with_zero():\n    assert sum_two_numbers(0, 5) == 5\n    assert sum_two_numbers(5, 0) == 5\n\ndef test_sum_negative_numbers():\n    assert sum_two_numbers(-1, -1) == -2\n\ndef test_sum_mixed_sign_numbers():\n    assert sum_two_numbers(-1, 3) == 2\n    assert sum_two_numbers(4, -4) == 0",
+  "test_info": [
+    {
+      "function_name": "sum_two_numbers",
+      "parameter_list": "(a, b)",
+      "function_declaration": "def sum_two_numbers(a, b):",
+      "docstring": "Returns the sum of a and b."
+    }
+  ],
+  "gpt_pass_sequence": [
+    1
+  ],
+  "gpt_pass_trial_num": 1,
+  "gpt_difficulty": "easy",
+  "gpt_pass_percentage": 1.0,
+  "r1_response": "<think>\nOkay, I need to write a Python function called add_numbers that takes two parameters, a and b. The function should calculate their sum. Hmm, how do I do that? Well, in Python, functions are defined using the def keyword. So I'll start by writing def add_numbers(a, b):. \n\nThen, inside the function, I just need to return the sum of a and b. That's easy enough. I can write return a + b. So the function is pretty straightforward.\n\nWait, should I include any error handling? The problem doesn't specify, so maybe I don't need to. It probably expects a simple function.\n\nPutting it all together, the function will take two arguments, add them, and return the result. Let me make sure the indentation is correct. Oh right, the return statement should be indented under the function definition.\n\nSo the final code should look like:\n\ndef add_numbers(a, b):\n    return a + b\n\nI think that's all. Let me test it in my head. If a is 5 and b is 3, it should return 8. Yep, that works. And for negative numbers or zero, it should handle them correctly too.\n</think>\n\nTo solve this problem, we need to create a function that calculates the sum of two numbers. The function should take two parameters and return their sum. This is a straightforward task in Python, where functions are defined using the `def` keyword.\n\n### Approach\nThe approach to solve this problem is simple and involves the following steps:\n1. **Define the Function**: Use the `def` keyword to define a function named `add_numbers` that takes two parameters, `a` and `b`.\n2. **Return the Sum**: Inside the function, return the sum of the two parameters using the `return` statement.\n3. **Handle Basic Cases**: The function should handle basic cases including positive numbers, negative numbers, and zero without any additional error handling since the problem does not specify any special cases.\n\nThis approach ensures that the function is concise and efficient, performing the required operation in constant time.\n\n### Solution Code\n\n```python\ndef add_numbers(a, b):\n    return a + b\n```\n\n### Explanation\n- **Function Definition**: The function `add_numbers` is defined to take two parameters, `a` and `b`.\n- **Return Statement**: The function uses the `return` statement to calculate the sum of `a` and `b` and immediately returns the result.\n- **Efficiency**: The function runs in constant time, O(1), as it performs a single addition operation regardless of the input values.\n\nThis solution is efficient and straightforward, meeting the problem requirements with minimal code.",
+  "r1_solution": "def sum_two_numbers(a, b):\n    return a + b",
+  "metadata": {
+    "prompt_id": "00000049",
+    "row_id": 49,
+    "seed_ids": [
+      0
+    ],
+    "mode": "prefill",
+    "original_instruction": ""
+  },
+  "file_source": "KodCode_prefill_200_1741214325_prepared_results2.jsonl"
+}
