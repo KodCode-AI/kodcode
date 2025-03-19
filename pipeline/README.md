@@ -132,3 +132,152 @@ python step2.4_gen_verified_triplets.py --unit_test_folder ../demo/KodCode_leetc
 ```
 
 After this step, you will get the verified question-solution-test triplets. In this example, we will get the file `Verified_KodCode_leetcode_100_1741214688.json` in `demo` folder.
+
+## Step 3: Post-training Data Synthesis
+
+### Step 3.1: Style Converter
+
+#### Step 3.1.1: Convert Instruct to Complete
+
+To convert the style of the generated data from instruct to complete, we can run the following command. This will generate a new folder in the `../demo` folder, and the name of the folder is `Complete_<input_file_name>`. 
+
+```bash
+python step3.1.1_style_converter.py --input_file [file_name]
+```
+
+**Example:** We use the file generated from Step 2.4.
+
+```bash
+python step3.1.1_style_converter.py --input_file ../demo/Verified_KodCode_leetcode_100_1741214688.json
+```
+
+You can now find the output file as `Verified_KodCode_leetcode_100_1741214688_i2c_prepared.json` in the `../demo/Complete_Verified_KodCode_leetcode_100_1741214688` folder.
+
+#### Step 3.1.2: Obtain GPT-4o Completion
+
+We can now use GPT-4o to generate the completion questions.
+
+```bash
+bash step3.1.2_completion.sh [file_name] [llm]
+```
+
+**Example:** We use GPT-4o to generate the completion questions.
+
+```bash
+bash step3.1.2_completion.sh ../demo/Complete_Verified_KodCode_leetcode_100_1741214688/Complete_KodCode_leetcode_100_1741214688_i2c_prepared.json gpt
+```
+
+You can now find the output file as `Verified_KodCode_leetcode_100_1741214688_i2c_prepared_results.jsonl` in the `../demo/Complete_Verified_KodCode_leetcode_100_1741214688` folder.
+
+#### Step 3.1.3: Organize the Data
+
+This step will organize the data into the format of the post-training data by extracting the completion from the GPT-4o completion results.
+
+```bash
+python step3.1.3_gen_complete_triplets.py --input_file [file_name]
+```
+
+**Example:** We use the file generated from Step 3.1.2.
+
+```bash
+python step3.1.3_gen_complete_triplets.py --input_file ../demo/Complete_Verified_KodCode_leetcode_100_1741214688/Complete_KodCode_leetcode_100_1741214688_i2c_prepared_results.jsonl
+```
+
+You can now find the output file as `Verified_KodCode_leetcode_100_1741214688_Complete.json` in the `../demo/Complete_Verified_KodCode_leetcode_100_1741214688` folder.
+
+### Step 3.2: Combine Instruct and Complete Triplets
+
+This step will combine the instruct and complete triplets into a single file. Note that the `kodcode_exp_name` is the name of the experiment, which is used to distinguish different runs.
+
+```bash
+python step3.2_combine_kodcode.py --kodcode_exp_name [kodcode_exp_name]
+```
+
+**Example:** We use the files generated from Step 2.4 and Step 3.1.3. Here, the `kodcode_exp_name` is `KodCode_leetcode_100_1741214688`.
+
+```bash
+python step3.2_combine_kodcode.py --kodcode_exp_name KodCode_leetcode_100_1741214688
+```
+
+You can now find the output file as `KodCode_leetcode_100_1741214688.json` in the `../demo` folder.
+
+### Step 3.3: SFT Data Generation
+
+#### Step 3.3.1: Process the Data
+
+Now we are generating the SFT data. We first need to process the data for the completion pipeline. This step will generate a new folder in the `../demo` folder, and the name of the folder is `SFT_<input_file_name>`. 
+
+```bash
+python step3.3.1_proccess_sft.py --input_file [file_name]
+```
+
+**Example:** We use the file generated from Step 3.2.
+
+```bash
+python step3.3.1_proccess_sft.py --input_file ../demo/KodCode_leetcode_100_1741214688.json
+```
+
+You can now find the output file as `SFT_KodCode_leetcode_100_1741214688/KodCode_leetcode_100_1741214688_prepared.jsonl` in the `../demo` folder.
+
+#### Step 3.3.2: Generate SFT Data
+
+This step will generate the SFT data. Since we are using DeepSeek-R1 and together engine, we need to set the together API Key in the environment variable `TOGETHER_API_KEY`. Do not start with Bearer, just the key.
+
+```bash
+export TOGETHER_API_KEY=[your_together_api_key]
+bash step3.3.2_completion_sft.sh [file_name] [num_trials] [llm] [model_name(optional)] [engine(optional)] [max_tokens(optional)] 
+```
+
+**Example:** The following command will generate the SFT data using DeepSeek-R1 with 3 trials.
+
+```bash
+bash step3.3.2_completion_sft.sh ../demo/SFT_KodCode_leetcode_100_1741214688/SFT_KodCode_leetcode_100_1741214688_prepared.jsonl 3 open_model deepseek-ai/DeepSeek-R1 together 16384
+```
+
+You can now find three files as `SFT_KodCode_leetcode_100_1741214688_results{0,1,2}.jsonl` in the `../demo/SFT_KodCode_leetcode_100_1741214688` folder, representing the results of the three trials.
+
+#### Step 3.3.3: Generate Unit Tests for SFT Data
+
+This step will generate the unit tests for the SFT data.
+
+```bash
+python step3.3.3_gen_unit_tests_sft.py --input_folder [folder_name]
+```
+
+**Example:** We use the folder contains the SFT data generated from Step 3.3.2 with 3 trials. Since we are using DeepSeek-R1, we set the `model_nickname` as `r1` for distinguishing in test folder names.
+
+```bash
+python step3.3.3_gen_unit_tests_sft.py --input_folder ../demo/SFT_KodCode_leetcode_100_1741214688 --model_nickname r1
+```
+
+You can now find the unit test folder as `cross_verification_KodCode_leetcode_100_1741214688` in the `../demo/SFT_KodCode_leetcode_100_1741214688` folder.
+
+#### Step 3.3.4: Run All Tests for SFT Data
+
+This step will run all the tests for the SFT data.
+
+```bash
+bash step3.3.4_run_all_tests_sft.sh [unit_test_folder_name]
+```
+
+**Example:** We use the unit test folder generated from Step 3.3.3.
+
+```bash
+bash step3.3.4_run_all_tests_sft.sh ../demo/SFT_KodCode_leetcode_100_1741214688/cross_verification_KodCode_leetcode_100_1741214688
+```
+
+#### Step 3.3.5: Generate SFT Data with Correctness Labels
+
+This step will generate the SFT data with correctness labels.
+
+```bash
+python step3.3.5_gen_sft_datasets.py --input_folder [folder_name]
+```
+
+**Example:** We use the unit test folder executed in Step 3.3.4.
+
+```bash
+python step3.3.5_gen_sft_datasets.py --input_folder ../demo/SFT_KodCode_leetcode_100_1741214688/cross_verification_KodCode_leetcode_100_1741214688
+```
+
+The final output folder should now appears as `SFT_KodCode_leetcode_100_1741214688.json` in the `../demo` folder. For each question, there is a correctness label named as `r1_correctness`. If the response is correct, the label is `True`, otherwise it is `False`.

@@ -70,7 +70,7 @@ Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/p
 
 ### Data Update
 - [ ] `KodCode-Small` with 50K samples
-- [ ] `KodCode-V1.1`: Support `stdin` format with ~150K additional samples
+- [x] `KodCode-V1.1`: Support `stdin` format with ~150K additional samples
 
 ## 🧐 Other Information
 
