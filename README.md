@@ -61,6 +61,12 @@ docker pull zcxu/kodcode-test-environment:python3.10-cuda12.4-v0.1
 
 Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/pipeline) for details.
 
+## Training
+
+**SFT:** We used [Llama-Factory](https://github.com/hiyouga/LLaMA-Factory) to train the SFT checkpoint.
+
+**RL:** Please refer to [code-r1](https://github.com/KodCode-AI/code-r1) for RL training using KodCode datasets, which is based on [verl](https://github.com/volcengine/verl).
+
 ##  TODO
 
 ### Repo Update
@@ -70,7 +76,7 @@ Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/p
 
 ### Data Update
 - [ ] `KodCode-Small` with 50K samples
-- [x] `KodCode-V1.1`: Support `stdin` format with ~150K additional samples
+- [x] `KodCode-V1.1`: Support `stdin` format with ~50K additional samples
 
 ## 🧐 Other Information
 
