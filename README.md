@@ -65,7 +65,7 @@ Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/p
 
 ### Repo Update
 - [ ] One-line command to generate KodCode
-- [ ] Integrate the test pipeline (i.e., `pytest`) into [verl](https://github.com/volcengine/verl)
+- [x] Integrate the test pipeline (i.e., `pytest`) into [verl](https://github.com/volcengine/verl) for RL training. -> Supported in [`code-r1`](https://github.com/KodCode-AI/code-r1)! Thank you Jiawei @ganler!!!
 - [x] Implement dockerized execution for unit tests
 
 ### Data Update
