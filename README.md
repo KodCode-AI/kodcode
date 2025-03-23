@@ -49,7 +49,7 @@ sudo apt-get install parallel
 
 **Option 2**: Docker
 
-Please install [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)) first to support GPU. 
+Please install [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) first to support GPU. 
 
 We provided a [off-the-shelf docker image](https://hub.docker.com/r/zcxu/kodcode-test-environment/tags) for running tests:
 
