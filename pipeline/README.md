@@ -128,7 +128,7 @@ python step2.4_gen_verified_triplets.py --unit_test_folder [unit_test_folder_nam
 **Example:** We use the unit test folder generated from Step 2.3.
 
 ```bash
-python step2.4_gen_verified_triplets.py --unit_test_folder ../demo/KodCode_leetcode_100_1741214688/self_verification_KodCode_leetcode_100_1741214688
+python step2.4_gen_verified_triplets.py --test_folder ../demo/KodCode_leetcode_100_1741214688/self_verification_KodCode_leetcode_100_1741214688
 ```
 
 After this step, you will get the verified question-solution-test triplets. In this example, we will get the file `Verified_KodCode_leetcode_100_1741214688.json` in `demo` folder.
