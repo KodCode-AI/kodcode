@@ -71,11 +71,11 @@ Please refer to the [pipeline](https://github.com/KodCode-AI/kodcode/blob/main/p
 
 ### Repo Update
 - [ ] One-line command to generate KodCode
-- [x] Integrate the test pipeline (i.e., `pytest`) into [verl](https://github.com/volcengine/verl) for RL training. -> Supported in [`code-r1`](https://github.com/KodCode-AI/code-r1)! Thank you Jiawei @ganler!!!
+- [x] Integrate the test pipeline (i.e., `pytest`) for RL training. -> Supported in forked [`code-r1`](https://github.com/KodCode-AI/code-r1) with the latest [verl](https://github.com/volcengine/verl)! Thank you Jiawei @ganler!!!
 - [x] Implement dockerized execution for unit tests
 
 ### Data Update
-- [ ] `KodCode-Small` with 50K samples
+- [x] [`KodCode-Lite`]((https://huggingface.co/datasets/KodCode/KodCode-Light-RL-10K)) with 10K samples for light-weight RL training
 - [x] `KodCode-V1.1`: Support `stdin` format with ~50K additional samples
 
 ## 🧐 Other Information
