@@ -45,7 +45,7 @@ You can now find the output file as `KodCode_seeds2questions_leetcode_100_174121
 To do this step, simply run the following command.
 
 ```bash
-python step1.3_proccess_and_sanitize.py --input_file [file_name]
+python step1.3_process_and_sanitize.py --input_file [file_name]
 ```
 
 **Example:** We filter out the questions and perform deduplication we generated from Step 1.2.

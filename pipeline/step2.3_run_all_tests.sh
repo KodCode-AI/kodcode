@@ -51,42 +51,51 @@ run_test() {
 
 export -f run_test
 
-# Find all test directories
-test_dirs=$(find "$test_folder" -mindepth 2 -maxdepth 2 -type d | sort)
+# Find all test directories and write them to a temporary file with NUL separators
+temp_file=$(mktemp)
+find "$test_folder" -mindepth 2 -maxdepth 2 -type d -print0 | sort -z > "$temp_file"
 
 # count the number of test_dirs
-num_tests=$(echo "$test_dirs" | wc -l)
+num_tests=$(tr -cd '\0' < "$temp_file" | wc -c)
 echo "Number of test directories: $num_tests"
-echo -n "Do you want to proceed with running $num_tests tests? [y/N] "
-read answer
-if [[ ! "$answer" =~ ^[Yy]$ ]]; then
-    echo "Aborting..."
-    exit 1
-fi
+# echo -n "Do you want to proceed with running $num_tests tests? [y/N] "
+# read answer
+# if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+#     echo "Aborting..."
+#     exit 1
+# fi
 
 # Process test directories in batches of 5000
 echo "Processing tests in batches..."
-total_tests=$(echo "$test_dirs" | wc -l)
 batch_size=5000
-num_batches=$(( (total_tests + batch_size - 1) / batch_size ))
+num_batches=$(( (num_tests + batch_size - 1) / batch_size ))
 start_time=$(date +%s)
 
 for ((batch_num=1; batch_num<=num_batches; batch_num++)); do
     batch_start=$(date +%s)
     echo "Starting batch $batch_num of $num_batches..."
     
+    # Create a temporary file for the current batch
+    batch_file=$(mktemp)
+    
     # Calculate the start and end index of the current batch
-    start_idx=$(( (batch_num-1) * batch_size + 1 ))
-    end_idx=$((batch_num * batch_size))
-    if [ $end_idx -gt $total_tests ]; then
-        end_idx=$total_tests
+    start_idx=$(( (batch_num-1) * batch_size ))
+    count=$batch_size
+    if [ $start_idx -gt $num_tests ]; then
+        continue
+    fi
+    if [ $((start_idx + count)) -gt $num_tests ]; then
+        count=$((num_tests - start_idx))
     fi
     
-    # Extract the test directories for the current batch
-    current_batch=$(echo "$test_dirs" | sed -n "${start_idx},${end_idx}p")
+    # Extract the test directories for the current batch using null delimiter
+    head -z -n $((start_idx + count)) "$temp_file" | tail -z -n $count > "$batch_file"
     
-    # Run tests in parallel for the current batch
-    parallel --progress -j $(($(nproc) / 2)) run_test ::: $current_batch
+    # Run tests in parallel for the current batch using null delimiter
+    parallel --progress -j $(nproc) --null run_test :::: "$batch_file"
+    
+    # Clean up temporary batch file
+    rm -f "$batch_file"
     
     batch_end=$(date +%s)
     batch_duration=$((batch_end - batch_start))
@@ -105,6 +114,9 @@ for ((batch_num=1; batch_num<=num_batches; batch_num++)); do
     
     sleep 5
 done
+
+# Clean up temporary file
+rm -f "$temp_file"
 
 total_time=$(($(date +%s) - start_time))
 echo "Test execution completed in $(date -u -d @${total_time} +"%H:%M:%S")."
