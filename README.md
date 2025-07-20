@@ -2,6 +2,8 @@
 
 KodCode is the largest fully-synthetic open-source dataset providing verifiable solutions and tests for coding tasks. It contains 12 distinct subsets spanning various domains (from algorithmic to package-specific knowledge) and difficulty levels (from basic coding exercises to interview and competitive programming challenges). KodCode is designed for both supervised fine-tuning (SFT) and RL tuning.
 
+🏆 KodCode has been accepted to ACL 2025 and received the **Best Paper Award** at DataWorld @ ICML 2025!
+
 - 🕸️ [Project Website](https://kodcode-ai.github.io/) - To discover the reasoning for the name of KodCode 🤨
 - 📄 [Technical Report](https://github.com/KodCode-AI/kodcode/blob/main/paper/kodcode_v1.pdf) - Discover the methodology and technical details behind KodCode
 - 💾 [Github Repo](https://github.com/KodCode-AI/kodcode) - Access the complete pipeline used to produce KodCode V1
