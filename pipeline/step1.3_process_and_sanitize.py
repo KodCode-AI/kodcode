@@ -19,12 +19,13 @@ def get_args():
     
     # Input Parameters
     parser.add_argument("--input_file", type=str, required=True, help="Path to the input JSONL file.")
+    parser.add_argument("--language", type=str, default="auto", help="Language of the code.")
 
     # Similarity Parameters
     parser.add_argument("--sentence_model", type=str, default="sentence-transformers/all-mpnet-base-v2", help="SentenceTransformer model for encoding instructions.")
-    parser.add_argument("--encoding_batch_size", type=int, default=256, help="Batch size for encoding sentences.")
+    parser.add_argument("--encoding_batch_size", type=int, default=512, help="Batch size for encoding sentences.")
     parser.add_argument("--distance_threshold", type=float, default=0.1, help="Cosine similarity threshold for filtering similar instructions.")
-    parser.add_argument("--search_space_size", type=int, default=100, help="Number of nearest neighbors to search for similarity.")
+    parser.add_argument("--search_space_size", type=int, default=5000, help="Number of nearest neighbors to search for similarity.")
     parser.add_argument("--search_batch_size", type=int, default=4096, help="Batch size for searching similarity.")
 
     # Device Configuration
@@ -32,12 +33,28 @@ def get_args():
 
     return parser.parse_args()
 
-def get_prompt(instruction):
+def get_prompt(instruction, language):
     """
     Loads and renders the prompt template with the given instruction.
     """
     env = Environment(loader=FileSystemLoader('prompts'))
-    template = env.get_template('gen_responses.md').render()
+    if language == "python":
+        template = env.get_template('gen_responses_python.md').render()
+    elif language == "java":
+        template = env.get_template('gen_responses_java.md').render()
+    elif language == "cpp":
+        template = env.get_template('gen_responses_cpp.md').render()
+    elif language == "go":
+        template = env.get_template('gen_responses_go.md').render()
+    elif language == "rust":
+        template = env.get_template('gen_responses_rust.md').render()
+    elif language == "javascript":
+        template = env.get_template('gen_responses_javascript.md').render()
+    elif language == "typescript":
+        template = env.get_template('gen_responses_typescript.md').render()
+    elif language == "csharp":
+        template = env.get_template('gen_responses_csharp.md').render()
+    
     return template + instruction
 
 def extract_instruction(message_content):
@@ -239,7 +256,7 @@ def sanitize_instructions(input_file, output_file, sentence_model, encoding_batc
     print(f"Sanitized instructions saved to {output_file}")
     print("Sanitization process completed.")
 
-def prepare_instructions(input_file, output_file):
+def prepare_instructions(input_file, output_file, language):
     """
     Prepares instructions by formatting them with prompts for response generation.
     """
@@ -251,7 +268,7 @@ def prepare_instructions(input_file, output_file):
                 "messages": [
                     {
                         "role": "user", 
-                        "content": get_prompt(data["instruction"])
+                        "content": get_prompt(data["instruction"], language)
                     }
                 ],
                 "metadata": {
@@ -264,6 +281,26 @@ def prepare_instructions(input_file, output_file):
 
 def main():
     args = get_args()
+    if args.language == "auto":
+        if "python" in args.input_file:
+            args.language = "python"
+        elif "rust" in args.input_file:
+            args.language = "rust"
+        elif "javascript" in args.input_file:
+            args.language = "javascript"
+        elif "typescript" in args.input_file:
+            args.language = "typescript"
+        elif "csharp" in args.input_file:
+            args.language = "csharp"
+        elif "java" in args.input_file:
+            args.language = "java"
+        elif "cpp" in args.input_file:
+            args.language = "cpp"
+        elif "go" in args.input_file:
+            args.language = "go"
+        else:
+            raise ValueError(f"Language not specified and not found in input file name: {args.input_file}")
+    
     print(f"Instruction Processing Pipeline. Arguments: {args}")
 
     input_dir = os.path.dirname(args.input_file)
@@ -291,7 +328,7 @@ def main():
         search_batch_size=args.search_batch_size,
         device=args.device
     )
-    prepare_instructions(sanitized_output, prepared_output)
+    prepare_instructions(sanitized_output, prepared_output, args.language)
 
 if __name__ == "__main__":
     main()

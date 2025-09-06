@@ -14,6 +14,7 @@ from jinja2 import Environment, FileSystemLoader, exceptions
 def get_args():
     # Experiment Settings
     parser = argparse.ArgumentParser(description="Triplet Generation Manager.")
+    parser.add_argument("--language", type=str, default="auto", help="Language of the code.")
     parser.add_argument("--test_folder", type=str)
     parser.add_argument("--save_to", type=str, default="json")
     
@@ -21,19 +22,56 @@ def get_args():
 
 args = get_args()
 print(f"Arguments: {args}") # For logging
+if args.language == "auto":
+    if "python" in args.test_folder:
+        args.language = "python"
+    elif "rust" in args.test_folder:
+        args.language = "rust"
+    elif "javascript" in args.test_folder:
+        args.language = "javascript"
+    elif "typescript" in args.test_folder:
+        args.language = "typescript"
+    elif "csharp" in args.test_folder:
+        args.language = "csharp"
+    elif "java" in args.test_folder:
+        args.language = "java"
+    elif "cpp" in args.test_folder:
+        args.language = "cpp"
+    elif "go" in args.test_folder:
+        args.language = "go"
+    else:
+        raise ValueError(f"Language not specified and not found in input file name: {args.test_folder}")
+
+print(f"Instruction Processing Pipeline. Arguments: {args}")
 
 if args.test_folder is None:
     raise ValueError("test_folder is required.")
 
 args.output_folder = os.path.dirname(args.test_folder)
 
-def get_prompt(instruction):
+def get_prompt(instruction, language):
+    """
+    Loads and renders the prompt template with the given instruction.
+    """
     env = Environment(loader=FileSystemLoader('prompts'))
-    template = env.get_template('gen_responses.md').render()
-    # Add instruction to template
-    template += instruction
+    if language == "python":
+        template = env.get_template('gen_responses_python.md').render()
+    elif language == "java":
+        template = env.get_template('gen_responses_java.md').render()
+    elif language == "cpp":
+        template = env.get_template('gen_responses_cpp.md').render()
+    elif language == "go":
+        template = env.get_template('gen_responses_go.md').render()
+    elif language == "rust":
+        template = env.get_template('gen_responses_rust.md').render()
+    elif language == "javascript":
+        template = env.get_template('gen_responses_javascript.md').render()
+    elif language == "typescript":
+        template = env.get_template('gen_responses_typescript.md').render()
+    elif language == "csharp":
+        template = env.get_template('gen_responses_csharp.md').render()
     
-    return template
+    return template + instruction
 
 # Stats tracking
 total_count = 0
@@ -82,7 +120,21 @@ for prompt_dir in tqdm(sorted(os.listdir(args.test_folder))):
             continue
         
         trial_path = os.path.join(prompt_path, trial_dir)
-        test_result_path = os.path.join(trial_path, "test_result.txt")
+        # Support both .txt and .json (for sandbox fusion) for test_result
+        test_result_txt_path = os.path.join(trial_path, "test_result.txt")
+        test_result_json_path = os.path.join(trial_path, "test_result.json")
+        test_result_path = None
+        test_result_format = None
+        if os.path.exists(test_result_txt_path):
+            test_result_path = test_result_txt_path
+            test_result_format = "txt"
+        elif os.path.exists(test_result_json_path):
+            test_result_path = test_result_json_path
+            test_result_format = "json"
+        else:
+            print("NO test results found. Skipping...")
+            continue
+
         data_json_path = os.path.join(trial_path, "data.json")
         
         if not os.path.exists(test_result_path):
@@ -92,12 +144,21 @@ for prompt_dir in tqdm(sorted(os.listdir(args.test_folder))):
             print(f"data.json not found for trial {trial_dir} in problem {prompt_dir}")
             continue
 
-        with open(test_result_path, 'r') as f:
-            test_result_lines = f.read().strip().split('\n')
-            test_result = test_result_lines[0]
-            try:
-                test_coverage = float(test_result_lines[1].split(': ')[1].strip('%')) if len(test_result_lines) > 1 else None
-            except:
+        if test_result_format == "txt":
+            with open(test_result_path, 'r') as f:
+                test_result_lines = f.read().strip().split('\n')
+                test_result = test_result_lines[0]
+                try:
+                    test_coverage = float(test_result_lines[1].split(': ')[1].strip('%')) if len(test_result_lines) > 1 else None
+                except:
+                    test_coverage = None
+        elif test_result_format == "json":
+            with open(test_result_path, 'r') as f:
+                try:
+                    test_result_json = json.load(f)
+                except:
+                    continue
+                test_result = "Pass" if test_result_json["status"] == "Success" else "Fail"
                 test_coverage = None
         
         with open(data_json_path, 'r') as f:
@@ -117,13 +178,21 @@ for prompt_dir in tqdm(sorted(os.listdir(args.test_folder))):
             
         # Store trial data
         try:
-            trial_data = {
-                "solution_code": data_json["solution_code"],
-                "test_code": data_json["test_code"],
-                "test_result": test_result,
-                "test_coverage": test_coverage,
-                "file_source": data_json["file_source"]
-            }
+            if test_result_format == "txt":
+                trial_data = {
+                    "solution_code": data_json["solution_code"],
+                    "test_code": data_json["test_code"],
+                    "test_result": test_result,
+                    "test_coverage": test_coverage,
+                    "file_source": data_json["file_source"]
+                }
+            elif test_result_format == "json":
+                trial_data = {
+                    "solution_code": data_json["solution_code"],
+                    "test_code": data_json["test_code"],
+                    "test_result": test_result,
+                    "file_source": data_json["file_source"]
+                }
         except Exception as e:
             print(f"Error in {data_json_path}: {e}")
             continue
@@ -136,15 +205,20 @@ for prompt_dir in tqdm(sorted(os.listdir(args.test_folder))):
         # Store first passing solution
         if test_result == "Pass":
             pass_trial_num += 1
-            if test_coverage == 100.0:
+            if test_result_format == "txt":
+                if test_coverage == 100.0:
+                    chosen_passing_solution = data_json["solution_code"]
+                    chosen_passing_test = data_json["test_code"]
+                    chosen_passing_test_coverage = test_coverage
+                    chosen_passing_trial_key = trial_dir
+                elif chosen_passing_solution is None or (test_coverage is not None and test_coverage > chosen_passing_test_coverage):
+                    chosen_passing_solution = data_json["solution_code"]
+                    chosen_passing_test = data_json["test_code"]
+                    chosen_passing_test_coverage = test_coverage if test_coverage is not None else 0
+                    chosen_passing_trial_key = trial_dir
+            elif test_result_format == "json":
                 chosen_passing_solution = data_json["solution_code"]
                 chosen_passing_test = data_json["test_code"]
-                chosen_passing_test_coverage = test_coverage
-                chosen_passing_trial_key = trial_dir
-            elif chosen_passing_solution is None or (test_coverage is not None and test_coverage > chosen_passing_test_coverage):
-                chosen_passing_solution = data_json["solution_code"]
-                chosen_passing_test = data_json["test_code"]
-                chosen_passing_test_coverage = test_coverage if test_coverage is not None else 0
                 chosen_passing_trial_key = trial_dir
     
     # pass@k statistics
@@ -160,7 +234,7 @@ for prompt_dir in tqdm(sorted(os.listdir(args.test_folder))):
                 "messages": [
                     {
                         "role": "user", 
-                        "content": get_prompt(data_json["instruction"])
+                        "content": get_prompt(data_json["instruction"], args.language)
                     }
                 ],
                 "metadata": {

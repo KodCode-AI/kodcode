@@ -16,8 +16,12 @@ run_test() {
         pushd "$inner_dir" > /dev/null
         
         # Skip if test results already exist
-        if [ -f "test_result.txt" ]; then
-            RESULT=$(cat "test_result.txt")
+        if [ -f "test_result.json" ] || [ -f "test_result.txt" ]; then
+            if [ -f "test_result.json" ]; then
+                RESULT=$(jq -r '.status' test_result.json)
+            else
+                RESULT=$(cat "test_result.txt")
+            fi
             echo "Results for ${inner_dir}: $RESULT (using existing results)"
             popd > /dev/null
             return
@@ -36,7 +40,10 @@ run_test() {
         # Remove the lock directory when done
         rmdir "$LOCK_FILE" 2>/dev/null
 
-        if [ -f "test_result.txt" ]; then
+        if [ -f "test_result.json" ]; then
+            RESULT=$(jq -r '.status' test_result.json)
+            echo "Results for ${inner_dir}: $RESULT"
+        elif [ -f "test_result.txt" ]; then
             RESULT=$(cat "test_result.txt")
             echo "Results for ${inner_dir}: $RESULT"
         else

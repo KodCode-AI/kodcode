@@ -5,6 +5,8 @@ from time import sleep
 import ast
 import inspect
 import types
+import os
+import re
 
 # File I/O utilities
 def load_jsonl_to_list(jsonl_file_path):
@@ -122,6 +124,51 @@ def extract_function_info_from_ast(code_string):
 
     return results
 
+# Safe checkpoint saving with backup
+def safe_save_checkpoint(data, checkpoint_file, convert_to_jsonl=False):
+    """
+    Safely save checkpoint data with backup mechanism:
+    1. Rename existing checkpoint to _old
+    2. Save new checkpoint
+    3. Remove old backup
+    
+    Args:
+        data: Data to save
+        checkpoint_file: Path to checkpoint file
+        convert_to_jsonl: Whether to save as JSONL format
+    """
+    old_checkpoint = f"{checkpoint_file}_old"
+    
+    try:
+        # Step 1: Backup existing checkpoint if it exists
+        if os.path.exists(checkpoint_file):
+            if os.path.exists(old_checkpoint):
+                os.remove(old_checkpoint)  # Remove any existing old backup
+            os.rename(checkpoint_file, old_checkpoint)
+            print(f"📦 Backed up existing checkpoint to {old_checkpoint}")
+        
+        # Step 2: Save new checkpoint
+        save_dataset(data, checkpoint_file, convert_to_jsonl=convert_to_jsonl)
+        print(f"💾 Saved new checkpoint to {checkpoint_file}")
+        
+        # Step 3: Clean up old backup
+        if os.path.exists(old_checkpoint):
+            os.remove(old_checkpoint)
+            print(f"🗑️  Removed old backup {old_checkpoint}")
+            
+    except Exception as e:
+        print(f"❌ Error during checkpoint save: {str(e)}")
+        
+        # Try to restore from backup if new save failed
+        if os.path.exists(old_checkpoint) and not os.path.exists(checkpoint_file):
+            try:
+                os.rename(old_checkpoint, checkpoint_file)
+                print(f"🔄 Restored checkpoint from backup")
+            except Exception as restore_error:
+                print(f"❌ Failed to restore from backup: {str(restore_error)}")
+        
+        raise e  # Re-raise the original error
+
 # Get the mode of the dataset
 def get_mode(mode):
     if "prefill" in mode.lower():
@@ -148,8 +195,45 @@ def get_mode(mode):
         return "Docs"
     elif "filter" in mode.lower():
         return "Filter"
+    elif "diversify" in mode.lower():
+        return "Diversify"
     else:
         raise ValueError(f"Unknown mode: {mode}")
+
+def get_model_short_name(model_path):
+    # Remove org name if present (e.g., "Qwen/Qwen3-32B" -> "Qwen3-32B")
+    if "/" in model_path:
+        return model_path.split("/")[-1]
+    return model_path
+
+# Get model abbreviation from model_configs.json
+def get_model_abbreviation(model_path, config_file="model_configs.json"):
+    """
+    Get model abbreviation from model_configs.json
+    
+    Args:
+        model_path: Full model path (e.g., "Qwen/Qwen3-32B")
+        config_file: Path to model configs file
+        
+    Returns:
+        str: Model abbreviation (e.g., "q332b")
+    """
+    try:
+        with open(config_file, 'r') as f:
+            model_configs = json.load(f)
+        
+        if model_path in model_configs:
+            return model_configs[model_path]["abbreviation"]
+        else:
+            print(f"⚠️  Model {model_path} not found in {config_file}, falling back to get_model_short_name")
+            return get_model_short_name(model_path)
+    except FileNotFoundError:
+        print(f"⚠️  {config_file} not found, falling back to get_model_short_name")
+        return get_model_short_name(model_path)
+    except Exception as e:
+        print(f"⚠️  Error reading {config_file}: {str(e)}, falling back to get_model_short_name")
+        return get_model_short_name(model_path)
+
 
 # Get the difficulty of the GPT response
 def get_gpt_difficulty(pass_sequence):
@@ -169,3 +253,70 @@ def get_gpt_pass_percentage(pass_sequence):
     pass_percentage = (sum(pass_sequence) / len(pass_sequence)) if pass_sequence else 0
     
     return round(pass_percentage, 3)
+
+def clean_unusual_line_terminators(text):
+    """
+    Remove unusual line terminator characters like Line Separator (U+2028) 
+    and Paragraph Separator (U+2029) that can cause issues.
+    """
+    if isinstance(text, str):
+        # Remove Line Separator (U+2028) and Paragraph Separator (U+2029)
+        text = text.replace('\u2028', ' ').replace('\u2029', ' ')
+        # Also clean other problematic Unicode characters
+        text = text.replace('\u0085', ' ')  # Next Line (NEL)
+        text = text.replace('\u000B', ' ')  # Vertical Tab
+        text = text.replace('\u000C', ' ')  # Form Feed
+    return text
+
+def clean_json_object(obj):
+    """
+    Recursively clean unusual line terminators from a JSON object.
+    """
+    if isinstance(obj, str):
+        return clean_unusual_line_terminators(obj)
+    elif isinstance(obj, dict):
+        return {key: clean_json_object(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [clean_json_object(item) for item in obj]
+    else:
+        return obj
+
+def clean_html_comments(text):
+    """
+    Remove HTML comments from text content.
+    Removes patterns like <!-- followed by any content (non-greedy) and -->
+    """
+    if not text:
+        return text
+    
+    # Remove HTML comments using regex
+    # This pattern matches <!-- followed by any content (non-greedy) and -->
+    cleaned_text = re.sub(r'<!--.*?-->', '', text, flags=re.DOTALL)
+    
+    # Clean up any extra whitespace that might be left
+    cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
+    
+    return cleaned_text
+
+################
+# Data Preview
+################
+
+def create_preview_json(input_file, output_file, num_entries=5):
+    """
+    Create a preview JSON file with the first N entries from a JSONL file.
+    """
+    preview_data = []
+    try:
+        with open(input_file, 'r', encoding='utf-8') as f:
+            for i, line in enumerate(f):
+                if i >= num_entries:
+                    break
+                preview_data.append(json.loads(line))
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(preview_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"Preview with {len(preview_data)} entries saved to {output_file}")
+    except Exception as e:
+        print(f"Error creating preview for {input_file}: {e}")

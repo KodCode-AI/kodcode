@@ -173,6 +173,9 @@ KodCode-SFT-QwQ/
 KodCode-SFT-4o/
 KodCode-V1/
 KodCode-V1.1/
+KodCode-V2/
+KodCode-V2-SFT/
+KodCode-V2-Diversify/
 data_step1/
 data_step2/
 data_step3/
@@ -216,3 +219,4 @@ pipeline/step3.1.2_i2c_genai.sh
 pipeline/step2.1_completion_genai.sh
 pipeline/magpie_prefill/
 pipeline/docker-compose.yml
+KodCode-V2-Diversify/

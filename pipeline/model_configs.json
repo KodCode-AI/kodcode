@@ -1,4 +1,164 @@
 {
+  "openai/gpt-oss-120b": {
+    "model_name": "openai/gpt-oss-120b",
+    "abbreviation": "oss120b",
+    "stop_tokens": [
+      "<|startoftext|>",
+      "<|endoftext|>",
+      "<|return|>"
+    ],
+    "stop_token_ids": [
+      199998,
+      199999,
+      200002
+    ]
+  },
+  "openai/gpt-oss-20b": {
+    "model_name": "openai/gpt-oss-20b",
+    "abbreviation": "oss20b",
+    "stop_tokens": [
+      "<|startoftext|>",
+      "<|endoftext|>",
+      "<|return|>"
+    ],
+    "stop_token_ids": [
+      199998,
+      199999,
+      200002
+    ]
+  },
+  "mistralai/Devstral-Small-2507": {
+    "model_name": "mistralai/Devstral-Small-2507",
+    "abbreviation": "devss2507",
+    "stop_tokens": [
+      "[INST]",
+      "[/INST]",
+      "</s>",
+      "<s>"
+    ],
+    "stop_token_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "mistralai/Mistral-Small-3.2-24B-Instruct-2506": {
+    "model_name": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+    "abbreviation": "ms322506",
+    "stop_tokens": [
+      "[INST]",
+      "[/INST]",
+      "</s>",
+      "<s>"
+    ],
+    "stop_token_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "mistralai/Mistral-Small-3.1-24B-Instruct-2503": {
+    "model_name": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+    "abbreviation": "ms3122503",
+    "stop_tokens": [
+      "[INST]",
+      "[/INST]",
+      "</s>",
+      "<s>"
+    ],
+    "stop_token_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "Qwen/QwQ-32B": {
+    "model_name": "Qwen/QwQ-32B",
+    "abbreviation": "qwq32b",
+    "stop_tokens": [
+      "<|im_start|>",
+      "<|im_end|>",
+      "<|endoftext|>"
+    ],
+    "stop_token_ids": [
+      151643,
+      151644,
+      151645
+    ]
+  },
+  "Qwen/Qwen3-32B": {
+    "model_name": "Qwen/Qwen3-32B",
+    "abbreviation": "q332b",
+    "stop_tokens": [
+      "<|im_start|>",
+      "<|im_end|>",
+      "<|endoftext|>"
+    ],
+    "stop_token_ids": [
+      151643,
+      151644,
+      151645
+    ]
+  },
+  "Qwen/Qwen3-14B": {
+    "model_name": "Qwen/Qwen3-14B",
+    "abbreviation": "q314b",
+    "stop_tokens": [
+      "<|im_start|>",
+      "<|im_end|>",
+      "<|endoftext|>"
+    ],
+    "stop_token_ids": [
+      151643,
+      151644,
+      151645
+    ]
+  },
+  "Qwen/Qwen3-235B-A22B": {
+    "model_name": "Qwen/Qwen3-235B-A22B",
+    "abbreviation": "q3235b",
+    "stop_tokens": [
+      "<|im_start|>",
+      "<|im_end|>",
+      "<|endoftext|>"
+    ],
+    "stop_token_ids": [
+      151643,
+      151644,
+      151645
+    ]
+  },
+  "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+    "model_name": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "abbreviation": "q3235b2507",
+    "stop_tokens": [
+      "<|im_start|>",
+      "<|im_end|>",
+      "<|endoftext|>"
+    ],
+    "stop_token_ids": [
+      151643,
+      151644,
+      151645
+    ]
+  },
+  "Qwen/Qwen3-30B-A3B": {
+    "model_name": "Qwen/Qwen3-30B-A3B",
+    "abbreviation": "q330ba3b",
+    "stop_tokens": [
+      "<|im_start|>",
+      "<|im_end|>",
+      "<|endoftext|>"
+    ],
+    "stop_token_ids": [
+      151643,
+      151644,
+      151645
+    ]
+  },
   "Qwen/Qwen2.5-Coder-7B-Instruct": {
     "model_name": "Qwen/Qwen2.5-Coder-7B-Instruct",
     "stop_tokens": [
